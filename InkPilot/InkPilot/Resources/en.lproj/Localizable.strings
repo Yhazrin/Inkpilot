@@ -24,6 +24,8 @@
 "canvas.aiPilot.suggestions" = "3 suggestions";
 "canvas.aiPilot.accessibility" = "AI Pilot panel";
 "canvas.aiPilot.hint" = "Tap to expand or collapse AI suggestions.";
+"canvas.aiPilot.expanded" = "Expanded";
+"canvas.aiPilot.collapsed" = "Collapsed";
 "canvas.aiPilot.context" = "Canvas Context";
 "canvas.aiPilot.contextValue" = "Product brainstorming";
 "canvas.aiPilot.suggestionsList" = "Suggestions";

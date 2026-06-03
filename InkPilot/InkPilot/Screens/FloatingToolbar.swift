@@ -19,7 +19,7 @@ struct FloatingToolbar: View {
                 Image(systemName: "sparkles")
                     .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(Brand.aiBadge)
-                    .frame(width: 36, height: 36)
+                    .frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text(String(localized: "tool.ai")))
         }
@@ -32,7 +32,7 @@ struct FloatingToolbar: View {
             Image(systemName: icon)
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(selectedTool == tool ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 36, height: 36)
+                .frame(width: 44, height: 44)
                 .background {
                     if selectedTool == tool {
                         Capsule()

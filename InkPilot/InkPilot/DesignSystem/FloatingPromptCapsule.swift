@@ -43,7 +43,6 @@ struct FloatingPromptCapsule: View {
                 .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
         }
         .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
-        .accessibilityElement(children: .combine)
         .accessibilityLabel(Text(String(localized: "canvas.prompt.accessibility")))
     }
 }

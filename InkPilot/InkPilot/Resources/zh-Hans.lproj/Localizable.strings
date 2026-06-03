@@ -24,6 +24,8 @@
 "canvas.aiPilot.suggestions" = "3 条建议";
 "canvas.aiPilot.accessibility" = "AI 副驾驶面板";
 "canvas.aiPilot.hint" = "点击展开或收起 AI 建议。";
+"canvas.aiPilot.expanded" = "已展开";
+"canvas.aiPilot.collapsed" = "已收起";
 "canvas.aiPilot.context" = "画布上下文";
 "canvas.aiPilot.contextValue" = "产品头脑风暴";
 "canvas.aiPilot.suggestionsList" = "建议";

@@ -6,20 +6,26 @@ struct AIPilotPanel: View {
     let viewModel: CanvasViewModel
 
     var body: some View {
-        FloatingPanel {
-            header
-            if viewModel.isAIPanelExpanded {
-                expandedContent
-            }
-        }
-        .onTapGesture {
+        Button {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
                 viewModel.isAIPanelExpanded.toggle()
             }
+        } label: {
+            FloatingPanel {
+                header
+                if viewModel.isAIPanelExpanded {
+                    expandedContent
+                }
+            }
         }
-        .accessibilityElement(children: .combine)
+        .buttonStyle(.plain)
         .accessibilityLabel(Text(String(localized: "canvas.aiPilot.accessibility")))
         .accessibilityHint(Text(String(localized: "canvas.aiPilot.hint")))
+        .accessibilityValue(
+            viewModel.isAIPanelExpanded
+                ? Text(String(localized: "canvas.aiPilot.expanded"))
+                : Text(String(localized: "canvas.aiPilot.collapsed"))
+        )
     }
 
     // MARK: - Header

@@ -45,7 +45,7 @@ struct CanvasView: View {
         }
         .overlay {
             // Ghost suggestion card overlay
-            if viewModel.isShowingGhost, let suggestion = viewModel.ghostSuggestion {
+            if let suggestion = viewModel.ghostSuggestion {
                 GhostSuggestionCard(
                     suggestion: suggestion,
                     onAccept: { viewModel.acceptSuggestion() },

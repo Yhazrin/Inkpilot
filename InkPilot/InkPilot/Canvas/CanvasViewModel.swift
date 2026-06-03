@@ -11,10 +11,9 @@ final class CanvasViewModel {
     var drawing = PKDrawing()
     var selectedTool: CanvasTool = .pen
 
-    // MARK: - AI Suggestion State
+    // MARK: - AI Suggestion State (single source of truth)
 
     var ghostSuggestion: GhostSuggestion?
-    var isShowingGhost: Bool = false
 
     // MARK: - AI Panel State
 
@@ -40,13 +39,12 @@ final class CanvasViewModel {
 
     /// Trigger a mock AI suggestion from the AI button or prompt.
     func requestSuggestion() {
-        let context = CanvasContext(inkText: "AI handwriting notes")
+        let context = CanvasContextBuilder.build(from: drawing)
         Task { @MainActor in
             do {
                 let response = try await suggestionService.generateSuggestion(context: context)
                 withAnimation(.easeInOut(duration: 0.4)) {
                     ghostSuggestion = GhostSuggestion(response: response)
-                    isShowingGhost = true
                 }
             } catch {
                 // V0.1: silently ignore errors from mock service
@@ -57,10 +55,21 @@ final class CanvasViewModel {
     /// Accept the current ghost suggestion — turns it into real canvas cards.
     func acceptSuggestion() {
         guard let suggestion = ghostSuggestion else { return }
-        let newCards = suggestion.response.items.map { item in
+        let baseX: CGFloat = 400
+        let baseY: CGFloat = 300
+        let cardSpacing: CGFloat = 140
+
+        let newCards = suggestion.response.items.enumerated().map { index, item in
             AcceptedCard(
+                id: UUID(),
                 title: item.title,
-                body: item.content
+                body: item.content,
+                worldPosition: CGPointCodable(
+                    x: baseX,
+                    y: baseY + CGFloat(index) * cardSpacing
+                ),
+                size: CGSizeCodable.defaultCard,
+                createdBy: .ai
             )
         }
         withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
@@ -73,7 +82,6 @@ final class CanvasViewModel {
     func dismissSuggestion() {
         withAnimation(.easeOut(duration: 0.3)) {
             ghostSuggestion = nil
-            isShowingGhost = false
         }
     }
 
