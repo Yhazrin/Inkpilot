@@ -1,0 +1,61 @@
+/* InkPilot 简体中文本地化 */
+
+/* 主页 */
+"home.title" = "InkPilot";
+"home.subtitle1" = "用笔思考，让 AI 续航灵感。";
+"home.subtitle2" = "让 AI 续航你的下一个灵感。";
+"home.newCanvas" = "新建 AI 画布";
+"home.newCanvas.accessibility" = "新建 AI 画布";
+"home.newCanvas.hint" = "打开一个新的无限画布，用于绘图和 AI 辅助。";
+
+/* 工具 */
+"tool.pen" = "画笔";
+"tool.eraser" = "橡皮擦";
+"tool.lasso" = "套索";
+"tool.ai" = "AI 建议";
+
+/* 画布提示 */
+"canvas.prompt.placeholder" = "询问当前画布...";
+"canvas.prompt.submit" = "提交提示";
+"canvas.prompt.accessibility" = "AI 提示输入框。输入关于画布的问题。";
+
+/* AI 副驾驶面板 */
+"canvas.aiPilot.title" = "AI 副驾驶";
+"canvas.aiPilot.suggestions" = "3 条建议";
+"canvas.aiPilot.accessibility" = "AI 副驾驶面板";
+"canvas.aiPilot.hint" = "点击展开或收起 AI 建议。";
+"canvas.aiPilot.context" = "画布上下文";
+"canvas.aiPilot.contextValue" = "产品头脑风暴";
+"canvas.aiPilot.suggestionsList" = "建议";
+"canvas.aiPilot.suggestion1" = "定义 MVP 范围";
+"canvas.aiPilot.suggestion2" = "制作用户流程";
+"canvas.aiPilot.suggestion3" = "对比竞品";
+
+/* AI 建议模型 */
+"suggestion.title.structure" = "建议结构";
+"suggestion.item.targetUsers" = "目标用户";
+"suggestion.item.targetUsers.detail" = "学生、产品经理、研究者";
+"suggestion.item.coreWorkflow" = "核心流程";
+"suggestion.item.coreWorkflow.detail" = "书写 → 识别 → 预测 → 接受";
+"suggestion.item.mvpFeatures" = "MVP 功能";
+"suggestion.item.mvpFeatures.detail" = "PencilKit 画布、OCR、幽灵建议、点击接受";
+
+/* 幽灵建议 */
+"suggestion.accept" = "接受";
+"suggestion.accept.accessibility" = "接受建议";
+"suggestion.accept.hint" = "将此 AI 建议转换为可编辑的画布卡片。";
+"suggestion.dismiss" = "忽略";
+"suggestion.dismiss.accessibility" = "忽略建议";
+"suggestion.dismiss.hint" = "从画布上移除此 AI 建议。";
+"ghost.accessibility" = "AI 建议。建议结构包含多个项目。接受或忽略。";
+
+/* 已接受卡片 */
+"acceptedCard.accessibility" = "AI 生成的画布卡片。";
+
+/* 徽章 */
+"badge.ai.generated" = "AI 生成";
+
+/* 画布状态 */
+"canvas.empty.hint" = "在任意位置开始书写。InkPilot 会预测你的下一步想法。";
+"canvas.ai.thinking" = "正在理解画布...";
+"canvas.ai.noSuggestion" = "暂时没有建议。可以再多写一点。";

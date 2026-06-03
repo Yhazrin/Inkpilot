@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000010000000000000001 /* InkPilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001; };
+		A10000020000000000000002 /* BrandTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000020000000000000002; };
+		A10000030000000000000003 /* ColorBlockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000030000000000000003; };
+		A10000040000000000000004 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000040000000000000004; };
+		A10000050000000000000005 /* GlassCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000050000000000000005; };
+		A10000060000000000000006 /* FloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000060000000000000006; };
+		A10000070000000000000007 /* AIBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000070000000000000007; };
+		A10000080000000000000008 /* FloatingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000080000000000000008; };
+		A10000090000000000000009 /* FloatingPromptCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000090000000000000009; };
+		A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010000000000000000A; };
+		A1000011000000000000000B /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011000000000000000B; };
+		A1000012000000000000000C /* CanvasModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012000000000000000C; };
+		A1000013000000000000000D /* SuggestionSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013000000000000000D; };
+		A1000014000000000000000E /* SuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000014000000000000000E; };
+		A1000015000000000000000F /* MockSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000015000000000000000F; };
+		A10000160000000000000010 /* CanvasContextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000160000000000000010; };
+		A10000170000000000000011 /* InkSnapshotRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000170000000000000011; };
+		A10000180000000000000012 /* VisionOCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000180000000000000012; };
+		A10000190000000000000013 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000190000000000000013; };
+		A10000200000000000000014 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000200000000000000014; };
+		A10000210000000000000015 /* CanvasToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000210000000000000015; };
+		A10000220000000000000016 /* CanvasPromptBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000220000000000000016; };
+		A10000230000000000000017 /* AIPilotPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000230000000000000017; };
+		A10000240000000000000018 /* CanvasTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000240000000000000018; };
+		A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000250000000000000019; };
+		A1000026000000000000001A /* AcceptedCardsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000026000000000000001A; };
+		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000010000000000000001 /* InkPilotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkPilotApp.swift; sourceTree = "<group>"; };
+		A20000020000000000000002 /* BrandTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandTokens.swift; sourceTree = "<group>"; };
+		A20000030000000000000003 /* ColorBlockBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlockBackground.swift; sourceTree = "<group>"; };
+		A20000040000000000000004 /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		A20000050000000000000005 /* GlassCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCapsule.swift; sourceTree = "<group>"; };
+		A20000060000000000000006 /* FloatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanel.swift; sourceTree = "<group>"; };
+		A20000070000000000000007 /* AIBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBadge.swift; sourceTree = "<group>"; };
+		A20000080000000000000008 /* FloatingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingToolbar.swift; sourceTree = "<group>"; };
+		A20000090000000000000009 /* FloatingPromptCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPromptCapsule.swift; sourceTree = "<group>"; };
+		A2000010000000000000000A /* PencilKitCanvasRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilKitCanvasRepresentable.swift; sourceTree = "<group>"; };
+		A2000011000000000000000B /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		A2000012000000000000000C /* CanvasModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasModels.swift; sourceTree = "<group>"; };
+		A2000013000000000000000D /* SuggestionSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionSchema.swift; sourceTree = "<group>"; };
+		A2000014000000000000000E /* SuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionService.swift; sourceTree = "<group>"; };
+		A2000015000000000000000F /* MockSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSuggestionService.swift; sourceTree = "<group>"; };
+		A20000160000000000000010 /* CanvasContextBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasContextBuilder.swift; sourceTree = "<group>"; };
+		A20000170000000000000011 /* InkSnapshotRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkSnapshotRenderer.swift; sourceTree = "<group>"; };
+		A20000180000000000000012 /* VisionOCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionOCRService.swift; sourceTree = "<group>"; };
+		A20000190000000000000013 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A20000200000000000000014 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		A20000210000000000000015 /* CanvasToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasToolbar.swift; sourceTree = "<group>"; };
+		A20000220000000000000016 /* CanvasPromptBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasPromptBar.swift; sourceTree = "<group>"; };
+		A20000230000000000000017 /* AIPilotPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPilotPanel.swift; sourceTree = "<group>"; };
+		A20000240000000000000018 /* CanvasTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTool.swift; sourceTree = "<group>"; };
+		A20000250000000000000019 /* GhostSuggestionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostSuggestionCard.swift; sourceTree = "<group>"; };
+		A2000026000000000000001A /* AcceptedCardsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedCardsOverlay.swift; sourceTree = "<group>"; };
+		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A20000310000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A20000320000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A30000010000000000000001 /* InkPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InkPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		A40000010000000000000001 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				A40000020000000000000002 /* InkPilot */,
+				A40000090000000000000009 /* Resources */,
+				A50000010000000000000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000020000000000000002 /* InkPilot */ = {
+			isa = PBXGroup;
+			children = (
+				A40000030000000000000003 /* App */,
+				A40000040000000000000004 /* DesignSystem */,
+				A40000050000000000000005 /* Canvas */,
+				A40000060000000000000006 /* AI */,
+				A40000070000000000000007 /* Recognition */,
+				A40000080000000000000008 /* Screens */,
+			);
+			path = InkPilot;
+			sourceTree = "<group>";
+		};
+		A40000030000000000000003 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000001 /* InkPilotApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A40000040000000000000004 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				A20000020000000000000002 /* BrandTokens.swift */,
+				A20000030000000000000003 /* ColorBlockBackground.swift */,
+				A20000040000000000000004 /* GlassCard.swift */,
+				A20000050000000000000005 /* GlassCapsule.swift */,
+				A20000060000000000000006 /* FloatingPanel.swift */,
+				A20000070000000000000007 /* AIBadge.swift */,
+				A20000080000000000000008 /* FloatingToolbar.swift */,
+				A20000090000000000000009 /* FloatingPromptCapsule.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		A40000050000000000000005 /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				A2000010000000000000000A /* PencilKitCanvasRepresentable.swift */,
+				A2000011000000000000000B /* CanvasViewModel.swift */,
+				A2000012000000000000000C /* CanvasModels.swift */,
+				A20000240000000000000018 /* CanvasTool.swift */,
+			);
+			path = Canvas;
+			sourceTree = "<group>";
+		};
+		A40000060000000000000006 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				A2000013000000000000000D /* SuggestionSchema.swift */,
+				A2000014000000000000000E /* SuggestionService.swift */,
+				A2000015000000000000000F /* MockSuggestionService.swift */,
+				A20000160000000000000010 /* CanvasContextBuilder.swift */,
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
+		A40000070000000000000007 /* Recognition */ = {
+			isa = PBXGroup;
+			children = (
+				A20000170000000000000011 /* InkSnapshotRenderer.swift */,
+				A20000180000000000000012 /* VisionOCRService.swift */,
+			);
+			path = Recognition;
+			sourceTree = "<group>";
+		};
+		A40000080000000000000008 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				A20000190000000000000013 /* HomeView.swift */,
+				A20000200000000000000014 /* CanvasView.swift */,
+				A20000210000000000000015 /* CanvasToolbar.swift */,
+				A20000220000000000000016 /* CanvasPromptBar.swift */,
+				A20000230000000000000017 /* AIPilotPanel.swift */,
+				A20000250000000000000019 /* GhostSuggestionCard.swift */,
+				A2000026000000000000001A /* AcceptedCardsOverlay.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		A40000090000000000000009 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A20000330000000000000023 /* Assets.xcassets */,
+				A20000300000000000000020 /* Info.plist */,
+				A20000310000000000000021 /* en */,
+				A20000320000000000000022 /* zh-Hans */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A30000010000000000000001 /* InkPilot.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A60000010000000000000001 /* InkPilot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000030000000000000003 /* Build configuration list for PBXNativeTarget "InkPilot" */;
+			buildPhases = (
+				A70000010000000000000001 /* Sources */,
+				A70000020000000000000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InkPilot;
+			productName = InkPilot;
+			productReference = A30000010000000000000001 /* InkPilot.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A90000010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					A60000010000000000000001 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = A80000010000000000000001 /* Build configuration list for PBXProject "InkPilot" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+				Base,
+			);
+			mainGroup = A40000010000000000000001 /* Root */;
+			productRefGroup = A50000010000000000000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A60000010000000000000001 /* InkPilot */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A70000020000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000330000000000000023 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A70000010000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000001 /* InkPilotApp.swift in Sources */,
+				A10000020000000000000002 /* BrandTokens.swift in Sources */,
+				A10000030000000000000003 /* ColorBlockBackground.swift in Sources */,
+				A10000040000000000000004 /* GlassCard.swift in Sources */,
+				A10000050000000000000005 /* GlassCapsule.swift in Sources */,
+				A10000060000000000000006 /* FloatingPanel.swift in Sources */,
+				A10000070000000000000007 /* AIBadge.swift in Sources */,
+				A10000080000000000000008 /* FloatingToolbar.swift in Sources */,
+				A10000090000000000000009 /* FloatingPromptCapsule.swift in Sources */,
+				A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */,
+				A1000011000000000000000B /* CanvasViewModel.swift in Sources */,
+				A1000012000000000000000C /* CanvasModels.swift in Sources */,
+				A1000013000000000000000D /* SuggestionSchema.swift in Sources */,
+				A1000014000000000000000E /* SuggestionService.swift in Sources */,
+				A1000015000000000000000F /* MockSuggestionService.swift in Sources */,
+				A10000160000000000000010 /* CanvasContextBuilder.swift in Sources */,
+				A10000170000000000000011 /* InkSnapshotRenderer.swift in Sources */,
+				A10000180000000000000012 /* VisionOCRService.swift in Sources */,
+				A10000190000000000000013 /* HomeView.swift in Sources */,
+				A10000200000000000000014 /* CanvasView.swift in Sources */,
+				A10000210000000000000015 /* CanvasToolbar.swift in Sources */,
+				A10000220000000000000016 /* CanvasPromptBar.swift in Sources */,
+				A10000230000000000000017 /* AIPilotPanel.swift in Sources */,
+				A10000240000000000000018 /* CanvasTool.swift in Sources */,
+				A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */,
+				A1000026000000000000001A /* AcceptedCardsOverlay.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA0000010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA0000020000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB0000010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = InkPilot/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = InkPilot;
+				INFOPLIST_KEY_NSApplePencilPreferredUsageDescription = "InkPilot uses Apple Pencil for natural handwriting and drawing on the canvas.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inkpilot.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		AB0000020000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = InkPilot/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = InkPilot;
+				INFOPLIST_KEY_NSApplePencilPreferredUsageDescription = "InkPilot uses Apple Pencil for natural handwriting and drawing on the canvas.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.inkpilot.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000010000000000000001 /* Build configuration list for PBXProject "InkPilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000010000000000000001 /* Debug */,
+				AA0000020000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000030000000000000003 /* Build configuration list for PBXNativeTarget "InkPilot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0000010000000000000001 /* Debug */,
+				AB0000020000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = A90000010000000000000001 /* Project object */;
+}

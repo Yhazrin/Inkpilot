@@ -1,0 +1,61 @@
+/* InkPilot English Localization */
+
+/* Home Screen */
+"home.title" = "InkPilot";
+"home.subtitle1" = "Think with your pencil.";
+"home.subtitle2" = "Let AI pilot the next move.";
+"home.newCanvas" = "New AI Canvas";
+"home.newCanvas.accessibility" = "New AI Canvas";
+"home.newCanvas.hint" = "Opens a new infinite canvas for drawing and AI assistance.";
+
+/* Tools */
+"tool.pen" = "Pen";
+"tool.eraser" = "Eraser";
+"tool.lasso" = "Lasso";
+"tool.ai" = "AI Suggest";
+
+/* Canvas Prompt */
+"canvas.prompt.placeholder" = "Ask AI about this canvas...";
+"canvas.prompt.submit" = "Submit prompt";
+"canvas.prompt.accessibility" = "AI prompt input. Type a question about your canvas.";
+
+/* AI Pilot Panel */
+"canvas.aiPilot.title" = "AI Pilot";
+"canvas.aiPilot.suggestions" = "3 suggestions";
+"canvas.aiPilot.accessibility" = "AI Pilot panel";
+"canvas.aiPilot.hint" = "Tap to expand or collapse AI suggestions.";
+"canvas.aiPilot.context" = "Canvas Context";
+"canvas.aiPilot.contextValue" = "Product brainstorming";
+"canvas.aiPilot.suggestionsList" = "Suggestions";
+"canvas.aiPilot.suggestion1" = "Define MVP scope";
+"canvas.aiPilot.suggestion2" = "Make user flow";
+"canvas.aiPilot.suggestion3" = "Compare competitors";
+
+/* AI Suggestion Schema */
+"suggestion.title.structure" = "Suggested structure";
+"suggestion.item.targetUsers" = "Target Users";
+"suggestion.item.targetUsers.detail" = "Students, product managers, researchers";
+"suggestion.item.coreWorkflow" = "Core Workflow";
+"suggestion.item.coreWorkflow.detail" = "Write → Recognize → Predict → Accept";
+"suggestion.item.mvpFeatures" = "MVP Features";
+"suggestion.item.mvpFeatures.detail" = "PencilKit canvas, OCR, ghost suggestion, tap to accept";
+
+/* Ghost Suggestion */
+"suggestion.accept" = "Accept";
+"suggestion.accept.accessibility" = "Accept suggestion";
+"suggestion.accept.hint" = "Converts this AI suggestion into editable canvas cards.";
+"suggestion.dismiss" = "Dismiss";
+"suggestion.dismiss.accessibility" = "Dismiss suggestion";
+"suggestion.dismiss.hint" = "Removes this AI suggestion from the canvas.";
+"ghost.accessibility" = "AI suggestion. Suggested structure with multiple items. Accept or dismiss.";
+
+/* Accepted Cards */
+"acceptedCard.accessibility" = "AI generated canvas card.";
+
+/* Badges */
+"badge.ai.generated" = "AI generated";
+
+/* Canvas States */
+"canvas.empty.hint" = "Start writing anywhere. InkPilot will suggest the next step.";
+"canvas.ai.thinking" = "Reading the canvas...";
+"canvas.ai.noSuggestion" = "No suggestion yet. Try writing a little more.";
