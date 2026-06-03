@@ -34,6 +34,8 @@
 		A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000250000000000000019; };
 		A1000026000000000000001A /* AcceptedCardsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000026000000000000001A; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
+		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
+		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				A40000020000000000000002 /* InkPilot */,
-				A40000090000000000000009 /* Resources */,
 				A50000010000000000000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,6 +90,7 @@
 				A40000060000000000000006 /* AI */,
 				A40000070000000000000007 /* Recognition */,
 				A40000080000000000000008 /* Screens */,
+				A40000090000000000000009 /* Resources */,
 			);
 			path = InkPilot;
 			sourceTree = "<group>";
@@ -239,6 +241,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A10000330000000000000023 /* Assets.xcassets in Resources */,
+				A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */,
+				A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
