@@ -1,4 +1,4 @@
-# IInkPilot
+# Inkpilot
 
 This repository stores the InkPilot V0.1 reference materials and the first-pass implementation planning notes.
 
