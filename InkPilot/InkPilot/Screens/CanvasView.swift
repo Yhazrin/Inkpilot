@@ -55,12 +55,10 @@ struct CanvasView: View {
                 .padding(.horizontal, Brand.spacingXL)
             }
         }
-        .overlay(alignment: .trailing) {
-            // Accepted cards overlay
+        .overlay {
+            // Accepted cards overlay — positions itself via worldPosition on each card
             if !viewModel.acceptedCards.isEmpty {
                 AcceptedCardsOverlay(cards: viewModel.acceptedCards)
-                    .padding(.trailing, 200)
-                    .padding(.top, 120)
             }
         }
     }
