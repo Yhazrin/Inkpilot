@@ -152,3 +152,7 @@
 "action.distributeVertical" = "垂直分布";
 "action.group" = "组合";
 "action.ungroup" = "取消组合";
+
+/* 选择模式 */
+"selection.marquee" = "矩形选择";
+"selection.lasso" = "套索选择";

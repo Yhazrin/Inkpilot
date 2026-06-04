@@ -55,6 +55,10 @@
 		A10000450000000000000035 /* CanvasSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000450000000000000035; };
 		A10000460000000000000036 /* SelectionMarqueeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000460000000000000036; };
 		A10000470000000000000037 /* MultiObjectActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000470000000000000037; };
+		A10000480000000000000038 /* SmartGuideEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000480000000000000038; };
+		A10000490000000000000039 /* GuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000490000000000000039; };
+		A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004A000000000000003A; };
+		A100004B000000000000003B /* SelectionModeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004B000000000000003B; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -108,6 +112,10 @@
 		A20000450000000000000035 /* CanvasSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasSelectionState.swift; sourceTree = "<group>"; };
 		A20000460000000000000036 /* SelectionMarqueeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMarqueeLayer.swift; sourceTree = "<group>"; };
 		A20000470000000000000037 /* MultiObjectActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiObjectActionBar.swift; sourceTree = "<group>"; };
+		A20000480000000000000038 /* SmartGuideEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartGuideEngine.swift; sourceTree = "<group>"; };
+		A20000490000000000000039 /* GuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideOverlay.swift; sourceTree = "<group>"; };
+		A200004A000000000000003A /* LassoSelectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoSelectionLayer.swift; sourceTree = "<group>"; };
+		A200004B000000000000003B /* SelectionModeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionModeToggle.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -180,6 +188,7 @@
 				A20000420000000000000032 /* CanvasDocumentStore.swift */,
 				A20000440000000000000034 /* CanvasViewModel+Actions.swift */,
 				A20000450000000000000035 /* CanvasSelectionState.swift */,
+				A20000480000000000000038 /* SmartGuideEngine.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -223,6 +232,9 @@
 				A20000430000000000000033 /* PenSettingsPalette.swift */,
 				A20000460000000000000036 /* SelectionMarqueeLayer.swift */,
 				A20000470000000000000037 /* MultiObjectActionBar.swift */,
+				A20000490000000000000039 /* GuideOverlay.swift */,
+				A200004A000000000000003A /* LassoSelectionLayer.swift */,
+				A200004B000000000000003B /* SelectionModeToggle.swift */,
 				A2000030000000000000001E /* ShapePalette.swift */,
 				A2000031000000000000001F /* MediaPalette.swift */,
 			);
@@ -367,6 +379,10 @@
 				A10000450000000000000035 /* CanvasSelectionState.swift in Sources */,
 				A10000460000000000000036 /* SelectionMarqueeLayer.swift in Sources */,
 				A10000470000000000000037 /* MultiObjectActionBar.swift in Sources */,
+				A10000480000000000000038 /* SmartGuideEngine.swift in Sources */,
+				A10000490000000000000039 /* GuideOverlay.swift in Sources */,
+				A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */,
+				A100004B000000000000003B /* SelectionModeToggle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

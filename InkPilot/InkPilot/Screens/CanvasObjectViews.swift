@@ -5,6 +5,7 @@ struct CanvasObjectView: View {
     let object: CanvasObject
     let isSelected: Bool
     let isEditing: Bool
+    var isDragging: Bool = false
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
     var onResize: ((CGSize) -> Void)?
@@ -41,12 +42,14 @@ struct CanvasObjectView: View {
         .overlay {
             if isSelected && !isEditing {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiBadge, lineWidth: 2)
-                if let onResize {
+                    .strokeBorder(Brand.aiBadge, lineWidth: isDragging ? 2.5 : 2)
+                if let onResize, !isDragging {
                     ResizeHandles(objectSize: object.size.cgSize, onResize: onResize)
                 }
             }
         }
+        .opacity(isDragging ? 0.92 : 1.0)
+        .shadow(color: isDragging ? Brand.aiBadge.opacity(0.15) : .clear, radius: 8, y: 2)
         .rotationEffect(.degrees(object.rotation))
         .zIndex(Double(object.zIndex))
     }

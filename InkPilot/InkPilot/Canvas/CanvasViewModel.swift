@@ -24,6 +24,15 @@ final class CanvasViewModel {
 
     let selection = CanvasSelectionState()
 
+    // MARK: - Smart Guides
+
+    var activeGuides: [GuideLine] = []
+
+    // MARK: - Selection Mode
+
+    var useLasso: Bool = false
+    var lassoPoints: [CGPoint] = []
+
     // MARK: - AI Suggestion State
 
     var ghostSuggestion: GhostSuggestion?
@@ -196,6 +205,23 @@ final class CanvasViewModel {
         guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
         canvasObjects[index].worldPosition = position
         canvasObjects[index].updatedAt = Date()
+    }
+
+    /// Move an object with smart guide snapping.
+    func moveObjectWithGuides(id: UUID, to proposedPosition: CGPointCodable) {
+        guard let obj = canvasObjects.first(where: { $0.id == id }) else { return }
+        let result = SmartGuideEngine.compute(
+            draggedObject: obj,
+            proposedPosition: proposedPosition,
+            otherObjects: canvasObjects
+        )
+        activeGuides = result.guides
+        moveObject(id: id, to: result.position)
+    }
+
+    /// Clear guide lines (call on drag end).
+    func clearGuides() {
+        activeGuides = []
     }
 
     /// Move all selected objects by a delta (for multi-select drag).

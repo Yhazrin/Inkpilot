@@ -22,6 +22,7 @@ struct CanvasObjectLayer: View {
     var onMove: (UUID, CGPointCodable) -> Void
     var onMoveSelected: (CGPointCodable) -> Void
     var onDragStart: () -> Void
+    var onDragEnd: () -> Void
     var onResize: (UUID, CGSizeCodable) -> Void
     var onResizeStart: (UUID) -> Void
 
@@ -39,6 +40,7 @@ struct CanvasObjectLayer: View {
                     object: object,
                     isSelected: isSelected,
                     isEditing: isEditing,
+                    isDragging: isDraggingMulti && selectedIDs.contains(object.id),
                     onTextChange: { newText in onTextChange(object.id, newText) },
                     onEndEditing: onEndEditing,
                     onResize: { newSize in
@@ -129,6 +131,7 @@ struct CanvasObjectLayer: View {
             .onEnded { _ in
                 isDraggingMulti = false
                 multiDragStartPositions.removeAll()
+                onDragEnd()
             }
     }
 

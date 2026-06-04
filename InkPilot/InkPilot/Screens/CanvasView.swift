@@ -55,24 +55,42 @@ struct CanvasView: View {
                 onBeginEditing: { viewModel.selection.beginEditing($0) },
                 onEndEditing: { viewModel.selection.endEditing() },
                 onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
-                onMove: { id, pos in viewModel.moveObject(id: id, to: pos) },
+                onMove: { id, pos in viewModel.moveObjectWithGuides(id: id, to: pos) },
                 onMoveSelected: { delta in viewModel.moveSelectedObjects(by: delta) },
                 onDragStart: { viewModel.pushHistoryBeforeMove() },
+                onDragEnd: { viewModel.clearGuides() },
                 onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
                 onResizeStart: { id in viewModel.pushHistoryBeforeResize() }
             )
 
-            // 5. Marquee selection layer
+            // 5. Smart guide lines (visible during drag)
+            GuideOverlay(
+                guides: viewModel.activeGuides,
+                transform: viewModel.canvasTransform
+            )
+
+            // 6. Selection layer (marquee or lasso)
             if viewModel.selectedTool == .select {
-                SelectionMarqueeLayer(
-                    isActive: viewModel.selectedTool == .select,
-                    transform: viewModel.canvasTransform,
-                    marqueeStart: $marqueeStart,
-                    marqueeEnd: $marqueeEnd,
-                    onMarqueeSelect: { rect in
-                        selectObjectsInRect(rect)
-                    }
-                )
+                if viewModel.useLasso {
+                    LassoSelectionLayer(
+                        isActive: true,
+                        transform: viewModel.canvasTransform,
+                        lassoPoints: $viewModel.lassoPoints,
+                        onLassoSelect: { _ in
+                            viewModel.selectObjectsInLasso(viewModel.lassoPoints)
+                        }
+                    )
+                } else {
+                    SelectionMarqueeLayer(
+                        isActive: true,
+                        transform: viewModel.canvasTransform,
+                        marqueeStart: $marqueeStart,
+                        marqueeEnd: $marqueeEnd,
+                        onMarqueeSelect: { rect in
+                            selectObjectsInRect(rect)
+                        }
+                    )
+                }
             }
 
             // 6. Floating chrome
@@ -141,6 +159,12 @@ struct CanvasView: View {
         VStack {
             VStack(spacing: Brand.spacingS) {
                 CanvasToolbar(viewModel: viewModel)
+
+                // Selection mode toggle (marquee vs lasso)
+                if viewModel.selectedTool == .select {
+                    SelectionModeToggle(useLasso: $viewModel.useLasso)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                }
 
                 if viewModel.selectedTool == .pen && viewModel.drawingToolState.isDrawingTool {
                     PenSettingsPalette(drawingState: viewModel.drawingToolState)

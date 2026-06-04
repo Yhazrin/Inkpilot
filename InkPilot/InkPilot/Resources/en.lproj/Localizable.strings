@@ -152,3 +152,7 @@
 "action.distributeVertical" = "Distribute Vertically";
 "action.group" = "Group";
 "action.ungroup" = "Ungroup";
+
+/* Selection Mode */
+"selection.marquee" = "Marquee Selection";
+"selection.lasso" = "Lasso Selection";

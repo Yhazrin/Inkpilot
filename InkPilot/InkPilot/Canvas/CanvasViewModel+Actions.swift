@@ -4,6 +4,23 @@ import PencilKit
 /// Undo/redo, selection ordering, alignment, grouping, and persistence.
 extension CanvasViewModel {
 
+    // MARK: - Lasso Selection
+
+    func selectObjectsInLasso(_ screenPoints: [CGPoint]) {
+        guard screenPoints.count >= 3 else { return }
+        let worldPoints = screenPoints.map { canvasTransform.screenToWorld($0) }
+        let ids = canvasObjects.filter { obj in
+            let center = CGPoint(
+                x: obj.worldPosition.x + obj.size.width / 2,
+                y: obj.worldPosition.y + obj.size.height / 2
+            )
+            return isPointInsidePolygon(center, polygon: worldPoints)
+        }.map(\.id)
+        if !ids.isEmpty {
+            selection.selectObjects(Set(ids))
+        }
+    }
+
     // MARK: - Undo / Redo
 
     func undo() {
