@@ -4,6 +4,7 @@ import SwiftUI
 /// Shows canvas context and mock suggestions in a collapsible glass panel.
 struct AIPilotPanel: View {
     let viewModel: CanvasViewModel
+    @State private var showClearConfirmation = false
 
     var body: some View {
         Button {
@@ -73,6 +74,27 @@ struct AIPilotPanel: View {
             suggestionRow(String(localized: "canvas.aiPilot.suggestion1"))
             suggestionRow(String(localized: "canvas.aiPilot.suggestion2"))
             suggestionRow(String(localized: "canvas.aiPilot.suggestion3"))
+
+            Divider()
+
+            Button {
+                showClearConfirmation = true
+            } label: {
+                Label(String(localized: "action.clearCanvas"), systemImage: "trash")
+                    .font(Brand.captionFont)
+                    .foregroundStyle(.red.opacity(0.8))
+            }
+            .accessibilityLabel(Text(String(localized: "action.clearCanvas.accessibility")))
+            .confirmationDialog(
+                String(localized: "action.clearCanvas.confirm"),
+                isPresented: $showClearConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(String(localized: "action.clearCanvas"), role: .destructive) {
+                    viewModel.clearCanvas()
+                }
+                Button(String(localized: "action.cancel"), role: .cancel) {}
+            }
         }
     }
 

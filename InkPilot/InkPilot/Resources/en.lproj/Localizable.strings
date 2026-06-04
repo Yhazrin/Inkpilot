@@ -166,6 +166,10 @@
 "object.image.accessibility" = "Imported image.";
 "object.image.loading" = "Loading...";
 "action.backToHome" = "Back to Home";
+"action.clearCanvas" = "Clear Canvas";
+"action.clearCanvas.accessibility" = "Clear all canvas content";
+"action.clearCanvas.confirm" = "Are you sure you want to clear the canvas? This can be undone.";
+"action.cancel" = "Cancel";
 "action.export" = "Export Canvas";
 "action.exportImage" = "Export as Image";
 "action.exportPDF" = "Export as PDF";

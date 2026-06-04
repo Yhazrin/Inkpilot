@@ -166,6 +166,10 @@
 "object.image.accessibility" = "导入的图片。";
 "object.image.loading" = "加载中...";
 "action.backToHome" = "返回主页";
+"action.clearCanvas" = "清空画布";
+"action.clearCanvas.accessibility" = "清空画布所有内容";
+"action.clearCanvas.confirm" = "确定要清空画布吗？此操作可以撤销。";
+"action.cancel" = "取消";
 "action.export" = "导出画布";
 "action.exportImage" = "导出为图片";
 "action.exportPDF" = "导出为 PDF";
