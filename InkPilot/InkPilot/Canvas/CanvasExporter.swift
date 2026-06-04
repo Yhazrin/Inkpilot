@@ -1,3 +1,4 @@
+import PDFKit
 import Photos
 import SwiftUI
 import PencilKit
@@ -78,6 +79,8 @@ enum CanvasExporter {
             drawConnector(in: rect, context: context)
         case .media:
             drawMediaPlaceholder(in: rect, context: context, scale: scale)
+        case .pdfPage(let pdfURL, let pageIndex):
+            drawPDFPage(pdfURL: pdfURL, pageIndex: pageIndex, in: rect, context: context)
         }
     }
 
@@ -152,6 +155,18 @@ enum CanvasExporter {
         path.fill()
         context.setStrokeColor(UIColor.lightGray.cgColor)
         path.stroke()
+    }
+
+    private static func drawPDFPage(pdfURL: String?, pageIndex: Int, in rect: CGRect, context: CGContext) {
+        guard let pdfURL, let url = URL(string: pdfURL),
+              let document = PDFDocument(url: url),
+              let page = document.page(at: pageIndex) else {
+            drawMediaPlaceholder(in: rect, context: context, scale: 1)
+            return
+        }
+        if let image = PDFService.renderPage(page, at: rect.size) {
+            image.draw(in: rect)
+        }
     }
 
     private static func drawStickyNote(text: String, in rect: CGRect, context: CGContext, scale: CGFloat) {
