@@ -1,4 +1,5 @@
 import Foundation
+import os.log
 import PencilKit
 
 /// A saveable canvas document.
@@ -27,6 +28,7 @@ struct CanvasDocument: Codable {
 final class CanvasDocumentStore {
     private let fileName = "inkpilot_canvas.json"
     private var saveTask: Task<Void, Never>?
+    private let logger = Logger(subsystem: "com.inkpilot.app", category: "persistence")
 
     private var fileURL: URL {
         let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -45,15 +47,27 @@ final class CanvasDocumentStore {
 
     /// Save immediately.
     func save(drawing: PKDrawing, objects: [CanvasObject]) {
-        let doc = CanvasDocument(drawing: drawing, canvasObjects: objects)
-        guard let data = try? JSONEncoder().encode(doc) else { return }
-        try? data.write(to: fileURL, options: .atomic)
+        do {
+            let doc = CanvasDocument(drawing: drawing, canvasObjects: objects)
+            let data = try JSONEncoder().encode(doc)
+            try data.write(to: fileURL, options: .atomic)
+        } catch {
+            logger.error("Failed to save canvas: \(error.localizedDescription)")
+        }
     }
 
     /// Load the saved canvas, or nil if nothing saved.
+    /// Handles corrupted files gracefully — returns nil and logs warning.
     func load() -> CanvasDocument? {
         guard let data = try? Data(contentsOf: fileURL) else { return nil }
-        return try? JSONDecoder().decode(CanvasDocument.self, from: data)
+        do {
+            return try JSONDecoder().decode(CanvasDocument.self, from: data)
+        } catch {
+            logger.warning("Corrupted canvas file, starting fresh: \(error.localizedDescription)")
+            // Remove corrupted file so next launch doesn't retry
+            try? FileManager.default.removeItem(at: fileURL)
+            return nil
+        }
     }
 
     /// Delete saved canvas.

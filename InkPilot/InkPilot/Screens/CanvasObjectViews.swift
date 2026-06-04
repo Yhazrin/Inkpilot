@@ -8,6 +8,7 @@ struct CanvasObjectView: View {
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
     var onResize: ((CGSize) -> Void)?
+    var onResizeStart: (() -> Void)?
 
     var body: some View {
         Group {
@@ -42,8 +43,12 @@ struct CanvasObjectView: View {
             if isSelected && !isEditing {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
                     .strokeBorder(Brand.aiBadge, lineWidth: 2)
-                if let onResize {
-                    ResizeHandles(objectSize: object.size.cgSize, onResize: onResize)
+                if let onResize, let onResizeStart {
+                    ResizeHandles(
+                        objectSize: object.size.cgSize,
+                        onResize: onResize,
+                        onResizeStart: onResizeStart
+                    )
                 }
             }
         }

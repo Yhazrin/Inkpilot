@@ -18,7 +18,9 @@ struct CanvasObjectLayer: View {
     var onEndEditing: () -> Void
     var onTextChange: (UUID, String) -> Void
     var onMove: (UUID, CGPointCodable) -> Void
+    var onDragStart: (UUID) -> Void
     var onResize: (UUID, CGSizeCodable) -> Void
+    var onResizeStart: (UUID) -> Void
 
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
 
@@ -40,7 +42,8 @@ struct CanvasObjectLayer: View {
                             height: newSize.height / transform.scale
                         )
                         onResize(object.id, worldSize)
-                    }
+                    },
+                    onResizeStart: { onResizeStart(object.id) }
                 )
                 // Render at WORLD size + WORLD position.
                 // The layer-level scaleEffect + offset will transform to screen.
@@ -85,6 +88,7 @@ struct CanvasObjectLayer: View {
                     ?? object.worldPosition.cgPoint
                 if dragStartPositions[object.id] == nil {
                     dragStartPositions[object.id] = start
+                    onDragStart(object.id)
                 }
                 // Screen translation → world translation
                 let worldTranslation = CGSize(

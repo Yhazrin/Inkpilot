@@ -55,10 +55,16 @@ final class DrawingToolState {
     }
 
     func selectWidth(_ newWidth: CGFloat) {
-        width = newWidth
-        recentWidths.removeAll { $0 == newWidth }
-        recentWidths.insert(newWidth, at: 0)
+        let clamped = min(max(newWidth, 0.5), 20.0)
+        width = clamped
+        recentWidths.removeAll { $0 == clamped }
+        recentWidths.insert(clamped, at: 0)
         if recentWidths.count > 4 { recentWidths.removeLast() }
+    }
+
+    /// Clamp opacity to valid range.
+    func setOpacity(_ newOpacity: CGFloat) {
+        opacity = min(max(newOpacity, 0.0), 1.0)
     }
 }
 

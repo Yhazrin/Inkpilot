@@ -6,6 +6,7 @@ import SwiftUI
 struct ResizeHandles: View {
     let objectSize: CGSize
     var onResize: (CGSize) -> Void
+    var onResizeStart: (() -> Void)?
 
     private let handleSize: CGFloat = 12
     private let minSize: CGFloat = 40
@@ -36,6 +37,7 @@ struct ResizeHandles: View {
                         // Cache original size on first frame
                         if dragStartSize == nil {
                             dragStartSize = objectSize
+                            onResizeStart?()
                         }
                         let original = dragStartSize ?? objectSize
                         let newSize = resizedSize(

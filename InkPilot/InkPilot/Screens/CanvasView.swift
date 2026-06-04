@@ -58,7 +58,9 @@ struct CanvasView: View {
                 onEndEditing: { viewModel.endEditing() },
                 onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
                 onMove: { id, pos in viewModel.moveObject(id: id, to: pos) },
-                onResize: { id, size in viewModel.resizeObject(id: id, to: size) }
+                onDragStart: { id in viewModel.pushHistoryBeforeMove() },
+                onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
+                onResizeStart: { id in viewModel.pushHistoryBeforeResize() }
             )
 
             // 5. Floating chrome
