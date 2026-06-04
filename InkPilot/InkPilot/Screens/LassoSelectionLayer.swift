@@ -6,7 +6,7 @@ struct LassoSelectionLayer: View {
     let isActive: Bool
     let transform: CanvasTransform
     @Binding var lassoPoints: [CGPoint]
-    var onLassoSelect: (Set<UUID>) -> Void
+    var onLassoComplete: ([CGPoint]) -> Void
 
     @State private var isDrawing = false
 
@@ -17,7 +17,7 @@ struct LassoSelectionLayer: View {
                 .gesture(isActive ? lassoGesture : nil)
         }
         .overlay {
-            if !lassoPoints.isEmpty && lassoPoints.count > 2 {
+            if lassoPoints.count > 2 {
                 let screenPoints = lassoPoints
                 Canvas { context, _ in
                     var path = Path()
@@ -47,23 +47,11 @@ struct LassoSelectionLayer: View {
             }
             .onEnded { _ in
                 isDrawing = false
-                // Compute which objects are inside the lasso
-                let worldPoints = lassoPoints.map { transform.screenToWorld($0) }
-                let lassoPath = createPath(from: worldPoints)
-                onLassoSelect(Set()) // Will be computed by caller
+                // Pass points to parent BEFORE clearing
+                let points = lassoPoints
+                onLassoComplete(points)
                 lassoPoints = []
             }
-    }
-
-    private func createPath(from points: [CGPoint]) -> Path {
-        var path = Path()
-        guard let first = points.first else { return path }
-        path.move(to: first)
-        for point in points.dropFirst() {
-            path.addLine(to: point)
-        }
-        path.closeSubpath()
-        return path
     }
 }
 

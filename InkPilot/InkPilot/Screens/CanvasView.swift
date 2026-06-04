@@ -120,7 +120,7 @@ struct CanvasView: View {
                 isActive: true,
                 transform: viewModel.canvasTransform,
                 lassoPoints: $viewModel.lassoPoints,
-                onLassoSelect: { _ in viewModel.selectObjectsInLasso(viewModel.lassoPoints) }
+                onLassoComplete: { points in viewModel.selectObjectsInLasso(points) }
             )
         } else {
             SelectionMarqueeLayer(
