@@ -80,17 +80,28 @@ class SuggestionResponse(BaseModel):
     items: list[SuggestionItem]
 
 
+class CanvasObjectContext(BaseModel):
+    """Rich canvas context from the iPad app."""
+    locale: str = Field(default="en", description="User locale (en, zh-Hans)")
+    ink_text: str = Field(default="", description="Text extracted from ink strokes")
+    prompt_text: str = Field(default="", description="User's typed prompt")
+    selected_object: str | None = Field(default=None, description="Selected object summary")
+    canvas_objects: list[dict] = Field(default_factory=list, description="Canvas object summaries")
+
+
 class SuggestRequest(BaseModel):
     """What the iPad sends.
 
-    The PencilKit drawing is reduced to plain text by the client (best
-    effort OCR or raw stroke sampling). For V0.2 we just pass the
-    text through; future revisions can ship strokes as well.
+    Supports both legacy (context_text) and new (canvasContext) formats.
+    The canvasContext is preferred when available.
     """
 
+    # Legacy format (backward compatible)
     context_text: str = Field(default="", description="Raw text/note from the canvas")
     anchor_hint: str | None = Field(default=None, description="Optional anchor clue")
     mode_hint: SuggestionMode | None = Field(default=None, description="Optional mode hint")
+    # Rich format (new)
+    canvasContext: CanvasObjectContext | None = Field(default=None, description="Rich canvas context")
 
 
 # MARK: - Routes
@@ -187,8 +198,26 @@ def _system_prompt() -> str:
 
 def _user_prompt(req: SuggestRequest) -> str:
     parts: list[str] = []
-    if req.context_text.strip():
-        parts.append(f"User's canvas content:\n```\n{req.context_text.strip()}\n```")
+
+    # Use rich context if available
+    if req.canvasContext:
+        ctx = req.canvasContext
+        if ctx.ink_text.strip():
+            parts.append(f"Ink strokes:\n```\n{ctx.ink_text.strip()}\n```")
+        if ctx.prompt_text.strip():
+            parts.append(f"User prompt: \"{ctx.prompt_text.strip()}\"")
+        if ctx.selected_object:
+            parts.append(f"Selected object: {ctx.selected_object}")
+        if ctx.canvas_objects:
+            summaries = [f"- {o.get('type', '?')}: {o.get('title', '?')}" for o in ctx.canvas_objects[:8]]
+            parts.append(f"Existing canvas objects:\n" + "\n".join(summaries))
+        if ctx.locale.startswith("zh"):
+            parts.append("Respond in Simplified Chinese.")
+    else:
+        # Legacy format
+        if req.context_text.strip():
+            parts.append(f"User's canvas content:\n```\n{req.context_text.strip()}\n```")
+
     if req.anchor_hint:
         parts.append(f"Anchor hint: {req.anchor_hint}")
     if req.mode_hint:

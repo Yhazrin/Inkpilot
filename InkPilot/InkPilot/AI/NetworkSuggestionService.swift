@@ -28,7 +28,16 @@ final class NetworkSuggestionService: SuggestionService {
         let body = SuggestRequestBody(
             context_text: context.inkText,
             anchor_hint: nil,
-            mode_hint: nil
+            mode_hint: nil,
+            canvasContext: CanvasContextPayload(
+                locale: context.locale,
+                ink_text: context.inkText,
+                prompt_text: context.promptText,
+                selected_object: context.selectedObjectSummary,
+                canvas_objects: context.canvasObjectSummaries.map {
+                    ["type": $0.type, "title": $0.title]
+                }
+            )
         )
         let encoder = JSONEncoder()
         request.httpBody = try encoder.encode(body)
@@ -91,6 +100,15 @@ private struct SuggestRequestBody: Encodable {
     let context_text: String
     let anchor_hint: String?
     let mode_hint: String?
+    let canvasContext: CanvasContextPayload?
+}
+
+private struct CanvasContextPayload: Encodable {
+    let locale: String
+    let ink_text: String
+    let prompt_text: String
+    let selected_object: String?
+    let canvas_objects: [[String: String]]
 }
 
 private struct SuggestionItemDTO: Decodable {

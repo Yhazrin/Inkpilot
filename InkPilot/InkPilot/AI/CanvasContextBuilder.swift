@@ -2,8 +2,6 @@ import Foundation
 import PencilKit
 
 /// Builds a `CanvasContext` from the current canvas state.
-/// V0.2: includes stroke info, canvas objects summary, selected object,
-/// and prompt text. OCR can be layered on later.
 enum CanvasContextBuilder {
 
     static func build(
@@ -16,33 +14,64 @@ enum CanvasContextBuilder {
         let hasInk = strokeCount > 0
         let bounds = drawing.bounds
 
-        var parts: [String] = []
-
+        var inkParts: [String] = []
         if hasInk {
-            parts.append("User has drawn \(strokeCount) stroke(s)")
+            inkParts.append("User has drawn \(strokeCount) stroke(s)")
             if bounds.width > 0 {
-                parts.append("Ink bounds: \(Int(bounds.width))x\(Int(bounds.height))")
+                inkParts.append("Ink bounds: \(Int(bounds.width))x\(Int(bounds.height))")
             }
         } else {
-            parts.append("Empty canvas (no ink)")
+            inkParts.append("Empty canvas (no ink)")
         }
 
-        if !canvasObjects.isEmpty {
-            let typeCounts = Dictionary(grouping: canvasObjects, by: { $0.type })
-                .mapValues { $0.count }
-            let summary = typeCounts.map { "\($0.key.rawValue): \($0.value)" }.joined(separator: ", ")
-            parts.append("Canvas objects: \(summary)")
+        // Object summaries for AI context
+        let objectSummaries = canvasObjects.map { obj in
+            let title: String
+            switch obj.content {
+            case .aiCard(let t, _): title = t
+            case .text(let t): title = t
+            case .stickyNote(let t): title = t
+            case .bubble(let t): title = t
+            case .shape(let k): title = k.rawValue
+            case .connector: title = "connector"
+            case .media(_, let k): title = k.rawValue
+            }
+            return CanvasObjectSummary(type: obj.content.typeName, title: title)
         }
 
+        // Selected object summary
+        var selectedSummary: String? = nil
         if let selectedID = selectedObjectID,
            let selected = canvasObjects.first(where: { $0.id == selectedID }) {
-            parts.append("Selected: \(selected.type.rawValue) \"\(selected.title)\"")
+            selectedSummary = "\(selected.content.typeName): \(objectSummaries.first(where: { $0.type == selected.content.typeName })?.title ?? "")"
         }
 
-        if !promptText.isEmpty {
-            parts.append("User prompt: \"\(promptText)\"")
-        }
+        // Locale
+        let locale = Locale.current.language.languageCode?.identifier ?? "en"
+        let localeStr = locale == "zh" ? "zh-Hans" : "en"
 
-        return CanvasContext(inkText: parts.joined(separator: "; "))
+        return CanvasContext(
+            inkText: inkParts.joined(separator: "; "),
+            promptText: promptText,
+            selectedObjectSummary: selectedSummary,
+            canvasObjectSummaries: objectSummaries,
+            locale: localeStr
+        )
+    }
+}
+
+// MARK: - Content type name helper
+
+private extension CanvasObjectContent {
+    var typeName: String {
+        switch self {
+        case .aiCard: return "aiCard"
+        case .text: return "text"
+        case .stickyNote: return "stickyNote"
+        case .bubble: return "bubble"
+        case .shape: return "shape"
+        case .connector: return "connector"
+        case .media: return "media"
+        }
     }
 }
