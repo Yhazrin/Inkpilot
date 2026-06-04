@@ -2,7 +2,6 @@ import SwiftUI
 import PencilKit
 
 /// The main state container for the canvas screen.
-/// Owns drawing state, tool selection, AI suggestion state, and accepted canvas objects.
 @Observable
 final class CanvasViewModel {
 
@@ -11,7 +10,12 @@ final class CanvasViewModel {
     var drawing = PKDrawing()
     var selectedTool: CanvasTool = .pen
 
-    // MARK: - AI Suggestion State (single source of truth)
+    // MARK: - Canvas Objects
+
+    var canvasObjects: [CanvasObject] = []
+    var selectedObjectID: UUID?
+
+    // MARK: - AI Suggestion State
 
     var ghostSuggestion: GhostSuggestion?
 
@@ -19,9 +23,10 @@ final class CanvasViewModel {
 
     var isAIPanelExpanded: Bool = false
 
-    // MARK: - Accepted Canvas Objects
+    // MARK: - Secondary Palette State
 
-    var acceptedCards: [AcceptedCard] = []
+    var isShapePaletteVisible: Bool = false
+    var isMediaPaletteVisible: Bool = false
 
     // MARK: - Prompt
 
@@ -35,9 +40,8 @@ final class CanvasViewModel {
         self.suggestionService = suggestionService
     }
 
-    // MARK: - Actions
+    // MARK: - AI Actions
 
-    /// Trigger a mock AI suggestion from the AI button or prompt.
     func requestSuggestion() {
         let context = CanvasContextBuilder.build(from: drawing)
         Task { @MainActor in
@@ -46,46 +50,80 @@ final class CanvasViewModel {
                 withAnimation(.easeInOut(duration: 0.4)) {
                     ghostSuggestion = GhostSuggestion(response: response)
                 }
-            } catch {
-                // V0.1: silently ignore errors from mock service
-            }
+            } catch { }
         }
     }
 
-    /// Accept the current ghost suggestion — turns it into real canvas cards.
     func acceptSuggestion() {
         guard let suggestion = ghostSuggestion else { return }
         let baseX: CGFloat = 400
         let baseY: CGFloat = 300
-        let cardSpacing: CGFloat = 140
+        let spacing: CGFloat = 140
 
-        let newCards = suggestion.response.items.enumerated().map { index, item in
-            AcceptedCard(
-                id: UUID(),
-                title: item.title,
-                body: item.content,
-                worldPosition: CGPointCodable(
-                    x: baseX,
-                    y: baseY + CGFloat(index) * cardSpacing
-                ),
-                size: CGSizeCodable.defaultCard,
-                createdBy: .ai
+        let newObjects = suggestion.response.items.enumerated().map { index, item in
+            CanvasObjectFactory.aiCard(
+                from: item,
+                position: CGPointCodable(x: baseX, y: baseY + CGFloat(index) * spacing)
             )
         }
         withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-            acceptedCards.append(contentsOf: newCards)
+            canvasObjects.append(contentsOf: newObjects)
             dismissSuggestion()
         }
     }
 
-    /// Dismiss the current ghost suggestion.
     func dismissSuggestion() {
         withAnimation(.easeOut(duration: 0.3)) {
             ghostSuggestion = nil
         }
     }
 
-    /// Clear the canvas drawing.
+    // MARK: - Object Actions
+
+    func selectObject(_ id: UUID?) {
+        selectedObjectID = id
+    }
+
+    func moveObject(id: UUID, to position: CGPointCodable) {
+        guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
+        canvasObjects[index].worldPosition = position
+    }
+
+    func deleteSelected() {
+        guard let id = selectedObjectID else { return }
+        withAnimation(.easeOut(duration: 0.2)) {
+            canvasObjects.removeAll { $0.id == id }
+            selectedObjectID = nil
+        }
+    }
+
+    func duplicateSelected() {
+        guard let id = selectedObjectID,
+              let source = canvasObjects.first(where: { $0.id == id }) else { return }
+        var copy = source
+        copy.id = UUID()
+        copy.worldPosition = CGPointCodable(
+            x: source.worldPosition.x + 30,
+            y: source.worldPosition.y + 30
+        )
+        copy.source = .user
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            canvasObjects.append(copy)
+            selectedObjectID = copy.id
+        }
+    }
+
+    // MARK: - Object Creation (from palettes)
+
+    func addObject(_ object: CanvasObject) {
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            canvasObjects.append(object)
+            selectedObjectID = object.id
+        }
+    }
+
+    // MARK: - Canvas Actions
+
     func clearCanvas() {
         drawing = PKDrawing()
     }

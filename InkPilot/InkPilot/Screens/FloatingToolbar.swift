@@ -1,16 +1,21 @@
 import SwiftUI
 
 /// The top floating tool capsule for the canvas.
-/// Provides Pen, Eraser, Lasso (placeholder), and AI trigger.
 struct FloatingToolbar: View {
     @Binding var selectedTool: CanvasTool
     var onAITap: () -> Void
+    var onShapeTap: () -> Void
+    var onMediaTap: () -> Void
 
     var body: some View {
         GlassCapsule {
             toolButton(tool: .pen, icon: "pencil", label: String(localized: "tool.pen"))
             toolButton(tool: .eraser, icon: "eraser", label: String(localized: "tool.eraser"))
-            toolButton(tool: .lasso, icon: "lasso", label: String(localized: "tool.lasso"))
+            toolButton(tool: .select, icon: "hand.point.up.left", label: String(localized: "tool.select"))
+            toolButton(tool: .text, icon: "textformat", label: String(localized: "tool.text"))
+
+            shapeButton
+            mediaButton
 
             Divider()
                 .frame(height: 20)
@@ -25,6 +30,48 @@ struct FloatingToolbar: View {
         }
     }
 
+    // MARK: - Shape Button (with palette toggle)
+
+    private var shapeButton: some View {
+        Button {
+            selectedTool = .shape
+            onShapeTap()
+        } label: {
+            Image(systemName: "square.on.circle")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundStyle(selectedTool == .shape ? Brand.inkPrimary : Brand.inkSecondary)
+                .frame(width: 44, height: 44)
+                .background {
+                    if selectedTool == .shape {
+                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                    }
+                }
+        }
+        .accessibilityLabel(Text(String(localized: "tool.shape")))
+    }
+
+    // MARK: - Media Button (with palette toggle)
+
+    private var mediaButton: some View {
+        Button {
+            selectedTool = .media
+            onMediaTap()
+        } label: {
+            Image(systemName: "photo.on.rectangle")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundStyle(selectedTool == .media ? Brand.inkPrimary : Brand.inkSecondary)
+                .frame(width: 44, height: 44)
+                .background {
+                    if selectedTool == .media {
+                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                    }
+                }
+        }
+        .accessibilityLabel(Text(String(localized: "tool.media")))
+    }
+
+    // MARK: - Generic Tool Button
+
     private func toolButton(tool: CanvasTool, icon: String, label: String) -> some View {
         Button {
             selectedTool = tool
@@ -35,8 +82,7 @@ struct FloatingToolbar: View {
                 .frame(width: 44, height: 44)
                 .background {
                     if selectedTool == tool {
-                        Capsule()
-                            .fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
                     }
                 }
         }
@@ -45,7 +91,7 @@ struct FloatingToolbar: View {
 }
 
 #Preview {
-    FloatingToolbar(selectedTool: .constant(.pen), onAITap: {})
+    FloatingToolbar(selectedTool: .constant(.pen), onAITap: {}, onShapeTap: {}, onMediaTap: {})
         .padding(40)
         .background(Brand.canvasBase)
 }

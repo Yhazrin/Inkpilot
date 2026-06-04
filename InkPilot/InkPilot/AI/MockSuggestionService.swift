@@ -14,19 +14,19 @@ final class MockSuggestionService: SuggestionService {
             items: [
                 AISuggestionItem(
                     id: UUID(),
-                    type: .textCard,
+                    type: .aiCard,
                     title: String(localized: "suggestion.item.targetUsers"),
                     content: String(localized: "suggestion.item.targetUsers.detail")
                 ),
                 AISuggestionItem(
                     id: UUID(),
-                    type: .textCard,
+                    type: .aiCard,
                     title: String(localized: "suggestion.item.coreWorkflow"),
                     content: String(localized: "suggestion.item.coreWorkflow.detail")
                 ),
                 AISuggestionItem(
                     id: UUID(),
-                    type: .textCard,
+                    type: .aiCard,
                     title: String(localized: "suggestion.item.mvpFeatures"),
                     content: String(localized: "suggestion.item.mvpFeatures.detail")
                 ),

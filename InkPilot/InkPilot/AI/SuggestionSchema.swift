@@ -22,20 +22,3 @@ struct AISuggestionItem: Codable, Identifiable {
     let title: String
     let content: String
 }
-
-/// Types of objects that can exist on the canvas.
-enum CanvasObjectType: String, Codable {
-    case ink
-    case textCard
-    case checklist
-    case mindNode
-    case diagram
-    case ghostSuggestion
-}
-
-/// Who created a canvas object.
-enum CreatorType: String, Codable {
-    case user
-    case ai
-    case collaborator
-}

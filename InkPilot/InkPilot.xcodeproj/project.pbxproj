@@ -32,7 +32,11 @@
 		A10000230000000000000017 /* AIPilotPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000230000000000000017; };
 		A10000240000000000000018 /* CanvasTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000240000000000000018; };
 		A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000250000000000000019; };
-		A1000026000000000000001A /* AcceptedCardsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000026000000000000001A; };
+		A1000027000000000000001B /* CanvasObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000027000000000000001B; };
+		A1000028000000000000001C /* CanvasObjectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000028000000000000001C; };
+		A1000029000000000000001D /* CanvasObjectViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000029000000000000001D; };
+		A1000030000000000000001E /* ShapePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030000000000000001E; };
+		A1000031000000000000001F /* MediaPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031000000000000001F; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -64,7 +68,11 @@
 		A20000230000000000000017 /* AIPilotPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPilotPanel.swift; sourceTree = "<group>"; };
 		A20000240000000000000018 /* CanvasTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTool.swift; sourceTree = "<group>"; };
 		A20000250000000000000019 /* GhostSuggestionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostSuggestionCard.swift; sourceTree = "<group>"; };
-		A2000026000000000000001A /* AcceptedCardsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedCardsOverlay.swift; sourceTree = "<group>"; };
+		A2000027000000000000001B /* CanvasObjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectFactory.swift; sourceTree = "<group>"; };
+		A2000028000000000000001C /* CanvasObjectLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectLayer.swift; sourceTree = "<group>"; };
+		A2000029000000000000001D /* CanvasObjectViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectViews.swift; sourceTree = "<group>"; };
+		A2000030000000000000001E /* ShapePalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapePalette.swift; sourceTree = "<group>"; };
+		A2000031000000000000001F /* MediaPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPalette.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20000310000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -124,6 +132,7 @@
 				A2000011000000000000000B /* CanvasViewModel.swift */,
 				A2000012000000000000000C /* CanvasModels.swift */,
 				A20000240000000000000018 /* CanvasTool.swift */,
+				A2000027000000000000001B /* CanvasObjectFactory.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -158,7 +167,10 @@
 				A20000220000000000000016 /* CanvasPromptBar.swift */,
 				A20000230000000000000017 /* AIPilotPanel.swift */,
 				A20000250000000000000019 /* GhostSuggestionCard.swift */,
-				A2000026000000000000001A /* AcceptedCardsOverlay.swift */,
+				A2000028000000000000001C /* CanvasObjectLayer.swift */,
+				A2000029000000000000001D /* CanvasObjectViews.swift */,
+				A2000030000000000000001E /* ShapePalette.swift */,
+				A2000031000000000000001F /* MediaPalette.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -278,7 +290,11 @@
 				A10000230000000000000017 /* AIPilotPanel.swift in Sources */,
 				A10000240000000000000018 /* CanvasTool.swift in Sources */,
 				A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */,
-				A1000026000000000000001A /* AcceptedCardsOverlay.swift in Sources */,
+				A1000027000000000000001B /* CanvasObjectFactory.swift in Sources */,
+				A1000028000000000000001C /* CanvasObjectLayer.swift in Sources */,
+				A1000029000000000000001D /* CanvasObjectViews.swift in Sources */,
+				A1000030000000000000001E /* ShapePalette.swift in Sources */,
+				A1000031000000000000001F /* MediaPalette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

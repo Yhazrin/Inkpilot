@@ -61,3 +61,41 @@
 "canvas.empty.hint" = "Start writing anywhere. InkPilot will suggest the next step.";
 "canvas.ai.thinking" = "Reading the canvas...";
 "canvas.ai.noSuggestion" = "No suggestion yet. Try writing a little more.";
+
+/* New Tools */
+"tool.select" = "Select";
+"tool.text" = "Text";
+"tool.shape" = "Shape";
+"tool.media" = "Media";
+
+/* Shape Palette */
+"palette.shape.rectangle" = "Rectangle";
+"palette.shape.roundedRect" = "Rounded Rectangle";
+"palette.shape.ellipse" = "Ellipse";
+"palette.shape.diamond" = "Diamond";
+"palette.shape.line" = "Line";
+"palette.shape.arrow" = "Arrow";
+
+/* Media Palette */
+"palette.media.image" = "Image";
+"palette.media.image.accessibility" = "Insert image placeholder";
+"palette.media.file" = "File";
+"palette.media.file.accessibility" = "Insert file placeholder";
+
+/* Palette Common */
+"palette.close" = "Close palette";
+
+/* Object Types */
+"object.aiCard.accessibility" = "AI generated canvas card.";
+"object.textBox.accessibility" = "Text box.";
+"object.stickyNote.accessibility" = "Sticky note.";
+"object.bubble.accessibility" = "Bubble.";
+"object.shape.accessibility" = "Shape.";
+"object.connector.accessibility" = "Connector line.";
+"object.image.placeholder" = "Image Placeholder";
+"object.file.placeholder" = "File Placeholder";
+
+/* Object Actions */
+"action.duplicate" = "Duplicate";
+"action.delete" = "Delete";
+"action.deselect" = "Deselect";
