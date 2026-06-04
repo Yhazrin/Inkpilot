@@ -81,6 +81,27 @@ struct CanvasView: View {
                 viewModel.suggestionAnchor = nil
             }
         }
+        #if DEBUG
+        // Debug-only launch flags for screenshot capture. No-op in
+        // Release. `-autoTriggerAI` kicks a suggestion; `-autoAcceptAI`
+        // triggers then accepts for a materialize screenshot.
+        .onAppear {
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("-autoTriggerAI") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    viewModel.requestSuggestion()
+                }
+            }
+            if args.contains("-autoAcceptAI") {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.4) {
+                    viewModel.requestSuggestion()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
+                    viewModel.acceptSuggestion()
+                }
+            }
+        }
+        #endif
     }
 
     // MARK: - Floating Chrome

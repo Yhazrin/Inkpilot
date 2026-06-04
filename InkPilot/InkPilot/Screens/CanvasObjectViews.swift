@@ -27,7 +27,7 @@ struct CanvasObjectView: View {
         .overlay {
             if isSelected {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiBadge, lineWidth: 2)
+                    .strokeBorder(Brand.aiAccent, lineWidth: 2)
             }
         }
     }

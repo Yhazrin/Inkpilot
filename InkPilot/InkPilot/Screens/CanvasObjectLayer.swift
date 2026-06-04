@@ -11,6 +11,13 @@ struct CanvasObjectLayer: View {
     var onSelect: (UUID) -> Void
     var onMove: (UUID, CGPointCodable) -> Void
 
+    /// Per-object drag start positions. Captured on the first
+    /// `onChanged` of a drag gesture so the drag stays anchored to
+    /// the object's position at drag start, not its position after
+    /// the previous frame's `onMove` mutated it. Cleared on
+    /// `onEnded`/`onCancelled`.
+    @State private var dragStartPositions: [UUID: CGPoint] = [:]
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             ForEach(objects) { object in
@@ -33,17 +40,34 @@ struct CanvasObjectLayer: View {
         .allowsHitTesting(isSelectToolActive)
     }
 
-    // MARK: - Drag gesture (start + translation, not value.location)
+    // MARK: - Drag gesture (caches start position per object)
 
+    /// Drag gesture with stable start-anchored translation.
+    ///
+    /// We cannot read the object's original `worldPosition` inside
+    /// `onChanged` because `onMove` mutates that property on every
+    /// frame, so `value.translation` (which is cumulative from the
+    /// drag start) would be re-applied on top of the just-moved
+    /// position, accelerating the object off-screen. Instead we cache
+    /// `worldPosition` the first time the gesture fires and recompute
+    /// the target as `start + translation` for every subsequent
+    /// frame.
     private func dragGesture(for object: CanvasObject) -> some Gesture {
         DragGesture(minimumDistance: 1)
             .onChanged { value in
-                let startPos = object.worldPosition.cgPoint
+                let start = dragStartPositions[object.id]
+                    ?? object.worldPosition.cgPoint
+                if dragStartPositions[object.id] == nil {
+                    dragStartPositions[object.id] = start
+                }
                 let newPos = CGPointCodable(
-                    x: startPos.x + value.translation.width,
-                    y: startPos.y + value.translation.height
+                    x: start.x + value.translation.width,
+                    y: start.y + value.translation.height
                 )
                 onMove(object.id, newPos)
+            }
+            .onEnded { _ in
+                dragStartPositions.removeValue(forKey: object.id)
             }
     }
 

@@ -39,13 +39,13 @@ private struct ScanAura: View {
     var body: some View {
         let ring = Circle()
             .fill(RadialGradient(
-                colors: [Brand.aiGlow.opacity(0.6), Brand.aiGlow.opacity(0.0)],
+                colors: [Brand.aiHalo.opacity(0.6), Brand.aiHalo.opacity(0.0)],
                 center: .center, startRadius: 4, endRadius: 80
             ))
             .frame(width: 160, height: 160)
 
         let pip = Circle()
-            .fill(Brand.aiBadge.opacity(0.35))
+            .fill(Brand.aiAccent.opacity(0.35))
             .frame(width: 6, height: 6)
 
         TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in
@@ -67,13 +67,13 @@ private struct SourceGlow: View {
     var body: some View {
         let halo = Circle()
             .fill(RadialGradient(
-                colors: [Brand.aiGlow.opacity(0.35), Brand.aiGlow.opacity(0.0)],
+                colors: [Brand.aiHalo.opacity(0.35), Brand.aiHalo.opacity(0.0)],
                 center: .center, startRadius: 2, endRadius: 50
             ))
             .frame(width: 100, height: 100)
 
         let pip = Circle()
-            .fill(Brand.aiBadge.opacity(0.5))
+            .fill(Brand.aiAccent.opacity(0.5))
             .frame(width: 4, height: 4)
 
         TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in
@@ -96,7 +96,7 @@ private struct MaterializationTrace: View {
 
     var body: some View {
         Circle()
-            .strokeBorder(Brand.aiGlow, lineWidth: 1)
+            .strokeBorder(Brand.aiHalo, lineWidth: 1)
             .frame(width: 120, height: 120)
             .scaleEffect(0.6 + 0.6 * progress)
             .opacity(0.4 - 0.35 * progress)

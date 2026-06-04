@@ -50,12 +50,55 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
     final class Coordinator: NSObject, PKCanvasViewDelegate {
         @Binding var drawing: PKDrawing
 
+        /// How many strokes we've already processed. If the drawing has
+        /// more strokes than this, the new ones are candidates for
+        /// smoothing.
+        private var lastSeenStrokeCount: Int = 0
+
+        /// Re-entrancy guard: when we programmatically replace the
+        /// drawing to apply smoothing, the delegate fires again. We
+        /// ignore that re-entry.
+        private var isApplyingSmoothing = false
+
         init(drawing: Binding<PKDrawing>) {
             _drawing = drawing
         }
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-            drawing = canvasView.drawing
+            // Re-entry from our own programmatic update — sync the
+            // binding (so the view model sees the smoothed version)
+            // and bail.
+            if isApplyingSmoothing {
+                isApplyingSmoothing = false
+                drawing = canvasView.drawing
+                lastSeenStrokeCount = canvasView.drawing.strokes.count
+                return
+            }
+
+            let current = canvasView.drawing
+            let currentCount = current.strokes.count
+            defer { lastSeenStrokeCount = currentCount }
+
+            guard StrokeSmoother.isEnabled,
+                  currentCount > lastSeenStrokeCount,
+                  currentCount >= 1 else {
+                drawing = current
+                return
+            }
+
+            // Only the newly added strokes are candidates. If the user
+            // did multiple strokes between frames (e.g. fast writing),
+            // smooth them all.
+            let newStrokeStart = lastSeenStrokeCount
+            var strokes = current.strokes
+            for i in newStrokeStart..<currentCount {
+                strokes[i] = StrokeSmoother.smooth(strokes[i])
+            }
+            let smoothed = PKDrawing(strokes: strokes)
+
+            isApplyingSmoothing = true
+            canvasView.drawing = smoothed
+            drawing = smoothed
         }
     }
 }

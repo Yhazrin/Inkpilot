@@ -25,7 +25,7 @@ struct CGSizeCodable: Codable, Equatable {
 
 /// The unified model for all objects on the canvas.
 struct CanvasObject: Identifiable, Codable {
-    let id: UUID
+    var id: UUID
     var type: CanvasObjectType
     var title: String
     var body: String
@@ -79,7 +79,11 @@ struct CanvasObjectStyle: Codable, Equatable {
 
 // MARK: - Ghost Suggestion (UI overlay state)
 
-struct GhostSuggestion: Identifiable {
+struct GhostSuggestion: Identifiable, Equatable {
     let id = UUID()
     let response: AISuggestionResponse
+
+    static func == (lhs: GhostSuggestion, rhs: GhostSuggestion) -> Bool {
+        lhs.id == rhs.id
+    }
 }

@@ -49,7 +49,7 @@ struct GhostSuggestionCard: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
-                .strokeBorder(Brand.aiGlow, lineWidth: 1)
+                .strokeBorder(Brand.aiHalo, lineWidth: 1)
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel(Text(String(localized: "ghost.accessibility")))
@@ -69,7 +69,7 @@ struct GhostSuggestionCard: View {
             ForEach(suggestion.response.items) { item in
                 HStack(alignment: .top, spacing: Brand.spacingS) {
                     Circle()
-                        .fill(Brand.aiBadge.opacity(0.3))
+                        .fill(Brand.aiAccent.opacity(0.3))
                         .frame(width: 6, height: 6)
                         .padding(.top, 6)
                     VStack(alignment: .leading, spacing: 2) {
@@ -93,7 +93,7 @@ struct GhostSuggestionCard: View {
                     .foregroundStyle(.white)
                     .padding(.horizontal, Brand.spacingM)
                     .padding(.vertical, Brand.spacingS)
-                    .background { Capsule().fill(Brand.aiBadge) }
+                    .background { Capsule().fill(Brand.aiAccent) }
             }
             .accessibilityLabel(Text(String(localized: "suggestion.accept.accessibility")))
             .accessibilityHint(Text(String(localized: "suggestion.accept.hint")))

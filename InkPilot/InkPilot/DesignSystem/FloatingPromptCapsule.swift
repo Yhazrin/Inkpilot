@@ -10,7 +10,7 @@ struct FloatingPromptCapsule: View {
         HStack(spacing: Brand.spacingS) {
             Image(systemName: "sparkles")
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Brand.aiBadge)
+                .foregroundStyle(Brand.aiAccent)
 
             TextField(
                 String(localized: "canvas.prompt.placeholder"),
@@ -26,7 +26,7 @@ struct FloatingPromptCapsule: View {
                 Button(action: onSubmit) {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.system(size: 20))
-                        .foregroundStyle(Brand.aiBadge)
+                        .foregroundStyle(Brand.aiAccent)
                 }
                 .accessibilityLabel(Text(String(localized: "canvas.prompt.submit")))
             }

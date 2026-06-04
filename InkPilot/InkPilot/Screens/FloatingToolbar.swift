@@ -23,7 +23,7 @@ struct FloatingToolbar: View {
             Button(action: onAITap) {
                 Image(systemName: "sparkles")
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Brand.aiBadge)
+                    .foregroundStyle(Brand.aiAccent)
                     .frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text(String(localized: "tool.ai")))

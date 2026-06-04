@@ -25,7 +25,7 @@ struct ShapePalette: View {
                         .foregroundStyle(Brand.inkPrimary)
                         .frame(width: 44, height: 44)
                 }
-                .accessibilityLabel(Text(String(localized: labelKey)))
+                .accessibilityLabel(Text(LocalizedStringKey(labelKey)))
             }
 
             Divider().frame(height: 20)

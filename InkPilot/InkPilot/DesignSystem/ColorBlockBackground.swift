@@ -1,35 +1,27 @@
 import SwiftUI
 
-/// A calm, spatial background with large soft color blocks
-/// that gives the canvas an infinite, premium feel.
+/// A calm, spatial background for the canvas.
+/// Pure black & white: white base + a single soft grey radial for paper-like
+/// depth, plus a faint dot grid.
 struct ColorBlockBackground: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                // Base warm off-white
+                // Pure white base
                 Brand.canvasBase
                     .ignoresSafeArea()
 
-                // Soft color blocks — oversized, blurred, low-contrast
-                Circle()
-                    .fill(Brand.accentViolet)
-                    .frame(width: geo.size.width * 0.6, height: geo.size.width * 0.6)
-                    .blur(radius: 120)
-                    .offset(x: -geo.size.width * 0.2, y: -geo.size.height * 0.15)
+                // Subtle paper-like vignette (greyscale only)
+                RadialGradient(
+                    colors: [Color.white, Color(white: 0.96), Color(white: 0.93)],
+                    center: UnitPoint(x: 0.25, y: 0.2),
+                    startRadius: 0,
+                    endRadius: max(geo.size.width, geo.size.height) * 0.9
+                )
+                .ignoresSafeArea()
+                .opacity(0.55)
 
-                Circle()
-                    .fill(Brand.accentMint)
-                    .frame(width: geo.size.width * 0.5, height: geo.size.width * 0.5)
-                    .blur(radius: 100)
-                    .offset(x: geo.size.width * 0.25, y: geo.size.height * 0.1)
-
-                Circle()
-                    .fill(Brand.accentPeach)
-                    .frame(width: geo.size.width * 0.45, height: geo.size.width * 0.45)
-                    .blur(radius: 110)
-                    .offset(x: -geo.size.width * 0.1, y: geo.size.height * 0.25)
-
-                // Subtle dot grid for spatial depth
+                // Faint dot grid for spatial depth
                 dotGrid(in: geo.size)
             }
         }
