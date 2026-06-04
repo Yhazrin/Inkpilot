@@ -245,6 +245,13 @@ extension CanvasViewModel {
         }
     }
 
+    // MARK: - Select All
+
+    func selectAllObjects() {
+        let allIDs = Set(canvasObjects.map(\.id))
+        selection.selectObjects(allIDs)
+    }
+
     // MARK: - Helpers
 
     private func selectedObjects() -> [CanvasObject] {

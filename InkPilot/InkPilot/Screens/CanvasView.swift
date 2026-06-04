@@ -138,6 +138,8 @@ struct CanvasView: View {
                     .keyboardShortcut(.delete, modifiers: [])
                 Button("") { viewModel.duplicateSelected() }
                     .keyboardShortcut("d", modifiers: .command)
+                Button("") { viewModel.selectAllObjects() }
+                    .keyboardShortcut("a", modifiers: .command)
             }
             .frame(width: 0, height: 0)
             .opacity(0)
