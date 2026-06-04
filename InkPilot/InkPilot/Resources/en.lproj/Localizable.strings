@@ -37,16 +37,12 @@
 "suggestion.dismiss.hint" = "Removes this AI suggestion from the canvas.";
 "ghost.accessibility" = "AI suggestion. Suggested structure with multiple items. Accept or dismiss.";
 
-/* Accepted Cards */
-"acceptedCard.accessibility" = "AI generated canvas card.";
-
 /* Badges */
 "badge.ai.generated" = "AI generated";
 
-/* Canvas States */
-"canvas.empty.hint" = "Start writing anywhere. InkPilot will suggest the next step.";
+/* AI Thinking */
 "canvas.ai.thinking" = "Reading the canvas...";
-"canvas.ai.noSuggestion" = "No suggestion yet. Try writing a little more.";
+"canvas.empty.hint" = "Start writing anywhere.\nInkPilot will suggest the next step.";
 
 /* New Tools */
 "tool.select" = "Select";
@@ -77,7 +73,6 @@
 "object.stickyNote.accessibility" = "Sticky note.";
 "object.bubble.accessibility" = "Bubble.";
 "object.shape.accessibility" = "Shape.";
-"object.connector.accessibility" = "Connector line.";
 "object.image.placeholder" = "Image Placeholder";
 "object.file.placeholder" = "File Placeholder";
 
@@ -157,4 +152,17 @@
 "media.import.cancel" = "Cancel";
 "object.image.accessibility" = "Imported image.";
 "object.image.loading" = "Loading...";
+"action.backToHome" = "Back to Home";
+"action.clearCanvas" = "Clear Canvas";
+"action.clearCanvas.accessibility" = "Clear all canvas content";
+"action.clearCanvas.confirm" = "Are you sure you want to clear the canvas? This can be undone.";
+"action.cancel" = "Cancel";
 "action.export" = "Export Canvas";
+"action.exportImage" = "Export as Image";
+"action.exportPDF" = "Export as PDF";
+
+/* PDF */
+"media.import.pdf" = "Import PDF";
+"media.import.pdf.accessibility" = "Import a PDF document";
+"object.pdf.accessibility" = "PDF page.";
+"object.pdf.loading" = "Loading PDF...";

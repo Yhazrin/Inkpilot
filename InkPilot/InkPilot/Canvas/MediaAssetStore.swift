@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a media asset referenced by a canvas object.
-/// V0.2: metadata only — no real file import yet.
+/// Stores metadata; actual file I/O is handled by ImageImportService.
 struct MediaAsset: Identifiable, Codable {
     let id: UUID
     var kind: MediaKind
@@ -22,9 +22,8 @@ struct MediaAsset: Identifiable, Codable {
     }
 }
 
-/// In-memory store for media assets.
-/// V0.2: no persistence, no real file import.
-/// V0.3: PhotosPicker / UIDocumentPicker integration.
+/// In-memory store for media asset metadata.
+/// File persistence is handled by ImageImportService.
 @Observable
 final class MediaAssetStore {
     private var assets: [UUID: MediaAsset] = [:]

@@ -24,15 +24,19 @@ struct CanvasObjectLayer: View {
     var onDragStart: () -> Void
     var onDragEnd: () -> Void
     var onResize: (UUID, CGSizeCodable) -> Void
-    var onResizeStart: (UUID) -> Void
+    var onResizeStart: () -> Void
 
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
     @State private var multiDragStartPositions: [UUID: CGPoint] = [:]
     @State private var isDraggingMulti = false
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            ForEach(objects) { object in
+        let sorted = objects.sorted {
+            if $0.zIndex != $1.zIndex { return $0.zIndex < $1.zIndex }
+            return $0.createdAt < $1.createdAt
+        }
+        return ZStack(alignment: .topLeading) {
+            ForEach(sorted) { object in
                 let isEditing = object.id == editingID
                 let isSelected = selectedIDs.contains(object.id)
 
@@ -51,7 +55,7 @@ struct CanvasObjectLayer: View {
                         )
                         onResize(object.id, worldSize)
                     },
-                    onResizeStart: { onResizeStart(object.id) }
+                    onResizeStart: { onResizeStart() }
                 )
                 .frame(
                     width: object.size.cgSize.width,

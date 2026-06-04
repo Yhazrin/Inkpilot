@@ -37,16 +37,12 @@
 "suggestion.dismiss.hint" = "从画布上移除此 AI 建议。";
 "ghost.accessibility" = "AI 建议。建议结构包含多个项目。接受或忽略。";
 
-/* 已接受卡片 */
-"acceptedCard.accessibility" = "AI 生成的画布卡片。";
-
 /* 徽章 */
 "badge.ai.generated" = "AI 生成";
 
-/* 画布状态 */
-"canvas.empty.hint" = "在任意位置开始书写。InkPilot 会预测你的下一步想法。";
+/* AI 思考中 */
 "canvas.ai.thinking" = "正在理解画布...";
-"canvas.ai.noSuggestion" = "暂时没有建议。可以再多写一点。";
+"canvas.empty.hint" = "在任意位置开始书写。\nInkPilot 会预测你的下一步想法。";
 
 /* 新工具 */
 "tool.select" = "选择";
@@ -77,7 +73,6 @@
 "object.stickyNote.accessibility" = "便签。";
 "object.bubble.accessibility" = "气泡。";
 "object.shape.accessibility" = "形状。";
-"object.connector.accessibility" = "连接线。";
 "object.image.placeholder" = "图片占位符";
 "object.file.placeholder" = "文件占位符";
 
@@ -157,4 +152,17 @@
 "media.import.cancel" = "取消";
 "object.image.accessibility" = "导入的图片。";
 "object.image.loading" = "加载中...";
+"action.backToHome" = "返回主页";
+"action.clearCanvas" = "清空画布";
+"action.clearCanvas.accessibility" = "清空画布所有内容";
+"action.clearCanvas.confirm" = "确定要清空画布吗？此操作可以撤销。";
+"action.cancel" = "取消";
 "action.export" = "导出画布";
+"action.exportImage" = "导出为图片";
+"action.exportPDF" = "导出为 PDF";
+
+/* PDF */
+"media.import.pdf" = "导入 PDF";
+"media.import.pdf.accessibility" = "导入 PDF 文档";
+"object.pdf.accessibility" = "PDF 页面。";
+"object.pdf.loading" = "加载 PDF...";

@@ -1,6 +1,6 @@
 import Foundation
 
-/// Returns fixed mock suggestions for the V0.1 demo.
+/// Returns fixed mock suggestions for offline/demo use.
 /// Replace with real OCR + LLM service in future versions.
 final class MockSuggestionService: SuggestionService {
 

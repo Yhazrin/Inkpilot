@@ -1,13 +1,15 @@
 import SwiftUI
 import PhotosUI
 
-/// A floating palette for inserting media — now with real image import.
+/// A floating palette for inserting media — images, PDFs, and placeholders.
 struct MediaPalette: View {
     var onInsertPlaceholder: (CanvasObjectType) -> Void
     var onImportImage: (Data, String) -> Void
+    var onImportPDF: (URL) -> Void
     var onClose: () -> Void
 
     @State private var showPhotosPicker = false
+    @State private var showPDFPicker = false
 
     var body: some View {
         GlassCapsule {
@@ -22,13 +24,26 @@ struct MediaPalette: View {
             }
             .accessibilityLabel(Text(String(localized: "media.import.image.accessibility")))
 
+            // PDF import
+            Button {
+                showPDFPicker = true
+            } label: {
+                Label(String(localized: "media.import.pdf"), systemImage: "doc.richtext")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(Brand.inkPrimary)
+                    .frame(height: 44)
+            }
+            .accessibilityLabel(Text(String(localized: "media.import.pdf.accessibility")))
+
+            Divider().frame(height: 20)
+
             // Placeholder image
             Button {
                 onInsertPlaceholder(.image)
             } label: {
                 Label(String(localized: "palette.media.image"), systemImage: "photo")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(Brand.inkPrimary)
+                    .foregroundStyle(Brand.inkSecondary)
                     .frame(height: 44)
             }
             .accessibilityLabel(Text(String(localized: "palette.media.image.accessibility")))
@@ -39,7 +54,7 @@ struct MediaPalette: View {
             } label: {
                 Label(String(localized: "palette.media.file"), systemImage: "doc")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(Brand.inkPrimary)
+                    .foregroundStyle(Brand.inkSecondary)
                     .frame(height: 44)
             }
             .accessibilityLabel(Text(String(localized: "palette.media.file.accessibility")))
@@ -54,17 +69,14 @@ struct MediaPalette: View {
             }
             .accessibilityLabel(Text(String(localized: "palette.close")))
         }
-        .photosPicker(
-            isPresented: $showPhotosPicker,
-            selection: .constant(nil),
-            matching: .images
-        )
-        .onChange(of: showPhotosPicker) { _, isShowing in
-            // PhotosPicker handled via sheet
-        }
         .sheet(isPresented: $showPhotosPicker) {
             PhotoImportSheet { data, name in
                 onImportImage(data, name)
+            }
+        }
+        .sheet(isPresented: $showPDFPicker) {
+            PDFImportPicker(isPresented: $showPDFPicker) { url in
+                onImportPDF(url)
             }
         }
     }

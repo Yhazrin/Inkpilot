@@ -3,7 +3,7 @@ import PencilKit
 
 /// Derives the canvas-space point that "birthed" an AI suggestion.
 ///
-/// V0.1: pure derivation, no OCR. If there is recent ink we return the
+/// Derives a suggestion anchor. If there is recent ink we return the
 /// center of the most recent stroke's render bounds. If the canvas is
 /// empty we return a stable fallback.
 enum SuggestionAnchorResolver {

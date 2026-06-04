@@ -11,6 +11,7 @@ struct CanvasPromptBar: View {
                 get: { viewModel.promptText },
                 set: { viewModel.promptText = $0 }
             ),
+            isThinking: viewModel.isThinking,
             onSubmit: {
                 viewModel.requestSuggestion()
                 viewModel.promptText = ""

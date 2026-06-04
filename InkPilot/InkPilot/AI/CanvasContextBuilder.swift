@@ -36,6 +36,7 @@ enum CanvasContextBuilder {
             case .connector: title = "connector"
             case .mindNode(let label, _): title = label
             case .media(_, let k): title = k.rawValue
+            case .pdfPage: title = "pdf"
             }
             return CanvasObjectSummary(type: obj.content.typeName, title: title)
         }
@@ -74,6 +75,7 @@ private extension CanvasObjectContent {
         case .connector: return "connector"
         case .mindNode: return "mindNode"
         case .media: return "media"
+        case .pdfPage: return "pdfPage"
         }
     }
 }

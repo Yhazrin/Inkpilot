@@ -33,6 +33,7 @@ enum CanvasObjectContent: Codable, Equatable {
     case connector(startID: UUID?, endID: UUID?)
     case mindNode(label: String, parentID: UUID?)
     case media(assetID: String?, mediaKind: MediaKind)
+    case pdfPage(pdfURL: String?, pageIndex: Int)
 }
 
 enum MediaKind: String, Codable {
@@ -43,7 +44,7 @@ enum MediaKind: String, Codable {
 // MARK: - Canvas Object Model
 
 /// The unified model for all objects on the canvas.
-struct CanvasObject: Identifiable, Codable {
+struct CanvasObject: Identifiable, Codable, Equatable {
     var id: UUID
     var content: CanvasObjectContent
     var worldPosition: CGPointCodable

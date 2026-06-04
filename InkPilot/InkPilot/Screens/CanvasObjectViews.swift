@@ -48,6 +48,12 @@ struct CanvasObjectView: View {
                 } else {
                     MediaPlaceholderObjectView(mediaKind: mediaKind)
                 }
+            case .pdfPage(let pdfURL, let pageIndex):
+                if let pdfURL, let url = URL(string: pdfURL) {
+                    PDFCanvasObjectView(pdfURL: url, pageIndex: pageIndex)
+                } else {
+                    MediaPlaceholderObjectView(mediaKind: .file)
+                }
             }
         }
         .overlay {

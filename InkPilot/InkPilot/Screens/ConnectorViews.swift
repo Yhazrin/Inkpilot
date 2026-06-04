@@ -36,6 +36,7 @@ struct DynamicConnectorView: View {
                 )
             }
             .allowsHitTesting(false)
+            .accessibilityHidden(true)
         } else {
             // Fallback: static line if objects not found
             Rectangle()
@@ -110,6 +111,7 @@ struct MindNodeView: View {
             }
             .frame(height: 20)
             .allowsHitTesting(false)
+            .accessibilityHidden(true)
         }
     }
 }
