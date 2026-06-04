@@ -31,6 +31,7 @@ enum CanvasObjectContent: Codable, Equatable {
     case bubble(bubbleText: String)
     case shape(kind: CanvasShapeKind)
     case connector(startID: UUID?, endID: UUID?)
+    case mindNode(label: String, parentID: UUID?)
     case media(assetID: String?, mediaKind: MediaKind)
 }
 

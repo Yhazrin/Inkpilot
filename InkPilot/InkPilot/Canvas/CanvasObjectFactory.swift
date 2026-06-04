@@ -77,6 +77,15 @@ enum CanvasObjectFactory {
         )
     }
 
+    static func mindNode(label: String = "", parentID: UUID? = nil, at position: CGPointCodable = .zero) -> CanvasObject {
+        makeObject(
+            content: .mindNode(label: label, parentID: parentID),
+            position: position,
+            size: CGSizeCodable(width: 160, height: 60),
+            style: .aiDefault
+        )
+    }
+
     static func imagePlaceholder(at position: CGPointCodable = .zero) -> CanvasObject {
         makeObject(
             content: .media(assetID: nil, mediaKind: .image),

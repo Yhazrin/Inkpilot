@@ -59,6 +59,7 @@
 		A10000490000000000000039 /* GuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000490000000000000039; };
 		A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004A000000000000003A; };
 		A100004B000000000000003B /* SelectionModeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004B000000000000003B; };
+		A100004C000000000000003C /* ConnectorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004C000000000000003C; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -116,6 +117,7 @@
 		A20000490000000000000039 /* GuideOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideOverlay.swift; sourceTree = "<group>"; };
 		A200004A000000000000003A /* LassoSelectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoSelectionLayer.swift; sourceTree = "<group>"; };
 		A200004B000000000000003B /* SelectionModeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionModeToggle.swift; sourceTree = "<group>"; };
+		A200004C000000000000003C /* ConnectorViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorViews.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				A20000490000000000000039 /* GuideOverlay.swift */,
 				A200004A000000000000003A /* LassoSelectionLayer.swift */,
 				A200004B000000000000003B /* SelectionModeToggle.swift */,
+				A200004C000000000000003C /* ConnectorViews.swift */,
 				A2000030000000000000001E /* ShapePalette.swift */,
 				A2000031000000000000001F /* MediaPalette.swift */,
 			);
@@ -383,6 +386,7 @@
 				A10000490000000000000039 /* GuideOverlay.swift in Sources */,
 				A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */,
 				A100004B000000000000003B /* SelectionModeToggle.swift in Sources */,
+				A100004C000000000000003C /* ConnectorViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

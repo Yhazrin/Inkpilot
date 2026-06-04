@@ -156,3 +156,8 @@
 /* Selection Mode */
 "selection.marquee" = "Marquee Selection";
 "selection.lasso" = "Lasso Selection";
+
+/* Mind Map */
+"palette.mindNode" = "Mind Map Node";
+"object.mindNode.placeholder" = "New Idea";
+"object.mindNode.accessibility" = "Mind map node.";

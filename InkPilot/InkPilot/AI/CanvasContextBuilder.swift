@@ -71,6 +71,7 @@ private extension CanvasObjectContent {
         case .bubble: return "bubble"
         case .shape: return "shape"
         case .connector: return "connector"
+        case .mindNode: return "mindNode"
         case .media: return "media"
         }
     }

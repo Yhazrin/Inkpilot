@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// A floating palette for selecting shape types.
+/// A floating palette for selecting shape types and mind map nodes.
 struct ShapePalette: View {
     var onSelect: (CanvasShapeKind) -> Void
+    var onMindNode: () -> Void
     var onClose: () -> Void
 
     private let shapes: [(CanvasShapeKind, String, String)] = [
@@ -27,6 +28,19 @@ struct ShapePalette: View {
                 }
                 .accessibilityLabel(Text(LocalizedStringKey(labelKey)))
             }
+
+            Divider().frame(height: 20)
+
+            // Mind map node
+            Button {
+                onMindNode()
+            } label: {
+                Image(systemName: "bubble.left.and.text.bubble.right")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Brand.aiBadge)
+                    .frame(width: 44, height: 44)
+            }
+            .accessibilityLabel(Text(String(localized: "palette.mindNode")))
 
             Divider().frame(height: 20)
 

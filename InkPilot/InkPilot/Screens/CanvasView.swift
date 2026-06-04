@@ -181,6 +181,13 @@ struct CanvasView: View {
                             viewModel.addObject(obj)
                             viewModel.isShapePaletteVisible = false
                         },
+                        onMindNode: {
+                            let obj = CanvasObjectFactory.mindNode(
+                                at: viewModel.defaultInsertionPoint
+                            )
+                            viewModel.addObject(obj)
+                            viewModel.isShapePaletteVisible = false
+                        },
                         onClose: { viewModel.isShapePaletteVisible = false }
                     )
                     .transition(.move(edge: .top).combined(with: .opacity))

@@ -156,3 +156,8 @@
 /* 选择模式 */
 "selection.marquee" = "矩形选择";
 "selection.lasso" = "套索选择";
+
+/* 思维导图 */
+"palette.mindNode" = "思维导图节点";
+"object.mindNode.placeholder" = "新想法";
+"object.mindNode.accessibility" = "思维导图节点。";

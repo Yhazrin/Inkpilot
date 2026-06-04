@@ -6,6 +6,7 @@ struct CanvasObjectView: View {
     let isSelected: Bool
     let isEditing: Bool
     var isDragging: Bool = false
+    var allObjects: [CanvasObject] = []
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
     var onResize: ((CGSize) -> Void)?
@@ -34,7 +35,12 @@ struct CanvasObjectView: View {
             case .shape(let kind):
                 ShapeObjectView(kind: kind)
             case .connector(let startID, let endID):
-                ConnectorObjectView(startID: startID, endID: endID)
+                DynamicConnectorView(
+                    startID: startID, endID: endID,
+                    allObjects: allObjects
+                )
+            case .mindNode(let label, let parentID):
+                MindNodeView(label: label, parentID: parentID, allObjects: allObjects)
             case .media(_, let mediaKind):
                 MediaPlaceholderObjectView(mediaKind: mediaKind)
             }
@@ -118,20 +124,6 @@ private struct ShapeObjectView: View {
             p.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
             return p
         }
-    }
-}
-
-// MARK: - Connector
-
-private struct ConnectorObjectView: View {
-    let startID: UUID?
-    let endID: UUID?
-
-    var body: some View {
-        Rectangle()
-            .fill(Brand.inkPrimary.opacity(0.4))
-            .frame(height: 2)
-            .accessibilityLabel(Text(String(localized: "object.connector.accessibility")))
     }
 }
 
