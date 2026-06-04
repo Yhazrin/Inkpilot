@@ -72,8 +72,12 @@ enum CanvasExporter {
             drawStickyNote(text: text, in: rect, context: context, scale: scale)
         case .bubble(let text):
             drawTextCard(title: text, body: "", in: rect, context: context, scale: scale)
-        default:
-            break
+        case .shape(let kind):
+            drawShape(kind: kind, in: rect, context: context)
+        case .connector:
+            drawConnector(in: rect, context: context)
+        case .media:
+            drawMediaPlaceholder(in: rect, context: context, scale: scale)
         }
     }
 
@@ -108,6 +112,46 @@ enum CanvasExporter {
             )
             (body as NSString).draw(in: bodyRect, withAttributes: bodyAttrs)
         }
+    }
+
+    private static func drawShape(kind: CanvasShapeKind, in rect: CGRect, context: CGContext) {
+        context.setStrokeColor(UIColor.darkGray.cgColor)
+        context.setLineWidth(2)
+        let path: UIBezierPath
+        switch kind {
+        case .rectangle: path = UIBezierPath(rect: rect)
+        case .roundedRectangle: path = UIBezierPath(roundedRect: rect, cornerRadius: 8)
+        case .ellipse: path = UIBezierPath(ovalIn: rect)
+        case .diamond:
+            path = UIBezierPath()
+            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+            path.close()
+        case .arrow, .line:
+            path = UIBezierPath()
+            path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        }
+        path.stroke()
+    }
+
+    private static func drawConnector(in rect: CGRect, context: CGContext) {
+        context.setStrokeColor(UIColor.gray.cgColor)
+        context.setLineWidth(1.5)
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        path.stroke()
+    }
+
+    private static func drawMediaPlaceholder(in rect: CGRect, context: CGContext, scale: CGFloat) {
+        context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 6 * scale)
+        path.fill()
+        context.setStrokeColor(UIColor.lightGray.cgColor)
+        path.stroke()
     }
 
     private static func drawStickyNote(text: String, in rect: CGRect, context: CGContext, scale: CGFloat) {
