@@ -1,3 +1,4 @@
+import Photos
 import SwiftUI
 import PencilKit
 
@@ -121,5 +122,3 @@ enum CanvasExporter {
         (text as NSString).draw(in: rect.insetBy(dx: 8 * scale, dy: 8 * scale), withAttributes: attrs)
     }
 }
-
-import Photos
