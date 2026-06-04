@@ -1,49 +1,102 @@
 import SwiftUI
 
 /// The main canvas screen — InkPilot's core product surface.
+///
+/// Layer order (bottom → top):
+///   1. ColorBlockBackground
+///   2. PencilKitCanvasRepresentable
+///   3. CanvasMotionLayer
+///   4. CanvasObjectLayer
+///   5. Floating chrome (toolbar, palettes, prompt, AI panel)
+///   6. GhostSuggestionCard (anchor-anchored)
 struct CanvasView: View {
     @State private var viewModel = CanvasViewModel()
+    @State private var materializationCount: Int = 0
 
     var body: some View {
         ZStack {
-            // Layer 1: Spatial background
+            // 1. Background
             ColorBlockBackground()
 
-            // Layer 2: PencilKit drawing
+            // 2. PencilKit drawing
             PencilKitCanvasRepresentable(
                 drawing: $viewModel.drawing,
                 tool: viewModel.selectedTool
             )
             .ignoresSafeArea()
-            .allowsHitTesting(viewModel.selectedTool == .pen || viewModel.selectedTool == .eraser)
+            .allowsHitTesting(
+                viewModel.selectedTool == .pen || viewModel.selectedTool == .eraser
+            )
 
-            // Layer 3: Canvas objects
+            // 3. Non-interactive motion effects
+            CanvasMotionLayer(
+                anchor: viewModel.suggestionAnchor?.cgPoint,
+                isThinking: viewModel.isThinking,
+                hasGhost: viewModel.ghostSuggestion != nil,
+                materializationCount: materializationCount
+            )
+
+            // 4. Canvas objects (above motion, below chrome)
             CanvasObjectLayer(
                 objects: viewModel.canvasObjects,
                 selectedID: viewModel.selectedObjectID,
                 isSelectToolActive: viewModel.selectedTool == .select,
+                sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
                 onSelect: { viewModel.selectObject($0) },
                 onMove: { id, pos in viewModel.moveObject(id: id, to: pos) }
             )
 
-            // Layer 4: Floating chrome
+            // 5. Floating chrome
             floatingChrome
+
+            // 6. Ghost suggestion (anchor-anchored, not centered)
+            if let suggestion = viewModel.ghostSuggestion,
+               let anchor = viewModel.suggestionAnchor?.cgPoint {
+                GhostSuggestionCard(
+                    suggestion: suggestion,
+                    anchor: anchor,
+                    target: ghostTarget(for: anchor),
+                    onAccept: { viewModel.acceptSuggestion() },
+                    onDismiss: { viewModel.dismissSuggestion() }
+                )
+            }
         }
         .navigationBarHidden(true)
+        .onChange(of: viewModel.ghostSuggestion) { _, newValue in
+            if newValue == nil {
+                let delay = MotionTokens.anchorExitDelay
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+                    if viewModel.ghostSuggestion == nil {
+                        viewModel.suggestionAnchor = nil
+                    }
+                }
+            }
+        }
+        .onChange(of: viewModel.canvasObjects.count) { _, newCount in
+            materializationCount = newCount
+            let delay = MotionTokens.anchorMaterializeDelay
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+                viewModel.suggestionAnchor = nil
+            }
+        }
     }
 
-    // MARK: - Floating Chrome Layer
+    // MARK: - Floating Chrome
 
     private var floatingChrome: some View {
         VStack {
-            // Top: Toolbar + secondary palettes
             VStack(spacing: Brand.spacingS) {
                 CanvasToolbar(viewModel: viewModel)
 
                 if viewModel.isShapePaletteVisible {
                     ShapePalette(
                         onSelect: { kind in
-                            let obj = CanvasObjectFactory.shape(kind: kind, at: CGPointCodable(x: 500, y: 400))
+                            let obj = CanvasObjectFactory.shape(
+                                kind: kind,
+                                at: viewModel.defaultInsertionPoint
+                            )
                             viewModel.addObject(obj)
                             viewModel.isShapePaletteVisible = false
                         },
@@ -56,8 +109,8 @@ struct CanvasView: View {
                     MediaPalette(
                         onSelect: { type in
                             let obj: CanvasObject = type == .image
-                                ? CanvasObjectFactory.imagePlaceholder(at: CGPointCodable(x: 500, y: 400))
-                                : CanvasObjectFactory.filePlaceholder(at: CGPointCodable(x: 500, y: 400))
+                                ? CanvasObjectFactory.imagePlaceholder(at: viewModel.defaultInsertionPoint)
+                                : CanvasObjectFactory.filePlaceholder(at: viewModel.defaultInsertionPoint)
                             viewModel.addObject(obj)
                             viewModel.isMediaPaletteVisible = false
                         },
@@ -72,7 +125,6 @@ struct CanvasView: View {
 
             Spacer()
 
-            // Bottom: Prompt capsule + object action bar
             VStack(spacing: Brand.spacingS) {
                 if viewModel.selectedObjectID != nil {
                     ObjectActionBar(
@@ -93,17 +145,12 @@ struct CanvasView: View {
                 .padding(.trailing, Brand.spacingL)
                 .padding(.bottom, 100)
         }
-        .overlay {
-            if let suggestion = viewModel.ghostSuggestion {
-                GhostSuggestionCard(
-                    suggestion: suggestion,
-                    onAccept: { viewModel.acceptSuggestion() },
-                    onDismiss: { viewModel.dismissSuggestion() }
-                )
-                .frame(maxWidth: 380)
-                .padding(.horizontal, Brand.spacingXL)
-            }
-        }
+    }
+
+    // MARK: - Ghost placement
+
+    private func ghostTarget(for anchor: CGPoint) -> CGPoint {
+        CGPoint(x: anchor.x + 220, y: anchor.y + 40)
     }
 }
 
@@ -117,23 +164,19 @@ private struct ObjectActionBar: View {
     var body: some View {
         GlassCapsule {
             Button(action: onDuplicate) {
-                Image(systemName: "plus.square.on.square")
-                    .frame(width: 44, height: 44)
+                Image(systemName: "plus.square.on.square").frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text(String(localized: "action.duplicate")))
 
             Button(action: onDelete) {
-                Image(systemName: "trash")
-                    .frame(width: 44, height: 44)
-                    .foregroundStyle(.red)
+                Image(systemName: "trash").frame(width: 44, height: 44).foregroundStyle(.red)
             }
             .accessibilityLabel(Text(String(localized: "action.delete")))
 
             Divider().frame(height: 20)
 
             Button(action: onDeselect) {
-                Image(systemName: "xmark.circle")
-                    .frame(width: 44, height: 44)
+                Image(systemName: "xmark.circle").frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text(String(localized: "action.deselect")))
         }

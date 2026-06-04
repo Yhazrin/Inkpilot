@@ -18,6 +18,8 @@ final class CanvasViewModel {
     // MARK: - AI Suggestion State
 
     var ghostSuggestion: GhostSuggestion?
+    var isThinking: Bool = false
+    var suggestionAnchor: CGPointCodable?
 
     // MARK: - AI Panel State
 
@@ -40,35 +42,69 @@ final class CanvasViewModel {
         self.suggestionService = suggestionService
     }
 
+    // MARK: - Computed
+
+    /// Default insertion point for new objects: uses suggestion anchor
+    /// if available, otherwise a sensible canvas center.
+    var defaultInsertionPoint: CGPointCodable {
+        if let anchor = suggestionAnchor {
+            return CGPointCodable(x: anchor.x + 100, y: anchor.y)
+        }
+        return CGPointCodable(x: 520, y: 360)
+    }
+
     // MARK: - AI Actions
 
     func requestSuggestion() {
+        let anchor = SuggestionAnchorResolver.resolve(
+            drawing: drawing,
+            fallback: SuggestionAnchorResolver.defaultFallback
+        )
+        withAnimation(.easeInOut(duration: 0.25)) {
+            isThinking = true
+            suggestionAnchor = CGPointCodable(x: anchor.x, y: anchor.y)
+        }
+
         let context = CanvasContextBuilder.build(from: drawing)
+
         Task { @MainActor in
             do {
                 let response = try await suggestionService.generateSuggestion(context: context)
                 withAnimation(.easeInOut(duration: 0.4)) {
                     ghostSuggestion = GhostSuggestion(response: response)
+                    isThinking = false
                 }
-            } catch { }
+            } catch {
+                withAnimation(.easeOut(duration: 0.2)) {
+                    isThinking = false
+                }
+            }
         }
     }
 
     func acceptSuggestion() {
         guard let suggestion = ghostSuggestion else { return }
-        let baseX: CGFloat = 400
-        let baseY: CGFloat = 300
-        let spacing: CGFloat = 140
+        let anchorPoint = suggestionAnchor?.cgPoint
+            ?? SuggestionAnchorResolver.defaultFallback
+
+        let columnOrigin = CGPoint(
+            x: anchorPoint.x + 60,
+            y: anchorPoint.y - 80
+        )
+        let cardSpacing: CGFloat = 150
 
         let newObjects = suggestion.response.items.enumerated().map { index, item in
             CanvasObjectFactory.aiCard(
                 from: item,
-                position: CGPointCodable(x: baseX, y: baseY + CGFloat(index) * spacing)
+                position: CGPointCodable(
+                    x: columnOrigin.x,
+                    y: columnOrigin.y + CGFloat(index) * cardSpacing
+                )
             )
         }
-        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+        withAnimation(.spring(response: 0.55, dampingFraction: 0.9)) {
             canvasObjects.append(contentsOf: newObjects)
-            dismissSuggestion()
+            ghostSuggestion = nil
         }
     }
 
@@ -112,8 +148,6 @@ final class CanvasViewModel {
             selectedObjectID = copy.id
         }
     }
-
-    // MARK: - Object Creation (from palettes)
 
     func addObject(_ object: CanvasObject) {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {

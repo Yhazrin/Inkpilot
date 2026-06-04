@@ -1,0 +1,46 @@
+import SwiftUI
+
+/// InkPilot's canonical semantic motion vocabulary.
+/// Each preset is named for what it expresses, not the curve it uses.
+enum MotionTokens {
+
+    // MARK: - Semantic presets
+
+    static let scan: Animation = .easeInOut(duration: 1.6)
+    static let scanDuration: TimeInterval = 1.6
+    static let emerge: Animation = .spring(response: 0.46, dampingFraction: 0.92)
+    static let materialize: Animation = .spring(response: 0.58, dampingFraction: 0.94)
+    static let settle: Animation = .spring(response: 0.48, dampingFraction: 0.96)
+    static let morph: Animation = .spring(response: 0.5, dampingFraction: 0.94)
+
+    // MARK: - Stagger & cadence
+
+    static let cardStagger: Double = 0.07
+    static let anchorExitDelay: TimeInterval = 0.6
+    static let anchorMaterializeDelay: TimeInterval = 0.9
+
+    // MARK: - Reduce Motion helpers
+
+    static func respecting(_ base: Animation, reduceMotion: Bool) -> Animation {
+        reduceMotion ? .linear(duration: 0.01) : base
+    }
+}
+
+// MARK: - Transition modifiers
+
+/// Materialize: at progress 0 the view sits at the source anchor;
+/// at progress 1 it rests at its world position.
+struct MaterializeModifier: ViewModifier {
+    let progress: CGFloat
+    let travel: CGSize
+
+    func body(content: Content) -> some View {
+        content
+            .opacity(Double(progress))
+            .scaleEffect(0.9 + 0.1 * Double(progress))
+            .offset(
+                x: (1 - Double(progress)) * travel.width,
+                y: (1 - Double(progress)) * travel.height
+            )
+    }
+}
