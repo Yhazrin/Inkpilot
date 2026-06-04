@@ -48,10 +48,7 @@ struct FloatingToolbar: View {
                 .frame(height: 20)
 
             Button(action: onAITap) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Brand.aiAccent)
-                    .frame(width: 44, height: 44)
+                AIToolButton()
             }
             .accessibilityLabel(Text(String(localized: "tool.ai")))
         }
@@ -133,6 +130,26 @@ struct FloatingToolbar: View {
                 }
         }
         .accessibilityLabel(Text(label))
+    }
+}
+
+// MARK: - AI Tool Button with subtle pulse
+
+private struct AIToolButton: View {
+    @State private var isPulsing = false
+
+    var body: some View {
+        Image(systemName: "sparkles")
+            .font(.system(size: 16, weight: .medium))
+            .foregroundStyle(Brand.aiAccent)
+            .frame(width: 44, height: 44)
+            .scaleEffect(isPulsing ? 1.08 : 1.0)
+            .opacity(isPulsing ? 1.0 : 0.85)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
+                    isPulsing = true
+                }
+            }
     }
 }
 
