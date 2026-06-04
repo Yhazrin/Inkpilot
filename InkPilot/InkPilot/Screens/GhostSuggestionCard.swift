@@ -1,8 +1,55 @@
 import SwiftUI
 
 /// A semi-transparent ghost card showing an AI suggestion.
-/// Appears near recent handwriting with Accept / Dismiss actions.
+///
+/// Rather than a centered popover, this card *emerges from* the
+/// `suggestionAnchor` — the canvas-space point that "birthed" the
+/// suggestion. The card is offset from the anchor toward a calmer
+/// position so it doesn't sit on top of the ink, but it visibly
+/// travels from there on appearance.
 struct GhostSuggestionCard: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    let suggestion: GhostSuggestion
+    /// Canvas-space point the card should appear from.
+    let anchor: CGPoint
+    /// Final position of the card (in canvas coordinates).
+    let target: CGPoint
+    var onAccept: () -> Void
+    var onDismiss: () -> Void
+
+    /// Vector the card travels during the emerge animation.
+    /// Sign: from `target` back to `anchor`. We invert it at use sites
+    /// so the modifier expects "how far to be from origin at progress 0".
+    private var travel: CGSize {
+        CGSize(
+            width: anchor.x - target.x,
+            height: anchor.y - target.y
+        )
+    }
+
+    var body: some View {
+        GhostCardBody(
+            suggestion: suggestion,
+            onAccept: onAccept,
+            onDismiss: onDismiss
+        )
+        .frame(maxWidth: 380)
+        .position(target)
+        .modifier(GhostEmergeModifier(
+            progress: reduceMotion ? 1 : 1,
+            travel: travel
+        ))
+        .animation(
+            SemanticMotion.respecting(SemanticMotion.emerge, reduceMotion: reduceMotion),
+            value: suggestion.id
+        )
+    }
+}
+
+/// The visible card body, extracted so the emerge modifier only wraps
+/// the *positioned* card (not its internal layout).
+private struct GhostCardBody: View {
     let suggestion: GhostSuggestion
     var onAccept: () -> Void
     var onDismiss: () -> Void
@@ -15,7 +62,7 @@ struct GhostSuggestionCard: View {
                 actionButtons
             }
         }
-        .opacity(0.85)
+        .opacity(0.92)
         .overlay {
             RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
                 .strokeBorder(Brand.aiGlow, lineWidth: 1)

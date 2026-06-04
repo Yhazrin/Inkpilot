@@ -36,6 +36,9 @@
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
+		A10000360000000000000026 /* SemanticMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000360000000000000026; };
+		A10000370000000000000027 /* CanvasMotionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000370000000000000027; };
+		A10000380000000000000028 /* SuggestionAnchorResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000380000000000000028; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,9 @@
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20000310000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A20000320000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A20000360000000000000026 /* SemanticMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticMotion.swift; sourceTree = "<group>"; };
+		A20000370000000000000027 /* CanvasMotionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasMotionLayer.swift; sourceTree = "<group>"; };
+		A20000380000000000000028 /* SuggestionAnchorResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAnchorResolver.swift; sourceTree = "<group>"; };
 		A30000010000000000000001 /* InkPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InkPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -113,6 +119,7 @@
 				A20000060000000000000006 /* FloatingPanel.swift */,
 				A20000070000000000000007 /* AIBadge.swift */,
 				A20000090000000000000009 /* FloatingPromptCapsule.swift */,
+				A20000360000000000000026 /* SemanticMotion.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -124,6 +131,8 @@
 				A2000011000000000000000B /* CanvasViewModel.swift */,
 				A2000012000000000000000C /* CanvasModels.swift */,
 				A20000240000000000000018 /* CanvasTool.swift */,
+				A20000370000000000000027 /* CanvasMotionLayer.swift */,
+				A20000380000000000000028 /* SuggestionAnchorResolver.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -279,6 +288,9 @@
 				A10000240000000000000018 /* CanvasTool.swift in Sources */,
 				A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */,
 				A1000026000000000000001A /* AcceptedCardsOverlay.swift in Sources */,
+				A10000360000000000000026 /* SemanticMotion.swift in Sources */,
+				A10000370000000000000027 /* CanvasMotionLayer.swift in Sources */,
+				A10000380000000000000028 /* SuggestionAnchorResolver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

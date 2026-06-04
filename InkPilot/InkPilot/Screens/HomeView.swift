@@ -20,6 +20,17 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $showCanvas) {
             CanvasView()
         }
+        #if DEBUG
+        // Debug-only: launching with `-autoCanvas 1` skips the home
+        // screen and shows the canvas immediately. Used for screenshot /
+        // motion-language verification, not part of the V0.1 user flow.
+        .onAppear {
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("-autoCanvas") || args.contains("-autoCanvas 1") {
+                showCanvas = true
+            }
+        }
+        #endif
     }
 
     // MARK: - Hero Card
