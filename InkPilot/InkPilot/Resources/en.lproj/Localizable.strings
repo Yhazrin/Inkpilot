@@ -13,6 +13,7 @@
 "tool.eraser" = "Eraser";
 "tool.ai" = "AI Suggest";
 "tool.connector" = "Connector";
+"tool.connector.hint" = "Tap two objects to connect them";
 
 /* Canvas Prompt */
 "canvas.prompt.placeholder" = "Ask AI about this canvas...";

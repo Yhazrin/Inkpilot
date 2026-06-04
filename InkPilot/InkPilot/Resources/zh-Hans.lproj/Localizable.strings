@@ -13,6 +13,7 @@
 "tool.eraser" = "橡皮擦";
 "tool.ai" = "AI 建议";
 "tool.connector" = "连接";
+"tool.connector.hint" = "点击两个对象以连接它们";
 
 /* 画布提示 */
 "canvas.prompt.placeholder" = "询问当前画布...";

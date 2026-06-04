@@ -84,7 +84,12 @@ struct CanvasView: View {
                 selectionLayer
             }
 
-            // 7. Floating chrome
+            // 7. Tool mode hint
+            if viewModel.selectedTool == .connector {
+                toolModeHint(String(localized: "tool.connector.hint"))
+            }
+
+            // 8. Floating chrome
             CanvasFloatingChrome(
                 viewModel: viewModel,
                 onDismiss: { dismiss() },
@@ -174,6 +179,20 @@ struct CanvasView: View {
             return worldRect.intersects(objRect)
         }.map(\.id)
         if !ids.isEmpty { viewModel.selection.selectObjects(Set(ids)) }
+    }
+
+    // MARK: - Tool Mode Hint
+
+    private func toolModeHint(_ text: String) -> some View {
+        Text(text)
+            .font(Brand.captionFont)
+            .foregroundStyle(Brand.inkTertiary)
+            .padding(.horizontal, Brand.spacingM)
+            .padding(.vertical, Brand.spacingS)
+            .background(Capsule().fill(.ultraThinMaterial))
+            .allowsHitTesting(false)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .padding(.bottom, 100)
     }
 
     // MARK: - Empty Canvas Hint
