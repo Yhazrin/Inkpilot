@@ -62,7 +62,7 @@ struct HomeView: View {
                     .padding(.vertical, Brand.spacingM)
                     .background {
                         Capsule()
-                            .fill(Brand.aiBadge)
+                            .fill(Brand.aiAccent)
                     }
                 }
                 .accessibilityLabel(Text(String(localized: "home.newCanvas.accessibility")))

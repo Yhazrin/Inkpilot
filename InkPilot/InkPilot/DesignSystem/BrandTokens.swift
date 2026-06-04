@@ -3,33 +3,47 @@ import SwiftUI
 // MARK: - Brand Tokens
 
 /// Central design tokens for the InkPilot visual system.
+/// Pure black & white brand identity (Codex / OpenAI style).
+/// Color is reserved for system state only — never decoration.
 enum Brand {
 
-    // MARK: Colors
+    // MARK: Surfaces
 
-    /// Warm off-white base for the canvas background.
-    static let canvasBase = Color(red: 0.97, green: 0.96, blue: 0.94)
+    /// Pure white canvas base.
+    static let canvasBase = Color.white
 
-    /// Soft blue-violet accent block.
-    static let accentViolet = Color(red: 0.78, green: 0.76, blue: 0.95).opacity(0.35)
+    /// Slightly off-white for soft surface variation.
+    static let surfaceMuted = Color(white: 0.97)
 
-    /// Mint green accent block.
-    static let accentMint = Color(red: 0.72, green: 0.92, blue: 0.85).opacity(0.30)
+    /// Near-black inverted surface (for dark panels / contrast moments).
+    static let surfaceDark = Color(white: 0.08)
 
-    /// Warm peach accent block.
-    static let accentPeach = Color(red: 0.98, green: 0.82, blue: 0.74).opacity(0.30)
+    // MARK: Ink
 
-    /// Near-black ink with slight warmth.
-    static let inkPrimary = Color(red: 0.12, green: 0.11, blue: 0.13)
+    /// Primary text and strokes — near-black.
+    static let inkPrimary = Color(white: 0.08)
 
-    /// Secondary ink, lighter.
-    static let inkSecondary = Color(red: 0.40, green: 0.38, blue: 0.42)
+    /// Secondary text and subdued icons.
+    static let inkSecondary = Color(white: 0.42)
 
-    /// AI-tinted pale blue for ghost/overlay.
-    static let aiGlow = Color(red: 0.60, green: 0.70, blue: 0.95).opacity(0.25)
+    /// Tertiary text — used for placeholders and very low emphasis.
+    static let inkTertiary = Color(white: 0.62)
 
-    /// AI badge accent.
-    static let aiBadge = Color(red: 0.55, green: 0.65, blue: 0.95)
+    /// Inverse text — for use on dark surfaces.
+    static let inkInverse = Color.white
+
+    // MARK: AI Accent (monochrome)
+
+    /// Solid black for AI emphasis (badges, CTAs, selection borders).
+    static let aiAccent = Color(white: 0.08)
+
+    /// Soft black for AI radial auras and subtle background tints.
+    static let aiHalo = Color(white: 0.08).opacity(0.30)
+
+    /// Black outline at low opacity — used for ghost / pending states.
+    static let aiOutline = Color(white: 0.08).opacity(0.18)
+
+    // MARK: Glass
 
     /// Glass border highlight.
     static let glassBorder = Color.white.opacity(0.45)

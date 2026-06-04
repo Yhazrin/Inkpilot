@@ -38,7 +38,7 @@ final class CanvasViewModel {
 
     private let suggestionService: SuggestionService
 
-    init(suggestionService: SuggestionService = MockSuggestionService()) {
+    init(suggestionService: SuggestionService = NetworkSuggestionService()) {
         self.suggestionService = suggestionService
     }
 

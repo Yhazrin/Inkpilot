@@ -79,7 +79,7 @@ struct AIPilotPanel: View {
     private func suggestionRow(_ text: String) -> some View {
         HStack(spacing: Brand.spacingS) {
             Circle()
-                .fill(Brand.aiBadge.opacity(0.3))
+                .fill(Brand.aiAccent.opacity(0.3))
                 .frame(width: 6, height: 6)
             Text(text)
                 .font(Brand.bodyFont)
