@@ -101,6 +101,21 @@ struct CanvasView: View {
             }
         }
         .navigationBarHidden(true)
+        // Keyboard shortcuts for iPad + Magic Keyboard
+        .background {
+            VStack {
+                Button("") { viewModel.undo() }
+                    .keyboardShortcut("z", modifiers: .command)
+                Button("") { viewModel.redo() }
+                    .keyboardShortcut("z", modifiers: [.command, .shift])
+                Button("") { viewModel.deleteSelected() }
+                    .keyboardShortcut(.delete, modifiers: [])
+                Button("") { viewModel.duplicateSelected() }
+                    .keyboardShortcut("d", modifiers: .command)
+            }
+            .frame(width: 0, height: 0)
+            .opacity(0)
+        }
         .sheet(isPresented: $showExportSheet) {
             if let exportURL { ShareSheet(items: [exportURL]) }
         }
