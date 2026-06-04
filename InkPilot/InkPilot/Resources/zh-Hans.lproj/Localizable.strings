@@ -56,6 +56,7 @@
 
 /* AI 思考中 */
 "canvas.ai.thinking" = "正在理解画布...";
+"canvas.empty.hint" = "在任意位置开始书写。\nInkPilot 会预测你的下一步想法。";
 
 /* 新工具 */
 "tool.select" = "选择";

@@ -28,7 +28,12 @@ struct CanvasView: View {
             .ignoresSafeArea()
             .onChange(of: viewModel.drawing) { _, _ in viewModel.autoSave() }
 
-            // 3. Motion effects
+            // 3. Empty canvas hint
+            if viewModel.drawing.strokes.isEmpty && viewModel.canvasObjects.isEmpty {
+                emptyCanvasHint
+            }
+
+            // 4. Motion effects
             CanvasMotionLayer(
                 anchor: viewModel.suggestionAnchor.map { viewModel.worldToScreen($0.cgPoint) },
                 isThinking: viewModel.isThinking,
@@ -169,6 +174,25 @@ struct CanvasView: View {
             return worldRect.intersects(objRect)
         }.map(\.id)
         if !ids.isEmpty { viewModel.selection.selectObjects(Set(ids)) }
+    }
+
+    // MARK: - Empty Canvas Hint
+
+    private var emptyCanvasHint: some View {
+        VStack(spacing: Brand.spacingM) {
+            Image(systemName: "pencil.and.outline")
+                .font(.system(size: 36))
+                .foregroundStyle(Brand.inkTertiary)
+
+            Text(String(localized: "canvas.empty.hint"))
+                .font(Brand.titleFont)
+                .foregroundStyle(Brand.inkTertiary)
+                .multilineTextAlignment(.center)
+        }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+        .transition(.opacity)
+        .animation(.easeOut(duration: 0.5), value: viewModel.drawing.strokes.isEmpty)
     }
 }
 

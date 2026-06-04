@@ -56,6 +56,7 @@
 
 /* AI Thinking */
 "canvas.ai.thinking" = "Reading the canvas...";
+"canvas.empty.hint" = "Start writing anywhere.\nInkPilot will suggest the next step.";
 
 /* New Tools */
 "tool.select" = "Select";
