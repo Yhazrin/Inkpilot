@@ -15,6 +15,7 @@
 "tool.connector" = "Connector";
 "tool.connector.hint" = "Tap two objects to connect them";
 "tool.text.hint" = "Tap canvas to insert a text box";
+"tool.media.hint" = "Open media palette to import images or PDFs";
 
 /* Canvas Prompt */
 "canvas.prompt.placeholder" = "Ask AI about this canvas...";

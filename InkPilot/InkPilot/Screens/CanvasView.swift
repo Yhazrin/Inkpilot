@@ -99,6 +99,8 @@ struct CanvasView: View {
                 toolModeHint(String(localized: "tool.connector.hint"))
             } else if viewModel.selectedTool == .text {
                 toolModeHint(String(localized: "tool.text.hint"))
+            } else if viewModel.selectedTool == .media {
+                toolModeHint(String(localized: "tool.media.hint"))
             }
 
             // 8. Floating chrome
