@@ -6,6 +6,7 @@ struct CanvasObjectView: View {
     let isSelected: Bool
     let isEditing: Bool
     var isDragging: Bool = false
+    var isConnectorStart: Bool = false
     var allObjects: [CanvasObject] = []
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
@@ -62,6 +63,11 @@ struct CanvasObjectView: View {
                 if let onResize, !isDragging {
                     ResizeHandles(objectSize: object.size.cgSize, onResize: onResize)
                 }
+            }
+            if isConnectorStart {
+                RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
+                    .strokeBorder(Brand.aiBadge.opacity(0.5), lineWidth: 1.5)
+                    .scaleEffect(1.05)
             }
         }
         .opacity(isDragging ? 0.92 : 1.0)

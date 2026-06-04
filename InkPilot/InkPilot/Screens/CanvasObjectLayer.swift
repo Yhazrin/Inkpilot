@@ -45,6 +45,7 @@ struct CanvasObjectLayer: View {
                     isSelected: isSelected,
                     isEditing: isEditing,
                     isDragging: isDraggingMulti && selectedIDs.contains(object.id),
+                    isConnectorStart: object.id == connectorStartID,
                     allObjects: objects,
                     onTextChange: { newText in onTextChange(object.id, newText) },
                     onEndEditing: onEndEditing,
