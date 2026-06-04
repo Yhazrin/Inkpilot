@@ -8,5 +8,4 @@ enum CanvasTool: String, CaseIterable {
     case text
     case shape
     case media
-    case lasso
 }

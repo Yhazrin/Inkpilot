@@ -3,73 +3,92 @@ import Foundation
 /// Factory methods for creating canvas objects with sensible defaults.
 enum CanvasObjectFactory {
 
-    static func aiCard(from item: AISuggestionItem, position: CGPointCodable) -> CanvasObject {
-        CanvasObject(
-            id: item.id,
-            type: .aiCard,
-            title: item.title,
-            body: item.content,
+    private static func makeObject(
+        content: CanvasObjectContent,
+        position: CGPointCodable,
+        size: CGSizeCodable,
+        source: CanvasObjectSource = .user,
+        style: CanvasObjectStyle = .default
+    ) -> CanvasObject {
+        let now = Date()
+        return CanvasObject(
+            id: UUID(),
+            content: content,
             worldPosition: position,
+            size: size,
+            rotation: 0,
+            zIndex: 0,
+            source: source,
+            style: style,
+            createdAt: now,
+            updatedAt: now
+        )
+    }
+
+    static func aiCard(from item: AISuggestionItem, position: CGPointCodable) -> CanvasObject {
+        makeObject(
+            content: .aiCard(title: item.title, body: item.content),
+            position: position,
             size: CGSizeCodable.defaultCard,
             source: .ai,
-            style: .aiDefault,
-            shapeKind: nil
+            style: .aiDefault
         )
     }
 
     static func textBox(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .textBox, title: title, body: body,
-            worldPosition: position, size: CGSizeCodable.defaultTextBox,
-            source: .user, style: .default, shapeKind: nil
+        makeObject(
+            content: .text(editableText: body.isEmpty ? title : body),
+            position: position,
+            size: CGSizeCodable.defaultTextBox
         )
     }
 
     static func stickyNote(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .stickyNote, title: title, body: body,
-            worldPosition: position, size: CGSizeCodable.defaultSticky,
-            source: .user, style: .stickyYellow, shapeKind: nil
+        makeObject(
+            content: .stickyNote(noteText: body.isEmpty ? title : body),
+            position: position,
+            size: CGSizeCodable.defaultSticky,
+            style: .stickyYellow
         )
     }
 
     static func bubble(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .bubble, title: title, body: body,
-            worldPosition: position, size: CGSizeCodable.defaultBubble,
-            source: .user, style: .default, shapeKind: nil
+        makeObject(
+            content: .bubble(bubbleText: body.isEmpty ? title : body),
+            position: position,
+            size: CGSizeCodable.defaultBubble
         )
     }
 
     static func shape(kind: CanvasShapeKind, at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .shape, title: "", body: "",
-            worldPosition: position, size: CGSizeCodable.defaultShape,
-            source: .user, style: .default, shapeKind: kind
+        makeObject(
+            content: .shape(kind: kind),
+            position: position,
+            size: CGSizeCodable.defaultShape
         )
     }
 
-    static func connector(at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .connector, title: "", body: "",
-            worldPosition: position, size: CGSizeCodable(width: 200, height: 4),
-            source: .user, style: .default, shapeKind: nil
+    static func connector(startID: UUID? = nil, endID: UUID? = nil, at position: CGPointCodable = .zero) -> CanvasObject {
+        makeObject(
+            content: .connector(startID: startID, endID: endID),
+            position: position,
+            size: CGSizeCodable(width: 200, height: 4)
         )
     }
 
     static func imagePlaceholder(at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .image, title: String(localized: "object.image.placeholder"),
-            body: "", worldPosition: position, size: CGSizeCodable.defaultPlaceholder,
-            source: .user, style: .default, shapeKind: nil
+        makeObject(
+            content: .media(assetID: nil, mediaKind: .image),
+            position: position,
+            size: CGSizeCodable.defaultPlaceholder
         )
     }
 
     static func filePlaceholder(at position: CGPointCodable = .zero) -> CanvasObject {
-        CanvasObject(
-            id: UUID(), type: .file, title: String(localized: "object.file.placeholder"),
-            body: "", worldPosition: position, size: CGSizeCodable.defaultPlaceholder,
-            source: .user, style: .default, shapeKind: nil
+        makeObject(
+            content: .media(assetID: nil, mediaKind: .file),
+            position: position,
+            size: CGSizeCodable.defaultPlaceholder
         )
     }
 }

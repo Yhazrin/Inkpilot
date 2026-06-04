@@ -21,31 +21,45 @@ struct CGSizeCodable: Codable, Equatable {
     var cgSize: CGSize { CGSize(width: width, height: height) }
 }
 
+// MARK: - Canvas Object Content
+
+/// Typed content for canvas objects, replacing flat title/body.
+enum CanvasObjectContent: Codable, Equatable {
+    case aiCard(title: String, body: String)
+    case text(editableText: String)
+    case stickyNote(noteText: String)
+    case bubble(bubbleText: String)
+    case shape(kind: CanvasShapeKind)
+    case connector(startID: UUID?, endID: UUID?)
+    case media(assetID: String?, mediaKind: MediaKind)
+}
+
+enum MediaKind: String, Codable {
+    case image
+    case file
+}
+
 // MARK: - Canvas Object Model
 
 /// The unified model for all objects on the canvas.
 struct CanvasObject: Identifiable, Codable {
     var id: UUID
-    var type: CanvasObjectType
-    var title: String
-    var body: String
+    var content: CanvasObjectContent
     var worldPosition: CGPointCodable
     var size: CGSizeCodable
+    var rotation: CGFloat
+    var zIndex: Int
     var source: CanvasObjectSource
     var style: CanvasObjectStyle
-    var shapeKind: CanvasShapeKind?
+    var createdAt: Date
+    var updatedAt: Date
 }
 
-/// Types of canvas objects.
-enum CanvasObjectType: String, Codable {
-    case aiCard
-    case textBox
-    case stickyNote
-    case bubble
-    case shape
-    case connector
-    case image
-    case file
+/// Who or what created the object.
+enum CanvasObjectSource: String, Codable {
+    case user
+    case ai
+    case collaborator
 }
 
 /// Shape subtypes.
@@ -56,13 +70,6 @@ enum CanvasShapeKind: String, Codable {
     case diamond
     case arrow
     case line
-}
-
-/// Who or what created the object.
-enum CanvasObjectSource: String, Codable {
-    case user
-    case ai
-    case collaborator
 }
 
 /// Visual style hints for canvas objects.

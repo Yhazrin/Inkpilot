@@ -60,25 +60,25 @@ final class NetworkSuggestionService: SuggestionService {
         #endif
         return AISuggestionResponse(
             mode: .structure,
-            title: "Suggested next step",
+            title: String(localized: "fallback.title"),
             items: [
                 AISuggestionItem(
                     id: UUID(),
                     type: .aiCard,
-                    title: "Backend offline",
-                    content: "Start uvicorn on the Mac and update BackendConfig.baseURL."
+                    title: String(localized: "fallback.item1.title"),
+                    content: String(localized: "fallback.item1.content")
                 ),
                 AISuggestionItem(
                     id: UUID(),
                     type: .stickyNote,
-                    title: "Quick check",
-                    content: "Try `curl http://<mac>:8000/health` from terminal."
+                    title: String(localized: "fallback.item2.title"),
+                    content: String(localized: "fallback.item2.content")
                 ),
                 AISuggestionItem(
                     id: UUID(),
                     type: .textBox,
-                    title: "LAN setup",
-                    content: "Info.plist already allows local networking; URL is in BackendConfig.swift."
+                    title: String(localized: "fallback.item3.title"),
+                    content: String(localized: "fallback.item3.content")
                 ),
             ]
         )

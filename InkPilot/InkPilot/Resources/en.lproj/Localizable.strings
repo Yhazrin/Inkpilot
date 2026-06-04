@@ -11,7 +11,6 @@
 /* Tools */
 "tool.pen" = "Pen";
 "tool.eraser" = "Eraser";
-"tool.lasso" = "Lasso";
 "tool.ai" = "AI Suggest";
 
 /* Canvas Prompt */
@@ -99,3 +98,15 @@
 "action.duplicate" = "Duplicate";
 "action.delete" = "Delete";
 "action.deselect" = "Deselect";
+
+/* Text Object */
+"object.text.placeholder" = "Double tap to edit...";
+
+/* Network Fallback */
+"fallback.title" = "Suggested next step";
+"fallback.item1.title" = "Backend offline";
+"fallback.item1.content" = "Start uvicorn on the Mac and update BackendConfig.baseURL.";
+"fallback.item2.title" = "Quick check";
+"fallback.item2.content" = "Try curl http://<mac>:8000/health from terminal.";
+"fallback.item3.title" = "LAN setup";
+"fallback.item3.content" = "Info.plist already allows local networking; URL is in BackendConfig.swift.";

@@ -11,7 +11,6 @@
 /* 工具 */
 "tool.pen" = "画笔";
 "tool.eraser" = "橡皮擦";
-"tool.lasso" = "套索";
 "tool.ai" = "AI 建议";
 
 /* 画布提示 */
@@ -99,3 +98,15 @@
 "action.duplicate" = "复制";
 "action.delete" = "删除";
 "action.deselect" = "取消选择";
+
+/* 文本对象 */
+"object.text.placeholder" = "双击编辑...";
+
+/* 网络回退 */
+"fallback.title" = "建议下一步";
+"fallback.item1.title" = "后端离线";
+"fallback.item1.content" = "在 Mac 上启动 uvicorn 并更新 BackendConfig.baseURL。";
+"fallback.item2.title" = "快速检查";
+"fallback.item2.content" = "在终端尝试 curl http://<mac>:8000/health。";
+"fallback.item3.title" = "局域网设置";
+"fallback.item3.content" = "Info.plist 已允许本地网络；URL 在 BackendConfig.swift 中。";

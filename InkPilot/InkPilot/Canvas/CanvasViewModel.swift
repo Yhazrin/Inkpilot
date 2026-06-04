@@ -102,16 +102,21 @@ final class CanvasViewModel {
             promptText: promptText
         )
 
-        Task { @MainActor in
+        let service = suggestionService
+        Task {
             do {
-                let response = try await suggestionService.generateSuggestion(context: context)
-                withAnimation(.easeInOut(duration: 0.4)) {
-                    ghostSuggestion = GhostSuggestion(response: response)
-                    isThinking = false
+                let response = try await service.generateSuggestion(context: context)
+                await MainActor.run {
+                    withAnimation(.easeInOut(duration: 0.4)) {
+                        ghostSuggestion = GhostSuggestion(response: response)
+                        isThinking = false
+                    }
                 }
             } catch {
-                withAnimation(.easeOut(duration: 0.2)) {
-                    isThinking = false
+                await MainActor.run {
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        isThinking = false
+                    }
                 }
             }
         }

@@ -22,3 +22,16 @@ struct AISuggestionItem: Codable, Identifiable, Equatable {
     let title: String
     let content: String
 }
+
+/// Lightweight type hint for AI suggestion items.
+/// CanvasObjectFactory maps these to full CanvasObjectContent.
+enum CanvasObjectType: String, Codable {
+    case aiCard
+    case textBox
+    case stickyNote
+    case bubble
+    case shape
+    case connector
+    case image
+    case file
+}

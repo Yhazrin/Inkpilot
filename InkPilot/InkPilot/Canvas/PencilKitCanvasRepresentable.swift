@@ -46,7 +46,7 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             canvas.tool = PKInkingTool(.pen, color: UIColor(Brand.inkPrimary), width: 2)
         case .eraser:
             canvas.tool = PKEraserTool(.bitmap)
-        case .lasso, .select:
+        case .select:
             canvas.tool = PKLassoTool()
         case .text, .shape, .media:
             canvas.tool = PKLassoTool()
