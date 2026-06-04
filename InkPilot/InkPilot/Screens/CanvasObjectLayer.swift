@@ -24,7 +24,7 @@ struct CanvasObjectLayer: View {
     var onDragStart: () -> Void
     var onDragEnd: () -> Void
     var onResize: (UUID, CGSizeCodable) -> Void
-    var onResizeStart: (UUID) -> Void
+    var onResizeStart: () -> Void
 
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
     @State private var multiDragStartPositions: [UUID: CGPoint] = [:]
@@ -51,7 +51,7 @@ struct CanvasObjectLayer: View {
                         )
                         onResize(object.id, worldSize)
                     },
-                    onResizeStart: { onResizeStart(object.id) }
+                    onResizeStart: { onResizeStart() }
                 )
                 .frame(
                     width: object.size.cgSize.width,

@@ -57,7 +57,7 @@ struct CanvasView: View {
                 onDragStart: { viewModel.pushHistoryBeforeMove() },
                 onDragEnd: { viewModel.clearGuides() },
                 onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
-                onResizeStart: { _ in viewModel.pushHistoryBeforeResize() }
+                onResizeStart: { viewModel.pushHistoryBeforeResize() }
             )
 
             // 5. Smart guide lines
