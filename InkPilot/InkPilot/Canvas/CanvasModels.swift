@@ -25,9 +25,15 @@ struct CGSizeCodable: Codable, Equatable {
 // MARK: - Canvas Object State
 
 /// UI state for a pending AI ghost suggestion overlay.
-struct GhostSuggestion: Identifiable {
+struct GhostSuggestion: Identifiable, Equatable {
     let id = UUID()
     let response: AISuggestionResponse
+
+    // Equatable by id — `AISuggestionResponse` does not need to be
+    // Equatable for the view layer's `.onChange` to work.
+    static func == (lhs: GhostSuggestion, rhs: GhostSuggestion) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 /// A card that was accepted from an AI suggestion and placed on the canvas.

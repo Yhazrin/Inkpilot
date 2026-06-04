@@ -1,21 +1,88 @@
 import SwiftUI
 
 /// A semi-transparent ghost card showing an AI suggestion.
-/// Appears near recent handwriting with Accept / Dismiss actions.
+///
+/// The card *emerges from* the `anchor` — the canvas-space point that
+/// "birthed" the suggestion — and lands at `target`, which is offset
+/// from the anchor so the card does not sit on top of the ink.
+///
+/// Emerge is driven by real `@State` (`appearProgress`) that animates
+/// from 0 to 1 inside `withAnimation(MotionTokens.emerge)`. The view's
+/// body reads this state, so SwiftUI produces a real interpolated
+/// view tree at every frame: at 0 the card is hidden at the source
+/// (opacity 0, scale 0.86, blur 6, offset toward anchor); at 1 the
+/// card rests at `target` with full opacity, scale, and no blur.
 struct GhostSuggestionCard: View {
+    let suggestion: GhostSuggestion
+    /// Canvas-space point the card was born from.
+    let anchor: CGPoint
+    /// Final canvas-space position of the card.
+    let target: CGPoint
+    var onAccept: () -> Void
+    var onDismiss: () -> Void
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    /// Emerge progress: 0 = hidden at source, 1 = fully arrived at
+    /// target. Driven by `.onAppear` with `withAnimation`.
+    @State private var appearProgress: CGFloat = 0
+
+    /// Travel vector: from final position back to the source. Used to
+    /// offset the card toward the anchor while it is still emerging.
+    private var travel: CGSize {
+        CGSize(
+            width: anchor.x - target.x,
+            height: anchor.y - target.y
+        )
+    }
+
+    var body: some View {
+        GhostCardBody(
+            suggestion: suggestion,
+            onAccept: onAccept,
+            onDismiss: onDismiss
+        )
+        .frame(maxWidth: 360)
+        .fixedSize(horizontal: false, vertical: true)
+        .scaleEffect(0.86 + 0.14 * Double(appearProgress))
+        .opacity(0.92 * Double(appearProgress))
+        .blur(radius: (1 - Double(appearProgress)) * 6)
+        .offset(
+            x: (1 - Double(appearProgress)) * travel.width * 0.4,
+            y: (1 - Double(appearProgress)) * travel.height * 0.4
+        )
+        .position(target)
+        .onAppear {
+            // Drive the emerge. Under Reduce Motion the helper returns
+            // a near-instant animation, so the card still appears —
+            // it just skips the spring interpolation.
+            withAnimation(
+                MotionTokens.respecting(MotionTokens.emerge, reduceMotion: reduceMotion)
+            ) {
+                appearProgress = 1
+            }
+        }
+    }
+}
+
+/// The visible card body, extracted so the emerge modifier only wraps
+/// the positioned card.
+private struct GhostCardBody: View {
     let suggestion: GhostSuggestion
     var onAccept: () -> Void
     var onDismiss: () -> Void
 
     var body: some View {
-        GlassCard(cornerRadius: Brand.cornerM) {
-            VStack(alignment: .leading, spacing: Brand.spacingM) {
-                header
-                itemsList
-                actionButtons
-            }
+        VStack(alignment: .leading, spacing: Brand.spacingM) {
+            header
+            itemsList
+            actionButtons
         }
-        .opacity(0.85)
+        .padding(Brand.spacingL)
+        .background {
+            RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
+                .fill(Brand.canvasBase.opacity(0.85))
+        }
         .overlay {
             RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
                 .strokeBorder(Brand.aiGlow, lineWidth: 1)
@@ -32,6 +99,7 @@ struct GhostSuggestionCard: View {
             Text(suggestion.response.title)
                 .font(Brand.titleFont)
                 .foregroundStyle(Brand.inkPrimary)
+                .lineLimit(1)
         }
     }
 
@@ -53,6 +121,7 @@ struct GhostSuggestionCard: View {
                         Text(item.content)
                             .font(Brand.captionFont)
                             .foregroundStyle(Brand.inkSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
