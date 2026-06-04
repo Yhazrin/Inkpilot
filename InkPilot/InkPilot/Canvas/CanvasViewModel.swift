@@ -2,6 +2,10 @@ import SwiftUI
 import PencilKit
 
 /// The main state container for the canvas screen.
+/// State declarations, init, and coordinate helpers only.
+/// AI actions: CanvasViewModel+AI.swift
+/// Object operations: CanvasViewModel+ObjectOperations.swift
+/// History/selection/alignment/persistence: CanvasViewModel+Actions.swift
 @Observable
 final class CanvasViewModel {
 
@@ -12,8 +16,6 @@ final class CanvasViewModel {
 
     // MARK: - Viewport / Transform
 
-    /// The current canvas viewport transform (zoom + pan).
-    /// Synced from PencilKit's UIScrollView via the coordinator.
     var canvasTransform: CanvasTransform = .identity
 
     // MARK: - Canvas Objects
@@ -67,11 +69,11 @@ final class CanvasViewModel {
     // MARK: - Persistence
 
     let documentStore = CanvasDocumentStore()
-    private var autoSaveTask: Task<Void, Never>?
+    var autoSaveTask: Task<Void, Never>?
 
     // MARK: - Dependencies
 
-    private let suggestionService: SuggestionService
+    let suggestionService: SuggestionService
 
     init(suggestionService: SuggestionService? = nil) {
         self.suggestionService = suggestionService ?? Self.defaultService()
@@ -87,239 +89,24 @@ final class CanvasViewModel {
 
     // MARK: - Coordinate helpers
 
-    /// Convert a world point to screen space using current transform.
     func worldToScreen(_ point: CGPoint) -> CGPoint {
         canvasTransform.worldToScreen(point)
     }
 
-    /// Convert a screen point to world space using current transform.
     func screenToWorld(_ point: CGPoint) -> CGPoint {
         canvasTransform.screenToWorld(point)
     }
 
-    /// Default insertion point for new objects: uses suggestion anchor
-    /// if available, offset by transform, otherwise visible center.
     var defaultInsertionPoint: CGPointCodable {
         if let anchor = suggestionAnchor {
             return CGPointCodable(x: anchor.x + 100, y: anchor.y)
         }
-        // Approximate visible center in world coords
         return CGPointCodable(x: 520, y: 360)
     }
 
-    // MARK: - Transform sync (called by PencilKit coordinator)
+    // MARK: - Transform sync
 
     func syncTransform(scale: CGFloat, offset: CGSize) {
         canvasTransform = CanvasTransform(scale: scale, offset: offset)
     }
-
-    // MARK: - AI Actions
-
-    func requestSuggestion() {
-        let anchor = SuggestionAnchorResolver.resolve(
-            drawing: drawing,
-            fallback: SuggestionAnchorResolver.defaultFallback
-        )
-        withAnimation(.easeInOut(duration: 0.25)) {
-            isThinking = true
-            suggestionAnchor = CGPointCodable(x: anchor.x, y: anchor.y)
-        }
-
-        let context = CanvasContextBuilder.build(
-            from: drawing,
-            canvasObjects: canvasObjects,
-            selectedObjectID: selection.primaryID,
-            promptText: promptText
-        )
-
-        let service = suggestionService
-        Task {
-            do {
-                let response = try await service.generateSuggestion(context: context)
-                await MainActor.run {
-                    withAnimation(.easeInOut(duration: 0.4)) {
-                        ghostSuggestion = GhostSuggestion(response: response)
-                        isThinking = false
-                    }
-                }
-            } catch {
-                await MainActor.run {
-                    withAnimation(.easeOut(duration: 0.2)) {
-                        isThinking = false
-                    }
-                }
-            }
-        }
-    }
-
-    func acceptSuggestion() {
-        guard let suggestion = ghostSuggestion else { return }
-        let anchorPoint = suggestionAnchor?.cgPoint
-            ?? SuggestionAnchorResolver.defaultFallback
-
-        let columnOrigin = CGPoint(x: anchorPoint.x + 60, y: anchorPoint.y - 80)
-        let cardSpacing: CGFloat = 150
-
-        let newObjects = suggestion.response.items.enumerated().map { index, item in
-            CanvasObjectFactory.aiCard(
-                from: item,
-                position: CGPointCodable(
-                    x: columnOrigin.x,
-                    y: columnOrigin.y + CGFloat(index) * cardSpacing
-                )
-            )
-        }
-        withAnimation(.spring(response: 0.55, dampingFraction: 0.9)) {
-            canvasObjects.append(contentsOf: newObjects)
-            ghostSuggestion = nil
-        }
-    }
-
-    func dismissSuggestion() {
-        withAnimation(.easeOut(duration: 0.3)) {
-            ghostSuggestion = nil
-        }
-    }
-
-    // MARK: - Object Actions
-
-    func updateObjectText(id: UUID, newText: String) {
-        guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
-        let now = Date()
-        switch canvasObjects[index].content {
-        case .aiCard(let title, _):
-            canvasObjects[index].content = .aiCard(title: title, body: newText)
-        case .text:
-            canvasObjects[index].content = .text(editableText: newText)
-        case .stickyNote:
-            canvasObjects[index].content = .stickyNote(noteText: newText)
-        case .bubble:
-            canvasObjects[index].content = .bubble(bubbleText: newText)
-        default:
-            break
-        }
-        canvasObjects[index].updatedAt = now
-    }
-
-    func moveObject(id: UUID, to position: CGPointCodable) {
-        guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
-        canvasObjects[index].worldPosition = position
-        canvasObjects[index].updatedAt = Date()
-    }
-
-    /// Move an object with smart guide snapping.
-    func moveObjectWithGuides(id: UUID, to proposedPosition: CGPointCodable) {
-        guard let obj = canvasObjects.first(where: { $0.id == id }) else { return }
-        let result = SmartGuideEngine.compute(
-            draggedObject: obj,
-            proposedPosition: proposedPosition,
-            otherObjects: canvasObjects
-        )
-        activeGuides = result.guides
-        moveObject(id: id, to: result.position)
-    }
-
-    /// Clear guide lines (call on drag end).
-    func clearGuides() {
-        activeGuides = []
-    }
-
-    /// Move all selected objects by a delta (for multi-select drag).
-    func moveSelectedObjects(by delta: CGPointCodable) {
-        for id in selection.selectedIDs {
-            guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { continue }
-            canvasObjects[index].worldPosition = CGPointCodable(
-                x: canvasObjects[index].worldPosition.x + delta.x,
-                y: canvasObjects[index].worldPosition.y + delta.y
-            )
-            canvasObjects[index].updatedAt = Date()
-        }
-    }
-
-    func pushHistoryBeforeMove() {
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-    }
-
-    func resizeObject(id: UUID, to newSize: CGSizeCodable) {
-        guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
-        canvasObjects[index].size = newSize
-        canvasObjects[index].updatedAt = Date()
-    }
-
-    func pushHistoryBeforeResize() {
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-    }
-
-    func deleteSelected() {
-        guard selection.hasSelection else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        withAnimation(.easeOut(duration: 0.2)) {
-            canvasObjects.removeAll { selection.isSelected($0.id) }
-            selection.clearSelection()
-        }
-        autoSave()
-    }
-
-    func duplicateSelected() {
-        guard selection.hasSelection else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let sources = canvasObjects.filter { selection.isSelected($0.id) }
-        let offset: CGFloat = 28
-        var newIDs: Set<UUID> = []
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-            for (i, source) in sources.enumerated() {
-                var copy = source
-                copy.id = UUID()
-                copy.worldPosition = CGPointCodable(
-                    x: source.worldPosition.x + offset + CGFloat(i) * 8,
-                    y: source.worldPosition.y + offset + CGFloat(i) * 8
-                )
-                copy.source = .user
-                canvasObjects.append(copy)
-                newIDs.insert(copy.id)
-            }
-            selection.selectObjects(newIDs)
-        }
-        autoSave()
-    }
-
-    func addObject(_ object: CanvasObject) {
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-            canvasObjects.append(object)
-            selection.selectObject(object.id)
-        }
-        autoSave()
-    }
-
-    /// Tap an object while connector tool is active.
-    /// First tap sets start, second tap creates the connector.
-    func handleConnectorTap(_ objectID: UUID) {
-        if let startID = connectorStartID {
-            // Second tap — create connector
-            let startObj = canvasObjects.first(where: { $0.id == startID })
-            let endObj = canvasObjects.first(where: { $0.id == objectID })
-            if let startObj, let endObj {
-                let midX = (startObj.worldPosition.x + endObj.worldPosition.x) / 2
-                let midY = (startObj.worldPosition.y + endObj.worldPosition.y) / 2
-                var connector = CanvasObjectFactory.connector(
-                    startID: startID, endID: objectID,
-                    at: CGPointCodable(x: midX, y: midY)
-                )
-                // Size the connector to span between the two objects
-                let dx = abs(endObj.worldPosition.x - startObj.worldPosition.x)
-                let dy = abs(endObj.worldPosition.y - startObj.worldPosition.y)
-                connector.size = CGSizeCodable(
-                    width: max(dx, 40),
-                    height: max(dy, 4)
-                )
-                addObject(connector)
-            }
-            connectorStartID = nil
-        } else {
-            // First tap — set start
-            connectorStartID = objectID
-        }
-    }
-
 }

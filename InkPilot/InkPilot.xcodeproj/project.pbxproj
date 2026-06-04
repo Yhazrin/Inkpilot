@@ -65,6 +65,9 @@
 		A100004F000000000000003F /* ImageImportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004F000000000000003F; };
 		A10000500000000000000040 /* ImageCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000500000000000000040; };
 		A10000510000000000000041 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000510000000000000041; };
+		A10000520000000000000042 /* CanvasViewModel+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000042; };
+		A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000043; };
+		A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000540000000000000044; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -128,6 +131,9 @@
 		A200004F000000000000003F /* ImageImportPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageImportPicker.swift; sourceTree = "<group>"; };
 		A20000500000000000000040 /* ImageCanvasObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCanvasObjectView.swift; sourceTree = "<group>"; };
 		A20000510000000000000041 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		A20000520000000000000042 /* CanvasViewModel+AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+AI.swift"; sourceTree = "<group>"; };
+		A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+ObjectOperations.swift"; sourceTree = "<group>"; };
+		A20000540000000000000044 /* CanvasFloatingChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasFloatingChrome.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -203,6 +209,8 @@
 				A20000480000000000000038 /* SmartGuideEngine.swift */,
 				A200004D000000000000003D /* ImageImportService.swift */,
 				A200004E000000000000003E /* CanvasExporter.swift */,
+				A20000520000000000000042 /* CanvasViewModel+AI.swift */,
+				A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -253,6 +261,7 @@
 				A200004F000000000000003F /* ImageImportPicker.swift */,
 				A20000500000000000000040 /* ImageCanvasObjectView.swift */,
 				A20000510000000000000041 /* ShareSheet.swift */,
+				A20000540000000000000044 /* CanvasFloatingChrome.swift */,
 				A2000030000000000000001E /* ShapePalette.swift */,
 				A2000031000000000000001F /* MediaPalette.swift */,
 			);
@@ -407,6 +416,9 @@
 				A100004F000000000000003F /* ImageImportPicker.swift in Sources */,
 				A10000500000000000000040 /* ImageCanvasObjectView.swift in Sources */,
 				A10000510000000000000041 /* ShareSheet.swift in Sources */,
+				A10000520000000000000042 /* CanvasViewModel+AI.swift in Sources */,
+				A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */,
+				A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
