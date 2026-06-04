@@ -18,7 +18,7 @@ struct CanvasView: View {
             // 1. Background
             ColorBlockBackground()
 
-            // 2. PencilKit drawing (syncs zoom/scroll to transform)
+            // 2. PencilKit drawing (pencilOnly — fingers pass through)
             PencilKitCanvasRepresentable(
                 drawing: $viewModel.drawing,
                 tool: viewModel.selectedTool,
@@ -27,9 +27,6 @@ struct CanvasView: View {
                 }
             )
             .ignoresSafeArea()
-            .allowsHitTesting(
-                viewModel.selectedTool == .pen || viewModel.selectedTool == .eraser
-            )
 
             // 3. Non-interactive motion effects (transform-aware anchor)
             CanvasMotionLayer(

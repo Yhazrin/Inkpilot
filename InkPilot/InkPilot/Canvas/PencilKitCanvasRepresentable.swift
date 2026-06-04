@@ -12,7 +12,9 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
     func makeUIView(context: Context) -> PKCanvasView {
         let canvas = PKCanvasView()
         canvas.delegate = context.coordinator
-        canvas.drawingPolicy = .anyInput
+        // PencilOnly: Apple Pencil draws, fingers pass through to
+        // the object layer for selection, dragging, and pan/zoom.
+        canvas.drawingPolicy = .pencilOnly
         canvas.backgroundColor = .clear
         canvas.isOpaque = false
         canvas.maximumZoomScale = 4

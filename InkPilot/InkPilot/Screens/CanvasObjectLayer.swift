@@ -50,7 +50,9 @@ struct CanvasObjectLayer: View {
         }
         .animation(.spring(response: 0.5, dampingFraction: 0.8), value: objects.count)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .allowsHitTesting(isSelectToolActive)
+        // Always allow hit testing — PencilKit is pencilOnly so fingers
+        // are free to interact with objects. Tool selection gates what
+        // happens (select/drag vs nothing), not whether touches pass through.
     }
 
     // MARK: - Drag gesture (world-space, caches start position)
