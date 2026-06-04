@@ -99,7 +99,9 @@ struct CanvasView: View {
                 toolModeHint(String(localized: "tool.connector.hint"))
             } else if viewModel.selectedTool == .text {
                 toolModeHint(String(localized: "tool.text.hint"))
-            } else if viewModel.selectedTool == .media {
+            } else if viewModel.selectedTool == .shape && !viewModel.isShapePaletteVisible {
+                toolModeHint(String(localized: "tool.shape.hint"))
+            } else if viewModel.selectedTool == .media && !viewModel.isMediaPaletteVisible {
                 toolModeHint(String(localized: "tool.media.hint"))
             }
 

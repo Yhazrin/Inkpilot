@@ -15,6 +15,7 @@
 "tool.connector" = "Connector";
 "tool.connector.hint" = "Tap two objects to connect them";
 "tool.text.hint" = "Tap canvas to insert a text box";
+"tool.shape.hint" = "Open shape palette to insert shapes";
 "tool.media.hint" = "Open media palette to import images or PDFs";
 
 /* Canvas Prompt */
