@@ -165,6 +165,7 @@
 "media.import.cancel" = "取消";
 "object.image.accessibility" = "导入的图片。";
 "object.image.loading" = "加载中...";
+"action.backToHome" = "返回主页";
 "action.export" = "导出画布";
 "action.exportImage" = "导出为图片";
 "action.exportPDF" = "导出为 PDF";

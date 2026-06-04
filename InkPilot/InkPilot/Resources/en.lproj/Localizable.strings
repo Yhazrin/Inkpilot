@@ -165,6 +165,7 @@
 "media.import.cancel" = "Cancel";
 "object.image.accessibility" = "Imported image.";
 "object.image.loading" = "Loading...";
+"action.backToHome" = "Back to Home";
 "action.export" = "Export Canvas";
 "action.exportImage" = "Export as Image";
 "action.exportPDF" = "Export as PDF";

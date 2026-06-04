@@ -4,6 +4,7 @@ import SwiftUI
 /// Extracted from CanvasView to keep file sizes manageable.
 struct CanvasFloatingChrome: View {
     let viewModel: CanvasViewModel
+    var onDismiss: () -> Void
     @Binding var showExportSheet: Bool
     @Binding var exportURL: URL?
 
@@ -12,6 +13,20 @@ struct CanvasFloatingChrome: View {
             topSection
             Spacer()
             bottomSection
+        }
+        .overlay(alignment: .topLeading) {
+            // Back to home
+            Button(action: onDismiss) {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Brand.inkSecondary)
+                    .frame(width: 44, height: 44)
+                    .background(Capsule().fill(.ultraThinMaterial))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+            }
+            .padding(.leading, Brand.spacingM)
+            .padding(.top, Brand.spacingM)
+            .accessibilityLabel(Text(String(localized: "action.backToHome")))
         }
         .overlay(alignment: .topTrailing) {
             exportButton

@@ -3,6 +3,7 @@ import SwiftUI
 /// The main canvas screen — InkPilot's core product surface.
 /// Composes background, PencilKit, motion, objects, marquee/lasso, guides, chrome.
 struct CanvasView: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var viewModel = CanvasViewModel()
     @State private var materializationCount: Int = 0
     @State private var marqueeStart: CGPoint?
@@ -81,6 +82,7 @@ struct CanvasView: View {
             // 7. Floating chrome
             CanvasFloatingChrome(
                 viewModel: viewModel,
+                onDismiss: { dismiss() },
                 showExportSheet: $showExportSheet,
                 exportURL: $exportURL
             )
