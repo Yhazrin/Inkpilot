@@ -20,6 +20,16 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $showCanvas) {
             CanvasView()
         }
+        #if DEBUG
+        .onAppear {
+            // Debug-only launch flag: `-autoCanvas 1` skips Home and
+            // opens the canvas directly for screenshot capture.
+            let args = ProcessInfo.processInfo.arguments
+            if args.contains("-autoCanvas") || args.contains("-autoCanvas 1") {
+                showCanvas = true
+            }
+        }
+        #endif
     }
 
     // MARK: - Hero Card

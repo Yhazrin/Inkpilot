@@ -1,7 +1,7 @@
 import Foundation
 
 /// The structured response from an AI suggestion service.
-struct AISuggestionResponse: Codable {
+struct AISuggestionResponse: Codable, Equatable {
     let mode: SuggestionMode
     let title: String
     let items: [AISuggestionItem]
@@ -16,7 +16,7 @@ enum SuggestionMode: String, Codable {
 }
 
 /// A single item within an AI suggestion.
-struct AISuggestionItem: Codable, Identifiable {
+struct AISuggestionItem: Codable, Identifiable, Equatable {
     let id: UUID
     let type: CanvasObjectType
     let title: String
