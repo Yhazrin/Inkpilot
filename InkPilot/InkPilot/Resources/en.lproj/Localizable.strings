@@ -51,16 +51,8 @@
 "suggestion.dismiss.hint" = "Removes this AI suggestion from the canvas.";
 "ghost.accessibility" = "AI suggestion. Suggested structure with multiple items. Accept or dismiss.";
 
-/* Accepted Cards */
-"acceptedCard.accessibility" = "AI generated canvas card.";
-
 /* Badges */
 "badge.ai.generated" = "AI generated";
-
-/* Canvas States */
-"canvas.empty.hint" = "Start writing anywhere. InkPilot will suggest the next step.";
-"canvas.ai.thinking" = "Reading the canvas...";
-"canvas.ai.noSuggestion" = "No suggestion yet. Try writing a little more.";
 
 /* New Tools */
 "tool.select" = "Select";
@@ -91,7 +83,6 @@
 "object.stickyNote.accessibility" = "Sticky note.";
 "object.bubble.accessibility" = "Bubble.";
 "object.shape.accessibility" = "Shape.";
-"object.connector.accessibility" = "Connector line.";
 "object.image.placeholder" = "Image Placeholder";
 "object.file.placeholder" = "File Placeholder";
 

@@ -51,16 +51,8 @@
 "suggestion.dismiss.hint" = "从画布上移除此 AI 建议。";
 "ghost.accessibility" = "AI 建议。建议结构包含多个项目。接受或忽略。";
 
-/* 已接受卡片 */
-"acceptedCard.accessibility" = "AI 生成的画布卡片。";
-
 /* 徽章 */
 "badge.ai.generated" = "AI 生成";
-
-/* 画布状态 */
-"canvas.empty.hint" = "在任意位置开始书写。InkPilot 会预测你的下一步想法。";
-"canvas.ai.thinking" = "正在理解画布...";
-"canvas.ai.noSuggestion" = "暂时没有建议。可以再多写一点。";
 
 /* 新工具 */
 "tool.select" = "选择";
@@ -91,7 +83,6 @@
 "object.stickyNote.accessibility" = "便签。";
 "object.bubble.accessibility" = "气泡。";
 "object.shape.accessibility" = "形状。";
-"object.connector.accessibility" = "连接线。";
 "object.image.placeholder" = "图片占位符";
 "object.file.placeholder" = "文件占位符";
 
