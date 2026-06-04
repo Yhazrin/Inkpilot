@@ -63,6 +63,16 @@ struct CanvasView: View {
             // 5. Smart guide lines
             GuideOverlay(guides: viewModel.activeGuides, transform: viewModel.canvasTransform)
 
+            // 5b. Tap empty canvas to deselect (only in select mode)
+            if viewModel.selectedTool == .select && viewModel.selection.hasSelection {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        viewModel.selection.clearSelection()
+                    }
+                    .allowsHitTesting(true)
+            }
+
             // 6. Selection layer (marquee or lasso)
             if viewModel.selectedTool == .select {
                 selectionLayer
