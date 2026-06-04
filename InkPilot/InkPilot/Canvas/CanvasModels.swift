@@ -44,7 +44,7 @@ enum MediaKind: String, Codable {
 // MARK: - Canvas Object Model
 
 /// The unified model for all objects on the canvas.
-struct CanvasObject: Identifiable, Codable {
+struct CanvasObject: Identifiable, Codable, Equatable {
     var id: UUID
     var content: CanvasObjectContent
     var worldPosition: CGPointCodable
