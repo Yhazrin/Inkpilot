@@ -34,6 +34,7 @@ struct LassoSelectionLayer: View {
             }
         }
         .allowsHitTesting(false)
+        .accessibilityHidden(true)
     }
 
     private var lassoGesture: some Gesture {
