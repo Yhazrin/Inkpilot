@@ -172,3 +172,11 @@
 "object.image.accessibility" = "导入的图片。";
 "object.image.loading" = "加载中...";
 "action.export" = "导出画布";
+"action.exportImage" = "导出为图片";
+"action.exportPDF" = "导出为 PDF";
+
+/* PDF */
+"media.import.pdf" = "导入 PDF";
+"media.import.pdf.accessibility" = "导入 PDF 文档";
+"object.pdf.accessibility" = "PDF 页面。";
+"object.pdf.loading" = "加载 PDF...";

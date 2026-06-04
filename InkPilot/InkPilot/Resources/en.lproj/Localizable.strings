@@ -172,3 +172,11 @@
 "object.image.accessibility" = "Imported image.";
 "object.image.loading" = "Loading...";
 "action.export" = "Export Canvas";
+"action.exportImage" = "Export as Image";
+"action.exportPDF" = "Export as PDF";
+
+/* PDF */
+"media.import.pdf" = "Import PDF";
+"media.import.pdf.accessibility" = "Import a PDF document";
+"object.pdf.accessibility" = "PDF page.";
+"object.pdf.loading" = "Loading PDF...";

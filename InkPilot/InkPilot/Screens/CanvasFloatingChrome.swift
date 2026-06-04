@@ -69,6 +69,10 @@ struct CanvasFloatingChrome: View {
                         viewModel.importImage(data: data, fileName: name)
                         viewModel.isMediaPaletteVisible = false
                     },
+                    onImportPDF: { url in
+                        viewModel.importPDF(from: url)
+                        viewModel.isMediaPaletteVisible = false
+                    },
                     onClose: { viewModel.isMediaPaletteVisible = false }
                 )
                 .transition(.move(edge: .top).combined(with: .opacity))
@@ -121,21 +125,41 @@ struct CanvasFloatingChrome: View {
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
     }
 
-    // MARK: - Export Button
+    // MARK: - Export Buttons
 
     private var exportButton: some View {
-        Button {
-            if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
-                exportURL = url
-                showExportSheet = true
+        HStack(spacing: Brand.spacingS) {
+            // Export as Image
+            Button {
+                if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+                    exportURL = url
+                    showExportSheet = true
+                }
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Brand.inkSecondary)
+                    .frame(width: 44, height: 44)
+                    .background(Capsule().fill(.ultraThinMaterial))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
-        } label: {
-            Image(systemName: "square.and.arrow.up")
-                .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(Brand.inkSecondary)
-                .frame(width: 44, height: 44)
-                .background(Capsule().fill(.ultraThinMaterial))
-                .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+            .accessibilityLabel(Text(String(localized: "action.exportImage")))
+
+            // Export as PDF
+            Button {
+                if let url = viewModel.exportPDFToShareURL() {
+                    exportURL = url
+                    showExportSheet = true
+                }
+            } label: {
+                Image(systemName: "doc.richtext")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Brand.inkSecondary)
+                    .frame(width: 44, height: 44)
+                    .background(Capsule().fill(.ultraThinMaterial))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+            }
+            .accessibilityLabel(Text(String(localized: "action.exportPDF")))
         }
         .padding(.trailing, Brand.spacingM)
         .padding(.top, Brand.spacingM)

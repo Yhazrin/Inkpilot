@@ -68,6 +68,9 @@
 		A10000520000000000000042 /* CanvasViewModel+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000042; };
 		A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000043; };
 		A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000540000000000000044; };
+		A10000550000000000000045 /* PDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000550000000000000045; };
+		A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000560000000000000046; };
+		A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000570000000000000047; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -134,6 +137,9 @@
 		A20000520000000000000042 /* CanvasViewModel+AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+AI.swift"; sourceTree = "<group>"; };
 		A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+ObjectOperations.swift"; sourceTree = "<group>"; };
 		A20000540000000000000044 /* CanvasFloatingChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasFloatingChrome.swift; sourceTree = "<group>"; };
+		A20000550000000000000045 /* PDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFService.swift; sourceTree = "<group>"; };
+		A20000560000000000000046 /* PDFCanvasObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCanvasObjectView.swift; sourceTree = "<group>"; };
+		A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+ImportExport.swift"; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -211,6 +217,8 @@
 				A200004E000000000000003E /* CanvasExporter.swift */,
 				A20000520000000000000042 /* CanvasViewModel+AI.swift */,
 				A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */,
+				A20000550000000000000045 /* PDFService.swift */,
+				A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -262,6 +270,7 @@
 				A20000500000000000000040 /* ImageCanvasObjectView.swift */,
 				A20000510000000000000041 /* ShareSheet.swift */,
 				A20000540000000000000044 /* CanvasFloatingChrome.swift */,
+				A20000560000000000000046 /* PDFCanvasObjectView.swift */,
 				A2000030000000000000001E /* ShapePalette.swift */,
 				A2000031000000000000001F /* MediaPalette.swift */,
 			);
@@ -419,6 +428,9 @@
 				A10000520000000000000042 /* CanvasViewModel+AI.swift in Sources */,
 				A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */,
 				A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */,
+				A10000550000000000000045 /* PDFService.swift in Sources */,
+				A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */,
+				A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
