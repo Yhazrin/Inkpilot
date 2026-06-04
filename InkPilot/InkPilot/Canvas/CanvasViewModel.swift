@@ -19,8 +19,10 @@ final class CanvasViewModel {
     // MARK: - Canvas Objects
 
     var canvasObjects: [CanvasObject] = []
-    var selectedObjectID: UUID?
-    var editingObjectID: UUID?
+
+    // MARK: - Selection State
+
+    let selection = CanvasSelectionState()
 
     // MARK: - AI Suggestion State
 
@@ -117,7 +119,7 @@ final class CanvasViewModel {
         let context = CanvasContextBuilder.build(
             from: drawing,
             canvasObjects: canvasObjects,
-            selectedObjectID: selectedObjectID,
+            selectedObjectID: selection.primaryID,
             promptText: promptText
         )
 
@@ -172,20 +174,6 @@ final class CanvasViewModel {
 
     // MARK: - Object Actions
 
-    func selectObject(_ id: UUID?) {
-        selectedObjectID = id
-        if id == nil { editingObjectID = nil }
-    }
-
-    func beginEditing(_ id: UUID) {
-        selectedObjectID = id
-        editingObjectID = id
-    }
-
-    func endEditing() {
-        editingObjectID = nil
-    }
-
     func updateObjectText(id: UUID, newText: String) {
         guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
         let now = Date()
@@ -210,7 +198,18 @@ final class CanvasViewModel {
         canvasObjects[index].updatedAt = Date()
     }
 
-    /// Call once at drag END to snapshot before the move.
+    /// Move all selected objects by a delta (for multi-select drag).
+    func moveSelectedObjects(by delta: CGPointCodable) {
+        for id in selection.selectedIDs {
+            guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { continue }
+            canvasObjects[index].worldPosition = CGPointCodable(
+                x: canvasObjects[index].worldPosition.x + delta.x,
+                y: canvasObjects[index].worldPosition.y + delta.y
+            )
+            canvasObjects[index].updatedAt = Date()
+        }
+    }
+
     func pushHistoryBeforeMove() {
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
     }
@@ -226,29 +225,34 @@ final class CanvasViewModel {
     }
 
     func deleteSelected() {
-        guard let id = selectedObjectID else { return }
+        guard selection.hasSelection else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
         withAnimation(.easeOut(duration: 0.2)) {
-            canvasObjects.removeAll { $0.id == id }
-            selectedObjectID = nil
+            canvasObjects.removeAll { selection.isSelected($0.id) }
+            selection.clearSelection()
         }
         autoSave()
     }
 
     func duplicateSelected() {
-        guard let id = selectedObjectID,
-              let source = canvasObjects.first(where: { $0.id == id }) else { return }
+        guard selection.hasSelection else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        var copy = source
-        copy.id = UUID()
-        copy.worldPosition = CGPointCodable(
-            x: source.worldPosition.x + 30,
-            y: source.worldPosition.y + 30
-        )
-        copy.source = .user
+        let sources = canvasObjects.filter { selection.isSelected($0.id) }
+        let offset: CGFloat = 28
+        var newIDs: Set<UUID> = []
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-            canvasObjects.append(copy)
-            selectedObjectID = copy.id
+            for (i, source) in sources.enumerated() {
+                var copy = source
+                copy.id = UUID()
+                copy.worldPosition = CGPointCodable(
+                    x: source.worldPosition.x + offset + CGFloat(i) * 8,
+                    y: source.worldPosition.y + offset + CGFloat(i) * 8
+                )
+                copy.source = .user
+                canvasObjects.append(copy)
+                newIDs.insert(copy.id)
+            }
+            selection.selectObjects(newIDs)
         }
         autoSave()
     }
@@ -257,7 +261,7 @@ final class CanvasViewModel {
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             canvasObjects.append(object)
-            selectedObjectID = object.id
+            selection.selectObject(object.id)
         }
         autoSave()
     }

@@ -1,24 +1,18 @@
 import SwiftUI
 
 /// The main canvas screen — InkPilot's core product surface.
-///
-/// Layer order (bottom → top):
-///   1. ColorBlockBackground
-///   2. PencilKitCanvasRepresentable
-///   3. CanvasMotionLayer
-///   4. CanvasObjectLayer
-///   5. Floating chrome (toolbar, palettes, prompt, AI panel)
-///   6. GhostSuggestionCard (anchor-anchored)
 struct CanvasView: View {
     @State private var viewModel = CanvasViewModel()
     @State private var materializationCount: Int = 0
+    @State private var marqueeStart: CGPoint?
+    @State private var marqueeEnd: CGPoint?
 
     var body: some View {
         ZStack {
             // 1. Background
             ColorBlockBackground()
 
-            // 2. PencilKit drawing (pencilOnly — fingers pass through)
+            // 2. PencilKit drawing
             PencilKitCanvasRepresentable(
                 drawing: $viewModel.drawing,
                 tool: viewModel.selectedTool,
@@ -32,7 +26,7 @@ struct CanvasView: View {
                 viewModel.autoSave()
             }
 
-            // 3. Non-interactive motion effects (transform-aware anchor)
+            // 3. Non-interactive motion effects
             CanvasMotionLayer(
                 anchor: viewModel.suggestionAnchor.map {
                     viewModel.worldToScreen($0.cgPoint)
@@ -42,40 +36,47 @@ struct CanvasView: View {
                 materializationCount: materializationCount
             )
 
-            // 4. Canvas objects (above motion, below chrome)
+            // 4. Canvas objects
             CanvasObjectLayer(
                 objects: viewModel.canvasObjects,
-                selectedID: viewModel.selectedObjectID,
-                editingID: viewModel.editingObjectID,
+                selectedIDs: viewModel.selection.selectedIDs,
+                editingID: viewModel.selection.editingID,
                 isSelectToolActive: viewModel.selectedTool == .select,
                 isConnectorToolActive: viewModel.selectedTool == .connector,
                 connectorStartID: viewModel.connectorStartID,
                 sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
-                onSelect: { viewModel.selectObject($0) },
+                onSelect: { viewModel.selection.selectObject($0) },
+                onToggleSelection: { viewModel.selection.toggleSelection($0) },
+                onGroupTap: { groupID in
+                    viewModel.selection.selectGroup(groupID, allObjects: viewModel.canvasObjects)
+                },
                 onConnectorTap: { viewModel.handleConnectorTap($0) },
-                onBeginEditing: { viewModel.beginEditing($0) },
-                onEndEditing: { viewModel.endEditing() },
+                onBeginEditing: { viewModel.selection.beginEditing($0) },
+                onEndEditing: { viewModel.selection.endEditing() },
                 onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
                 onMove: { id, pos in viewModel.moveObject(id: id, to: pos) },
-                onResize: { id, size in viewModel.resizeObject(id: id, to: size) }
+                onMoveSelected: { delta in viewModel.moveSelectedObjects(by: delta) },
+                onDragStart: { viewModel.pushHistoryBeforeMove() },
+                onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
+                onResizeStart: { id in viewModel.pushHistoryBeforeResize() }
             )
 
-            // 5. Floating chrome
-            floatingChrome
-
-            // 6. Ghost suggestion (anchor-anchored, transform-aware)
-            if let suggestion = viewModel.ghostSuggestion,
-               let anchor = viewModel.suggestionAnchor?.cgPoint {
-                let screenAnchor = viewModel.worldToScreen(anchor)
-                GhostSuggestionCard(
-                    suggestion: suggestion,
-                    anchor: screenAnchor,
-                    target: ghostTarget(for: screenAnchor),
-                    onAccept: { viewModel.acceptSuggestion() },
-                    onDismiss: { viewModel.dismissSuggestion() }
+            // 5. Marquee selection layer
+            if viewModel.selectedTool == .select {
+                SelectionMarqueeLayer(
+                    isActive: viewModel.selectedTool == .select,
+                    transform: viewModel.canvasTransform,
+                    marqueeStart: $marqueeStart,
+                    marqueeEnd: $marqueeEnd,
+                    onMarqueeSelect: { rect in
+                        selectObjectsInRect(rect)
+                    }
                 )
             }
+
+            // 6. Floating chrome
+            floatingChrome
         }
         .navigationBarHidden(true)
         .onChange(of: viewModel.ghostSuggestion) { _, newValue in
@@ -98,9 +99,6 @@ struct CanvasView: View {
             }
         }
         #if DEBUG
-        // Debug-only launch flags for screenshot capture. No-op in
-        // Release. `-autoTriggerAI` kicks a suggestion; `-autoAcceptAI`
-        // triggers then accepts for a materialize screenshot.
         .onAppear {
             let args = ProcessInfo.processInfo.arguments
             if args.contains("-autoTriggerAI") {
@@ -120,6 +118,23 @@ struct CanvasView: View {
         #endif
     }
 
+    // MARK: - Marquee selection
+
+    private func selectObjectsInRect(_ worldRect: CGRect) {
+        let ids = viewModel.canvasObjects.filter { obj in
+            let objRect = CGRect(
+                x: obj.worldPosition.x,
+                y: obj.worldPosition.y,
+                width: obj.size.width,
+                height: obj.size.height
+            )
+            return worldRect.intersects(objRect)
+        }.map(\.id)
+        if !ids.isEmpty {
+            viewModel.selection.selectObjects(Set(ids))
+        }
+    }
+
     // MARK: - Floating Chrome
 
     private var floatingChrome: some View {
@@ -127,7 +142,6 @@ struct CanvasView: View {
             VStack(spacing: Brand.spacingS) {
                 CanvasToolbar(viewModel: viewModel)
 
-                // Pen settings palette (shows when pen/pencil/highlighter active)
                 if viewModel.selectedTool == .pen && viewModel.drawingToolState.isDrawingTool {
                     PenSettingsPalette(drawingState: viewModel.drawingToolState)
                         .transition(.move(edge: .top).combined(with: .opacity))
@@ -170,13 +184,33 @@ struct CanvasView: View {
             Spacer()
 
             VStack(spacing: Brand.spacingS) {
-                if viewModel.selectedObjectID != nil {
-                    ObjectActionBar(
+                if viewModel.selection.selectionCount > 1 {
+                    MultiObjectActionBar(
+                        selectionCount: viewModel.selection.selectionCount,
+                        onAlignLeft: { viewModel.alignLeft() },
+                        onAlignCenter: { viewModel.alignCenterH() },
+                        onAlignRight: { viewModel.alignRight() },
+                        onAlignTop: { viewModel.alignTop() },
+                        onAlignMiddle: { viewModel.alignMiddleV() },
+                        onAlignBottom: { viewModel.alignBottom() },
+                        onDistributeH: { viewModel.distributeHorizontal() },
+                        onDistributeV: { viewModel.distributeVertical() },
+                        onGroup: { viewModel.groupSelected() },
+                        onUngroup: { viewModel.ungroupSelected() },
+                        onBringToFront: { viewModel.bringToFront() },
+                        onSendToBack: { viewModel.sendToBack() },
+                        onDelete: { viewModel.deleteSelected() },
+                        onDuplicate: { viewModel.duplicateSelected() },
+                        onDeselect: { viewModel.selection.clearSelection() }
+                    )
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else if viewModel.selection.isSingleSelection {
+                    SingleObjectActionBar(
                         onDelete: { viewModel.deleteSelected() },
                         onDuplicate: { viewModel.duplicateSelected() },
                         onBringForward: { viewModel.bringForward() },
                         onSendBackward: { viewModel.sendBackward() },
-                        onDeselect: { viewModel.selectObject(nil) }
+                        onDeselect: { viewModel.selection.clearSelection() }
                     )
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
@@ -184,25 +218,36 @@ struct CanvasView: View {
                 CanvasPromptBar(viewModel: viewModel)
             }
             .padding(.bottom, Brand.spacingL)
-            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selectedObjectID)
+            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
         }
         .overlay(alignment: .bottomTrailing) {
             AIPilotPanel(viewModel: viewModel)
                 .padding(.trailing, Brand.spacingL)
                 .padding(.bottom, 100)
         }
+        .overlay {
+            if let suggestion = viewModel.ghostSuggestion,
+               let anchor = viewModel.suggestionAnchor?.cgPoint {
+                let screenAnchor = viewModel.worldToScreen(anchor)
+                GhostSuggestionCard(
+                    suggestion: suggestion,
+                    anchor: screenAnchor,
+                    target: ghostTarget(for: screenAnchor),
+                    onAccept: { viewModel.acceptSuggestion() },
+                    onDismiss: { viewModel.dismissSuggestion() }
+                )
+            }
+        }
     }
-
-    // MARK: - Ghost placement
 
     private func ghostTarget(for anchor: CGPoint) -> CGPoint {
         CGPoint(x: anchor.x + 220, y: anchor.y + 40)
     }
 }
 
-// MARK: - Object Action Bar
+// MARK: - Single Object Action Bar
 
-private struct ObjectActionBar: View {
+private struct SingleObjectActionBar: View {
     var onDelete: () -> Void
     var onDuplicate: () -> Void
     var onBringForward: () -> Void

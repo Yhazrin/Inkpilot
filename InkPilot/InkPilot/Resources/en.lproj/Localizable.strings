@@ -136,3 +136,19 @@
 /* Object Actions */
 "action.bringForward" = "Bring Forward";
 "action.sendBackward" = "Send Backward";
+"action.bringToFront" = "Bring to Front";
+"action.sendToBack" = "Send to Back";
+
+/* Multi-Selection */
+"selection.count" = "%d selected";
+"action.alignment" = "Alignment";
+"action.alignLeft" = "Align Left";
+"action.alignCenter" = "Align Center";
+"action.alignRight" = "Align Right";
+"action.alignTop" = "Align Top";
+"action.alignMiddle" = "Align Middle";
+"action.alignBottom" = "Align Bottom";
+"action.distributeHorizontal" = "Distribute Horizontally";
+"action.distributeVertical" = "Distribute Vertically";
+"action.group" = "Group";
+"action.ungroup" = "Ungroup";

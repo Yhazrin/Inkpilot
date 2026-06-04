@@ -18,6 +18,7 @@ enum CanvasObjectFactory {
             size: size,
             rotation: 0,
             zIndex: 0,
+            groupID: nil,
             source: source,
             style: style,
             createdAt: now,

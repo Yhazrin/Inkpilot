@@ -49,6 +49,7 @@ struct CanvasObject: Identifiable, Codable {
     var size: CGSizeCodable
     var rotation: CGFloat
     var zIndex: Int
+    var groupID: UUID?
     var source: CanvasObjectSource
     var style: CanvasObjectStyle
     var createdAt: Date

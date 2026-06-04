@@ -136,3 +136,19 @@
 /* 对象操作 */
 "action.bringForward" = "上移一层";
 "action.sendBackward" = "下移一层";
+"action.bringToFront" = "移到最前";
+"action.sendToBack" = "移到最后";
+
+/* 多选 */
+"selection.count" = "已选 %d 个";
+"action.alignment" = "对齐";
+"action.alignLeft" = "左对齐";
+"action.alignCenter" = "水平居中";
+"action.alignRight" = "右对齐";
+"action.alignTop" = "顶部对齐";
+"action.alignMiddle" = "垂直居中";
+"action.alignBottom" = "底部对齐";
+"action.distributeHorizontal" = "水平分布";
+"action.distributeVertical" = "垂直分布";
+"action.group" = "组合";
+"action.ungroup" = "取消组合";
