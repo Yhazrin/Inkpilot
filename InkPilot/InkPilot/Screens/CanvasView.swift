@@ -44,13 +44,17 @@ struct CanvasView: View {
                 selectedID: viewModel.selectedObjectID,
                 editingID: viewModel.editingObjectID,
                 isSelectToolActive: viewModel.selectedTool == .select,
+                isConnectorToolActive: viewModel.selectedTool == .shape,
+                connectorStartID: viewModel.connectorStartID,
                 sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
                 onSelect: { viewModel.selectObject($0) },
+                onConnectorTap: { viewModel.handleConnectorTap($0) },
                 onBeginEditing: { viewModel.beginEditing($0) },
                 onEndEditing: { viewModel.endEditing() },
                 onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
-                onMove: { id, pos in viewModel.moveObject(id: id, to: pos) }
+                onMove: { id, pos in viewModel.moveObject(id: id, to: pos) },
+                onResize: { id, size in viewModel.resizeObject(id: id, to: size) }
             )
 
             // 5. Floating chrome

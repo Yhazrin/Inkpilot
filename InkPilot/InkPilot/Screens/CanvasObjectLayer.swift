@@ -8,13 +8,17 @@ struct CanvasObjectLayer: View {
     let selectedID: UUID?
     let editingID: UUID?
     let isSelectToolActive: Bool
+    let isConnectorToolActive: Bool
+    let connectorStartID: UUID?
     let sourceAnchor: CGPoint?
     let transform: CanvasTransform
     var onSelect: (UUID) -> Void
+    var onConnectorTap: (UUID) -> Void
     var onBeginEditing: (UUID) -> Void
     var onEndEditing: () -> Void
     var onTextChange: (UUID, String) -> Void
     var onMove: (UUID, CGPointCodable) -> Void
+    var onResize: (UUID, CGSizeCodable) -> Void
 
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
 
@@ -30,7 +34,14 @@ struct CanvasObjectLayer: View {
                     isSelected: object.id == selectedID,
                     isEditing: isEditing,
                     onTextChange: { newText in onTextChange(object.id, newText) },
-                    onEndEditing: onEndEditing
+                    onEndEditing: onEndEditing,
+                    onResize: { newSize in
+                        let worldSize = CGSizeCodable(
+                            width: newSize.width / transform.scale,
+                            height: newSize.height / transform.scale
+                        )
+                        onResize(object.id, worldSize)
+                    }
                 )
                 .frame(width: screenSize.width, height: screenSize.height)
                 .position(screenPos)
@@ -44,7 +55,11 @@ struct CanvasObjectLayer: View {
                     if isSelectToolActive { onBeginEditing(object.id) }
                 }
                 .onTapGesture(count: 1) {
-                    if isSelectToolActive && !isEditing { onSelect(object.id) }
+                    if isConnectorToolActive {
+                        onConnectorTap(object.id)
+                    } else if isSelectToolActive && !isEditing {
+                        onSelect(object.id)
+                    }
                 }
             }
         }

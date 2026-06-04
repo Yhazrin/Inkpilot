@@ -98,6 +98,7 @@
 "action.duplicate" = "Duplicate";
 "action.delete" = "Delete";
 "action.deselect" = "Deselect";
+"action.resize" = "Resize";
 
 /* Text Object */
 "object.text.placeholder" = "Double tap to edit...";

@@ -98,6 +98,7 @@
 "action.duplicate" = "复制";
 "action.delete" = "删除";
 "action.deselect" = "取消选择";
+"action.resize" = "调整大小";
 
 /* 文本对象 */
 "object.text.placeholder" = "双击编辑...";

@@ -32,6 +32,10 @@ final class CanvasViewModel {
 
     var isAIPanelExpanded: Bool = false
 
+    // MARK: - Connector Creation State
+
+    var connectorStartID: UUID?
+
     // MARK: - Secondary Palette State
 
     var isShapePaletteVisible: Bool = false
@@ -189,6 +193,13 @@ final class CanvasViewModel {
     func moveObject(id: UUID, to position: CGPointCodable) {
         guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
         canvasObjects[index].worldPosition = position
+        canvasObjects[index].updatedAt = Date()
+    }
+
+    func resizeObject(id: UUID, to newSize: CGSizeCodable) {
+        guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
+        canvasObjects[index].size = newSize
+        canvasObjects[index].updatedAt = Date()
     }
 
     func deleteSelected() {
@@ -219,6 +230,36 @@ final class CanvasViewModel {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             canvasObjects.append(object)
             selectedObjectID = object.id
+        }
+    }
+
+    /// Tap an object while connector tool is active.
+    /// First tap sets start, second tap creates the connector.
+    func handleConnectorTap(_ objectID: UUID) {
+        if let startID = connectorStartID {
+            // Second tap — create connector
+            let startObj = canvasObjects.first(where: { $0.id == startID })
+            let endObj = canvasObjects.first(where: { $0.id == objectID })
+            if let startObj, let endObj {
+                let midX = (startObj.worldPosition.x + endObj.worldPosition.x) / 2
+                let midY = (startObj.worldPosition.y + endObj.worldPosition.y) / 2
+                var connector = CanvasObjectFactory.connector(
+                    startID: startID, endID: objectID,
+                    at: CGPointCodable(x: midX, y: midY)
+                )
+                // Size the connector to span between the two objects
+                let dx = abs(endObj.worldPosition.x - startObj.worldPosition.x)
+                let dy = abs(endObj.worldPosition.y - startObj.worldPosition.y)
+                connector.size = CGSizeCodable(
+                    width: max(dx, 40),
+                    height: max(dy, 4)
+                )
+                addObject(connector)
+            }
+            connectorStartID = nil
+        } else {
+            // First tap — set start
+            connectorStartID = objectID
         }
     }
 

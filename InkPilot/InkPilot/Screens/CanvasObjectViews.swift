@@ -7,6 +7,7 @@ struct CanvasObjectView: View {
     let isEditing: Bool
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
+    var onResize: ((CGSize) -> Void)?
 
     var body: some View {
         Group {
@@ -38,9 +39,12 @@ struct CanvasObjectView: View {
             }
         }
         .overlay {
-            if isSelected {
+            if isSelected && !isEditing {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
                     .strokeBorder(Brand.aiBadge, lineWidth: 2)
+                if let onResize {
+                    ResizeHandles(objectSize: object.size.cgSize, onResize: onResize)
+                }
             }
         }
         .rotationEffect(.degrees(object.rotation))
