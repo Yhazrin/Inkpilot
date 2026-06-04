@@ -1,6 +1,6 @@
 # InkPilot Backend
 
-A small FastAPI server that proxies the iPad's `/suggest` request to
+A FastAPI server that proxies the iPad's AI suggestion request to
 **MiniMax** (OpenAI-compatible) and returns a strict `AISuggestionResponse`
 JSON. The iOS app talks to **this** server — the MiniMax API key never
 leaves the Mac.
@@ -32,68 +32,84 @@ cp .env.example .env
 uvicorn server:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-The server logs the LAN IP it bound to. Test it:
+## Test (no API key — uses mock fallback)
 
 ```bash
-curl http://localhost:8000/health
-# {"ok":true,"model":"MiniMax-Text-01","api_key_set":true}
-
-curl -X POST http://localhost:8000/suggest \
+curl -X POST http://localhost:8000/api/inkpilot/suggestions \
   -H "Content-Type: application/json" \
-  -d '{"context_text":"Build a product that helps students take notes with Apple Pencil"}'
+  -d '{"canvasContext":{"locale":"zh-Hans","inkText":"AI 手写笔记","promptText":"帮我整理"}}'
 ```
 
-## iPad configuration
+## Test (with MiniMax key)
 
-The iOS app needs to know the Mac's LAN address. Open
-`InkPilot/AI/NetworkSuggestionService.swift` and set:
-
-```swift
-static let baseURL = URL(string: "http://192.168.1.x:8000")!
-```
-
-Replace `192.168.1.x` with the IP printed when the server starts.
-The app's `Info.plist` already includes `NSAllowsLocalNetworking = true`
-so HTTP to a private-range IP is allowed.
+Same curl command, but with `MINIMAX_API_KEY` set in `.env`.
 
 ## Endpoints
 
-| Method | Path        | Body                | Response                |
-|--------|-------------|---------------------|-------------------------|
-| GET    | `/health`   | —                   | `{ok, model, api_key_set}` |
-| POST   | `/suggest`  | `SuggestRequest`    | `SuggestionResponse`    |
+| Method | Path | Description |
+|---|---|---|
+| GET | `/health` | Server status |
+| POST | `/api/inkpilot/suggestions` | **Formal endpoint** — AI suggestions |
+| POST | `/suggest` | Local shortcut (same handler) |
 
-`SuggestRequest`:
+### Request (rich format)
+
+```json
+{
+  "canvasContext": {
+    "locale": "zh-Hans",
+    "inkText": "User has drawn 3 stroke(s); Ink bounds: 200x150",
+    "promptText": "帮我整理一下",
+    "selectedObject": null,
+    "canvasObjects": [
+      {"type": "aiCard", "title": "目标用户"}
+    ]
+  }
+}
+```
+
+### Request (legacy format — still supported)
 
 ```json
 {
   "context_text": "user's notes from the canvas",
   "anchor_hint": "optional",
-  "mode_hint": "completion|structure|component|diagram"
+  "mode_hint": "structure"
 }
 ```
 
-`SuggestionResponse`:
+### Response (always `AISuggestionResponse`)
 
 ```json
 {
   "mode": "structure",
-  "title": "Suggested structure",
+  "title": "建议结构",
   "items": [
-    {"id": "...", "type": "aiCard", "title": "...", "content": "..."}
+    {"id": "...", "type": "aiCard", "title": "目标用户", "content": "..."},
+    {"id": "...", "type": "aiCard", "title": "核心流程", "content": "..."}
   ]
 }
 ```
 
-## Switching providers
+## MiniMax API reference
 
-`MINIMAX_BASE_URL`, `MINIMAX_MODEL`, and the auth header in
-`server.py` are the only places that hard-code MiniMax. Replace those
-three lines to talk to OpenAI / Anthropic / Ollama / whatever.
+- **Base URL:** `https://api.minimaxi.com/v1` (official per OpenAPI spec)
+- **Model:** `MiniMax-M3` (current flagship)
+- **Auth:** `Authorization: Bearer <API_KEY>`
+- **Endpoint:** `/chat/completions` (OpenAI-compatible)
+- **Token param:** `max_completion_tokens` (not deprecated `max_tokens`)
+- **Thinking:** `{"type": "disabled"}` for simple canvas tasks
+- **Structured output:** Not supported via `response_format`; prompt-based JSON only
+- **Docs:** https://platform.minimaxi.com/docs
+
+## iPad configuration
+
+Set `INKPILOT_BACKEND_URL` in Info.plist to your Mac's LAN IP,
+or update `BackendConfig.swift` default.
 
 ## Security
 
 - `.env` is gitignored. **Do not commit it.**
-- The server binds to `0.0.0.0` so the iPad can reach it, but you may
-  want to restrict to your subnet's bridge interface in production.
-- No authentication. This is a development server on a trusted LAN.
+- No MiniMax API key in the iPad app.
+- Server binds to `0.0.0.0` for LAN access.
+- No authentication. Development server on trusted LAN only.

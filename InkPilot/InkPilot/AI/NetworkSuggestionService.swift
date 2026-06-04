@@ -18,7 +18,7 @@ final class NetworkSuggestionService: SuggestionService {
     }
 
     func generateSuggestion(context: CanvasContext) async throws -> AISuggestionResponse {
-        let url = baseURL.appendingPathComponent("suggest")
+        let url = baseURL.appendingPathComponent("api/inkpilot/suggestions")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.timeoutInterval = 30

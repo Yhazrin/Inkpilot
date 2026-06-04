@@ -117,7 +117,8 @@ async def health() -> dict:
     }
 
 
-@app.post("/suggest", response_model=SuggestionResponse)
+@app.post("/api/inkpilot/suggestions", response_model=SuggestionResponse)
+@app.post("/suggest", response_model=SuggestionResponse)  # local shortcut
 async def suggest(req: SuggestRequest) -> SuggestionResponse:
     if not MINIMAX_API_KEY:
         raise HTTPException(status_code=503, detail="MINIMAX_API_KEY not configured on server")
