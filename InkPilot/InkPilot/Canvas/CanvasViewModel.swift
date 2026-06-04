@@ -10,6 +10,12 @@ final class CanvasViewModel {
     var drawing = PKDrawing()
     var selectedTool: CanvasTool = .pen
 
+    // MARK: - Viewport / Transform
+
+    /// The current canvas viewport transform (zoom + pan).
+    /// Synced from PencilKit's UIScrollView via the coordinator.
+    var canvasTransform: CanvasTransform = .identity
+
     // MARK: - Canvas Objects
 
     var canvasObjects: [CanvasObject] = []
@@ -38,19 +44,43 @@ final class CanvasViewModel {
 
     private let suggestionService: SuggestionService
 
-    init(suggestionService: SuggestionService = NetworkSuggestionService()) {
-        self.suggestionService = suggestionService
+    init(suggestionService: SuggestionService? = nil) {
+        self.suggestionService = suggestionService ?? Self.defaultService()
     }
 
-    // MARK: - Computed
+    private static func defaultService() -> SuggestionService {
+        if BackendConfig.isBackendAvailable {
+            return NetworkSuggestionService()
+        }
+        return MockSuggestionService()
+    }
+
+    // MARK: - Coordinate helpers
+
+    /// Convert a world point to screen space using current transform.
+    func worldToScreen(_ point: CGPoint) -> CGPoint {
+        canvasTransform.worldToScreen(point)
+    }
+
+    /// Convert a screen point to world space using current transform.
+    func screenToWorld(_ point: CGPoint) -> CGPoint {
+        canvasTransform.screenToWorld(point)
+    }
 
     /// Default insertion point for new objects: uses suggestion anchor
-    /// if available, otherwise a sensible canvas center.
+    /// if available, offset by transform, otherwise visible center.
     var defaultInsertionPoint: CGPointCodable {
         if let anchor = suggestionAnchor {
             return CGPointCodable(x: anchor.x + 100, y: anchor.y)
         }
+        // Approximate visible center in world coords
         return CGPointCodable(x: 520, y: 360)
+    }
+
+    // MARK: - Transform sync (called by PencilKit coordinator)
+
+    func syncTransform(scale: CGFloat, offset: CGSize) {
+        canvasTransform = CanvasTransform(scale: scale, offset: offset)
     }
 
     // MARK: - AI Actions
@@ -65,7 +95,12 @@ final class CanvasViewModel {
             suggestionAnchor = CGPointCodable(x: anchor.x, y: anchor.y)
         }
 
-        let context = CanvasContextBuilder.build(from: drawing)
+        let context = CanvasContextBuilder.build(
+            from: drawing,
+            canvasObjects: canvasObjects,
+            selectedObjectID: selectedObjectID,
+            promptText: promptText
+        )
 
         Task { @MainActor in
             do {
@@ -87,10 +122,7 @@ final class CanvasViewModel {
         let anchorPoint = suggestionAnchor?.cgPoint
             ?? SuggestionAnchorResolver.defaultFallback
 
-        let columnOrigin = CGPoint(
-            x: anchorPoint.x + 60,
-            y: anchorPoint.y - 80
-        )
+        let columnOrigin = CGPoint(x: anchorPoint.x + 60, y: anchorPoint.y - 80)
         let cardSpacing: CGFloat = 150
 
         let newObjects = suggestion.response.items.enumerated().map { index, item in

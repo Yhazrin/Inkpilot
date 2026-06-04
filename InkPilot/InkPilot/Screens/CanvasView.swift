@@ -18,19 +18,24 @@ struct CanvasView: View {
             // 1. Background
             ColorBlockBackground()
 
-            // 2. PencilKit drawing
+            // 2. PencilKit drawing (syncs zoom/scroll to transform)
             PencilKitCanvasRepresentable(
                 drawing: $viewModel.drawing,
-                tool: viewModel.selectedTool
+                tool: viewModel.selectedTool,
+                onTransformChange: { scale, offset in
+                    viewModel.syncTransform(scale: scale, offset: offset)
+                }
             )
             .ignoresSafeArea()
             .allowsHitTesting(
                 viewModel.selectedTool == .pen || viewModel.selectedTool == .eraser
             )
 
-            // 3. Non-interactive motion effects
+            // 3. Non-interactive motion effects (transform-aware anchor)
             CanvasMotionLayer(
-                anchor: viewModel.suggestionAnchor?.cgPoint,
+                anchor: viewModel.suggestionAnchor.map {
+                    viewModel.worldToScreen($0.cgPoint)
+                },
                 isThinking: viewModel.isThinking,
                 hasGhost: viewModel.ghostSuggestion != nil,
                 materializationCount: materializationCount
@@ -42,6 +47,7 @@ struct CanvasView: View {
                 selectedID: viewModel.selectedObjectID,
                 isSelectToolActive: viewModel.selectedTool == .select,
                 sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
+                transform: viewModel.canvasTransform,
                 onSelect: { viewModel.selectObject($0) },
                 onMove: { id, pos in viewModel.moveObject(id: id, to: pos) }
             )
@@ -49,13 +55,14 @@ struct CanvasView: View {
             // 5. Floating chrome
             floatingChrome
 
-            // 6. Ghost suggestion (anchor-anchored, not centered)
+            // 6. Ghost suggestion (anchor-anchored, transform-aware)
             if let suggestion = viewModel.ghostSuggestion,
                let anchor = viewModel.suggestionAnchor?.cgPoint {
+                let screenAnchor = viewModel.worldToScreen(anchor)
                 GhostSuggestionCard(
                     suggestion: suggestion,
-                    anchor: anchor,
-                    target: ghostTarget(for: anchor),
+                    anchor: screenAnchor,
+                    target: ghostTarget(for: screenAnchor),
                     onAccept: { viewModel.acceptSuggestion() },
                     onDismiss: { viewModel.dismissSuggestion() }
                 )

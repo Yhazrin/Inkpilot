@@ -1,11 +1,13 @@
 import SwiftUI
 import PencilKit
 
-/// A UIViewRepresentable wrapper around PKCanvasView
-/// that provides Apple Pencil and touch drawing on the canvas.
+/// A UIViewRepresentable wrapper around PKCanvasView.
+/// Syncs zoom/scroll state with CanvasViewModel.transform so the
+/// object layer can stay in the same coordinate space.
 struct PencilKitCanvasRepresentable: UIViewRepresentable {
     @Binding var drawing: PKDrawing
     var tool: CanvasTool
+    var onTransformChange: ((CGFloat, CGSize) -> Void)?
 
     func makeUIView(context: Context) -> PKCanvasView {
         let canvas = PKCanvasView()
@@ -14,23 +16,28 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
         canvas.backgroundColor = .clear
         canvas.isOpaque = false
         canvas.maximumZoomScale = 4
-        canvas.minimumZoomScale = 1
+        canvas.minimumZoomScale = 0.25
         canvas.bounces = true
         canvas.alwaysBounceVertical = true
         canvas.alwaysBounceHorizontal = true
+
+        // Observe scroll/zoom changes to sync transform
+        canvas.scrollViewDelegate = context.coordinator
+
         updateTool(on: canvas)
         return canvas
     }
 
     func updateUIView(_ canvas: PKCanvasView, context: Context) {
         updateTool(on: canvas)
+        context.coordinator.onTransformChange = onTransformChange
         if canvas.drawing != drawing {
             canvas.drawing = drawing
         }
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(drawing: $drawing)
+        Coordinator(drawing: $drawing, onTransformChange: onTransformChange)
     }
 
     private func updateTool(on canvas: PKCanvasView) {
@@ -42,32 +49,25 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
         case .lasso, .select:
             canvas.tool = PKLassoTool()
         case .text, .shape, .media:
-            // Non-drawing tools — disable PencilKit input
             canvas.tool = PKLassoTool()
         }
     }
 
-    final class Coordinator: NSObject, PKCanvasViewDelegate {
+    final class Coordinator: NSObject, PKCanvasViewDelegate, UIScrollViewDelegate {
         @Binding var drawing: PKDrawing
+        var onTransformChange: ((CGFloat, CGSize) -> Void)?
 
-        /// How many strokes we've already processed. If the drawing has
-        /// more strokes than this, the new ones are candidates for
-        /// smoothing.
         private var lastSeenStrokeCount: Int = 0
-
-        /// Re-entrancy guard: when we programmatically replace the
-        /// drawing to apply smoothing, the delegate fires again. We
-        /// ignore that re-entry.
         private var isApplyingSmoothing = false
 
-        init(drawing: Binding<PKDrawing>) {
+        init(drawing: Binding<PKDrawing>, onTransformChange: ((CGFloat, CGSize) -> Void)?) {
             _drawing = drawing
+            self.onTransformChange = onTransformChange
         }
 
+        // MARK: - PKCanvasViewDelegate
+
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-            // Re-entry from our own programmatic update — sync the
-            // binding (so the view model sees the smoothed version)
-            // and bail.
             if isApplyingSmoothing {
                 isApplyingSmoothing = false
                 drawing = canvasView.drawing
@@ -86,9 +86,6 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
                 return
             }
 
-            // Only the newly added strokes are candidates. If the user
-            // did multiple strokes between frames (e.g. fast writing),
-            // smooth them all.
             let newStrokeStart = lastSeenStrokeCount
             var strokes = current.strokes
             for i in newStrokeStart..<currentCount {
@@ -100,9 +97,32 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             canvasView.drawing = smoothed
             drawing = smoothed
         }
+
+        // MARK: - UIScrollViewDelegate (zoom + pan sync)
+
+        func scrollViewDidZoom(_ scrollView: UIScrollView) {
+            notifyTransform(scrollView)
+        }
+
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            notifyTransform(scrollView)
+        }
+
+        private func notifyTransform(_ scrollView: UIScrollView) {
+            let scale = scrollView.zoomScale
+            let offset = CGSize(
+                width: -scrollView.contentOffset.x,
+                height: -scrollView.contentOffset.y
+            )
+            onTransformChange?(scale, offset)
+        }
     }
 }
 
 #Preview {
-    PencilKitCanvasRepresentable(drawing: .constant(PKDrawing()), tool: .pen)
+    PencilKitCanvasRepresentable(
+        drawing: .constant(PKDrawing()),
+        tool: .pen,
+        onTransformChange: nil
+    )
 }

@@ -1,29 +1,29 @@
 import SwiftUI
 
-/// Renders all canvas objects at their world positions.
-/// Supports selection and drag-to-move when Select tool is active.
-/// Materializes AI cards from sourceAnchor with travel animation.
+/// Renders all canvas objects at their world positions, transformed
+/// to screen space via CanvasTransform. Supports selection, drag-to-move,
+/// and sourceAnchor-based materialization.
 struct CanvasObjectLayer: View {
     let objects: [CanvasObject]
     let selectedID: UUID?
     let isSelectToolActive: Bool
     let sourceAnchor: CGPoint?
+    let transform: CanvasTransform
     var onSelect: (UUID) -> Void
     var onMove: (UUID, CGPointCodable) -> Void
 
-    /// Per-object drag start positions. Captured on the first
-    /// `onChanged` of a drag gesture so the drag stays anchored to
-    /// the object's position at drag start, not its position after
-    /// the previous frame's `onMove` mutated it. Cleared on
-    /// `onEnded`/`onCancelled`.
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             ForEach(objects) { object in
+                let screenPos = transform.worldToScreen(object.worldPosition.cgPoint)
+                let screenSize = transform.worldToScreenSize(object.size.cgSize)
+
                 CanvasObjectView(object: object, isSelected: object.id == selectedID)
-                    .frame(width: object.size.cgSize.width, height: object.size.cgSize.height)
-                    .position(object.worldPosition.cgPoint)
+                    .frame(width: screenSize.width, height: screenSize.height)
+                    .position(screenPos)
+                    .scaleEffect(1.0) // objects scale via frame, not scaleEffect
                     .transition(materializationTransition(for: object))
                     .gesture(
                         isSelectToolActive
@@ -40,18 +40,8 @@ struct CanvasObjectLayer: View {
         .allowsHitTesting(isSelectToolActive)
     }
 
-    // MARK: - Drag gesture (caches start position per object)
+    // MARK: - Drag gesture (world-space, caches start position)
 
-    /// Drag gesture with stable start-anchored translation.
-    ///
-    /// We cannot read the object's original `worldPosition` inside
-    /// `onChanged` because `onMove` mutates that property on every
-    /// frame, so `value.translation` (which is cumulative from the
-    /// drag start) would be re-applied on top of the just-moved
-    /// position, accelerating the object off-screen. Instead we cache
-    /// `worldPosition` the first time the gesture fires and recompute
-    /// the target as `start + translation` for every subsequent
-    /// frame.
     private func dragGesture(for object: CanvasObject) -> some Gesture {
         DragGesture(minimumDistance: 1)
             .onChanged { value in
@@ -60,9 +50,14 @@ struct CanvasObjectLayer: View {
                 if dragStartPositions[object.id] == nil {
                     dragStartPositions[object.id] = start
                 }
+                // Convert screen translation to world space
+                let worldTranslation = CGSize(
+                    width: value.translation.width / transform.scale,
+                    height: value.translation.height / transform.scale
+                )
                 let newPos = CGPointCodable(
-                    x: start.x + value.translation.width,
-                    y: start.y + value.translation.height
+                    x: start.x + worldTranslation.width,
+                    y: start.y + worldTranslation.height
                 )
                 onMove(object.id, newPos)
             }
@@ -71,7 +66,7 @@ struct CanvasObjectLayer: View {
             }
     }
 
-    // MARK: - Materialization transition for AI cards
+    // MARK: - Materialization transition
 
     private func materializationTransition(for object: CanvasObject) -> AnyTransition {
         guard object.source == .ai, let anchor = sourceAnchor else {
@@ -80,9 +75,11 @@ struct CanvasObjectLayer: View {
                 removal: .opacity
             )
         }
+        let screenAnchor = transform.worldToScreen(anchor)
+        let screenPos = transform.worldToScreen(object.worldPosition.cgPoint)
         let travel = CGSize(
-            width: anchor.x - object.worldPosition.cgPoint.x,
-            height: anchor.y - object.worldPosition.cgPoint.y
+            width: screenAnchor.x - screenPos.x,
+            height: screenAnchor.y - screenPos.y
         )
         return .asymmetric(
             insertion: .modifier(
