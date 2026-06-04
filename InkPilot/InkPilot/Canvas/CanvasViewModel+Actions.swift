@@ -240,6 +240,50 @@ extension CanvasViewModel {
         }
     }
 
+    // MARK: - Image Import
+
+    /// Import an image from photo library data.
+    func importImage(data: Data, fileName: String) {
+        guard let asset = ImageImportService.saveImage(data: data, fileName: fileName) else { return }
+        let obj = CanvasObject(
+            id: UUID(),
+            content: .media(assetID: asset.id.uuidString, mediaKind: .image),
+            worldPosition: defaultInsertionPoint,
+            size: CGSizeCodable(width: 300, height: 200),
+            rotation: 0,
+            zIndex: 0,
+            groupID: nil,
+            source: .user,
+            style: .default,
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+        addObject(obj)
+    }
+
+    // MARK: - Canvas Export
+
+    /// Export canvas as a UIImage.
+    func exportCanvasAsImage(screenSize: CGSize) -> UIImage {
+        CanvasExporter.renderToImage(
+            drawing: drawing,
+            objects: canvasObjects,
+            canvasSize: screenSize
+        )
+    }
+
+    /// Export and save to Photos library.
+    func exportToPhotos(screenSize: CGSize) async -> Bool {
+        let image = exportCanvasAsImage(screenSize: screenSize)
+        return await CanvasExporter.saveToPhotos(image)
+    }
+
+    /// Export and return a temporary share URL.
+    func exportToShareURL(screenSize: CGSize) -> URL? {
+        let image = exportCanvasAsImage(screenSize: screenSize)
+        return CanvasExporter.saveToTemporaryURL(image)
+    }
+
     // MARK: - Helpers
 
     private func selectedObjects() -> [CanvasObject] {

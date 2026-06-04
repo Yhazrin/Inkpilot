@@ -41,8 +41,12 @@ struct CanvasObjectView: View {
                 )
             case .mindNode(let label, let parentID):
                 MindNodeView(label: label, parentID: parentID, allObjects: allObjects)
-            case .media(_, let mediaKind):
-                MediaPlaceholderObjectView(mediaKind: mediaKind)
+            case .media(let assetID, let mediaKind):
+                if mediaKind == .image && assetID != nil {
+                    ImageCanvasObjectView(assetID: assetID)
+                } else {
+                    MediaPlaceholderObjectView(mediaKind: mediaKind)
+                }
             }
         }
         .overlay {

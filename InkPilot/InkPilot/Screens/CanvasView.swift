@@ -6,6 +6,8 @@ struct CanvasView: View {
     @State private var materializationCount: Int = 0
     @State private var marqueeStart: CGPoint?
     @State private var marqueeEnd: CGPoint?
+    @State private var showExportSheet = false
+    @State private var exportURL: URL?
 
     var body: some View {
         ZStack {
@@ -195,11 +197,15 @@ struct CanvasView: View {
 
                 if viewModel.isMediaPaletteVisible {
                     MediaPalette(
-                        onSelect: { type in
+                        onInsertPlaceholder: { type in
                             let obj: CanvasObject = type == .image
                                 ? CanvasObjectFactory.imagePlaceholder(at: viewModel.defaultInsertionPoint)
                                 : CanvasObjectFactory.filePlaceholder(at: viewModel.defaultInsertionPoint)
                             viewModel.addObject(obj)
+                            viewModel.isMediaPaletteVisible = false
+                        },
+                        onImportImage: { data, name in
+                            viewModel.importImage(data: data, fileName: name)
                             viewModel.isMediaPaletteVisible = false
                         },
                         onClose: { viewModel.isMediaPaletteVisible = false }
@@ -251,10 +257,34 @@ struct CanvasView: View {
             .padding(.bottom, Brand.spacingL)
             .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
         }
+        .overlay(alignment: .topTrailing) {
+            // Export / Share button
+            Button {
+                if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+                    exportURL = url
+                    showExportSheet = true
+                }
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Brand.inkSecondary)
+                    .frame(width: 44, height: 44)
+                    .background(Capsule().fill(.ultraThinMaterial))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+            }
+            .padding(.trailing, Brand.spacingM)
+            .padding(.top, Brand.spacingM)
+            .accessibilityLabel(Text(String(localized: "action.export")))
+        }
         .overlay(alignment: .bottomTrailing) {
             AIPilotPanel(viewModel: viewModel)
                 .padding(.trailing, Brand.spacingL)
                 .padding(.bottom, 100)
+        }
+        .sheet(isPresented: $showExportSheet) {
+            if let exportURL {
+                ShareSheet(items: [exportURL])
+            }
         }
         .overlay {
             if let suggestion = viewModel.ghostSuggestion,

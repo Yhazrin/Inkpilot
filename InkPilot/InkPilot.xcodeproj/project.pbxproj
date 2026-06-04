@@ -60,6 +60,11 @@
 		A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004A000000000000003A; };
 		A100004B000000000000003B /* SelectionModeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004B000000000000003B; };
 		A100004C000000000000003C /* ConnectorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004C000000000000003C; };
+		A100004D000000000000003D /* ImageImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004D000000000000003D; };
+		A100004E000000000000003E /* CanvasExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004E000000000000003E; };
+		A100004F000000000000003F /* ImageImportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004F000000000000003F; };
+		A10000500000000000000040 /* ImageCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000500000000000000040; };
+		A10000510000000000000041 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000510000000000000041; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -118,6 +123,11 @@
 		A200004A000000000000003A /* LassoSelectionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LassoSelectionLayer.swift; sourceTree = "<group>"; };
 		A200004B000000000000003B /* SelectionModeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionModeToggle.swift; sourceTree = "<group>"; };
 		A200004C000000000000003C /* ConnectorViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectorViews.swift; sourceTree = "<group>"; };
+		A200004D000000000000003D /* ImageImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageImportService.swift; sourceTree = "<group>"; };
+		A200004E000000000000003E /* CanvasExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasExporter.swift; sourceTree = "<group>"; };
+		A200004F000000000000003F /* ImageImportPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageImportPicker.swift; sourceTree = "<group>"; };
+		A20000500000000000000040 /* ImageCanvasObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCanvasObjectView.swift; sourceTree = "<group>"; };
+		A20000510000000000000041 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -191,6 +201,8 @@
 				A20000440000000000000034 /* CanvasViewModel+Actions.swift */,
 				A20000450000000000000035 /* CanvasSelectionState.swift */,
 				A20000480000000000000038 /* SmartGuideEngine.swift */,
+				A200004D000000000000003D /* ImageImportService.swift */,
+				A200004E000000000000003E /* CanvasExporter.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -238,6 +250,9 @@
 				A200004A000000000000003A /* LassoSelectionLayer.swift */,
 				A200004B000000000000003B /* SelectionModeToggle.swift */,
 				A200004C000000000000003C /* ConnectorViews.swift */,
+				A200004F000000000000003F /* ImageImportPicker.swift */,
+				A20000500000000000000040 /* ImageCanvasObjectView.swift */,
+				A20000510000000000000041 /* ShareSheet.swift */,
 				A2000030000000000000001E /* ShapePalette.swift */,
 				A2000031000000000000001F /* MediaPalette.swift */,
 			);
@@ -387,6 +402,11 @@
 				A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */,
 				A100004B000000000000003B /* SelectionModeToggle.swift in Sources */,
 				A100004C000000000000003C /* ConnectorViews.swift in Sources */,
+				A100004D000000000000003D /* ImageImportService.swift in Sources */,
+				A100004E000000000000003E /* CanvasExporter.swift in Sources */,
+				A100004F000000000000003F /* ImageImportPicker.swift in Sources */,
+				A10000500000000000000040 /* ImageCanvasObjectView.swift in Sources */,
+				A10000510000000000000041 /* ShareSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

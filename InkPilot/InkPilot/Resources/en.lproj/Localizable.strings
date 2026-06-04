@@ -161,3 +161,14 @@
 "palette.mindNode" = "Mind Map Node";
 "object.mindNode.placeholder" = "New Idea";
 "object.mindNode.accessibility" = "Mind map node.";
+
+/* Image Import / Export */
+"media.import.image" = "Import Photo";
+"media.import.image.accessibility" = "Import a photo from your library";
+"media.import.selectPhoto" = "Select a Photo";
+"media.import.hint" = "Choose an image to add to your canvas.";
+"media.import.title" = "Import Image";
+"media.import.cancel" = "Cancel";
+"object.image.accessibility" = "Imported image.";
+"object.image.loading" = "Loading...";
+"action.export" = "Export Canvas";

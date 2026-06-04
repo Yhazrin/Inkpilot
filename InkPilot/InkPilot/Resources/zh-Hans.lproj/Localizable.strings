@@ -161,3 +161,14 @@
 "palette.mindNode" = "思维导图节点";
 "object.mindNode.placeholder" = "新想法";
 "object.mindNode.accessibility" = "思维导图节点。";
+
+/* 图片导入/导出 */
+"media.import.image" = "导入照片";
+"media.import.image.accessibility" = "从相册导入照片";
+"media.import.selectPhoto" = "选择照片";
+"media.import.hint" = "选择一张图片添加到画布。";
+"media.import.title" = "导入图片";
+"media.import.cancel" = "取消";
+"object.image.accessibility" = "导入的图片。";
+"object.image.loading" = "加载中...";
+"action.export" = "导出画布";
