@@ -13,13 +13,14 @@ enum DrawingToolKind: String, CaseIterable, Codable {
 @Observable
 final class DrawingToolState {
     var selectedKind: DrawingToolKind = .pen
-    var color: Color = .black
+    /// Default ink color adapts to light/dark mode via Brand.inkPrimary.
+    var color: Color = Brand.inkPrimary
     var width: CGFloat = 2.0
     var opacity: CGFloat = 1.0
     var eraserMode: EraserMode = .bitmap
 
     /// Recently used colors for quick access.
-    var recentColors: [Color] = [.black, .blue, .red]
+    var recentColors: [Color] = [Brand.inkPrimary, .blue, .red]
 
     /// Recently used widths.
     var recentWidths: [CGFloat] = [1.0, 2.0, 4.0]

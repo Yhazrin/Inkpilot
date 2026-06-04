@@ -26,7 +26,7 @@ struct ResizeHandles: View {
 
     private func handle(at corner: Corner) -> some View {
         Circle()
-            .fill(.white)
+            .fill(Brand.canvasBase)
             .frame(width: handleSize, height: handleSize)
             .overlay(Circle().strokeBorder(Brand.aiBadge, lineWidth: 1.5))
             .position(position(for: corner))

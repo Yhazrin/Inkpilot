@@ -57,7 +57,7 @@ struct HomeView: View {
                         systemImage: "plus.circle.fill"
                     )
                     .font(Brand.titleFont)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Brand.inkInverse)
                     .padding(.horizontal, Brand.spacingL)
                     .padding(.vertical, Brand.spacingM)
                     .background {

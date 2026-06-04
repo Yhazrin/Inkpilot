@@ -1,25 +1,20 @@
 import SwiftUI
 
-/// A calm, spatial background for the canvas.
-/// Pure black & white: white base + a single soft grey radial for paper-like
-/// depth, plus a faint dot grid.
+/// Canvas background that adapts to light/dark mode.
+/// Light: warm off-white with soft vignette.
+/// Dark: deep grey canvas with subtle warm undertone.
 struct ColorBlockBackground: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                // Pure white base
+                // Base canvas color (adaptive)
                 Brand.canvasBase
                     .ignoresSafeArea()
 
-                // Subtle paper-like vignette (greyscale only)
-                RadialGradient(
-                    colors: [Color.white, Color(white: 0.96), Color(white: 0.93)],
-                    center: UnitPoint(x: 0.25, y: 0.2),
-                    startRadius: 0,
-                    endRadius: max(geo.size.width, geo.size.height) * 0.9
-                )
-                .ignoresSafeArea()
-                .opacity(0.55)
+                // Subtle vignette for depth
+                vignette(in: geo.size)
 
                 // Faint dot grid for spatial depth
                 dotGrid(in: geo.size)
@@ -28,12 +23,45 @@ struct ColorBlockBackground: View {
         .ignoresSafeArea()
     }
 
-    /// Very subtle dot grid pattern.
+    @ViewBuilder
+    private func vignette(in size: CGSize) -> some View {
+        if colorScheme == .dark {
+            RadialGradient(
+                colors: [
+                    Color(white: 0.13),
+                    Color(white: 0.10),
+                    Color(white: 0.08),
+                ],
+                center: UnitPoint(x: 0.25, y: 0.2),
+                startRadius: 0,
+                endRadius: max(size.width, size.height) * 0.9
+            )
+            .ignoresSafeArea()
+            .opacity(0.55)
+        } else {
+            RadialGradient(
+                colors: [
+                    Color.white,
+                    Color(white: 0.96),
+                    Color(white: 0.93),
+                ],
+                center: UnitPoint(x: 0.25, y: 0.2),
+                startRadius: 0,
+                endRadius: max(size.width, size.height) * 0.9
+            )
+            .ignoresSafeArea()
+            .opacity(0.55)
+        }
+    }
+
     private func dotGrid(in size: CGSize) -> some View {
         let spacing: CGFloat = 40
         let dotSize: CGFloat = 1.5
         let columns = Int(size.width / spacing) + 1
         let rows = Int(size.height / spacing) + 1
+        let dotColor = colorScheme == .dark
+            ? Color.white.opacity(0.06)
+            : Color(white: 0.42).opacity(0.08)
 
         return Canvas { context, _ in
             for row in 0...rows {
@@ -46,13 +74,19 @@ struct ColorBlockBackground: View {
                         width: dotSize,
                         height: dotSize
                     )
-                    context.fill(Path(ellipseIn: rect), with: .color(Brand.inkSecondary.opacity(0.08)))
+                    context.fill(Path(ellipseIn: rect), with: .color(dotColor))
                 }
             }
         }
     }
 }
 
-#Preview {
+#Preview("Light") {
     ColorBlockBackground()
+        .preferredColorScheme(.light)
+}
+
+#Preview("Dark") {
+    ColorBlockBackground()
+        .preferredColorScheme(.dark)
 }

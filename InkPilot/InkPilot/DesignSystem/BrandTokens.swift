@@ -3,53 +3,61 @@ import SwiftUI
 // MARK: - Brand Tokens
 
 /// Central design tokens for the InkPilot visual system.
-/// Pure black & white brand identity (Codex / OpenAI style).
-/// Color is reserved for system state only — never decoration.
+/// All surface/ink/glass colors adapt to light/dark mode.
+/// Canvas goes dark in dark mode; components maintain contrast.
 enum Brand {
 
-    // MARK: Surfaces
+    // MARK: Surfaces (adaptive)
 
-    /// Pure white canvas base.
-    static let canvasBase = Color.white
+    /// Canvas base — white in light, dark grey in dark.
+    static let canvasBase = Color(light: .white, dark: Color(white: 0.11))
 
-    /// Slightly off-white for soft surface variation.
-    static let surfaceMuted = Color(white: 0.97)
+    /// Soft surface variation.
+    static let surfaceMuted = Color(light: Color(white: 0.97), dark: Color(white: 0.15))
 
-    /// Near-black inverted surface (for dark panels / contrast moments).
-    static let surfaceDark = Color(white: 0.08)
+    /// High-contrast surface for panels.
+    static let surfaceDark = Color(light: Color(white: 0.08), dark: Color(white: 0.92))
 
-    // MARK: Ink
+    // MARK: Ink (adaptive)
 
-    /// Primary text and strokes — near-black.
-    static let inkPrimary = Color(white: 0.08)
+    /// Primary text — dark on light, light on dark.
+    static let inkPrimary = Color(light: Color(white: 0.08), dark: Color(white: 0.92))
 
-    /// Secondary text and subdued icons.
-    static let inkSecondary = Color(white: 0.42)
+    /// Secondary text.
+    static let inkSecondary = Color(light: Color(white: 0.42), dark: Color(white: 0.58))
 
-    /// Tertiary text — used for placeholders and very low emphasis.
-    static let inkTertiary = Color(white: 0.62)
+    /// Tertiary / placeholder.
+    static let inkTertiary = Color(light: Color(white: 0.62), dark: Color(white: 0.42))
 
-    /// Inverse text — for use on dark surfaces.
-    static let inkInverse = Color.white
+    /// Inverse text.
+    static let inkInverse = Color(light: .white, dark: Color(white: 0.08))
 
-    // MARK: AI Accent (monochrome)
+    // MARK: AI Accent (adaptive)
 
-    /// Solid black for AI emphasis (badges, CTAs, selection borders).
-    static let aiAccent = Color(white: 0.08)
+    /// AI emphasis — black in light, white in dark.
+    static let aiAccent = Color(light: Color(white: 0.08), dark: Color(white: 0.92))
 
-    /// Soft black for AI radial auras and subtle background tints.
-    static let aiHalo = Color(white: 0.08).opacity(0.30)
+    /// AI halo for auras.
+    static let aiHalo = Color(light: Color(white: 0.08), dark: Color(white: 0.92)).opacity(0.30)
 
-    /// Black outline at low opacity — used for ghost / pending states.
-    static let aiOutline = Color(white: 0.08).opacity(0.18)
+    /// AI outline for ghost states.
+    static let aiOutline = Color(light: Color(white: 0.08), dark: Color(white: 0.92)).opacity(0.18)
 
-    // MARK: Glass
+    // MARK: AI Badge (color accent — same in both modes)
 
-    /// Glass border highlight.
-    static let glassBorder = Color.white.opacity(0.45)
+    /// AI badge blue accent.
+    static let aiBadge = Color(red: 0.35, green: 0.55, blue: 0.90)
 
-    /// Glass shadow color.
-    static let glassShadow = Color.black.opacity(0.06)
+    /// AI glow for ghost cards.
+    static let aiGlow = Color(red: 0.35, green: 0.55, blue: 0.90).opacity(0.25)
+
+    // MARK: Glass (adaptive)
+
+    /// Glass border — white in light, subtle light in dark.
+    static let glassBorder = Color(light: .white.opacity(0.45), dark: .white.opacity(0.12))
+
+    /// Glass shadow.
+    static let glassShadow = Color(light: .black.opacity(0.06), dark: .black.opacity(0.20))
 
     // MARK: Typography
 
@@ -77,4 +85,17 @@ enum Brand {
 
     static let shadowRadius: CGFloat = 12
     static let shadowY: CGFloat = 4
+}
+
+// MARK: - Adaptive Color Helper
+
+extension Color {
+    /// Create a color that adapts between light and dark mode.
+    init(light: Color, dark: Color) {
+        self.init(uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(dark)
+                : UIColor(light)
+        })
+    }
 }

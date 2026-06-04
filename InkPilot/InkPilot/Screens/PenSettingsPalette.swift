@@ -58,7 +58,7 @@ struct PenSettingsPalette: View {
                 .frame(width: 36, height: 36)
                 .background {
                     if drawingState.selectedKind == kind {
-                        Capsule().fill(.white).shadow(color: Brand.glassShadow, radius: 2, y: 1)
+                        Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: 2, y: 1)
                     }
                 }
         }
@@ -101,7 +101,7 @@ struct PenSettingsPalette: View {
                         .frame(width: 24, height: 24)
                         .overlay {
                             if colorsEqual(drawingState.color, c) {
-                                Circle().strokeBorder(.white, lineWidth: 2)
+                                Circle().strokeBorder(Brand.canvasBase, lineWidth: 2)
                                     .shadow(color: Brand.glassShadow, radius: 2, y: 1)
                             }
                         }
