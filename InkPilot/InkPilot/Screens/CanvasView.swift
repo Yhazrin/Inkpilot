@@ -42,6 +42,16 @@ struct CanvasView: View {
             )
 
             // 4. Canvas objects
+            // Text tool: tap empty canvas to insert text box
+            if viewModel.selectedTool == .text {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { location in
+                        let worldPos = viewModel.screenToWorld(location)
+                        let obj = CanvasObjectFactory.textBox(at: CGPointCodable(x: worldPos.x, y: worldPos.y))
+                        viewModel.addObject(obj)
+                    }
+            }
             CanvasObjectLayer(
                 objects: viewModel.canvasObjects,
                 selectedIDs: viewModel.selection.selectedIDs,
@@ -84,9 +94,11 @@ struct CanvasView: View {
                 selectionLayer
             }
 
-            // 7. Tool mode hint
+            // 7. Tool mode hints
             if viewModel.selectedTool == .connector {
                 toolModeHint(String(localized: "tool.connector.hint"))
+            } else if viewModel.selectedTool == .text {
+                toolModeHint(String(localized: "tool.text.hint"))
             }
 
             // 8. Floating chrome

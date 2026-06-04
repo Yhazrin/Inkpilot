@@ -14,6 +14,7 @@
 "tool.ai" = "AI 建议";
 "tool.connector" = "连接";
 "tool.connector.hint" = "点击两个对象以连接它们";
+"tool.text.hint" = "点击画布插入文本框";
 
 /* 画布提示 */
 "canvas.prompt.placeholder" = "询问当前画布...";

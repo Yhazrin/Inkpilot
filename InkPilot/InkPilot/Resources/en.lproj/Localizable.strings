@@ -14,6 +14,7 @@
 "tool.ai" = "AI Suggest";
 "tool.connector" = "Connector";
 "tool.connector.hint" = "Tap two objects to connect them";
+"tool.text.hint" = "Tap canvas to insert a text box";
 
 /* Canvas Prompt */
 "canvas.prompt.placeholder" = "Ask AI about this canvas...";
