@@ -54,6 +54,9 @@
 /* Badges */
 "badge.ai.generated" = "AI generated";
 
+/* AI Thinking */
+"canvas.ai.thinking" = "Reading the canvas...";
+
 /* New Tools */
 "tool.select" = "Select";
 "tool.text" = "Text";
