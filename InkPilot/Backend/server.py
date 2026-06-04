@@ -33,8 +33,8 @@ from pydantic import BaseModel, Field
 load_dotenv()
 
 MINIMAX_API_KEY = os.getenv("MINIMAX_API_KEY", "")
-MINIMAX_BASE_URL = os.getenv("MINIMAX_BASE_URL", "https://api.MiniMax.chat/v1")
-MINIMAX_MODEL = os.getenv("MINIMAX_MODEL", "MiniMax-Text-01")
+MINIMAX_BASE_URL = os.getenv("MINIMAX_BASE_URL", "https://api.minimaxi.com/v1")
+MINIMAX_MODEL = os.getenv("MINIMAX_MODEL", "MiniMax-M3")
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8000"))
 
@@ -101,13 +101,14 @@ async def health() -> dict:
     return {
         "ok": True,
         "model": MINIMAX_MODEL,
-        "api_key_set": bool(MINIMAX_API_KEY and MINIMAX_API_KEY != "sk-cp-your-key-here"),
+        "base_url": MINIMAX_BASE_URL,
+        "api_key_set": bool(MINIMAX_API_KEY),
     }
 
 
 @app.post("/suggest", response_model=SuggestionResponse)
 async def suggest(req: SuggestRequest) -> SuggestionResponse:
-    if not MINIMAX_API_KEY or MINIMAX_API_KEY == "sk-cp-your-key-here":
+    if not MINIMAX_API_KEY:
         raise HTTPException(status_code=503, detail="MINIMAX_API_KEY not configured on server")
 
     system_prompt = _system_prompt()
@@ -120,7 +121,8 @@ async def suggest(req: SuggestRequest) -> SuggestionResponse:
             {"role": "user", "content": user_prompt},
         ],
         "temperature": 0.4,
-        "max_tokens": 800,
+        "max_completion_tokens": 800,
+        "thinking": {"type": "disabled"},
     }
 
     headers = {
@@ -144,6 +146,15 @@ async def suggest(req: SuggestRequest) -> SuggestionResponse:
         raise HTTPException(status_code=502, detail=f"upstream {r.status_code}")
 
     body = r.json()
+
+    # Check for app-level errors in 200 response
+    base_resp = body.get("base_resp", {})
+    if base_resp.get("status_code", 0) != 0:
+        code = base_resp.get("status_code")
+        msg = base_resp.get("status_msg", "unknown")
+        log.error("MiniMax app error %s: %s", code, msg)
+        raise HTTPException(status_code=502, detail=f"MiniMax error {code}: {msg}")
+
     raw = body["choices"][0]["message"]["content"]
     log.info("MiniMax raw: %s", raw[:200])
 
