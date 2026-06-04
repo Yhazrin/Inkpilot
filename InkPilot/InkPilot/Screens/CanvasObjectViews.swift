@@ -4,6 +4,9 @@ import SwiftUI
 struct CanvasObjectView: View {
     let object: CanvasObject
     let isSelected: Bool
+    let isEditing: Bool
+    var onTextChange: ((String) -> Void)?
+    var onEndEditing: (() -> Void)?
 
     var body: some View {
         Group {
@@ -11,11 +14,21 @@ struct CanvasObjectView: View {
             case .aiCard(let title, let body):
                 AICardObjectView(title: title, body: body)
             case .text(let text):
-                TextObjectView(text: text)
+                EditableTextObjectView(
+                    text: text, isEditing: isEditing,
+                    onChange: onTextChange, onEndEditing: onEndEditing
+                )
             case .stickyNote(let noteText):
-                StickyNoteObjectView(noteText: noteText, tint: object.style.tint)
+                EditableStickyNoteView(
+                    noteText: noteText, tint: object.style.tint,
+                    isEditing: isEditing,
+                    onChange: onTextChange, onEndEditing: onEndEditing
+                )
             case .bubble(let bubbleText):
-                BubbleObjectView(bubbleText: bubbleText)
+                EditableBubbleView(
+                    bubbleText: bubbleText, isEditing: isEditing,
+                    onChange: onTextChange, onEndEditing: onEndEditing
+                )
             case .shape(let kind):
                 ShapeObjectView(kind: kind)
             case .connector(let startID, let endID):
@@ -35,7 +48,7 @@ struct CanvasObjectView: View {
     }
 }
 
-// MARK: - AI Card
+// MARK: - AI Card (read-only)
 
 private struct AICardObjectView: View {
     let title: String
@@ -56,67 +69,7 @@ private struct AICardObjectView: View {
     }
 }
 
-// MARK: - Text Box
-
-private struct TextObjectView: View {
-    let text: String
-
-    var body: some View {
-        GlassCard(cornerRadius: Brand.cornerS) {
-            Text(text.isEmpty ? String(localized: "object.text.placeholder") : text)
-                .font(Brand.bodyFont)
-                .foregroundStyle(text.isEmpty ? Brand.inkSecondary : Brand.inkPrimary)
-        }
-        .accessibilityLabel(Text(String(localized: "object.textBox.accessibility")))
-    }
-}
-
-// MARK: - Sticky Note
-
-private struct StickyNoteObjectView: View {
-    let noteText: String
-    let tint: String?
-
-    var body: some View {
-        RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-            .fill(stickyColor)
-            .overlay {
-                Text(noteText)
-                    .font(Brand.captionFont)
-                    .foregroundStyle(Brand.inkPrimary)
-                    .padding(Brand.spacingS)
-            }
-            .shadow(color: Brand.glassShadow, radius: 6, y: 2)
-            .accessibilityLabel(Text(String(localized: "object.stickyNote.accessibility")))
-    }
-
-    private var stickyColor: Color {
-        switch tint {
-        case "stickyPink": return Color.pink.opacity(0.2)
-        case "stickyGreen": return Color.green.opacity(0.2)
-        default: return Color.yellow.opacity(0.25)
-        }
-    }
-}
-
-// MARK: - Bubble
-
-private struct BubbleObjectView: View {
-    let bubbleText: String
-
-    var body: some View {
-        GlassCard(cornerRadius: Brand.cornerL) {
-            Text(bubbleText)
-                .font(Brand.titleFont)
-                .foregroundStyle(Brand.inkPrimary)
-                .frame(maxWidth: .infinity)
-        }
-        .clipShape(Ellipse())
-        .accessibilityLabel(Text(String(localized: "object.bubble.accessibility")))
-    }
-}
-
-// MARK: - Shape
+// MARK: - Shape (read-only)
 
 private struct ShapeObjectView: View {
     let kind: CanvasShapeKind

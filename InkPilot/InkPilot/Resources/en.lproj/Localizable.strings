@@ -101,6 +101,7 @@
 
 /* Text Object */
 "object.text.placeholder" = "Double tap to edit...";
+"object.edit.hint" = "Double tap to edit text.";
 
 /* Network Fallback */
 "fallback.title" = "Suggested next step";

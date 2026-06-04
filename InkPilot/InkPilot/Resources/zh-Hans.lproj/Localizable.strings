@@ -101,6 +101,7 @@
 
 /* 文本对象 */
 "object.text.placeholder" = "双击编辑...";
+"object.edit.hint" = "双击编辑文本。";
 
 /* 网络回退 */
 "fallback.title" = "建议下一步";

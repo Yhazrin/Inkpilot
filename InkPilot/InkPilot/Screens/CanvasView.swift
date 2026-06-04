@@ -45,10 +45,14 @@ struct CanvasView: View {
             CanvasObjectLayer(
                 objects: viewModel.canvasObjects,
                 selectedID: viewModel.selectedObjectID,
+                editingID: viewModel.editingObjectID,
                 isSelectToolActive: viewModel.selectedTool == .select,
                 sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
                 onSelect: { viewModel.selectObject($0) },
+                onBeginEditing: { viewModel.beginEditing($0) },
+                onEndEditing: { viewModel.endEditing() },
+                onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
                 onMove: { id, pos in viewModel.moveObject(id: id, to: pos) }
             )
 

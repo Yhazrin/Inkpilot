@@ -44,6 +44,8 @@
 		A10000370000000000000027 /* CanvasMotionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000370000000000000027; };
 		A10000380000000000000028 /* MotionTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000380000000000000028; };
 		A100003C000000000000002C /* CanvasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003C000000000000002C; };
+		A100003D000000000000002D /* MediaAssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003D000000000000002D; };
+		A100003E000000000000002E /* EditableObjectViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003E000000000000002E; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -86,6 +88,8 @@
 		A20000370000000000000027 /* CanvasMotionLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasMotionLayer.swift; sourceTree = "<group>"; };
 		A20000380000000000000028 /* MotionTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionTokens.swift; sourceTree = "<group>"; };
 		A200003C000000000000002C /* CanvasTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTransform.swift; sourceTree = "<group>"; };
+		A200003D000000000000002D /* MediaAssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAssetStore.swift; sourceTree = "<group>"; };
+		A200003E000000000000002E /* EditableObjectViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableObjectViews.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 				A20000370000000000000027 /* CanvasMotionLayer.swift */,
 				A2000041000000000000002B /* StrokeSmoother.swift */,
 				A200003C000000000000002C /* CanvasTransform.swift */,
+				A200003D000000000000002D /* MediaAssetStore.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				A20000250000000000000019 /* GhostSuggestionCard.swift */,
 				A2000028000000000000001C /* CanvasObjectLayer.swift */,
 				A2000029000000000000001D /* CanvasObjectViews.swift */,
+				A200003E000000000000002E /* EditableObjectViews.swift */,
 				A2000030000000000000001E /* ShapePalette.swift */,
 				A2000031000000000000001F /* MediaPalette.swift */,
 			);
@@ -323,6 +329,8 @@
 				A10000380000000000000028 /* MotionTokens.swift in Sources */,
 				A1000041000000000000002B /* StrokeSmoother.swift in Sources */,
 				A100003C000000000000002C /* CanvasTransform.swift in Sources */,
+				A100003D000000000000002D /* MediaAssetStore.swift in Sources */,
+				A100003E000000000000002E /* EditableObjectViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

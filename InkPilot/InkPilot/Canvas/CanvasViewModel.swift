@@ -20,6 +20,7 @@ final class CanvasViewModel {
 
     var canvasObjects: [CanvasObject] = []
     var selectedObjectID: UUID?
+    var editingObjectID: UUID?
 
     // MARK: - AI Suggestion State
 
@@ -155,6 +156,34 @@ final class CanvasViewModel {
 
     func selectObject(_ id: UUID?) {
         selectedObjectID = id
+        if id == nil { editingObjectID = nil }
+    }
+
+    func beginEditing(_ id: UUID) {
+        selectedObjectID = id
+        editingObjectID = id
+    }
+
+    func endEditing() {
+        editingObjectID = nil
+    }
+
+    func updateObjectText(id: UUID, newText: String) {
+        guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
+        let now = Date()
+        switch canvasObjects[index].content {
+        case .aiCard(let title, _):
+            canvasObjects[index].content = .aiCard(title: title, body: newText)
+        case .text:
+            canvasObjects[index].content = .text(editableText: newText)
+        case .stickyNote:
+            canvasObjects[index].content = .stickyNote(noteText: newText)
+        case .bubble:
+            canvasObjects[index].content = .bubble(bubbleText: newText)
+        default:
+            break
+        }
+        canvasObjects[index].updatedAt = now
     }
 
     func moveObject(id: UUID, to position: CGPointCodable) {

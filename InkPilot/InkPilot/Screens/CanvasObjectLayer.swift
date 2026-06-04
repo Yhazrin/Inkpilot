@@ -2,14 +2,18 @@ import SwiftUI
 
 /// Renders all canvas objects at their world positions, transformed
 /// to screen space via CanvasTransform. Supports selection, drag-to-move,
-/// and sourceAnchor-based materialization.
+/// editing, and sourceAnchor-based materialization.
 struct CanvasObjectLayer: View {
     let objects: [CanvasObject]
     let selectedID: UUID?
+    let editingID: UUID?
     let isSelectToolActive: Bool
     let sourceAnchor: CGPoint?
     let transform: CanvasTransform
     var onSelect: (UUID) -> Void
+    var onBeginEditing: (UUID) -> Void
+    var onEndEditing: () -> Void
+    var onTextChange: (UUID, String) -> Void
     var onMove: (UUID, CGPointCodable) -> Void
 
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
@@ -19,20 +23,29 @@ struct CanvasObjectLayer: View {
             ForEach(objects) { object in
                 let screenPos = transform.worldToScreen(object.worldPosition.cgPoint)
                 let screenSize = transform.worldToScreenSize(object.size.cgSize)
+                let isEditing = object.id == editingID
 
-                CanvasObjectView(object: object, isSelected: object.id == selectedID)
-                    .frame(width: screenSize.width, height: screenSize.height)
-                    .position(screenPos)
-                    .scaleEffect(1.0) // objects scale via frame, not scaleEffect
-                    .transition(materializationTransition(for: object))
-                    .gesture(
-                        isSelectToolActive
-                            ? dragGesture(for: object)
-                            : nil
-                    )
-                    .onTapGesture {
-                        if isSelectToolActive { onSelect(object.id) }
-                    }
+                CanvasObjectView(
+                    object: object,
+                    isSelected: object.id == selectedID,
+                    isEditing: isEditing,
+                    onTextChange: { newText in onTextChange(object.id, newText) },
+                    onEndEditing: onEndEditing
+                )
+                .frame(width: screenSize.width, height: screenSize.height)
+                .position(screenPos)
+                .transition(materializationTransition(for: object))
+                .gesture(
+                    isSelectToolActive && !isEditing
+                        ? dragGesture(for: object)
+                        : nil
+                )
+                .onTapGesture(count: 2) {
+                    if isSelectToolActive { onBeginEditing(object.id) }
+                }
+                .onTapGesture(count: 1) {
+                    if isSelectToolActive && !isEditing { onSelect(object.id) }
+                }
             }
         }
         .animation(.spring(response: 0.5, dampingFraction: 0.8), value: objects.count)
@@ -50,7 +63,6 @@ struct CanvasObjectLayer: View {
                 if dragStartPositions[object.id] == nil {
                     dragStartPositions[object.id] = start
                 }
-                // Convert screen translation to world space
                 let worldTranslation = CGSize(
                     width: value.translation.width / transform.scale,
                     height: value.translation.height / transform.scale
