@@ -4,6 +4,7 @@ import SwiftUI
 /// Composes background, PencilKit layer, floating toolbar, prompt capsule, and AI panel.
 struct CanvasView: View {
     @State private var viewModel = CanvasViewModel()
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
@@ -53,6 +54,21 @@ struct CanvasView: View {
                 )
                 .frame(maxWidth: 380)
                 .padding(.horizontal, Brand.spacingXL)
+                .transition(
+                    reduceMotion
+                        ? .opacity
+                        : .asymmetric(
+                            insertion: .modifier(
+                                active: GhostAppearModifier(progress: 0),
+                                identity: GhostAppearModifier(progress: 1)
+                            ),
+                            removal: .opacity.combined(with: .scale(scale: 0.96))
+                        )
+                )
+                .animation(
+                    Motion.respecting(Motion.standard, reduceMotion: reduceMotion),
+                    value: suggestion.id
+                )
             }
         }
         .overlay {

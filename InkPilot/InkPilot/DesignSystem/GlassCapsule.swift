@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// A floating glass capsule used for toolbars and prompt bars.
-/// Compact, translucent, with rounded-pill shape.
+/// Compact, translucent, pill-shaped, with a subtle top highlight.
 struct GlassCapsule<Content: View>: View {
     let content: () -> Content
 
@@ -21,9 +21,20 @@ struct GlassCapsule<Content: View>: View {
         }
         .overlay {
             Capsule()
-                .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [Brand.glassHighlight, Brand.glassBorder],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    lineWidth: Brand.hairline
+                )
         }
-        .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
+        .shadow(
+            color: Brand.glassShadow,
+            radius: Brand.shadowRadius,
+            y: Brand.shadowY
+        )
     }
 }
 

@@ -1,23 +1,39 @@
 import SwiftUI
 
-/// A small "AI" badge pill that marks AI-generated or AI-suggested content.
+/// A quiet AI mark — a tiny gradient dot with a faint sparkle.
+/// Replaces the previous loud "AI" pill badge. The accessibility label
+/// still announces "AI generated" so VoiceOver behavior is preserved.
 struct AIBadge: View {
     var body: some View {
-        Text("AI")
-            .font(.system(size: 10, weight: .bold, design: .rounded))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
-            .background {
-                Capsule()
-                    .fill(Brand.aiBadge)
-            }
-            .accessibilityLabel(Text(String(localized: "badge.ai.generated")))
+        ZStack {
+            Circle()
+                .fill(
+                    RadialGradient(
+                        colors: [
+                            Brand.aiMark,
+                            Brand.aiMark.opacity(0.0)
+                        ],
+                        center: .center,
+                        startRadius: 0,
+                        endRadius: 6
+                    )
+                )
+                .frame(width: 14, height: 14)
+
+            Image(systemName: "sparkle")
+                .font(.system(size: 7, weight: .semibold))
+                .foregroundStyle(Brand.aiBadge)
+        }
+        .frame(width: 14, height: 14)
+        .accessibilityLabel(Text(String(localized: "badge.ai.generated")))
     }
 }
 
 #Preview {
-    AIBadge()
-        .padding(20)
-        .background(Brand.canvasBase)
+    HStack(spacing: 16) {
+        AIBadge()
+        AIBadge()
+    }
+    .padding(20)
+    .background(Brand.canvasBase)
 }

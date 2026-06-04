@@ -1,25 +1,42 @@
 import SwiftUI
 
 /// A semi-transparent ghost card showing an AI suggestion.
-/// Appears near recent handwriting with Accept / Dismiss actions.
+/// Appears with a calm fade + scale + soft blur in, and removes
+/// with a gentle fade. Uses the muted AIBadge and a subtle
+/// hairline so it doesn't feel like a hard pop-up.
 struct GhostSuggestionCard: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let suggestion: GhostSuggestion
     var onAccept: () -> Void
     var onDismiss: () -> Void
 
     var body: some View {
-        GlassCard(cornerRadius: Brand.cornerM) {
-            VStack(alignment: .leading, spacing: Brand.spacingM) {
-                header
-                itemsList
-                actionButtons
-            }
+        VStack(alignment: .leading, spacing: Brand.spacingM) {
+            header
+            itemsList
+            actionButtons
         }
-        .opacity(0.85)
+        .padding(Brand.spacingL)
+        .background {
+            RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
+                .fill(.regularMaterial)
+        }
         .overlay {
             RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
-                .strokeBorder(Brand.aiGlow, lineWidth: 1)
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [Brand.glassHighlight, Brand.glassBorder],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    lineWidth: Brand.hairline
+                )
         }
+        .shadow(
+            color: Brand.glassShadow,
+            radius: Brand.shadowRadius,
+            y: Brand.shadowY
+        )
         .accessibilityElement(children: .contain)
         .accessibilityLabel(Text(String(localized: "ghost.accessibility")))
     }
@@ -42,9 +59,9 @@ struct GhostSuggestionCard: View {
             ForEach(suggestion.response.items) { item in
                 HStack(alignment: .top, spacing: Brand.spacingS) {
                     Circle()
-                        .fill(Brand.aiBadge.opacity(0.3))
-                        .frame(width: 6, height: 6)
-                        .padding(.top, 6)
+                        .fill(Brand.aiMark)
+                        .frame(width: 4, height: 4)
+                        .padding(.top, 7)
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.title)
@@ -64,39 +81,49 @@ struct GhostSuggestionCard: View {
     private var actionButtons: some View {
         HStack(spacing: Brand.spacingM) {
             Button(action: onAccept) {
-                Label(
-                    String(localized: "suggestion.accept"),
-                    systemImage: "checkmark.circle.fill"
-                )
-                .font(Brand.bodyFont.weight(.semibold))
-                .foregroundStyle(.white)
-                .padding(.horizontal, Brand.spacingM)
-                .padding(.vertical, Brand.spacingS)
-                .background {
-                    Capsule()
-                        .fill(Brand.aiBadge)
-                }
+                Text(String(localized: "suggestion.accept"))
+                    .font(Brand.bodyFont.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, Brand.spacingM)
+                    .padding(.vertical, Brand.spacingS)
+                    .background {
+                        Capsule()
+                            .fill(Brand.aiBadge)
+                    }
             }
             .accessibilityLabel(Text(String(localized: "suggestion.accept.accessibility")))
             .accessibilityHint(Text(String(localized: "suggestion.accept.hint")))
 
             Button(action: onDismiss) {
-                Label(
-                    String(localized: "suggestion.dismiss"),
-                    systemImage: "xmark.circle"
-                )
-                .font(Brand.bodyFont.weight(.medium))
-                .foregroundStyle(Brand.inkSecondary)
-                .padding(.horizontal, Brand.spacingM)
-                .padding(.vertical, Brand.spacingS)
-                .background {
-                    Capsule()
-                        .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
-                }
+                Text(String(localized: "suggestion.dismiss"))
+                    .font(Brand.bodyFont.weight(.medium))
+                    .foregroundStyle(Brand.inkSecondary)
+                    .padding(.horizontal, Brand.spacingM)
+                    .padding(.vertical, Brand.spacingS)
+                    .background {
+                        Capsule()
+                            .strokeBorder(Brand.glassBorder, lineWidth: Brand.hairline)
+                    }
             }
             .accessibilityLabel(Text(String(localized: "suggestion.dismiss.accessibility")))
             .accessibilityHint(Text(String(localized: "suggestion.dismiss.hint")))
         }
         .padding(.top, Brand.spacingXS)
+    }
+}
+
+// MARK: - Transition
+
+extension AnyTransition {
+    /// Calm, premium feel: a touch of scale + fade + a soft blur pass.
+    /// Used for the ghost suggestion card appearing on the canvas.
+    static var ghostAppear: AnyTransition {
+        .asymmetric(
+            insertion: .modifier(
+                active: GhostAppearModifier(progress: 0),
+                identity: GhostAppearModifier(progress: 1)
+            ),
+            removal: .opacity.combined(with: .scale(scale: 0.96))
+        )
     }
 }

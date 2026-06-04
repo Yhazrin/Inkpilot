@@ -8,9 +8,9 @@ struct FloatingPromptCapsule: View {
 
     var body: some View {
         HStack(spacing: Brand.spacingS) {
-            Image(systemName: "sparkles")
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Brand.aiBadge)
+            Image(systemName: "sparkle")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(Brand.aiMark)
 
             TextField(
                 String(localized: "canvas.prompt.placeholder"),
@@ -40,9 +40,20 @@ struct FloatingPromptCapsule: View {
         }
         .overlay {
             Capsule()
-                .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [Brand.glassHighlight, Brand.glassBorder],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    lineWidth: Brand.hairline
+                )
         }
-        .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
+        .shadow(
+            color: Brand.glassShadow,
+            radius: Brand.shadowRadius,
+            y: Brand.shadowY
+        )
         .accessibilityLabel(Text(String(localized: "canvas.prompt.accessibility")))
     }
 }

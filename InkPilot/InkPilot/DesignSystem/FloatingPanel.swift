@@ -1,7 +1,8 @@
 import SwiftUI
 
-/// A compact floating glass panel with rounded corners.
-/// Used for the AI Pilot sidebar panel and other contextual overlays.
+/// A compact floating glass panel with rounded corners and a subtle
+/// top-highlight hairline. Uses a slightly stronger material than
+/// `GlassCard` so panel content stays readable when stacked over the canvas.
 struct FloatingPanel<Content: View>: View {
     let cornerRadius: CGFloat
     let content: () -> Content
@@ -26,9 +27,20 @@ struct FloatingPanel<Content: View>: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [Brand.glassHighlight, Brand.glassBorder],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ),
+                    lineWidth: Brand.hairline
+                )
         }
-        .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
+        .shadow(
+            color: Brand.glassShadow,
+            radius: Brand.shadowRadius,
+            y: Brand.shadowY
+        )
     }
 }
 

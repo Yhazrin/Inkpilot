@@ -1,7 +1,9 @@
 import SwiftUI
 
-/// A rounded glass card with translucent material, soft border, and subtle shadow.
-/// Used for canvas content cards, accepted AI suggestions, and hero content.
+/// A rounded glass card with translucent material, a subtle top-highlight
+/// hairline, and a soft depth shadow. The card lets the canvas color
+/// bleed through via the material so it feels like it belongs on the page
+/// rather than sitting on top of it.
 struct GlassCard<Content: View>: View {
     let cornerRadius: CGFloat
     let content: () -> Content
@@ -23,9 +25,23 @@ struct GlassCard<Content: View>: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                    .strokeBorder(
+                        LinearGradient(
+                            colors: [
+                                Brand.glassHighlight,
+                                Brand.glassBorder
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ),
+                        lineWidth: Brand.hairline
+                    )
             }
-            .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
+            .shadow(
+                color: Brand.glassShadowSoft,
+                radius: 24,
+                y: 8
+            )
     }
 }
 
