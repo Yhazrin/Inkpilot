@@ -31,7 +31,10 @@ struct CanvasObjectLayer: View {
     @State private var isDraggingMulti = false
 
     var body: some View {
-        let sorted = objects.sorted { $0.zIndex < $1.zIndex }
+        let sorted = objects.sorted {
+            if $0.zIndex != $1.zIndex { return $0.zIndex < $1.zIndex }
+            return $0.createdAt < $1.createdAt
+        }
         return ZStack(alignment: .topLeading) {
             ForEach(sorted) { object in
                 let isEditing = object.id == editingID
