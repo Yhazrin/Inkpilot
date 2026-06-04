@@ -45,12 +45,26 @@ final class CanvasViewModel {
 
     var promptText: String = ""
 
+    // MARK: - Drawing Tool State
+
+    let drawingToolState = DrawingToolState()
+
+    // MARK: - History (Undo/Redo)
+
+    let history = CanvasHistoryManager()
+
+    // MARK: - Persistence
+
+    let documentStore = CanvasDocumentStore()
+    private var autoSaveTask: Task<Void, Never>?
+
     // MARK: - Dependencies
 
     private let suggestionService: SuggestionService
 
     init(suggestionService: SuggestionService? = nil) {
         self.suggestionService = suggestionService ?? Self.defaultService()
+        restoreCanvas()
     }
 
     private static func defaultService() -> SuggestionService {
@@ -196,23 +210,35 @@ final class CanvasViewModel {
         canvasObjects[index].updatedAt = Date()
     }
 
+    /// Call once at drag END to snapshot before the move.
+    func pushHistoryBeforeMove() {
+        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
+    }
+
     func resizeObject(id: UUID, to newSize: CGSizeCodable) {
         guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
         canvasObjects[index].size = newSize
         canvasObjects[index].updatedAt = Date()
     }
 
+    func pushHistoryBeforeResize() {
+        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
+    }
+
     func deleteSelected() {
         guard let id = selectedObjectID else { return }
+        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
         withAnimation(.easeOut(duration: 0.2)) {
             canvasObjects.removeAll { $0.id == id }
             selectedObjectID = nil
         }
+        autoSave()
     }
 
     func duplicateSelected() {
         guard let id = selectedObjectID,
               let source = canvasObjects.first(where: { $0.id == id }) else { return }
+        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
         var copy = source
         copy.id = UUID()
         copy.worldPosition = CGPointCodable(
@@ -224,13 +250,16 @@ final class CanvasViewModel {
             canvasObjects.append(copy)
             selectedObjectID = copy.id
         }
+        autoSave()
     }
 
     func addObject(_ object: CanvasObject) {
+        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             canvasObjects.append(object)
             selectedObjectID = object.id
         }
+        autoSave()
     }
 
     /// Tap an object while connector tool is active.
@@ -263,9 +292,4 @@ final class CanvasViewModel {
         }
     }
 
-    // MARK: - Canvas Actions
-
-    func clearCanvas() {
-        drawing = PKDrawing()
-    }
 }

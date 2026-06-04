@@ -113,3 +113,26 @@
 "fallback.item2.content" = "Try curl http://<mac>:8000/health from terminal.";
 "fallback.item3.title" = "LAN setup";
 "fallback.item3.content" = "Info.plist already allows local networking; URL is in BackendConfig.swift.";
+
+/* Drawing Tools */
+"tool.pencil" = "Pencil";
+"tool.highlighter" = "Highlighter";
+"drawing.settings" = "Drawing settings";
+"drawing.width" = "Width %d";
+"drawing.color" = "Color";
+"drawing.opacity" = "Opacity";
+"drawing.black" = "Black";
+"drawing.blue" = "Blue";
+"drawing.red" = "Red";
+"drawing.yellow" = "Yellow";
+"drawing.green" = "Green";
+"drawing.purple" = "Purple";
+"drawing.gray" = "Gray";
+
+/* Undo/Redo */
+"action.undo" = "Undo";
+"action.redo" = "Redo";
+
+/* Object Actions */
+"action.bringForward" = "Bring Forward";
+"action.sendBackward" = "Send Backward";

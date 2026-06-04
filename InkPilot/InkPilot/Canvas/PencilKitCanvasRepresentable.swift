@@ -2,18 +2,16 @@ import SwiftUI
 import PencilKit
 
 /// A UIViewRepresentable wrapper around PKCanvasView.
-/// Syncs zoom/scroll state with CanvasViewModel.transform so the
-/// object layer can stay in the same coordinate space.
+/// Uses DrawingToolState for stroke color/width/type.
 struct PencilKitCanvasRepresentable: UIViewRepresentable {
     @Binding var drawing: PKDrawing
     var tool: CanvasTool
+    var drawingToolState: DrawingToolState
     var onTransformChange: ((CGFloat, CGSize) -> Void)?
 
     func makeUIView(context: Context) -> PKCanvasView {
         let canvas = PKCanvasView()
         canvas.delegate = context.coordinator
-        // PencilOnly: Apple Pencil draws, fingers pass through to
-        // the object layer for selection, dragging, and pan/zoom.
         canvas.drawingPolicy = .pencilOnly
         canvas.backgroundColor = .clear
         canvas.isOpaque = false
@@ -22,10 +20,7 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
         canvas.bounces = true
         canvas.alwaysBounceVertical = true
         canvas.alwaysBounceHorizontal = true
-
-        // Observe scroll/zoom changes to sync transform
         canvas.scrollViewDelegate = context.coordinator
-
         updateTool(on: canvas)
         return canvas
     }
@@ -45,13 +40,38 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
     private func updateTool(on canvas: PKCanvasView) {
         switch tool {
         case .pen:
-            canvas.tool = PKInkingTool(.pen, color: UIColor(Brand.inkPrimary), width: 2)
+            let pkTool = makePKTool()
+            canvas.tool = pkTool
         case .eraser:
-            canvas.tool = PKEraserTool(.bitmap)
+            switch drawingToolState.eraserMode {
+            case .bitmap:
+                canvas.tool = PKEraserTool(.bitmap)
+            case .vector:
+                canvas.tool = PKEraserTool(.vector)
+            }
         case .select:
             canvas.tool = PKLassoTool()
         case .text, .shape, .connector, .media:
             canvas.tool = PKLassoTool()
+        }
+    }
+
+    /// Build a PKInkingTool from the current DrawingToolState.
+    private func makePKTool() -> PKInkingTool {
+        let uiColor = UIColor(drawingToolState.effectiveColor)
+        let width = drawingToolState.width
+
+        switch drawingToolState.selectedKind {
+        case .pen:
+            return PKInkingTool(.pen, color: uiColor, width: width)
+        case .pencil:
+            return PKInkingTool(.pencil, color: uiColor, width: width)
+        case .highlighter:
+            // PencilKit marker is the closest to highlighter
+            return PKInkingTool(.marker, color: uiColor, width: width * 3)
+        case .eraser:
+            // Should not reach here — eraser uses PKEraserTool
+            return PKInkingTool(.pen, color: uiColor, width: width)
         }
     }
 
@@ -66,8 +86,6 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             _drawing = drawing
             self.onTransformChange = onTransformChange
         }
-
-        // MARK: - PKCanvasViewDelegate
 
         func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
             if isApplyingSmoothing {
@@ -100,8 +118,6 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             drawing = smoothed
         }
 
-        // MARK: - UIScrollViewDelegate (zoom + pan sync)
-
         func scrollViewDidZoom(_ scrollView: UIScrollView) {
             notifyTransform(scrollView)
         }
@@ -125,6 +141,7 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
     PencilKitCanvasRepresentable(
         drawing: .constant(PKDrawing()),
         tool: .pen,
+        drawingToolState: DrawingToolState(),
         onTransformChange: nil
     )
 }

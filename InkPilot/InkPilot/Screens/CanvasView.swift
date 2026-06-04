@@ -22,11 +22,15 @@ struct CanvasView: View {
             PencilKitCanvasRepresentable(
                 drawing: $viewModel.drawing,
                 tool: viewModel.selectedTool,
+                drawingToolState: viewModel.drawingToolState,
                 onTransformChange: { scale, offset in
                     viewModel.syncTransform(scale: scale, offset: offset)
                 }
             )
             .ignoresSafeArea()
+            .onChange(of: viewModel.drawing) { _, _ in
+                viewModel.autoSave()
+            }
 
             // 3. Non-interactive motion effects (transform-aware anchor)
             CanvasMotionLayer(
@@ -123,6 +127,12 @@ struct CanvasView: View {
             VStack(spacing: Brand.spacingS) {
                 CanvasToolbar(viewModel: viewModel)
 
+                // Pen settings palette (shows when pen/pencil/highlighter active)
+                if viewModel.selectedTool == .pen && viewModel.drawingToolState.isDrawingTool {
+                    PenSettingsPalette(drawingState: viewModel.drawingToolState)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                }
+
                 if viewModel.isShapePaletteVisible {
                     ShapePalette(
                         onSelect: { kind in
@@ -155,6 +165,7 @@ struct CanvasView: View {
             .padding(.top, Brand.spacingM)
             .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isShapePaletteVisible)
             .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isMediaPaletteVisible)
+            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selectedTool)
 
             Spacer()
 
@@ -163,6 +174,8 @@ struct CanvasView: View {
                     ObjectActionBar(
                         onDelete: { viewModel.deleteSelected() },
                         onDuplicate: { viewModel.duplicateSelected() },
+                        onBringForward: { viewModel.bringForward() },
+                        onSendBackward: { viewModel.sendBackward() },
                         onDeselect: { viewModel.selectObject(nil) }
                     )
                     .transition(.move(edge: .bottom).combined(with: .opacity))
@@ -192,6 +205,8 @@ struct CanvasView: View {
 private struct ObjectActionBar: View {
     var onDelete: () -> Void
     var onDuplicate: () -> Void
+    var onBringForward: () -> Void
+    var onSendBackward: () -> Void
     var onDeselect: () -> Void
 
     var body: some View {
@@ -200,6 +215,16 @@ private struct ObjectActionBar: View {
                 Image(systemName: "plus.square.on.square").frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text(String(localized: "action.duplicate")))
+
+            Button(action: onBringForward) {
+                Image(systemName: "arrow.up.to.line").frame(width: 44, height: 44)
+            }
+            .accessibilityLabel(Text(String(localized: "action.bringForward")))
+
+            Button(action: onSendBackward) {
+                Image(systemName: "arrow.down.to.line").frame(width: 44, height: 44)
+            }
+            .accessibilityLabel(Text(String(localized: "action.sendBackward")))
 
             Button(action: onDelete) {
                 Image(systemName: "trash").frame(width: 44, height: 44).foregroundStyle(.red)

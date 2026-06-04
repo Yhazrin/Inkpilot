@@ -113,3 +113,26 @@
 "fallback.item2.content" = "在终端尝试 curl http://<mac>:8000/health。";
 "fallback.item3.title" = "局域网设置";
 "fallback.item3.content" = "Info.plist 已允许本地网络；URL 在 BackendConfig.swift 中。";
+
+/* 画笔工具 */
+"tool.pencil" = "铅笔";
+"tool.highlighter" = "荧光笔";
+"drawing.settings" = "画笔设置";
+"drawing.width" = "宽度 %d";
+"drawing.color" = "颜色";
+"drawing.opacity" = "透明度";
+"drawing.black" = "黑色";
+"drawing.blue" = "蓝色";
+"drawing.red" = "红色";
+"drawing.yellow" = "黄色";
+"drawing.green" = "绿色";
+"drawing.purple" = "紫色";
+"drawing.gray" = "灰色";
+
+/* 撤销/重做 */
+"action.undo" = "撤销";
+"action.redo" = "重做";
+
+/* 对象操作 */
+"action.bringForward" = "上移一层";
+"action.sendBackward" = "下移一层";

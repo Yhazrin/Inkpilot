@@ -3,6 +3,10 @@ import SwiftUI
 /// The top floating tool capsule for the canvas.
 struct FloatingToolbar: View {
     @Binding var selectedTool: CanvasTool
+    var canUndo: Bool
+    var canRedo: Bool
+    var onUndo: () -> Void
+    var onRedo: () -> Void
     var onAITap: () -> Void
     var onShapeTap: () -> Void
     var onMediaTap: () -> Void
@@ -17,6 +21,28 @@ struct FloatingToolbar: View {
             shapeButton
             connectorButton
             mediaButton
+
+            Divider()
+                .frame(height: 20)
+
+            // Undo / Redo
+            Button(action: onUndo) {
+                Image(systemName: "arrow.uturn.backward")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(canUndo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
+                    .frame(width: 44, height: 44)
+            }
+            .disabled(!canUndo)
+            .accessibilityLabel(Text(String(localized: "action.undo")))
+
+            Button(action: onRedo) {
+                Image(systemName: "arrow.uturn.forward")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(canRedo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
+                    .frame(width: 44, height: 44)
+            }
+            .disabled(!canRedo)
+            .accessibilityLabel(Text(String(localized: "action.redo")))
 
             Divider()
                 .frame(height: 20)
@@ -111,7 +137,7 @@ struct FloatingToolbar: View {
 }
 
 #Preview {
-    FloatingToolbar(selectedTool: .constant(.pen), onAITap: {}, onShapeTap: {}, onMediaTap: {})
+    FloatingToolbar(selectedTool: .constant(.pen), canUndo: true, canRedo: false, onUndo: {}, onRedo: {}, onAITap: {}, onShapeTap: {}, onMediaTap: {})
         .padding(40)
         .background(Brand.canvasBase)
 }
