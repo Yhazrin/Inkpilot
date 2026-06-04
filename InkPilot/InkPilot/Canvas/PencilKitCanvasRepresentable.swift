@@ -50,7 +50,7 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             canvas.tool = PKEraserTool(.bitmap)
         case .select:
             canvas.tool = PKLassoTool()
-        case .text, .shape, .media:
+        case .text, .shape, .connector, .media:
             canvas.tool = PKLassoTool()
         }
     }

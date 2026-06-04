@@ -12,6 +12,7 @@
 "tool.pen" = "Pen";
 "tool.eraser" = "Eraser";
 "tool.ai" = "AI Suggest";
+"tool.connector" = "Connector";
 
 /* Canvas Prompt */
 "canvas.prompt.placeholder" = "Ask AI about this canvas...";

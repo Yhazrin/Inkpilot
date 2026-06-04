@@ -15,6 +15,7 @@ struct FloatingToolbar: View {
             toolButton(tool: .text, icon: "textformat", label: String(localized: "tool.text"))
 
             shapeButton
+            connectorButton
             mediaButton
 
             Divider()
@@ -48,6 +49,25 @@ struct FloatingToolbar: View {
                 }
         }
         .accessibilityLabel(Text(String(localized: "tool.shape")))
+    }
+
+    // MARK: - Connector Button
+
+    private var connectorButton: some View {
+        Button {
+            selectedTool = .connector
+        } label: {
+            Image(systemName: "arrow.triangle.branch")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundStyle(selectedTool == .connector ? Brand.inkPrimary : Brand.inkSecondary)
+                .frame(width: 44, height: 44)
+                .background {
+                    if selectedTool == .connector {
+                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                    }
+                }
+        }
+        .accessibilityLabel(Text(String(localized: "tool.connector")))
     }
 
     // MARK: - Media Button (with palette toggle)

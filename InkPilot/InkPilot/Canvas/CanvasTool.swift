@@ -7,5 +7,6 @@ enum CanvasTool: String, CaseIterable {
     case select
     case text
     case shape
+    case connector
     case media
 }

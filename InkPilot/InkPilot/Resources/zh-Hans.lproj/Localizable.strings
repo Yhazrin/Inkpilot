@@ -12,6 +12,7 @@
 "tool.pen" = "画笔";
 "tool.eraser" = "橡皮擦";
 "tool.ai" = "AI 建议";
+"tool.connector" = "连接";
 
 /* 画布提示 */
 "canvas.prompt.placeholder" = "询问当前画布...";

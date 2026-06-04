@@ -44,7 +44,7 @@ struct CanvasView: View {
                 selectedID: viewModel.selectedObjectID,
                 editingID: viewModel.editingObjectID,
                 isSelectToolActive: viewModel.selectedTool == .select,
-                isConnectorToolActive: viewModel.selectedTool == .shape,
+                isConnectorToolActive: viewModel.selectedTool == .connector,
                 connectorStartID: viewModel.connectorStartID,
                 sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
