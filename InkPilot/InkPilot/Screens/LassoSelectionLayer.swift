@@ -28,8 +28,8 @@ struct LassoSelectionLayer: View {
                         }
                         path.closeSubpath()
                     }
-                    context.stroke(path, with: .color(Brand.aiBadge.opacity(0.4)), lineWidth: 1.5)
-                    context.fill(path, with: .color(Brand.aiBadge.opacity(0.04)))
+                    context.stroke(path, with: .color(Brand.aiAccent.opacity(0.4)), lineWidth: 1.5)
+                    context.fill(path, with: .color(Brand.aiAccent.opacity(0.04)))
                 }
             }
         }

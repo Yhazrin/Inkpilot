@@ -19,20 +19,6 @@
 "canvas.prompt.submit" = "Submit prompt";
 "canvas.prompt.accessibility" = "AI prompt input. Type a question about your canvas.";
 
-/* AI Pilot Panel */
-"canvas.aiPilot.title" = "AI Pilot";
-"canvas.aiPilot.suggestions" = "3 suggestions";
-"canvas.aiPilot.accessibility" = "AI Pilot panel";
-"canvas.aiPilot.hint" = "Tap to expand or collapse AI suggestions.";
-"canvas.aiPilot.expanded" = "Expanded";
-"canvas.aiPilot.collapsed" = "Collapsed";
-"canvas.aiPilot.context" = "Canvas Context";
-"canvas.aiPilot.contextValue" = "Product brainstorming";
-"canvas.aiPilot.suggestionsList" = "Suggestions";
-"canvas.aiPilot.suggestion1" = "Define MVP scope";
-"canvas.aiPilot.suggestion2" = "Make user flow";
-"canvas.aiPilot.suggestion3" = "Compare competitors";
-
 /* AI Suggestion Schema */
 "suggestion.title.structure" = "Suggested structure";
 "suggestion.item.targetUsers" = "Target Users";

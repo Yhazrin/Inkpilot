@@ -17,7 +17,7 @@ struct MediaPalette: View {
             } label: {
                 Label(String(localized: "media.import.image"), systemImage: "photo.badge.plus")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(Brand.aiBadge)
+                    .foregroundStyle(Brand.aiAccent)
                     .frame(height: 44)
             }
             .accessibilityLabel(Text(String(localized: "media.import.image.accessibility")))

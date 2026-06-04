@@ -63,8 +63,10 @@ enum CanvasExporter {
         )
 
         switch obj.content {
-        case .aiCard(let title, let body), .mindNode(let title, _):
+        case .aiCard(let title, let body):
             drawTextCard(title: title, body: body, in: rect, context: context, scale: scale)
+        case .mindNode(let label, _):
+            drawTextCard(title: label, body: "", in: rect, context: context, scale: scale)
         case .text(let text):
             drawTextCard(title: text, body: "", in: rect, context: context, scale: scale)
         case .stickyNote(let text):

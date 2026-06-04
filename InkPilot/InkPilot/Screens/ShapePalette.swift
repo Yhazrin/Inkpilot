@@ -37,7 +37,7 @@ struct ShapePalette: View {
             } label: {
                 Image(systemName: "bubble.left.and.text.bubble.right")
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Brand.aiBadge)
+                    .foregroundStyle(Brand.aiAccent)
                     .frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text(String(localized: "palette.mindNode")))

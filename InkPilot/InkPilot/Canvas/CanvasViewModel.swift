@@ -39,10 +39,6 @@ final class CanvasViewModel {
     var isThinking: Bool = false
     var suggestionAnchor: CGPointCodable?
 
-    // MARK: - AI Panel State
-
-    var isAIPanelExpanded: Bool = false
-
     // MARK: - Connector Creation State
 
     var connectorStartID: UUID?
@@ -56,6 +52,14 @@ final class CanvasViewModel {
 
     var promptText: String = ""
 
+    // MARK: - Floating Panel Positions
+
+    /// Where the top floating bar (toolbar + palettes) is anchored.
+    var topBarPosition: FloatingPanelPosition = .topCenter
+
+    /// Where the bottom floating bar (prompt + action bar) is anchored.
+    var bottomBarPosition: FloatingPanelPosition = .bottomCenter
+
     // MARK: - Drawing Tool State
 
     let drawingToolState = DrawingToolState()
@@ -67,7 +71,7 @@ final class CanvasViewModel {
     // MARK: - Persistence
 
     let documentStore = CanvasDocumentStore()
-    private var autoSaveTask: Task<Void, Never>?
+    var autoSaveTask: Task<Void, Never>?
 
     // MARK: - Dependencies
 

@@ -34,6 +34,7 @@ enum CanvasContextBuilder {
             case .bubble(let t): title = t
             case .shape(let k): title = k.rawValue
             case .connector: title = "connector"
+            case .mindNode(let label, _): title = label
             case .media(_, let k): title = k.rawValue
             }
             return CanvasObjectSummary(type: obj.content.typeName, title: title)

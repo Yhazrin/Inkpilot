@@ -17,6 +17,8 @@
 		A10000080000000000000008 /* FloatingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000080000000000000008; };
 		A10000090000000000000009 /* FloatingPromptCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000090000000000000009; };
 		A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010000000000000000A; };
+		A10000520000000000000052 /* FloatingPanelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000052; };
+		A10000530000000000000053 /* DraggableFloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000053; };
 		A1000011000000000000000B /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011000000000000000B; };
 		A1000012000000000000000C /* CanvasModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012000000000000000C; };
 		A1000013000000000000000D /* SuggestionSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013000000000000000D; };
@@ -32,7 +34,6 @@
 		A10000200000000000000014 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000200000000000000014; };
 		A10000210000000000000015 /* CanvasToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000210000000000000015; };
 		A10000220000000000000016 /* CanvasPromptBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000220000000000000016; };
-		A10000230000000000000017 /* AIPilotPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000230000000000000017; };
 		A10000240000000000000018 /* CanvasTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000240000000000000018; };
 		A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000250000000000000019; };
 		A1000027000000000000001B /* CanvasObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000027000000000000001B; };
@@ -81,6 +82,8 @@
 		A20000080000000000000008 /* FloatingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingToolbar.swift; sourceTree = "<group>"; };
 		A20000090000000000000009 /* FloatingPromptCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPromptCapsule.swift; sourceTree = "<group>"; };
 		A2000010000000000000000A /* PencilKitCanvasRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilKitCanvasRepresentable.swift; sourceTree = "<group>"; };
+		A20000520000000000000052 /* FloatingPanelPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelPosition.swift; sourceTree = "<group>"; };
+		A20000530000000000000053 /* DraggableFloatingPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableFloatingPanel.swift; sourceTree = "<group>"; };
 		A2000011000000000000000B /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
 		A2000012000000000000000C /* CanvasModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasModels.swift; sourceTree = "<group>"; };
 		A2000013000000000000000D /* SuggestionSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionSchema.swift; sourceTree = "<group>"; };
@@ -95,7 +98,6 @@
 		A20000200000000000000014 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		A20000210000000000000015 /* CanvasToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasToolbar.swift; sourceTree = "<group>"; };
 		A20000220000000000000016 /* CanvasPromptBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasPromptBar.swift; sourceTree = "<group>"; };
-		A20000230000000000000017 /* AIPilotPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIPilotPanel.swift; sourceTree = "<group>"; };
 		A20000240000000000000018 /* CanvasTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTool.swift; sourceTree = "<group>"; };
 		A20000250000000000000019 /* GhostSuggestionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostSuggestionCard.swift; sourceTree = "<group>"; };
 		A2000027000000000000001B /* CanvasObjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectFactory.swift; sourceTree = "<group>"; };
@@ -178,6 +180,8 @@
 				A20000070000000000000007 /* AIBadge.swift */,
 				A20000090000000000000009 /* FloatingPromptCapsule.swift */,
 				A20000380000000000000028 /* MotionTokens.swift */,
+				A20000520000000000000052 /* FloatingPanelPosition.swift */,
+				A20000530000000000000053 /* DraggableFloatingPanel.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -237,7 +241,6 @@
 				A20000200000000000000014 /* CanvasView.swift */,
 				A20000210000000000000015 /* CanvasToolbar.swift */,
 				A20000220000000000000016 /* CanvasPromptBar.swift */,
-				A20000230000000000000017 /* AIPilotPanel.swift */,
 				A20000250000000000000019 /* GhostSuggestionCard.swift */,
 				A2000028000000000000001C /* CanvasObjectLayer.swift */,
 				A2000029000000000000001D /* CanvasObjectViews.swift */,
@@ -359,6 +362,8 @@
 				A10000080000000000000008 /* FloatingToolbar.swift in Sources */,
 				A10000090000000000000009 /* FloatingPromptCapsule.swift in Sources */,
 				A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */,
+				A10000520000000000000052 /* FloatingPanelPosition.swift in Sources */,
+				A10000530000000000000053 /* DraggableFloatingPanel.swift in Sources */,
 				A1000011000000000000000B /* CanvasViewModel.swift in Sources */,
 				A1000012000000000000000C /* CanvasModels.swift in Sources */,
 				A1000013000000000000000D /* SuggestionSchema.swift in Sources */,
@@ -373,7 +378,6 @@
 				A10000200000000000000014 /* CanvasView.swift in Sources */,
 				A10000210000000000000015 /* CanvasToolbar.swift in Sources */,
 				A10000220000000000000016 /* CanvasPromptBar.swift in Sources */,
-				A10000230000000000000017 /* AIPilotPanel.swift in Sources */,
 				A10000240000000000000018 /* CanvasTool.swift in Sources */,
 				A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */,
 				A1000027000000000000001B /* CanvasObjectFactory.swift in Sources */,

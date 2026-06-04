@@ -105,6 +105,6 @@ struct MultiObjectActionBar: View {
                 .foregroundStyle(tint)
                 .frame(width: 40, height: 40)
         }
-        .accessibilityLabel(Text(String(localized: label)))
+        .accessibilityLabel(Text(LocalizedStringKey(label)))
     }
 }

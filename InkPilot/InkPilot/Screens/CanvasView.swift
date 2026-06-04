@@ -95,10 +95,28 @@ struct CanvasView: View {
                 }
             }
 
-            // 6. Floating chrome
+            // 6. Floating chrome (two draggable panels)
             floatingChrome
+
+            // 7. Ghost suggestion (anchor-anchored, on top of everything)
+            if let suggestion = viewModel.ghostSuggestion,
+               let anchor = viewModel.suggestionAnchor?.cgPoint {
+                let screenAnchor = viewModel.worldToScreen(anchor)
+                GhostSuggestionCard(
+                    suggestion: suggestion,
+                    anchor: screenAnchor,
+                    target: ghostTarget(for: screenAnchor),
+                    onAccept: { viewModel.acceptSuggestion() },
+                    onDismiss: { viewModel.dismissSuggestion() }
+                )
+            }
         }
         .navigationBarHidden(true)
+        .sheet(isPresented: $showExportSheet) {
+            if let exportURL {
+                ShareSheet(items: [exportURL])
+            }
+        }
         .onChange(of: viewModel.ghostSuggestion) { _, newValue in
             if newValue == nil {
                 let delay = MotionTokens.anchorExitDelay
@@ -158,147 +176,142 @@ struct CanvasView: View {
     // MARK: - Floating Chrome
 
     private var floatingChrome: some View {
-        VStack {
-            VStack(spacing: Brand.spacingS) {
-                CanvasToolbar(viewModel: viewModel)
+        ZStack {
+            // Top floating bar: toolbar + selection-mode toggle + palettes
+            DraggableFloatingPanel(position: $viewModel.topBarPosition) {
+                topBarContent
+            }
 
-                // Selection mode toggle (marquee vs lasso)
-                if viewModel.selectedTool == .select {
-                    SelectionModeToggle(useLasso: $viewModel.useLasso)
-                        .transition(.move(edge: .top).combined(with: .opacity))
+            // Bottom floating bar: multi/single selection action bar + prompt bar
+            DraggableFloatingPanel(position: $viewModel.bottomBarPosition) {
+                bottomBarContent
+            }
+
+            // Export button — small fixed-position affordance, stays in
+            // the top-right corner. If the top bar is dragged to the
+            // top-right, the button sits on top of it (still tappable).
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+                            exportURL = url
+                            showExportSheet = true
+                        }
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(Brand.inkSecondary)
+                            .frame(width: 44, height: 44)
+                            .background(Capsule().fill(.ultraThinMaterial))
+                            .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+                    }
+                    .accessibilityLabel(Text(String(localized: "action.export")))
                 }
+                .padding(.trailing, Brand.spacingM)
+                .padding(.top, Brand.spacingM)
+                Spacer()
+            }
+        }
+    }
 
-                if viewModel.selectedTool == .pen && viewModel.drawingToolState.isDrawingTool {
-                    PenSettingsPalette(drawingState: viewModel.drawingToolState)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                }
+    @ViewBuilder
+    private var topBarContent: some View {
+        VStack(spacing: Brand.spacingS) {
+            CanvasToolbar(viewModel: viewModel)
 
-                if viewModel.isShapePaletteVisible {
-                    ShapePalette(
-                        onSelect: { kind in
-                            let obj = CanvasObjectFactory.shape(
-                                kind: kind,
-                                at: viewModel.defaultInsertionPoint
-                            )
-                            viewModel.addObject(obj)
-                            viewModel.isShapePaletteVisible = false
-                        },
-                        onMindNode: {
-                            let obj = CanvasObjectFactory.mindNode(
-                                at: viewModel.defaultInsertionPoint
-                            )
-                            viewModel.addObject(obj)
-                            viewModel.isShapePaletteVisible = false
-                        },
-                        onClose: { viewModel.isShapePaletteVisible = false }
-                    )
+            if viewModel.selectedTool == .select {
+                SelectionModeToggle(useLasso: $viewModel.useLasso)
                     .transition(.move(edge: .top).combined(with: .opacity))
-                }
+            }
 
-                if viewModel.isMediaPaletteVisible {
-                    MediaPalette(
-                        onInsertPlaceholder: { type in
-                            let obj: CanvasObject = type == .image
-                                ? CanvasObjectFactory.imagePlaceholder(at: viewModel.defaultInsertionPoint)
-                                : CanvasObjectFactory.filePlaceholder(at: viewModel.defaultInsertionPoint)
-                            viewModel.addObject(obj)
-                            viewModel.isMediaPaletteVisible = false
-                        },
-                        onImportImage: { data, name in
-                            viewModel.importImage(data: data, fileName: name)
-                            viewModel.isMediaPaletteVisible = false
-                        },
-                        onClose: { viewModel.isMediaPaletteVisible = false }
-                    )
+            if viewModel.selectedTool == .pen && viewModel.drawingToolState.isDrawingTool {
+                PenSettingsPalette(drawingState: viewModel.drawingToolState)
                     .transition(.move(edge: .top).combined(with: .opacity))
-                }
             }
-            .padding(.top, Brand.spacingM)
-            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isShapePaletteVisible)
-            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isMediaPaletteVisible)
-            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selectedTool)
 
-            Spacer()
-
-            VStack(spacing: Brand.spacingS) {
-                if viewModel.selection.selectionCount > 1 {
-                    MultiObjectActionBar(
-                        selectionCount: viewModel.selection.selectionCount,
-                        onAlignLeft: { viewModel.alignLeft() },
-                        onAlignCenter: { viewModel.alignCenterH() },
-                        onAlignRight: { viewModel.alignRight() },
-                        onAlignTop: { viewModel.alignTop() },
-                        onAlignMiddle: { viewModel.alignMiddleV() },
-                        onAlignBottom: { viewModel.alignBottom() },
-                        onDistributeH: { viewModel.distributeHorizontal() },
-                        onDistributeV: { viewModel.distributeVertical() },
-                        onGroup: { viewModel.groupSelected() },
-                        onUngroup: { viewModel.ungroupSelected() },
-                        onBringToFront: { viewModel.bringToFront() },
-                        onSendToBack: { viewModel.sendToBack() },
-                        onDelete: { viewModel.deleteSelected() },
-                        onDuplicate: { viewModel.duplicateSelected() },
-                        onDeselect: { viewModel.selection.clearSelection() }
-                    )
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                } else if viewModel.selection.isSingleSelection {
-                    SingleObjectActionBar(
-                        onDelete: { viewModel.deleteSelected() },
-                        onDuplicate: { viewModel.duplicateSelected() },
-                        onBringForward: { viewModel.bringForward() },
-                        onSendBackward: { viewModel.sendBackward() },
-                        onDeselect: { viewModel.selection.clearSelection() }
-                    )
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-
-                CanvasPromptBar(viewModel: viewModel)
-            }
-            .padding(.bottom, Brand.spacingL)
-            .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
-        }
-        .overlay(alignment: .topTrailing) {
-            // Export / Share button
-            Button {
-                if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
-                    exportURL = url
-                    showExportSheet = true
-                }
-            } label: {
-                Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
-                    .background(Capsule().fill(.ultraThinMaterial))
-                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
-            }
-            .padding(.trailing, Brand.spacingM)
-            .padding(.top, Brand.spacingM)
-            .accessibilityLabel(Text(String(localized: "action.export")))
-        }
-        .overlay(alignment: .bottomTrailing) {
-            AIPilotPanel(viewModel: viewModel)
-                .padding(.trailing, Brand.spacingL)
-                .padding(.bottom, 100)
-        }
-        .sheet(isPresented: $showExportSheet) {
-            if let exportURL {
-                ShareSheet(items: [exportURL])
-            }
-        }
-        .overlay {
-            if let suggestion = viewModel.ghostSuggestion,
-               let anchor = viewModel.suggestionAnchor?.cgPoint {
-                let screenAnchor = viewModel.worldToScreen(anchor)
-                GhostSuggestionCard(
-                    suggestion: suggestion,
-                    anchor: screenAnchor,
-                    target: ghostTarget(for: screenAnchor),
-                    onAccept: { viewModel.acceptSuggestion() },
-                    onDismiss: { viewModel.dismissSuggestion() }
+            if viewModel.isShapePaletteVisible {
+                ShapePalette(
+                    onSelect: { kind in
+                        let obj = CanvasObjectFactory.shape(
+                            kind: kind,
+                            at: viewModel.defaultInsertionPoint
+                        )
+                        viewModel.addObject(obj)
+                        viewModel.isShapePaletteVisible = false
+                    },
+                    onMindNode: {
+                        let obj = CanvasObjectFactory.mindNode(
+                            at: viewModel.defaultInsertionPoint
+                        )
+                        viewModel.addObject(obj)
+                        viewModel.isShapePaletteVisible = false
+                    },
+                    onClose: { viewModel.isShapePaletteVisible = false }
                 )
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
+
+            if viewModel.isMediaPaletteVisible {
+                MediaPalette(
+                    onInsertPlaceholder: { type in
+                        let obj: CanvasObject = type == .image
+                            ? CanvasObjectFactory.imagePlaceholder(at: viewModel.defaultInsertionPoint)
+                            : CanvasObjectFactory.filePlaceholder(at: viewModel.defaultInsertionPoint)
+                        viewModel.addObject(obj)
+                        viewModel.isMediaPaletteVisible = false
+                    },
+                    onImportImage: { data, name in
+                        viewModel.importImage(data: data, fileName: name)
+                        viewModel.isMediaPaletteVisible = false
+                    },
+                    onClose: { viewModel.isMediaPaletteVisible = false }
+                )
+                .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isShapePaletteVisible)
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isMediaPaletteVisible)
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selectedTool)
+    }
+
+    @ViewBuilder
+    private var bottomBarContent: some View {
+        VStack(spacing: Brand.spacingS) {
+            if viewModel.selection.selectionCount > 1 {
+                MultiObjectActionBar(
+                    selectionCount: viewModel.selection.selectionCount,
+                    onAlignLeft: { viewModel.alignLeft() },
+                    onAlignCenter: { viewModel.alignCenterH() },
+                    onAlignRight: { viewModel.alignRight() },
+                    onAlignTop: { viewModel.alignTop() },
+                    onAlignMiddle: { viewModel.alignMiddleV() },
+                    onAlignBottom: { viewModel.alignBottom() },
+                    onDistributeH: { viewModel.distributeHorizontal() },
+                    onDistributeV: { viewModel.distributeVertical() },
+                    onGroup: { viewModel.groupSelected() },
+                    onUngroup: { viewModel.ungroupSelected() },
+                    onBringToFront: { viewModel.bringToFront() },
+                    onSendToBack: { viewModel.sendToBack() },
+                    onDelete: { viewModel.deleteSelected() },
+                    onDuplicate: { viewModel.duplicateSelected() },
+                    onDeselect: { viewModel.selection.clearSelection() }
+                )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            } else if viewModel.selection.isSingleSelection {
+                SingleObjectActionBar(
+                    onDelete: { viewModel.deleteSelected() },
+                    onDuplicate: { viewModel.duplicateSelected() },
+                    onBringForward: { viewModel.bringForward() },
+                    onSendBackward: { viewModel.sendBackward() },
+                    onDeselect: { viewModel.selection.clearSelection() }
+                )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+
+            CanvasPromptBar(viewModel: viewModel)
+        }
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
     }
 
     private func ghostTarget(for anchor: CGPoint) -> CGPoint {

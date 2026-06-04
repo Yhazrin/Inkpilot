@@ -20,7 +20,13 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
         canvas.bounces = true
         canvas.alwaysBounceVertical = true
         canvas.alwaysBounceHorizontal = true
-        canvas.scrollViewDelegate = context.coordinator
+
+        // PKCanvasViewDelegate inherits from UIScrollViewDelegate, so
+        // the coordinator already receives scrollViewDidScroll/Zoom
+        // callbacks through `canvas.delegate` — no separate
+        // scrollViewDelegate hook is needed (and none is publicly
+        // settable in iOS 17).
+
         updateTool(on: canvas)
         return canvas
     }

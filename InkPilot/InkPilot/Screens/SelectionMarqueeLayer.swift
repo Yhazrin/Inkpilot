@@ -19,8 +19,8 @@ struct SelectionMarqueeLayer: View {
             if let start = marqueeStart, let end = marqueeEnd {
                 let rect = marqueeRect(from: start, to: end)
                 RoundedRectangle(cornerRadius: 4)
-                    .strokeBorder(Brand.aiBadge.opacity(0.6), lineWidth: 1.5)
-                    .background(Brand.aiBadge.opacity(0.06))
+                    .strokeBorder(Brand.aiAccent.opacity(0.6), lineWidth: 1.5)
+                    .background(Brand.aiAccent.opacity(0.06))
                     .frame(width: rect.width, height: rect.height)
                     .position(x: rect.midX, y: rect.midY)
             }

@@ -10,12 +10,13 @@ struct CanvasObjectView: View {
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
     var onResize: ((CGSize) -> Void)?
+    var onResizeStart: (() -> Void)?
 
     var body: some View {
         Group {
             switch object.content {
             case .aiCard(let title, let body):
-                AICardObjectView(title: title, body: body)
+                AICardObjectView(title: title, bodyText: body)
             case .text(let text):
                 EditableTextObjectView(
                     text: text, isEditing: isEditing,
@@ -52,14 +53,18 @@ struct CanvasObjectView: View {
         .overlay {
             if isSelected && !isEditing {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiBadge, lineWidth: isDragging ? 2.5 : 2)
+                    .strokeBorder(Brand.aiAccent, lineWidth: isDragging ? 2.5 : 2)
                 if let onResize, !isDragging {
-                    ResizeHandles(objectSize: object.size.cgSize, onResize: onResize)
+                    ResizeHandles(
+                        objectSize: object.size.cgSize,
+                        onResize: onResize,
+                        onResizeStart: onResizeStart
+                    )
                 }
             }
         }
         .opacity(isDragging ? 0.92 : 1.0)
-        .shadow(color: isDragging ? Brand.aiBadge.opacity(0.15) : .clear, radius: 8, y: 2)
+        .shadow(color: isDragging ? Brand.aiAccent.opacity(0.15) : .clear, radius: 8, y: 2)
         .rotationEffect(.degrees(object.rotation))
         .zIndex(Double(object.zIndex))
     }
@@ -69,7 +74,7 @@ struct CanvasObjectView: View {
 
 private struct AICardObjectView: View {
     let title: String
-    let body: String
+    let bodyText: String
 
     var body: some View {
         GlassCard(cornerRadius: Brand.cornerM) {
@@ -78,7 +83,7 @@ private struct AICardObjectView: View {
                     Text(title).font(Brand.titleFont).foregroundStyle(Brand.inkPrimary)
                     AIBadge()
                 }
-                Text(body).font(Brand.bodyFont).foregroundStyle(Brand.inkSecondary)
+                Text(bodyText).font(Brand.bodyFont).foregroundStyle(Brand.inkSecondary)
             }
         }
         .accessibilityElement(children: .combine)

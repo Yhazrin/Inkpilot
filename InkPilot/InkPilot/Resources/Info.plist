@@ -46,6 +46,6 @@
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>InkPilot talks to a local backend on your Mac for AI suggestions.</string>
 	<key>INKPILOT_BACKEND_URL</key>
-	<string>http://192.168.1.42:8000</string>
+	<string>http://192.168.31.157:8000</string>
 </dict>
 </plist>
