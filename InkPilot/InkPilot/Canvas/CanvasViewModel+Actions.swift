@@ -220,6 +220,11 @@ extension CanvasViewModel {
         drawing = PKDrawing()
         canvasObjects.removeAll()
         selection.clearSelection()
+        activeGuides = []
+        connectorStartID = nil
+        lassoPoints = []
+        ghostSuggestion = nil
+        suggestionAnchor = nil
         autoSave()
     }
 
