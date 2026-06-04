@@ -31,8 +31,9 @@ struct CanvasObjectLayer: View {
     @State private var isDraggingMulti = false
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            ForEach(objects) { object in
+        let sorted = objects.sorted { $0.zIndex < $1.zIndex }
+        return ZStack(alignment: .topLeading) {
+            ForEach(sorted) { object in
                 let isEditing = object.id == editingID
                 let isSelected = selectedIDs.contains(object.id)
 
