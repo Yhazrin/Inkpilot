@@ -21,7 +21,7 @@ struct MediaPalette: View {
                 Label(String(localized: "media.import.image"), systemImage: "photo.badge.plus")
                     .font(Brand.paletteFont)
                     .foregroundStyle(Brand.aiAccent)
-                    .frame(height: 44)
+                    .frame(height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "media.import.image.accessibility")))
 
@@ -32,7 +32,7 @@ struct MediaPalette: View {
                 Label(String(localized: "media.import.pdf"), systemImage: "doc.richtext")
                     .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkPrimary)
-                    .frame(height: 44)
+                    .frame(height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "media.import.pdf.accessibility")))
 
@@ -45,7 +45,7 @@ struct MediaPalette: View {
                 Label(String(localized: "palette.media.image"), systemImage: "photo")
                     .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(height: 44)
+                    .frame(height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "palette.media.image.accessibility")))
 
@@ -56,7 +56,7 @@ struct MediaPalette: View {
                 Label(String(localized: "palette.media.file"), systemImage: "doc")
                     .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(height: 44)
+                    .frame(height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "palette.media.file.accessibility")))
 
