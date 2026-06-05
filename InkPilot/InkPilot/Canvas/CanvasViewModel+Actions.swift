@@ -213,8 +213,8 @@ extension CanvasViewModel {
         activeGuides = []
         connectorStartID = nil
         lassoPoints = []
-        ghostSuggestion = nil
-        suggestionAnchor = nil
+        ai.ghostSuggestion = nil
+        ai.suggestionAnchor = nil
         autoSave()
     }
 

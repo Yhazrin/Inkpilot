@@ -37,13 +37,7 @@ final class CanvasViewModel {
 
     // MARK: - AI Suggestion State
 
-    var ghostSuggestion: GhostSuggestion?
-    var isThinking: Bool = false
-    var suggestionAnchor: CGPointCodable?
-
-    // MARK: - AI Panel State
-
-    var isAIPanelExpanded: Bool = false
+    let ai = AISuggestionState()
 
     // MARK: - Connector Creation State
 
@@ -53,10 +47,6 @@ final class CanvasViewModel {
 
     var isShapePaletteVisible: Bool = false
     var isMediaPaletteVisible: Bool = false
-
-    // MARK: - Prompt
-
-    var promptText: String = ""
 
     // MARK: - Drawing Tool State
 
@@ -97,7 +87,7 @@ final class CanvasViewModel {
     }
 
     var defaultInsertionPoint: CGPointCodable {
-        if let anchor = suggestionAnchor {
+        if let anchor = ai.suggestionAnchor {
             return CGPointCodable(x: anchor.x + 100, y: anchor.y)
         }
         return Brand.defaultInsertionPoint

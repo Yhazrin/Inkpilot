@@ -10,15 +10,15 @@ extension CanvasViewModel {
             fallback: SuggestionAnchorResolver.defaultFallback
         )
         withAnimation(.easeInOut(duration: 0.25)) {
-            isThinking = true
-            suggestionAnchor = CGPointCodable(x: anchor.x, y: anchor.y)
+            ai.isThinking = true
+            ai.suggestionAnchor = CGPointCodable(x: anchor.x, y: anchor.y)
         }
 
         let context = CanvasContextBuilder.build(
             from: drawing,
             canvasObjects: canvasObjects,
             selectedObjectID: selection.primaryID,
-            promptText: promptText
+            promptText: ai.promptText
         )
 
         let service = suggestionService
@@ -27,14 +27,14 @@ extension CanvasViewModel {
                 let response = try await service.generateSuggestion(context: context)
                 await MainActor.run {
                     withAnimation(.easeInOut(duration: 0.4)) {
-                        ghostSuggestion = GhostSuggestion(response: response)
-                        isThinking = false
+                        ai.ghostSuggestion = GhostSuggestion(response: response)
+                        ai.isThinking = false
                     }
                 }
             } catch {
                 await MainActor.run {
                     withAnimation(.easeOut(duration: 0.2)) {
-                        isThinking = false
+                        ai.isThinking = false
                     }
                 }
             }
@@ -42,8 +42,8 @@ extension CanvasViewModel {
     }
 
     func acceptSuggestion() {
-        guard let suggestion = ghostSuggestion else { return }
-        let anchorPoint = suggestionAnchor?.cgPoint
+        guard let suggestion = ai.ghostSuggestion else { return }
+        let anchorPoint = ai.suggestionAnchor?.cgPoint
             ?? SuggestionAnchorResolver.defaultFallback
 
         let columnOrigin = CGPoint(x: anchorPoint.x + 60, y: anchorPoint.y - 80)
@@ -60,13 +60,13 @@ extension CanvasViewModel {
         }
         withAnimation(.spring(response: 0.55, dampingFraction: 0.9)) {
             canvasObjects.append(contentsOf: newObjects)
-            ghostSuggestion = nil
+            ai.ghostSuggestion = nil
         }
     }
 
     func dismissSuggestion() {
         withAnimation(.easeOut(duration: 0.3)) {
-            ghostSuggestion = nil
+            ai.ghostSuggestion = nil
         }
     }
 }

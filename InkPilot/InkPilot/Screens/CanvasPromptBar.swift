@@ -8,13 +8,13 @@ struct CanvasPromptBar: View {
     var body: some View {
         FloatingPromptCapsule(
             promptText: .init(
-                get: { viewModel.promptText },
-                set: { viewModel.promptText = $0 }
+                get: { viewModel.ai.promptText },
+                set: { viewModel.ai.promptText = $0 }
             ),
-            isThinking: viewModel.isThinking,
+            isThinking: viewModel.ai.isThinking,
             onSubmit: {
                 viewModel.requestSuggestion()
-                viewModel.promptText = ""
+                viewModel.ai.promptText = ""
             }
         )
     }

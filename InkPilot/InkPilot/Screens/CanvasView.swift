@@ -35,9 +35,9 @@ struct CanvasView: View {
 
             // 4. Motion effects
             CanvasMotionLayer(
-                anchor: viewModel.suggestionAnchor.map { viewModel.worldToScreen($0.cgPoint) },
-                isThinking: viewModel.isThinking,
-                hasGhost: viewModel.ghostSuggestion != nil,
+                anchor: viewModel.ai.suggestionAnchor.map { viewModel.worldToScreen($0.cgPoint) },
+                isThinking: viewModel.ai.isThinking,
+                hasGhost: viewModel.ai.ghostSuggestion != nil,
                 materializationCount: materializationCount
             )
 
@@ -59,7 +59,7 @@ struct CanvasView: View {
                 isSelectToolActive: viewModel.selectedTool == .select,
                 isConnectorToolActive: viewModel.selectedTool == .connector,
                 connectorStartID: viewModel.connectorStartID,
-                sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
+                sourceAnchor: viewModel.ai.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
                 actions: CanvasObjectActions(
                     onSelect: { viewModel.selection.selectObject($0) },
@@ -116,8 +116,8 @@ struct CanvasView: View {
             )
 
             // 8. Ghost suggestion card
-            if let suggestion = viewModel.ghostSuggestion,
-               let anchor = viewModel.suggestionAnchor?.cgPoint {
+            if let suggestion = viewModel.ai.ghostSuggestion,
+               let anchor = viewModel.ai.suggestionAnchor?.cgPoint {
                 GeometryReader { geo in
                     let screenAnchor = viewModel.worldToScreen(anchor)
                     let rawTarget = CGPoint(x: screenAnchor.x + 220, y: screenAnchor.y + 40)
@@ -159,12 +159,12 @@ struct CanvasView: View {
         .sheet(isPresented: $showExportSheet) {
             if let exportURL { ShareSheet(items: [exportURL]) }
         }
-        .onChange(of: viewModel.ghostSuggestion) { _, newValue in
+        .onChange(of: viewModel.ai.ghostSuggestion) { _, newValue in
             if newValue == nil {
                 let delay = MotionTokens.anchorExitDelay
                 Task { @MainActor in
                     try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-                    if viewModel.ghostSuggestion == nil { viewModel.suggestionAnchor = nil }
+                    if viewModel.ai.ghostSuggestion == nil { viewModel.ai.suggestionAnchor = nil }
                 }
             }
         }
@@ -173,7 +173,7 @@ struct CanvasView: View {
             let delay = MotionTokens.anchorMaterializeDelay
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-                viewModel.suggestionAnchor = nil
+                viewModel.ai.suggestionAnchor = nil
             }
         }
     }

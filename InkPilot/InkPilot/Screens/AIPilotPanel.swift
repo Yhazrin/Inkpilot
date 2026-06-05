@@ -9,12 +9,12 @@ struct AIPilotPanel: View {
     var body: some View {
         Button {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
-                viewModel.isAIPanelExpanded.toggle()
+                viewModel.ai.isAIPanelExpanded.toggle()
             }
         } label: {
             FloatingPanel {
                 header
-                if viewModel.isAIPanelExpanded {
+                if viewModel.ai.isAIPanelExpanded {
                     expandedContent
                 }
             }
@@ -23,7 +23,7 @@ struct AIPilotPanel: View {
         .accessibilityLabel(Text(String(localized: "canvas.aiPilot.accessibility")))
         .accessibilityHint(Text(String(localized: "canvas.aiPilot.hint")))
         .accessibilityValue(
-            viewModel.isAIPanelExpanded
+            viewModel.ai.isAIPanelExpanded
                 ? Text(String(localized: "canvas.aiPilot.expanded"))
                 : Text(String(localized: "canvas.aiPilot.collapsed"))
         )
@@ -45,7 +45,7 @@ struct AIPilotPanel: View {
 
             Spacer()
 
-            Image(systemName: viewModel.isAIPanelExpanded ? "chevron.down" : "chevron.left")
+            Image(systemName: viewModel.ai.isAIPanelExpanded ? "chevron.down" : "chevron.left")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(Brand.inkSecondary)
         }
