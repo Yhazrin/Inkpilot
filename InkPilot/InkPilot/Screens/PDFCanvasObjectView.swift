@@ -15,7 +15,7 @@ struct PDFCanvasObjectView: View {
                     .aspectRatio(contentMode: .fill)
                     .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous))
-                    .shadow(color: Brand.glassShadow, radius: 4, y: 2)
+                    .shadow(color: Brand.glassShadow, radius: Brand.shadowRadiusCompact, y: Brand.shadowYMedium)
             } else {
                 placeholderView
             }

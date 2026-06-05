@@ -311,7 +311,7 @@ struct CanvasView: View {
         .allowsHitTesting(false)
         .accessibilityHidden(true)
         .transition(.opacity)
-        .animation(.easeOut(duration: 0.5), value: viewModel.drawing.strokes.isEmpty)
+        .animation(MotionTokens.emptyHintFade, value: viewModel.drawing.strokes.isEmpty)
     }
 }
 

@@ -74,7 +74,7 @@ struct CanvasObjectView: View {
             }
             if isConnectorStart {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiBadge.opacity(0.5), lineWidth: 1.5)
+                    .strokeBorder(Brand.aiAccent.opacity(Brand.selectionBorderOpacity), lineWidth: 1.5)
                     .scaleEffect(1.05)
             }
         }

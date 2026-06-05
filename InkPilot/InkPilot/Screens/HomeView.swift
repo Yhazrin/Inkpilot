@@ -34,7 +34,7 @@ struct HomeView: View {
             HandwritingCalibrationView()
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.8).delay(0.2)) {
+            withAnimation(MotionTokens.heroEntrance) {
                 hasAppeared = true
             }
         }

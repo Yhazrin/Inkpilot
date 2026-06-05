@@ -32,6 +32,17 @@ enum MotionTokens {
     static let thinkingEnd: Animation = .easeOut(duration: 0.3)
     /// AI button pulse animation.
     static let aiPulse: Animation = .easeInOut(duration: 1.8).repeatForever(autoreverses: true)
+    /// Home screen hero entrance animation.
+    static let heroEntrance: Animation = .easeOut(duration: 0.8).delay(0.2)
+    /// Empty canvas hint fade animation.
+    static let emptyHintFade: Animation = .easeOut(duration: 0.5)
+
+    // MARK: - Transitions
+
+    /// Palette/panel slide down + fade.
+    static let slideDownFade: AnyTransition = .move(edge: .top).combined(with: .opacity)
+    /// Action bar slide up + fade.
+    static let slideUpFade: AnyTransition = .move(edge: .bottom).combined(with: .opacity)
 
     // MARK: - Stagger & cadence
 
