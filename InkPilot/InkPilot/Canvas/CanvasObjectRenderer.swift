@@ -49,7 +49,7 @@ enum CanvasObjectRenderer {
         context.setFillColor(UIColor.white.withAlphaComponent(0.9).cgColor)
         context.setStrokeColor(UIColor.lightGray.cgColor)
         context.setLineWidth(max(0.5, scale * 0.5))
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 8 * scale)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportCardCornerRadius * scale)
         path.fill()
         path.stroke()
 
@@ -79,14 +79,14 @@ enum CanvasObjectRenderer {
 
     static func drawShape(kind: CanvasShapeKind, in rect: CGRect, context: CGContext, scale: CGFloat) {
         context.setStrokeColor(UIColor.darkGray.cgColor)
-        context.setLineWidth(2 * scale)
+        context.setLineWidth(Brand.exportShapeStrokeWidth * scale)
         shapePath(kind: kind, in: rect).stroke()
     }
 
     static func shapePath(kind: CanvasShapeKind, in rect: CGRect) -> UIBezierPath {
         switch kind {
         case .rectangle: return UIBezierPath(rect: rect)
-        case .roundedRectangle: return UIBezierPath(roundedRect: rect, cornerRadius: 8)
+        case .roundedRectangle: return UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportCardCornerRadius)
         case .ellipse: return UIBezierPath(ovalIn: rect)
         case .diamond:
             let path = UIBezierPath()
@@ -108,7 +108,7 @@ enum CanvasObjectRenderer {
 
     static func drawStickyNote(text: String, in rect: CGRect, context: CGContext, scale: CGFloat) {
         context.setFillColor(UIColor.systemYellow.withAlphaComponent(0.3).cgColor)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 6 * scale)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportStickyCornerRadius * scale)
         path.fill()
 
         let attrs: [NSAttributedString.Key: Any] = [
@@ -122,7 +122,7 @@ enum CanvasObjectRenderer {
 
     static func drawConnector(in rect: CGRect, context: CGContext, scale: CGFloat) {
         context.setStrokeColor(UIColor.gray.cgColor)
-        context.setLineWidth(1.5 * scale)
+        context.setLineWidth(Brand.exportConnectorStrokeWidth * scale)
         let path = UIBezierPath()
         path.move(to: CGPoint(x: rect.minX, y: rect.midY))
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
@@ -133,7 +133,7 @@ enum CanvasObjectRenderer {
 
     static func drawMediaPlaceholder(in rect: CGRect, context: CGContext, scale: CGFloat) {
         context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 6 * scale)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportStickyCornerRadius * scale)
         path.fill()
         context.setStrokeColor(UIColor.lightGray.cgColor)
         path.stroke()

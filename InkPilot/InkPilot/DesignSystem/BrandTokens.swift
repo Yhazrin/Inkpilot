@@ -209,6 +209,17 @@ enum Brand {
     static let ghostCardScaleRange: Double = 0.14
     /// Drag opacity (slightly transparent when dragging).
     static let dragOpacity: Double = 0.92
+
+    // MARK: - Export Rendering
+
+    /// Card corner radius for export rendering.
+    static let exportCardCornerRadius: CGFloat = 8
+    /// Sticky note corner radius for export rendering.
+    static let exportStickyCornerRadius: CGFloat = 6
+    /// Shape stroke width for export rendering.
+    static let exportShapeStrokeWidth: CGFloat = 2
+    /// Connector stroke width for export rendering.
+    static let exportConnectorStrokeWidth: CGFloat = 1.5
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
