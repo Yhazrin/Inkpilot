@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Editable canvas object views — text box, sticky note, and bubble.
 // MARK: - Editable Text Box
 
 struct EditableTextObjectView: View {

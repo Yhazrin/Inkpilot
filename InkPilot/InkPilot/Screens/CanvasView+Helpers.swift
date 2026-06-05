@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// CanvasView helper views and utilities — selection layer, tool hints, empty canvas hint.
 // MARK: - CanvasView helper views and utilities
 
 extension CanvasView {

@@ -3,6 +3,8 @@ import Foundation
 import PencilKit
 import UIKit
 
+/// Seeds demo handwriting samples for testing the calibration flow.
+
 /// Debug-only seeder that drops fake PKStroke samples into the active
 /// handwriting profile, and injects a synthetic AI suggestion that
 /// references those samples. Lets QA exercise the V0.1.5 rendering path

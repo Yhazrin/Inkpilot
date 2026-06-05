@@ -4,6 +4,8 @@ import SwiftUI
 import UIKit
 import PencilKit
 
+/// Handles PDF import, rendering, text extraction, and canvas export to PDF.
+
 /// Handles PDF import, rendering, and text extraction.
 enum PDFService {
 

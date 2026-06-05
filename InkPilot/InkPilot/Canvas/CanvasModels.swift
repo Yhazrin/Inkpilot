@@ -1,5 +1,6 @@
 import Foundation
 
+/// Core data models for canvas objects, geometry wrappers, and content types.
 // MARK: - Codable Geometry Wrappers
 
 struct CGPointCodable: Codable, Equatable {

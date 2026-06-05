@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// InkPilot app entry point.
 @main
 struct InkPilotApp: App {
     init() {
