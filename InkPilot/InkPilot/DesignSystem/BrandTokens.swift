@@ -162,6 +162,10 @@ enum Brand {
     static let shadowRadiusCompact: CGFloat = 2
     /// Compact shadow Y offset.
     static let shadowYCompact: CGFloat = 1
+    /// Medium shadow radius (editable objects).
+    static let shadowRadiusMedium: CGFloat = 6
+    /// Medium shadow Y offset.
+    static let shadowYMedium: CGFloat = 2
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).

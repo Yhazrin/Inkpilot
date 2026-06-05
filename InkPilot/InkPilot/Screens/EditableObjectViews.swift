@@ -64,7 +64,7 @@ struct EditableStickyNoteView: View {
                         .padding(Brand.spacingS)
                 }
             }
-            .shadow(color: Brand.glassShadow, radius: 6, y: 2)
+            .shadow(color: Brand.glassShadow, radius: Brand.shadowRadiusMedium, y: Brand.shadowYMedium)
             .accessibilityLabel(Text(String(localized: "object.stickyNote.accessibility")))
     }
 
