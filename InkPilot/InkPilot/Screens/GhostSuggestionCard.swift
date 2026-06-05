@@ -69,7 +69,7 @@ struct GhostSuggestionCard: View {
             ForEach(suggestion.response.items) { item in
                 HStack(alignment: .top, spacing: Brand.spacingS) {
                     Circle()
-                        .fill(Brand.aiAccent.opacity(0.3))
+                        .fill(Brand.aiAccent.opacity(Brand.aiAccentBulletOpacity))
                         .frame(width: Brand.bulletSize, height: Brand.bulletSize)
                         .padding(.top, 6)
                     VStack(alignment: .leading, spacing: 2) {

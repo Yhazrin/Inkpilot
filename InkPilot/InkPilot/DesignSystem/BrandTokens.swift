@@ -150,6 +150,8 @@ enum Brand {
     static let toolActiveOpacity: Double = 0.08
     /// Disabled button opacity.
     static let disabledOpacity: Double = 0.3
+    /// AI accent bullet/indicator opacity.
+    static let aiAccentBulletOpacity: Double = 0.3
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).
