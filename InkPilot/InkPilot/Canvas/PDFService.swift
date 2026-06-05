@@ -129,6 +129,17 @@ enum PDFService {
         case .media:
             context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
             UIBezierPath(roundedRect: rect, cornerRadius: 6).fill()
+        case .pdfPage(let pdfURL, let pageIndex):
+            guard let pdfURL, let url = URL(string: pdfURL),
+                  let document = PDFDocument(url: url),
+                  let page = document.page(at: pageIndex) else {
+                context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
+                UIBezierPath(roundedRect: rect, cornerRadius: 6).fill()
+                return
+            }
+            if let image = renderPage(page, at: rect.size) {
+                image.draw(in: rect)
+            }
         }
     }
 

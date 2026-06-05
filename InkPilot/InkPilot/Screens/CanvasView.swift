@@ -116,14 +116,23 @@ struct CanvasView: View {
             // 8. Ghost suggestion card
             if let suggestion = viewModel.ghostSuggestion,
                let anchor = viewModel.suggestionAnchor?.cgPoint {
-                let screenAnchor = viewModel.worldToScreen(anchor)
-                GhostSuggestionCard(
-                    suggestion: suggestion,
-                    anchor: screenAnchor,
-                    target: CGPoint(x: screenAnchor.x + 220, y: screenAnchor.y + 40),
-                    onAccept: { viewModel.acceptSuggestion() },
-                    onDismiss: { viewModel.dismissSuggestion() }
-                )
+                GeometryReader { geo in
+                    let screenAnchor = viewModel.worldToScreen(anchor)
+                    let rawTarget = CGPoint(x: screenAnchor.x + 220, y: screenAnchor.y + 40)
+                    let cardHalfWidth: CGFloat = 180
+                    let cardHalfHeight: CGFloat = 120
+                    let clampedTarget = CGPoint(
+                        x: min(max(rawTarget.x, cardHalfWidth), geo.size.width - cardHalfWidth),
+                        y: min(max(rawTarget.y, cardHalfHeight), geo.size.height - cardHalfHeight)
+                    )
+                    GhostSuggestionCard(
+                        suggestion: suggestion,
+                        anchor: screenAnchor,
+                        target: clampedTarget,
+                        onAccept: { viewModel.acceptSuggestion() },
+                        onDismiss: { viewModel.dismissSuggestion() }
+                    )
+                }
             }
         }
         .navigationBarHidden(true)

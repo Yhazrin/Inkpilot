@@ -110,6 +110,8 @@ struct PenSettingsPalette: View {
                 .accessibilityLabel(Text(colorName(c)))
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(String(localized: "drawing.color")))
     }
 
     // MARK: - Opacity

@@ -28,6 +28,7 @@ struct EditableTextObjectView: View {
             }
         }
         .accessibilityLabel(Text(String(localized: "object.textBox.accessibility")))
+        .accessibilityHint(Text(String(localized: "object.edit.hint")))
     }
 }
 

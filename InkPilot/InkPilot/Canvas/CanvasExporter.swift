@@ -19,7 +19,8 @@ enum CanvasExporter {
         return renderer.image { context in
             let cgContext = context.cgContext
 
-            // White background
+            // White background — exports always use light background for
+            // printability and sharing, regardless of canvas dark-mode state.
             cgContext.setFillColor(UIColor.white.cgColor)
             cgContext.fill(CGRect(origin: .zero, size: canvasSize))
 
