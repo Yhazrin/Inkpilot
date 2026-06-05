@@ -71,7 +71,7 @@ struct CanvasObjectView: View {
             }
         }
         .opacity(isDragging ? 0.92 : 1.0)
-        .shadow(color: isDragging ? Brand.aiBadge.opacity(0.15) : .clear, radius: 8, y: 2)
+        .shadow(color: isDragging ? Brand.aiBadge.opacity(0.15) : .clear, radius: Brand.shadowRadiusDrag, y: Brand.shadowYMedium)
         .rotationEffect(.degrees(object.rotation))
         .zIndex(Double(object.zIndex))
     }
