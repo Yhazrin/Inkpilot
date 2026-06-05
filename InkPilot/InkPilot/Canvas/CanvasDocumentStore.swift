@@ -29,9 +29,6 @@ final class CanvasDocumentStore {
     // MARK: - Configuration
 
     private let fileName = "inkpilot_canvas.json"
-
-    // MARK: - Path
-    private let fileName = "inkpilot_canvas.json"
     private var saveTask: Task<Void, Never>?
 
     private var fileURL: URL {
