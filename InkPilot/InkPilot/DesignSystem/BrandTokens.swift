@@ -166,6 +166,10 @@ enum Brand {
     static let stickyDefaultOpacity: Double = 0.25
     /// Gradient endpoint opacity (fully transparent).
     static let gradientEndOpacity: Double = 0.0
+    /// Calibration character display font size.
+    static let calibrationCharFontSize: CGFloat = 96
+    /// Calibration pen width.
+    static let calibrationPenWidth: CGFloat = 6
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).

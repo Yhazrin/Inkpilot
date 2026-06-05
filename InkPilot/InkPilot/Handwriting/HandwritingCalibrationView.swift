@@ -76,7 +76,7 @@ struct HandwritingCalibrationView: View {
                 )
             VStack(spacing: Brand.spacingS) {
                 Text(character)
-                    .font(.system(size: 96, weight: .regular, design: .serif))
+                    .font(.system(size: Brand.calibrationCharFontSize, weight: .regular, design: .serif))
                     .foregroundStyle(Brand.inkTertiary)
                 if let count = samplesByCharacter[character] {
                     Text(String(localized: "handwriting.calibration.savedSamples \(count)"))
@@ -209,7 +209,7 @@ private struct CalibrationCanvas: UIViewRepresentable {
         let canvas = PKCanvasView()
         canvas.drawing = drawing
         canvas.drawingPolicy = .pencilOnly
-        canvas.tool = PKInkingTool(.pen, color: .black, width: 6)
+        canvas.tool = PKInkingTool(.pen, color: .black, width: Brand.calibrationPenWidth)
         canvas.backgroundColor = .clear
         canvas.isOpaque = false
         canvas.delegate = context.coordinator
