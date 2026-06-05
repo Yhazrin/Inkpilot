@@ -52,7 +52,7 @@ struct FloatingPromptCapsule: View {
         .overlay {
             Capsule()
                 .strokeBorder(
-                    isThinking ? Brand.aiBadge.opacity(0.4) : Brand.glassBorder,
+                    isThinking ? Brand.aiBadge.opacity(Brand.subtleAccentOpacity) : Brand.glassBorder,
                     lineWidth: isThinking ? Brand.selectionStrokeWidth : Brand.glassBorderWidth
                 )
         }

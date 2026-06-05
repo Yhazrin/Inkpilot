@@ -148,6 +148,8 @@ enum Brand {
     static let bulletTopPadding: CGFloat = 6
     /// Vignette overlay opacity.
     static let vignetteOpacity: Double = 0.55
+    /// Subtle accent opacity (lasso stroke, CTA border, thinking border).
+    static let subtleAccentOpacity: Double = 0.4
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).
