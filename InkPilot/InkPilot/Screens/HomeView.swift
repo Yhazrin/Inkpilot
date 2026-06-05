@@ -111,7 +111,7 @@ struct HomeView: View {
                     .padding(.vertical, Brand.spacingS)
                     .background {
                         Capsule()
-                            .strokeBorder(Brand.inkPrimary.opacity(0.4), lineWidth: 1)
+                            .strokeBorder(Brand.inkPrimary.opacity(0.4), lineWidth: Brand.thinStrokeWidth)
                     }
                 }
                 .accessibilityLabel(Text(String(localized: "home.calibrateHandwriting.accessibility")))

@@ -61,7 +61,7 @@ struct PenSettingsPalette: View {
                 Circle()
                     .fill(drawingState.color)
                     .frame(width: dotSize, height: dotSize)
-                    .overlay(Circle().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+                    .overlay(Circle().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth))
 
                 Image(systemName: "chevron.down")
                     .font(Brand.captionFont)
@@ -73,7 +73,7 @@ struct PenSettingsPalette: View {
                 Capsule().fill(.ultraThinMaterial)
             }
             .overlay {
-                Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                Capsule().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth)
             }
         }
         .accessibilityLabel(Text(String(localized: "drawing.settings.hint")))

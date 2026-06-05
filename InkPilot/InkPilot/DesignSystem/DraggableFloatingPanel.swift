@@ -74,9 +74,9 @@ struct DraggableFloatingPanel<Content: View>: View {
                 Circle().fill(.ultraThinMaterial)
             }
             .overlay {
-                Circle().strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                Circle().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth)
             }
-            .shadow(color: Brand.glassShadow, radius: 12, y: 4)
+            .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
     }
 
     // MARK: - Drag
