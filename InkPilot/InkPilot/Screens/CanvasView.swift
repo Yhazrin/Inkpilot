@@ -151,6 +151,16 @@ struct CanvasView: View {
                     .keyboardShortcut("d", modifiers: .command)
                 Button("") { viewModel.selectAllObjects() }
                     .keyboardShortcut("a", modifiers: .command)
+                Button("") { viewModel.selection.clearSelection() }
+                    .keyboardShortcut(.escape, modifiers: [])
+                Button("") { viewModel.groupSelected() }
+                    .keyboardShortcut("g", modifiers: .command)
+                Button("") { viewModel.ungroupSelected() }
+                    .keyboardShortcut("g", modifiers: [.command, .shift])
+                Button("") { viewModel.bringForward() }
+                    .keyboardShortcut("]", modifiers: .command)
+                Button("") { viewModel.sendBackward() }
+                    .keyboardShortcut("[", modifiers: .command)
             }
             .frame(width: 0, height: 0)
             .opacity(0)
