@@ -3,6 +3,8 @@ import PencilKit
 import os.log
 
 /// Errors surfaced by the synthesis pipeline.
+// MARK: - Errors
+
 enum HandwritingSynthesisError: Error, LocalizedError {
     case profileNotFound
     case noSamples
@@ -28,6 +30,8 @@ enum HandwritingSynthesisError: Error, LocalizedError {
 ///   V0.1.5 — sample stitching with bounded jitter (LocalHandwritingRenderer)
 ///   V0.2   — a local writer-profile model (Core ML / MLX) to generate new strokes
 ///   V0.3   — Chinese component-level composition
+// MARK: - Protocol
+
 protocol HandwritingSynthesisService: Sendable {
     /// Render the given text in the user's hand.
     /// - Parameters:

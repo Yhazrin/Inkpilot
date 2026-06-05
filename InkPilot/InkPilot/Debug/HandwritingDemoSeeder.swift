@@ -4,6 +4,7 @@ import PencilKit
 import UIKit
 
 /// Seeds demo handwriting samples for testing the calibration flow.
+// MARK: - Demo Seeder
 
 /// Debug-only seeder that drops fake PKStroke samples into the active
 /// handwriting profile, and injects a synthetic AI suggestion that
