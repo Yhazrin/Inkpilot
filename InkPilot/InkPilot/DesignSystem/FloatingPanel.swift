@@ -40,6 +40,6 @@ struct FloatingPanel<Content: View>: View {
             .font(Brand.captionFont)
             .foregroundStyle(Brand.inkSecondary)
     }
-    .padding(40)
+    .padding(Brand.spacingXL)
     .background(Brand.canvasBase)
 }

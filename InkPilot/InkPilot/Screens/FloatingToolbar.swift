@@ -155,6 +155,6 @@ private struct AIToolButton: View {
 
 #Preview {
     FloatingToolbar(selectedTool: .constant(.pen), canUndo: true, canRedo: false, onUndo: {}, onRedo: {}, onAITap: {}, onShapeTap: {}, onMediaTap: {})
-        .padding(40)
+        .padding(Brand.spacingXL)
         .background(Brand.canvasBase)
 }

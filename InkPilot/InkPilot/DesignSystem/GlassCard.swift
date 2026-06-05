@@ -39,6 +39,6 @@ struct GlassCard<Content: View>: View {
                 .foregroundStyle(Brand.inkSecondary)
         }
     }
-    .padding(40)
+    .padding(Brand.spacingXL)
     .background(Brand.canvasBase)
 }

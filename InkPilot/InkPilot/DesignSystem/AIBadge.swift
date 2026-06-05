@@ -19,6 +19,6 @@ struct AIBadge: View {
 
 #Preview {
     AIBadge()
-        .padding(20)
+        .padding(Brand.spacingL)
         .background(Brand.canvasBase)
 }

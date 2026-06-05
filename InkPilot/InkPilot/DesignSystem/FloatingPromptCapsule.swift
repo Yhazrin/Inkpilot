@@ -63,12 +63,12 @@ struct FloatingPromptCapsule: View {
 
 #Preview("Normal") {
     FloatingPromptCapsule(promptText: .constant(""), onSubmit: {})
-        .padding(40)
+        .padding(Brand.spacingXL)
         .background(Brand.canvasBase)
 }
 
 #Preview("Thinking") {
     FloatingPromptCapsule(promptText: .constant(""), isThinking: true, onSubmit: {})
-        .padding(40)
+        .padding(Brand.spacingXL)
         .background(Brand.canvasBase)
 }
