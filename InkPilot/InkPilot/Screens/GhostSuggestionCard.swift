@@ -71,7 +71,7 @@ struct GhostSuggestionCard: View {
                     Circle()
                         .fill(Brand.aiAccent.opacity(Brand.aiAccentBulletOpacity))
                         .frame(width: Brand.bulletSize, height: Brand.bulletSize)
-                        .padding(.top, 6)
+                        .padding(.top, Brand.bulletTopPadding)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.title)
                             .font(Brand.bodyFont.weight(.semibold))

@@ -68,7 +68,7 @@ struct PenSettingsPalette: View {
                     .foregroundStyle(Brand.inkTertiary)
             }
             .padding(.horizontal, Brand.spacingS)
-            .padding(.vertical, 6)
+            .padding(.vertical, Brand.bulletTopPadding)
             .background {
                 Capsule().fill(.ultraThinMaterial)
             }
