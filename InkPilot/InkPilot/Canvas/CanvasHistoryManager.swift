@@ -22,12 +22,6 @@ final class CanvasHistoryManager {
     private let maxHistory: Int = Brand.maxHistoryDepth
 
     // MARK: - Public API
-    private(set) var canUndo: Bool = false
-    private(set) var canRedo: Bool = false
-
-    private var undoStack: [CanvasSnapshot] = []
-    private var redoStack: [CanvasSnapshot] = []
-    private let maxHistory: Int = Brand.maxHistoryDepth
 
     /// Push a snapshot before a mutation. Call this BEFORE making changes.
     func pushSnapshot(drawing: PKDrawing, objects: [CanvasObject]) {
