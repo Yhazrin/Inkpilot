@@ -20,12 +20,12 @@ struct GhostSuggestionCard: View {
         cardBody
             .frame(maxWidth: Brand.ghostCardMaxWidth)
             .fixedSize(horizontal: false, vertical: true)
-            .scaleEffect(0.86 + 0.14 * Double(appearProgress))
-            .opacity(0.92 * Double(appearProgress))
-            .blur(radius: (1 - Double(appearProgress)) * 6)
+            .scaleEffect(Brand.ghostCardBaseScale + Brand.ghostCardScaleRange * Double(appearProgress))
+            .opacity(Brand.ghostCardMaxOpacity * Double(appearProgress))
+            .blur(radius: (1 - Double(appearProgress)) * Brand.ghostCardBlurRadius)
             .offset(
-                x: (1 - Double(appearProgress)) * travel.width * 0.4,
-                y: (1 - Double(appearProgress)) * travel.height * 0.4
+                x: (1 - Double(appearProgress)) * travel.width * Brand.ghostCardTravelFactor,
+                y: (1 - Double(appearProgress)) * travel.height * Brand.ghostCardTravelFactor
             )
             .position(target)
             .onAppear {

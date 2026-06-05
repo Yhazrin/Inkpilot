@@ -194,6 +194,19 @@ enum Brand {
     static let highlighterOpacityMultiplier: Double = 0.4
     /// Floating panel minimum width.
     static let floatingPanelMinWidth: CGFloat = 180
+
+    // MARK: - Ghost Card Animation
+
+    /// Ghost card max opacity during appear.
+    static let ghostCardMaxOpacity: Double = 0.92
+    /// Ghost card appear blur radius.
+    static let ghostCardBlurRadius: CGFloat = 6
+    /// Ghost card travel factor (portion of travel used for offset).
+    static let ghostCardTravelFactor: Double = 0.4
+    /// Ghost card base scale (before appear animation).
+    static let ghostCardBaseScale: Double = 0.86
+    /// Ghost card scale range (added to base during appear).
+    static let ghostCardScaleRange: Double = 0.14
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
