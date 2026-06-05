@@ -77,7 +77,7 @@ struct MultiObjectActionBar: View {
         .overlay(alignment: .top) {
             if showAlignment {
                 alignmentPanel
-                    .offset(y: -50)
+                    .offset(y: Brand.alignmentPanelOffset)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }

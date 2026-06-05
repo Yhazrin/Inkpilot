@@ -140,6 +140,12 @@ enum Brand {
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).
     static let tinyDotSize: CGFloat = 4
+    /// Alignment panel upward offset from action bar.
+    static let alignmentPanelOffset: CGFloat = -50
+    /// Network request timeout in seconds.
+    static let requestTimeout: TimeInterval = 30
+    /// Max error snippet length for logging.
+    static let errorSnippetLength: Int = 160
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).

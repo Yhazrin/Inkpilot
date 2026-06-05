@@ -21,7 +21,7 @@ final class NetworkSuggestionService: SuggestionService {
         let url = baseURL.appendingPathComponent("api/inkpilot/suggestions")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.timeoutInterval = 30
+        request.timeoutInterval = Brand.requestTimeout
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
 
@@ -48,7 +48,7 @@ final class NetworkSuggestionService: SuggestionService {
                 return Self.fallback(reason: "non-http response")
             }
             guard (200..<300).contains(http.statusCode) else {
-                let snippet = String(data: data, encoding: .utf8)?.prefix(160) ?? ""
+                let snippet = String(data: data, encoding: .utf8)?.prefix(Brand.errorSnippetLength) ?? ""
                 return Self.fallback(reason: "http \(http.statusCode): \(snippet)")
             }
             let decoded = try JSONDecoder().decode(SuggestionResponseDTO.self, from: data)
