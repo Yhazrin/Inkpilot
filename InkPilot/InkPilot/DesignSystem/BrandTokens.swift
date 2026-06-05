@@ -232,6 +232,10 @@ enum Brand {
     static let exportTitleFontSize: CGFloat = 14
     /// Card body font size for export rendering.
     static let exportBodyFontSize: CGFloat = 11
+    /// Card inset for export rendering.
+    static let exportCardInset: CGFloat = 12
+    /// Sticky note inset for export rendering.
+    static let exportStickyInset: CGFloat = 8
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.

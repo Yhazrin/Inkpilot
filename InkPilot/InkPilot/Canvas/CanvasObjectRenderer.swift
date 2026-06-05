@@ -57,7 +57,7 @@ enum CanvasObjectRenderer {
             .font: UIFont.systemFont(ofSize: Brand.exportTitleFontSize * scale, weight: .semibold),
             .foregroundColor: UIColor.black
         ]
-        let titleRect = rect.insetBy(dx: 12 * scale, dy: 8 * scale)
+        let titleRect = rect.insetBy(dx: Brand.exportCardInset * scale, dy: Brand.exportStickyInset * scale)
         (title as NSString).draw(in: titleRect, withAttributes: titleAttrs)
 
         if !body.isEmpty {
@@ -69,7 +69,7 @@ enum CanvasObjectRenderer {
                 x: titleRect.minX,
                 y: titleRect.maxY + 4 * scale,
                 width: titleRect.width,
-                height: rect.maxY - titleRect.maxY - 12 * scale
+                height: rect.maxY - titleRect.maxY - Brand.exportCardInset * scale
             )
             (body as NSString).draw(in: bodyRect, withAttributes: bodyAttrs)
         }
@@ -115,7 +115,7 @@ enum CanvasObjectRenderer {
             .font: UIFont.systemFont(ofSize: Brand.exportBodyFontSize * scale),
             .foregroundColor: UIColor.black
         ]
-        (text as NSString).draw(in: rect.insetBy(dx: 8 * scale, dy: 8 * scale), withAttributes: attrs)
+        (text as NSString).draw(in: rect.insetBy(dx: Brand.exportStickyInset * scale, dy: Brand.exportStickyInset * scale), withAttributes: attrs)
     }
 
     // MARK: - Connector
