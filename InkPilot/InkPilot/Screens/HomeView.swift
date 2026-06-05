@@ -27,7 +27,7 @@ struct HomeView: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.8).delay(0.2)) {
+            withAnimation(MotionTokens.heroEntrance) {
                 hasAppeared = true
             }
         }
