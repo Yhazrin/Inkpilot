@@ -85,7 +85,7 @@ struct HandwritingCalibrationView: View {
                 }
             }
         }
-        .frame(height: 200)
+        .frame(height: Brand.calibrationAreaHeight)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(Text(String(localized: "handwriting.calibration.prompt.accessibility \(character)")))
     }
@@ -93,7 +93,7 @@ struct HandwritingCalibrationView: View {
     private var canvasArea: some View {
         CalibrationCanvas(drawing: $drawing)
             .frame(maxWidth: .infinity)
-            .frame(height: 280)
+            .frame(height: Brand.calibrationCanvasHeight)
             .background(
                 RoundedRectangle(cornerRadius: Brand.cornerM)
                     .fill(.white)
