@@ -40,7 +40,7 @@ struct DynamicConnectorView: View {
         } else {
             // Fallback: static line if objects not found
             Rectangle()
-                .fill(Brand.inkPrimary.opacity(0.3))
+                .fill(Brand.inkPrimary.opacity(Brand.connectorFallbackOpacity))
                 .frame(height: 1.5)
         }
     }
@@ -107,7 +107,7 @@ struct MindNodeView: View {
                 var path = Path()
                 path.move(to: start)
                 path.addLine(to: end)
-                context.stroke(path, with: .color(Brand.inkPrimary.opacity(0.3)), lineWidth: 1)
+                context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.connectorFallbackOpacity)), lineWidth: 1)
             }
             .frame(height: Brand.dividerHeight)
             .allowsHitTesting(false)
