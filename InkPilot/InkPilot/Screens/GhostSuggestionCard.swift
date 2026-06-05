@@ -18,7 +18,7 @@ struct GhostSuggestionCard: View {
 
     var body: some View {
         cardBody
-            .frame(maxWidth: 360)
+            .frame(maxWidth: Brand.ghostCardMaxWidth)
             .fixedSize(horizontal: false, vertical: true)
             .scaleEffect(0.86 + 0.14 * Double(appearProgress))
             .opacity(0.92 * Double(appearProgress))

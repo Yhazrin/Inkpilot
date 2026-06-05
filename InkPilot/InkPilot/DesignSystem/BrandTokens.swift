@@ -86,6 +86,36 @@ enum Brand {
     static let chromeBottomOffset: CGFloat = 100
     /// Placeholder icon font size.
     static let placeholderIconSize: CGFloat = 28
+    /// Max width for prompt capsule.
+    static let promptMaxWidth: CGFloat = 480
+    /// Progress spinner size.
+    static let spinnerSize: CGFloat = 20
+    /// Submit button icon size.
+    static let submitIconSize: CGFloat = 20
+    /// Vertical padding for prompt capsule.
+    static let promptPaddingV: CGFloat = 12
+    /// Spacing between AI suggestion cards.
+    static let aiCardSpacing: CGFloat = 150
+    /// Offset when duplicating objects.
+    static let duplicateOffset: CGFloat = 28
+    /// Stagger between duplicated objects.
+    static let duplicateStagger: CGFloat = 8
+    /// Default image import size.
+    static let imageImportSize = CGSizeCodable(width: 300, height: 200)
+    /// Default PDF page import size.
+    static let pdfImportSize = CGSizeCodable(width: 400, height: 560)
+    /// Vertical spacing between imported PDF pages.
+    static let pdfPageSpacing: CGFloat = 620
+    /// Maximum canvas zoom scale.
+    static let maxZoomScale: CGFloat = 4
+    /// Minimum canvas zoom scale.
+    static let minZoomScale: CGFloat = 0.25
+    /// Highlighter width multiplier (PencilKit marker is wider).
+    static let highlighterWidthMultiplier: CGFloat = 3
+    /// Max width for hero/home card.
+    static let heroCardMaxWidth: CGFloat = 520
+    /// Max width for ghost suggestion card.
+    static let ghostCardMaxWidth: CGFloat = 360
 
     // MARK: Spacing
 

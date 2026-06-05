@@ -92,7 +92,7 @@ struct HomeView: View {
             }
             .padding(Brand.spacingXL)
         }
-        .frame(maxWidth: 520)
+        .frame(maxWidth: Brand.heroCardMaxWidth)
     }
 }
 

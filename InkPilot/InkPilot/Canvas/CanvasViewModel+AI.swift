@@ -47,7 +47,7 @@ extension CanvasViewModel {
             ?? SuggestionAnchorResolver.defaultFallback
 
         let columnOrigin = CGPoint(x: anchorPoint.x + 60, y: anchorPoint.y - 80)
-        let cardSpacing: CGFloat = 150
+        let cardSpacing = Brand.aiCardSpacing
 
         let newObjects = suggestion.response.items.enumerated().map { index, item in
             CanvasObjectFactory.aiCard(

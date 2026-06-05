@@ -13,7 +13,7 @@ extension CanvasViewModel {
             id: UUID(),
             content: .media(assetID: asset.id.uuidString, mediaKind: .image),
             worldPosition: defaultInsertionPoint,
-            size: CGSizeCodable(width: 300, height: 200),
+            size: Brand.imageImportSize,
             rotation: 0, zIndex: 0, groupID: nil,
             source: .user, style: .default,
             createdAt: Date(), updatedAt: Date()
@@ -26,7 +26,7 @@ extension CanvasViewModel {
     func importPDF(from url: URL) {
         guard let document = PDFService.importPDF(from: url) else { return }
         let urlString = url.absoluteString
-        let pageSpacing: CGFloat = 620
+        let pageSpacing = Brand.pdfPageSpacing
 
         for i in 0..<document.pageCount {
             let obj = CanvasObject(
@@ -36,7 +36,7 @@ extension CanvasViewModel {
                     x: defaultInsertionPoint.x,
                     y: defaultInsertionPoint.y + CGFloat(i) * pageSpacing
                 ),
-                size: CGSizeCodable(width: 400, height: 560),
+                size: Brand.pdfImportSize,
                 rotation: 0, zIndex: 0, groupID: nil,
                 source: .user, style: .default,
                 createdAt: Date(), updatedAt: Date()

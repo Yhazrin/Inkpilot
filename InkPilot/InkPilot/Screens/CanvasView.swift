@@ -119,7 +119,7 @@ struct CanvasView: View {
                 GeometryReader { geo in
                     let screenAnchor = viewModel.worldToScreen(anchor)
                     let rawTarget = CGPoint(x: screenAnchor.x + 220, y: screenAnchor.y + 40)
-                    let cardHalfWidth: CGFloat = 180
+                    let cardHalfWidth = Brand.ghostCardMaxWidth / 2
                     let cardHalfHeight: CGFloat = 120
                     let clampedTarget = CGPoint(
                         x: min(max(rawTarget.x, cardHalfWidth), geo.size.width - cardHalfWidth),
