@@ -54,7 +54,7 @@ enum CanvasObjectRenderer {
         path.stroke()
 
         let titleAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14 * scale, weight: .semibold),
+            .font: UIFont.systemFont(ofSize: Brand.exportTitleFontSize * scale, weight: .semibold),
             .foregroundColor: UIColor.black
         ]
         let titleRect = rect.insetBy(dx: 12 * scale, dy: 8 * scale)
@@ -62,7 +62,7 @@ enum CanvasObjectRenderer {
 
         if !body.isEmpty {
             let bodyAttrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 11 * scale),
+                .font: UIFont.systemFont(ofSize: Brand.exportBodyFontSize * scale),
                 .foregroundColor: UIColor.darkGray
             ]
             let bodyRect = CGRect(
@@ -112,7 +112,7 @@ enum CanvasObjectRenderer {
         path.fill()
 
         let attrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 11 * scale),
+            .font: UIFont.systemFont(ofSize: Brand.exportBodyFontSize * scale),
             .foregroundColor: UIColor.black
         ]
         (text as NSString).draw(in: rect.insetBy(dx: 8 * scale, dy: 8 * scale), withAttributes: attrs)

@@ -228,6 +228,10 @@ enum Brand {
     static let exportStickyBgAlpha: CGFloat = 0.3
     /// Media placeholder background alpha for export rendering.
     static let exportPlaceholderBgAlpha: CGFloat = 0.2
+    /// Card title font size for export rendering.
+    static let exportTitleFontSize: CGFloat = 14
+    /// Card body font size for export rendering.
+    static let exportBodyFontSize: CGFloat = 11
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
