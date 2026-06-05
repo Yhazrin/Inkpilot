@@ -67,7 +67,7 @@ struct FloatingToolbar: View {
                 .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .shape {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -86,7 +86,7 @@ struct FloatingToolbar: View {
                 .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .connector {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -106,7 +106,7 @@ struct FloatingToolbar: View {
                 .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .media {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -125,7 +125,7 @@ struct FloatingToolbar: View {
                 .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == tool {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }

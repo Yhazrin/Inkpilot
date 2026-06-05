@@ -146,6 +146,8 @@ enum Brand {
     static let requestTimeout: TimeInterval = 30
     /// Max error snippet length for logging.
     static let errorSnippetLength: Int = 160
+    /// Tool button active background opacity.
+    static let toolActiveOpacity: Double = 0.08
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).
