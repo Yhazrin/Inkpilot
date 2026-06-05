@@ -31,6 +31,8 @@
 "suggestion.item.coreWorkflow.detail" = "书写 → 识别 → 预测 → 接受";
 "suggestion.item.mvpFeatures" = "MVP 功能";
 "suggestion.item.mvpFeatures.detail" = "PencilKit 画布、OCR、幽灵建议、点击接受";
+"suggestion.item.handwritten.title" = "总结";
+"suggestion.item.handwritten.content" = "InkPilot 会用你自己的笔迹写出 AI 生成的内容。";
 
 /* 幽灵建议 */
 "suggestion.accept" = "接受";

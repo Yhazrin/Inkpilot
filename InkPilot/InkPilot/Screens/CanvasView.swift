@@ -232,7 +232,13 @@ struct CanvasView: View {
                             type: .stickyNote,
                             title: "Next step",
                             content: "Wire up image recognition and export."
-                        )
+                        ),
+                        AISuggestionItem(
+                            id: UUID(),
+                            type: .handwrittenText,
+                            title: String(localized: "suggestion.item.handwritten.title"),
+                            content: String(localized: "suggestion.item.handwritten.content")
+                        ),
                     ]
                 )
             )
@@ -243,6 +249,13 @@ struct CanvasView: View {
             .first?.screen.bounds.size ?? CGSize(width: 1024, height: 1024)) {
             exportURL = url
             showExportSheet = true
+        }
+        if DebugLaunchOptions.autoAcceptGhost {
+            // Small delay so the ghost card animates in first.
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 400_000_000)
+                viewModel.acceptSuggestion()
+            }
         }
     }
     #endif

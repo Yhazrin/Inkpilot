@@ -17,6 +17,9 @@ struct InkPilotApp: App {
         if args.contains("-smoothing3") {
             StrokeSmoother.iterations = 3
         }
+        if args.contains("-seedHandwriting") || args.contains("-seedHandwriting 1") {
+            HandwritingDemoSeeder.seedActiveProfile()
+        }
         #endif
     }
 

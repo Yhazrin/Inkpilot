@@ -31,6 +31,8 @@
 "suggestion.item.coreWorkflow.detail" = "Write → Recognize → Predict → Accept";
 "suggestion.item.mvpFeatures" = "MVP Features";
 "suggestion.item.mvpFeatures.detail" = "PencilKit canvas, OCR, ghost suggestion, tap to accept";
+"suggestion.item.handwritten.title" = "Summary";
+"suggestion.item.handwritten.content" = "InkPilot renders AI text in your own handwriting.";
 
 /* Ghost Suggestion */
 "suggestion.accept" = "Accept";

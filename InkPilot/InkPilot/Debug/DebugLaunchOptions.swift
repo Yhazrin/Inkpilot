@@ -49,6 +49,20 @@ enum DebugLaunchOptions {
         args.contains("-nukePersist") || args.contains("-nukePersist 1")
     }
 
+    /// `-seedHandwriting 1` → drop a few fake sample strokes into the active
+    /// profile so the handwriting synthesis path can be exercised without
+    /// going through the calibration UI. Useful for screenshot/QA capture.
+    static var seedHandwriting: Bool {
+        args.contains("-seedHandwriting") || args.contains("-seedHandwriting 1")
+    }
+
+    /// `-autoAcceptGhost 1` → after the ghost suggestion appears, auto-accept
+    /// it so the synthesis/materialize path can be exercised in QA capture.
+    /// Combine with `-triggerGhost 1` and `-seedHandwriting 1`.
+    static var autoAcceptGhost: Bool {
+        args.contains("-autoAcceptGhost") || args.contains("-autoAcceptGhost 1")
+    }
+
     // MARK: - Private
 
     private static var args: [String] { ProcessInfo.processInfo.arguments }
