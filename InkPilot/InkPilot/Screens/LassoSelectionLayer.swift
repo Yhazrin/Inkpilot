@@ -56,19 +56,21 @@ struct LassoSelectionLayer: View {
     }
 }
 
-/// Test if a point is inside a polygon using ray-casting algorithm.
-func isPointInsidePolygon(_ point: CGPoint, polygon: [CGPoint]) -> Bool {
-    guard polygon.count >= 3 else { return false }
-    var inside = false
-    var j = polygon.count - 1
-    for i in 0..<polygon.count {
-        let pi = polygon[i]
-        let pj = polygon[j]
-        if ((pi.y > point.y) != (pj.y > point.y)) &&
-            (point.x < (pj.x - pi.x) * (point.y - pi.y) / (pj.y - pi.y) + pi.x) {
-            inside.toggle()
+extension CGPoint {
+    /// Test if this point is inside a polygon using ray-casting algorithm.
+    func isInsidePolygon(_ polygon: [CGPoint]) -> Bool {
+        guard polygon.count >= 3 else { return false }
+        var inside = false
+        var j = polygon.count - 1
+        for i in 0..<polygon.count {
+            let pi = polygon[i]
+            let pj = polygon[j]
+            if ((pi.y > y) != (pj.y > y)) &&
+                (x < (pj.x - pi.x) * (y - pi.y) / (pj.y - pi.y) + pi.x) {
+                inside.toggle()
+            }
+            j = i
         }
-        j = i
+        return inside
     }
-    return inside
 }

@@ -14,7 +14,7 @@ extension CanvasViewModel {
                 x: obj.worldPosition.x + obj.size.width / 2,
                 y: obj.worldPosition.y + obj.size.height / 2
             )
-            return isPointInsidePolygon(center, polygon: worldPoints)
+            return center.isInsidePolygon(worldPoints)
         }.map(\.id)
         if !ids.isEmpty {
             selection.selectObjects(Set(ids))

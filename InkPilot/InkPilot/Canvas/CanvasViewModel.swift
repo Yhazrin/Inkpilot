@@ -80,7 +80,7 @@ final class CanvasViewModel {
     }
 
     private static func defaultService() -> SuggestionService {
-        if BackendConfig.isBackendAvailable {
+        if BackendConfig.isCustomBackendConfigured {
             return NetworkSuggestionService()
         }
         return MockSuggestionService()

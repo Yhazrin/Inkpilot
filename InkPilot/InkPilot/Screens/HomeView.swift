@@ -51,7 +51,7 @@ struct HomeView: View {
     private var versionString: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1"
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
-        return "InkPilot v\(version) (\(build))"
+        return String(localized: "home.version \(version) \(build)")
     }
 
     // MARK: - Hero Card

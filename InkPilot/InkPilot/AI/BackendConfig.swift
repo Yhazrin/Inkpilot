@@ -18,10 +18,9 @@ enum BackendConfig {
         return URL(string: "http://192.168.1.42:8000")!
     }()
 
-    /// Whether the backend is configured and reachable.
-    /// Used to decide between NetworkSuggestionService and MockSuggestionService.
-    static var isBackendAvailable: Bool {
-        // If the URL is the default placeholder, assume offline
+    /// Whether a custom (non-placeholder) backend URL is configured.
+    /// Does NOT verify reachability — only checks if the URL was changed from the default.
+    static var isCustomBackendConfigured: Bool {
         return baseURL.host != "192.168.1.42"
     }
 }

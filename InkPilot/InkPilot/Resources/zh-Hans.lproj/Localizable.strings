@@ -184,3 +184,13 @@
 "media.import.pdf.accessibility" = "导入 PDF 文档";
 "object.pdf.accessibility" = "PDF 页面。";
 "object.pdf.loading" = "加载 PDF...";
+
+/* AI 上下文 */
+"context.strokeCount" = "用户已绘制 %lld 笔";
+"context.inkBounds" = "墨迹范围：%lldx%lld";
+"context.emptyCanvas" = "空白画布（无墨迹）";
+"context.objectType.connector" = "连接线";
+"context.pdfPage" = "PDF 第 %lld 页";
+
+/* 版本 */
+"home.version" = "InkPilot v%@ (%@)";

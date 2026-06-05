@@ -184,3 +184,13 @@
 "media.import.pdf.accessibility" = "Import a PDF document";
 "object.pdf.accessibility" = "PDF page.";
 "object.pdf.loading" = "Loading PDF...";
+
+/* AI Context */
+"context.strokeCount" = "User has drawn %lld stroke(s)";
+"context.inkBounds" = "Ink bounds: %lldx%lld";
+"context.emptyCanvas" = "Empty canvas (no ink)";
+"context.objectType.connector" = "connector";
+"context.pdfPage" = "PDF page %lld";
+
+/* Version */
+"home.version" = "InkPilot v%@ (%@)";
