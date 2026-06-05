@@ -3,6 +3,8 @@ import SwiftUI
 /// The main canvas screen — InkPilot's core product surface.
 /// Composes background, PencilKit, motion, objects, marquee/lasso, guides, chrome.
 struct CanvasView: View {
+
+    // MARK: - Properties
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = CanvasViewModel()
     @State private var materializationCount: Int = 0
@@ -190,6 +192,8 @@ struct CanvasView: View {
         .onAppear { applyDebugLaunchOptions() }
         #endif
     }
+
+    // MARK: - Debug
 
     #if DEBUG
     private func applyDebugLaunchOptions() {
