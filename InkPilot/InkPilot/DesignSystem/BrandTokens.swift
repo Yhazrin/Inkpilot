@@ -116,6 +116,14 @@ enum Brand {
     static let heroCardMaxWidth: CGFloat = 520
     /// Max width for ghost suggestion card.
     static let ghostCardMaxWidth: CGFloat = 360
+    /// Dot grid spacing in canvas background.
+    static let dotGridSpacing: CGFloat = 40
+    /// Dot grid dot size.
+    static let dotGridDotSize: CGFloat = 1.5
+    /// JPEG compression quality for exports.
+    static let exportCompressionQuality: CGFloat = 0.9
+    /// US Letter page size for PDF export (points).
+    static let pdfLetterPageSize = CGSize(width: 612, height: 792)
 
     // MARK: Spacing
 

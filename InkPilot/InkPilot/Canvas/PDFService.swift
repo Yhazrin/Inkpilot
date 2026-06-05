@@ -1,5 +1,6 @@
 import Foundation
 import PDFKit
+import SwiftUI
 import UIKit
 
 /// Handles PDF import, rendering, and text extraction.
@@ -66,7 +67,7 @@ enum PDFService {
     static func exportToPDF(
         drawing: PKDrawing,
         objects: [CanvasObject],
-        pageSize: CGSize = CGSize(width: 612, height: 792) // US Letter
+        pageSize: CGSize = Brand.pdfLetterPageSize
     ) -> Data? {
         let renderer = UIGraphicsPDFRenderer(bounds: CGRect(origin: .zero, size: pageSize))
 

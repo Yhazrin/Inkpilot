@@ -49,7 +49,7 @@ enum CanvasExporter {
 
     /// Create a shareable URL for the image.
     static func saveToTemporaryURL(_ image: UIImage) -> URL? {
-        guard let data = image.jpegData(compressionQuality: 0.9) else { return nil }
+        guard let data = image.jpegData(compressionQuality: Brand.exportCompressionQuality) else { return nil }
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("inkpilot_export.jpg")
         try? data.write(to: url, options: .atomic)
         return url
