@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 /// A guide line that appears when objects align during drag.
 struct GuideLine: Equatable {
@@ -15,7 +16,7 @@ enum SmartGuideEngine {
 
     // MARK: - Configuration
 
-    static let snapThreshold: CGFloat = 8.0
+    static let snapThreshold = Brand.spacingS
 
     // MARK: - Computation
 
