@@ -37,10 +37,10 @@ struct PenSettingsPalette: View {
         Group {
             if isExpanded {
                 expandedPalette
-                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .transition(MotionTokens.slideDownFade)
             } else {
                 collapsedIndicator
-                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .transition(MotionTokens.slideDownFade)
             }
         }
         .animation(MotionTokens.palette, value: isExpanded)
