@@ -46,7 +46,7 @@ enum CanvasObjectRenderer {
     // MARK: - Text Card
 
     static func drawTextCard(title: String, body: String, in rect: CGRect, context: CGContext, scale: CGFloat) {
-        context.setFillColor(UIColor.white.withAlphaComponent(0.9).cgColor)
+        context.setFillColor(UIColor.white.withAlphaComponent(Brand.exportCardBgAlpha).cgColor)
         context.setStrokeColor(UIColor.lightGray.cgColor)
         context.setLineWidth(max(Brand.exportCardBorderWidth, scale * Brand.exportCardBorderWidth))
         let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportCardCornerRadius * scale)
@@ -107,7 +107,7 @@ enum CanvasObjectRenderer {
     // MARK: - Sticky Note
 
     static func drawStickyNote(text: String, in rect: CGRect, context: CGContext, scale: CGFloat) {
-        context.setFillColor(UIColor.systemYellow.withAlphaComponent(0.3).cgColor)
+        context.setFillColor(UIColor.systemYellow.withAlphaComponent(Brand.exportStickyBgAlpha).cgColor)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportStickyCornerRadius * scale)
         path.fill()
 
@@ -132,7 +132,7 @@ enum CanvasObjectRenderer {
     // MARK: - Media Placeholder
 
     static func drawMediaPlaceholder(in rect: CGRect, context: CGContext, scale: CGFloat) {
-        context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
+        context.setFillColor(UIColor.lightGray.withAlphaComponent(Brand.exportPlaceholderBgAlpha).cgColor)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportStickyCornerRadius * scale)
         path.fill()
         context.setStrokeColor(UIColor.lightGray.cgColor)

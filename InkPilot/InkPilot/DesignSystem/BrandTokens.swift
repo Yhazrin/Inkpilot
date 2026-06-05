@@ -222,6 +222,12 @@ enum Brand {
     static let exportConnectorStrokeWidth: CGFloat = 1.5
     /// Card border stroke width for export rendering.
     static let exportCardBorderWidth: CGFloat = 0.5
+    /// Card background alpha for export rendering.
+    static let exportCardBgAlpha: CGFloat = 0.9
+    /// Sticky note background alpha for export rendering.
+    static let exportStickyBgAlpha: CGFloat = 0.3
+    /// Media placeholder background alpha for export rendering.
+    static let exportPlaceholderBgAlpha: CGFloat = 0.2
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
