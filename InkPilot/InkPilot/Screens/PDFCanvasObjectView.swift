@@ -44,7 +44,7 @@ struct PDFCanvasObjectView: View {
         guard let pdfURL,
               let document = PDFDocument(url: pdfURL),
               let page = document.page(at: pageIndex) else { return }
-        let size = CGSize(width: 400, height: 560)
+        let size = Brand.pdfImportSize.cgSize
         pageImage = PDFService.renderPage(page, at: size)
     }
 }
