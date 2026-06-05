@@ -26,6 +26,10 @@ struct HandwritingLayoutConfig {
     var lineHeight: CGFloat = 1.5
     /// Top-left margin in the output bounds.
     var margin: CGFloat = 12
+    /// Space advance factor (multiplied by glyph height).
+    var spaceAdvanceFactor: CGFloat = 0.4
+    /// Character width factor (multiplied by glyph height).
+    var charWidthFactor: CGFloat = 0.6
 
     static let `default` = HandwritingLayoutConfig()
 }
@@ -83,7 +87,7 @@ struct HandwritingLayoutEngine {
                 continue
             }
             if char == " " {
-                let spaceAdvance = config.targetGlyphHeight * 0.4
+                let spaceAdvance = config.targetGlyphHeight * config.spaceAdvanceFactor
                 if currentX + spaceAdvance > config.margin + wrapWidth {
                     lines.append([])
                     currentX = config.margin
@@ -94,7 +98,7 @@ struct HandwritingLayoutEngine {
                 }
                 continue
             }
-            let charWidth = config.targetGlyphHeight * 0.6
+            let charWidth = config.targetGlyphHeight * config.charWidthFactor
             if currentX + charWidth > config.margin + wrapWidth {
                 lines.append([])
                 currentX = config.margin
@@ -119,7 +123,7 @@ struct HandwritingLayoutEngine {
                 defer { glyphIndex += 1 }
                 let str = String(char)
                 if str == " " {
-                    xCursor += config.targetGlyphHeight * 0.4
+                    xCursor += config.targetGlyphHeight * config.spaceAdvanceFactor
                     continue
                 }
                 guard let sampleID = pickSampleID(for: str, library: &library, rng: &rng) else {
@@ -142,7 +146,7 @@ struct HandwritingLayoutEngine {
 
                 let transformed = transformDrawing(sampleDrawing, by: transform)
                 combined.append(transformed)
-                xCursor += config.targetGlyphHeight * 0.6
+                xCursor += config.targetGlyphHeight * config.charWidthFactor
             }
         }
 
@@ -188,7 +192,7 @@ struct HandwritingLayoutEngine {
 
         let finalScale = baseScale * scaleJ
         // Center the glyph at (x + advanceJ, y + baselineJ).
-        let targetCenterX = x + advanceJ + (config.targetGlyphHeight * 0.6) / 2
+        let targetCenterX = x + advanceJ + (config.targetGlyphHeight * config.charWidthFactor) / 2
         let targetCenterY = y + baselineJ + config.targetGlyphHeight / 2
         let sourceCenterX = sampleBounds.midX
         let sourceCenterY = sampleBounds.midY
