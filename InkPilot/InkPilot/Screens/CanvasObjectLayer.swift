@@ -88,7 +88,7 @@ struct CanvasObjectLayer: View {
         }
         .scaleEffect(transform.scale, anchor: .topLeading)
         .offset(x: transform.offset.width, y: transform.offset.height)
-        .animation(.spring(response: 0.5, dampingFraction: 0.8), value: objects.count)
+        .animation(MotionTokens.objectMaterialize, value: objects.count)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipped()
     }

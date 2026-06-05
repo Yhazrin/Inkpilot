@@ -58,7 +58,7 @@ extension CanvasViewModel {
                 )
             )
         }
-        withAnimation(.spring(response: 0.55, dampingFraction: 0.9)) {
+        withAnimation(MotionTokens.suggestionAccept) {
             canvasObjects.append(contentsOf: newObjects)
             ai.ghostSuggestion = nil
         }

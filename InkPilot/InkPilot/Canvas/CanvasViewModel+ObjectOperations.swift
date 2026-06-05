@@ -77,7 +77,7 @@ extension CanvasViewModel {
         let sources = canvasObjects.filter { selection.isSelected($0.id) }
         let offset = Brand.duplicateOffset
         var newIDs: Set<UUID> = []
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+        withAnimation(MotionTokens.objectAdd) {
             for (i, source) in sources.enumerated() {
                 var copy = source
                 copy.id = UUID()
@@ -96,7 +96,7 @@ extension CanvasViewModel {
 
     func addObject(_ object: CanvasObject) {
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+        withAnimation(MotionTokens.objectAdd) {
             canvasObjects.append(object)
             selection.selectObject(object.id)
         }

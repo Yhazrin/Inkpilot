@@ -44,7 +44,7 @@ struct MultiObjectActionBar: View {
 
             // Alignment toggle
             Button {
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.85)) {
+                withAnimation(MotionTokens.alignmentToggle) {
                     showAlignment.toggle()
                 }
             } label: {
@@ -81,7 +81,7 @@ struct MultiObjectActionBar: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
-        .animation(.spring(response: 0.3, dampingFraction: 0.85), value: showAlignment)
+        .animation(MotionTokens.alignmentToggle, value: showAlignment)
     }
 
     // MARK: - Alignment Panel

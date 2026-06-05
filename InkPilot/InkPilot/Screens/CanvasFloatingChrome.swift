@@ -95,9 +95,9 @@ struct CanvasFloatingChrome: View {
             }
         }
         .padding(.top, Brand.spacingM)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isShapePaletteVisible)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isMediaPaletteVisible)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selectedTool)
+        .animation(MotionTokens.palette, value: viewModel.isShapePaletteVisible)
+        .animation(MotionTokens.palette, value: viewModel.isMediaPaletteVisible)
+        .animation(MotionTokens.palette, value: viewModel.selectedTool)
     }
 
     // MARK: - Bottom Section
@@ -140,7 +140,7 @@ struct CanvasFloatingChrome: View {
             CanvasPromptBar(viewModel: viewModel)
         }
         .padding(.bottom, Brand.spacingL)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
+        .animation(MotionTokens.palette, value: viewModel.selection.selectionCount)
     }
 
     // MARK: - Export Buttons

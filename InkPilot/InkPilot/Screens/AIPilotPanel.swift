@@ -8,7 +8,7 @@ struct AIPilotPanel: View {
 
     var body: some View {
         Button {
-            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+            withAnimation(MotionTokens.palette) {
                 viewModel.ai.isAIPanelExpanded.toggle()
             }
         } label: {

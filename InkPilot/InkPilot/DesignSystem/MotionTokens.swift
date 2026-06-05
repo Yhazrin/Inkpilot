@@ -12,6 +12,16 @@ enum MotionTokens {
     static let materialize: Animation = .spring(response: 0.58, dampingFraction: 0.94)
     static let settle: Animation = .spring(response: 0.48, dampingFraction: 0.96)
     static let morph: Animation = .spring(response: 0.5, dampingFraction: 0.94)
+    /// Palette/panel expand/collapse transition.
+    static let palette: Animation = .spring(response: 0.35, dampingFraction: 0.85)
+    /// Object add/duplicate transition.
+    static let objectAdd: Animation = .spring(response: 0.4, dampingFraction: 0.8)
+    /// Alignment panel toggle transition.
+    static let alignmentToggle: Animation = .spring(response: 0.3, dampingFraction: 0.85)
+    /// AI suggestion accept transition.
+    static let suggestionAccept: Animation = .spring(response: 0.55, dampingFraction: 0.9)
+    /// Object materialization transition.
+    static let objectMaterialize: Animation = .spring(response: 0.5, dampingFraction: 0.8)
 
     // MARK: - Stagger & cadence
 
