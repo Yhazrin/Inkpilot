@@ -241,7 +241,7 @@ struct CanvasView: View {
     private var emptyCanvasHint: some View {
         VStack(spacing: Brand.spacingM) {
             Image(systemName: "pencil.and.outline")
-                .font(.system(size: 36))
+                .font(.system(size: Brand.emptyHintIconSize))
                 .foregroundStyle(Brand.inkTertiary)
 
             Text(String(localized: "canvas.empty.hint"))

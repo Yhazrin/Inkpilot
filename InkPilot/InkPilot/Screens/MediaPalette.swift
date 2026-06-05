@@ -97,7 +97,7 @@ private struct PhotoImportSheet: View {
             ) {
                 VStack(spacing: Brand.spacingL) {
                     Image(systemName: "photo.on.rectangle.angled")
-                        .font(.system(size: 48))
+                        .font(.system(size: Brand.largePlaceholderIconSize))
                         .foregroundStyle(Brand.inkSecondary)
                     Text(String(localized: "media.import.selectPhoto"))
                         .font(Brand.titleFont)

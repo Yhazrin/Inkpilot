@@ -122,6 +122,12 @@ enum Brand {
     static let dotGridSpacing: CGFloat = 40
     /// Dot grid dot size.
     static let dotGridDotSize: CGFloat = 1.5
+    /// Empty canvas hint icon size.
+    static let emptyHintIconSize: CGFloat = 36
+    /// Small icon size (slider labels, etc).
+    static let smallIconSize: CGFloat = 12
+    /// Large placeholder icon size (import sheets).
+    static let largePlaceholderIconSize: CGFloat = 48
     /// JPEG compression quality for exports.
     static let exportCompressionQuality: CGFloat = 0.9
     /// US Letter page size for PDF export (points).
