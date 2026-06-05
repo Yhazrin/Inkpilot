@@ -97,7 +97,7 @@ struct HandwritingCalibrationView: View {
             .background(
                 RoundedRectangle(cornerRadius: Brand.cornerM)
                     .fill(.white)
-                    .shadow(color: .black.opacity(0.04), radius: Brand.shadowRadiusMedium, y: Brand.shadowYMedium)
+                    .shadow(color: .black.opacity(Brand.ultraSubtleOpacity), radius: Brand.shadowRadiusMedium, y: Brand.shadowYMedium)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: Brand.cornerM)

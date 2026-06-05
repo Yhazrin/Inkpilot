@@ -29,7 +29,7 @@ struct LassoSelectionLayer: View {
                         path.closeSubpath()
                     }
                     context.stroke(path, with: .color(Brand.aiAccent.opacity(Brand.subtleAccentOpacity)), lineWidth: Brand.selectionStrokeWidth)
-                    context.fill(path, with: .color(Brand.aiAccent.opacity(0.04)))
+                    context.fill(path, with: .color(Brand.aiAccent.opacity(Brand.ultraSubtleOpacity)))
                 }
             }
         }
