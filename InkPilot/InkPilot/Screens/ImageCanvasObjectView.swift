@@ -3,6 +3,8 @@ import SwiftUI
 /// Renders an actual imported image as a canvas object.
 /// Loads the image from disk via MediaAssetStore.
 struct ImageCanvasObjectView: View {
+
+    // MARK: - Properties
     let assetID: String?
     @State private var uiImage: UIImage?
 

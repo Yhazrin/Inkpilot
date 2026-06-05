@@ -3,6 +3,8 @@ import PDFKit
 
 /// Renders a PDF page as a canvas object.
 struct PDFCanvasObjectView: View {
+
+    // MARK: - Properties
     let pdfURL: URL?
     let pageIndex: Int
     @State private var pageImage: UIImage?
