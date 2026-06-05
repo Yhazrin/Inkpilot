@@ -61,19 +61,21 @@ struct CanvasView: View {
                 connectorStartID: viewModel.connectorStartID,
                 sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
-                onSelect: { viewModel.selection.selectObject($0) },
-                onToggleSelection: { viewModel.selection.toggleSelection($0) },
-                onGroupTap: { viewModel.selection.selectGroup($0, allObjects: viewModel.canvasObjects) },
-                onConnectorTap: { viewModel.handleConnectorTap($0) },
-                onBeginEditing: { viewModel.selection.beginEditing($0) },
-                onEndEditing: { viewModel.selection.endEditing() },
-                onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
-                onMove: { id, pos in viewModel.moveObjectWithGuides(id: id, to: pos) },
-                onMoveSelected: { delta in viewModel.moveSelectedObjects(by: delta) },
-                onDragStart: { viewModel.pushHistoryBeforeMove() },
-                onDragEnd: { viewModel.clearGuides() },
-                onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
-                onResizeStart: { viewModel.pushHistoryBeforeResize() }
+                actions: CanvasObjectActions(
+                    onSelect: { viewModel.selection.selectObject($0) },
+                    onToggleSelection: { viewModel.selection.toggleSelection($0) },
+                    onGroupTap: { viewModel.selection.selectGroup($0, allObjects: viewModel.canvasObjects) },
+                    onConnectorTap: { viewModel.handleConnectorTap($0) },
+                    onBeginEditing: { viewModel.selection.beginEditing($0) },
+                    onEndEditing: { viewModel.selection.endEditing() },
+                    onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
+                    onMove: { id, pos in viewModel.moveObjectWithGuides(id: id, to: pos) },
+                    onMoveSelected: { delta in viewModel.moveSelectedObjects(by: delta) },
+                    onDragStart: { viewModel.pushHistoryBeforeMove() },
+                    onDragEnd: { viewModel.clearGuides() },
+                    onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
+                    onResizeStart: { viewModel.pushHistoryBeforeResize() }
+                )
             )
 
             // 5. Smart guide lines

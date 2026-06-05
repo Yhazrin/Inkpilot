@@ -124,6 +124,8 @@ enum Brand {
     static let exportCompressionQuality: CGFloat = 0.9
     /// US Letter page size for PDF export (points).
     static let pdfLetterPageSize = CGSize(width: 612, height: 792)
+    /// Default insertion point when no anchor exists (center of typical iPad viewport).
+    static let defaultInsertionPoint = CGPointCodable(x: 520, y: 360)
 
     // MARK: Spacing
 

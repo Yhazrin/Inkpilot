@@ -100,7 +100,7 @@ final class CanvasViewModel {
         if let anchor = suggestionAnchor {
             return CGPointCodable(x: anchor.x + 100, y: anchor.y)
         }
-        return CGPointCodable(x: 520, y: 360)
+        return Brand.defaultInsertionPoint
     }
 
     // MARK: - Transform sync
