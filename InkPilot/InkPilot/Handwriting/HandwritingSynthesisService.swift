@@ -45,11 +45,11 @@ protocol HandwritingSynthesisService: Sendable {
 /// Convenience default bounds for synthesis when the caller doesn't care.
 enum HandwritingSynthesisDefaults {
     /// Default output size when synthesizing for an AI suggestion card.
-    static let cardBounds = CGSize(width: 260, height: 120)
+    static let cardBounds = Brand.synthesisCardBounds
     /// Default output size for a full-width canvas label.
-    static let labelBounds = CGSize(width: 360, height: 80)
+    static let labelBounds = Brand.synthesisLabelBounds
     /// Default output size for a mind-map node.
-    static let mindNodeBounds = CGSize(width: 180, height: 80)
+    static let mindNodeBounds = Brand.synthesisMindNodeBounds
 
     static let logger = Logger(subsystem: "com.inkpilot.handwriting", category: "Synthesis")
 }

@@ -172,6 +172,15 @@ enum Brand {
     static let calibrationPenWidth: CGFloat = 6
     /// Draggable panel title font size.
     static let panelTitleFontSize: CGFloat = 18
+
+    // MARK: - Handwriting Synthesis
+
+    /// Default synthesis bounds for AI suggestion cards.
+    static let synthesisCardBounds = CGSize(width: 260, height: 120)
+    /// Default synthesis bounds for full-width labels.
+    static let synthesisLabelBounds = CGSize(width: 360, height: 80)
+    /// Default synthesis bounds for mind-map nodes.
+    static let synthesisMindNodeBounds = CGSize(width: 180, height: 80)
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
