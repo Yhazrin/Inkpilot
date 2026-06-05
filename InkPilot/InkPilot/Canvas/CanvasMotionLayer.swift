@@ -46,7 +46,7 @@ private struct ScanAura: View {
 
         let pip = Circle()
             .fill(Brand.aiAccent.opacity(0.35))
-            .frame(width: 6, height: 6)
+            .frame(width: Brand.bulletSize, height: Brand.bulletSize)
 
         TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in
             let phase = breathPhase(at: context.date, period: MotionTokens.scanDuration)
@@ -74,7 +74,7 @@ private struct SourceGlow: View {
 
         let pip = Circle()
             .fill(Brand.aiAccent.opacity(0.5))
-            .frame(width: 4, height: 4)
+            .frame(width: Brand.tinyDotSize, height: Brand.tinyDotSize)
 
         TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in
             let phase = breathPhase(at: context.date, period: MotionTokens.scanDuration)

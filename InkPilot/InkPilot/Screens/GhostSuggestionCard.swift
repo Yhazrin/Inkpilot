@@ -70,7 +70,7 @@ struct GhostSuggestionCard: View {
                 HStack(alignment: .top, spacing: Brand.spacingS) {
                     Circle()
                         .fill(Brand.aiAccent.opacity(0.3))
-                        .frame(width: 6, height: 6)
+                        .frame(width: Brand.bulletSize, height: Brand.bulletSize)
                         .padding(.top, 6)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(item.title)

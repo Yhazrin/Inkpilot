@@ -134,6 +134,12 @@ enum Brand {
     static let dividerHeight: CGFloat = 20
     /// Tall divider height (action bars, settings).
     static let dividerHeightTall: CGFloat = 24
+    /// Opacity slider width.
+    static let sliderWidth: CGFloat = 80
+    /// Small bullet/dot size (list indicators, pips).
+    static let bulletSize: CGFloat = 6
+    /// Tiny dot size (motion layer pips).
+    static let tinyDotSize: CGFloat = 4
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).

@@ -102,7 +102,7 @@ struct AIPilotPanel: View {
         HStack(spacing: Brand.spacingS) {
             Circle()
                 .fill(Brand.aiAccent.opacity(0.3))
-                .frame(width: 6, height: 6)
+                .frame(width: Brand.bulletSize, height: Brand.bulletSize)
             Text(text)
                 .font(Brand.bodyFont)
                 .foregroundStyle(Brand.inkPrimary)
