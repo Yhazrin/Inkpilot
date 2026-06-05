@@ -42,13 +42,15 @@ struct DraggableFloatingPanel<Content: View>: View {
         GeometryReader { geo in
             ZStack(alignment: position.alignment) {
                 Color.clear
+                    .allowsHitTesting(false)
+
                 content()
                     .padding(edgeInset)
                     .opacity(isDragging ? 0 : 1)
+                    .contentShape(Rectangle())
+                    .simultaneousGesture(dragGesture(in: geo))
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .contentShape(Rectangle())
-            .gesture(dragGesture(in: geo))
 
             if isDragging {
                 ball

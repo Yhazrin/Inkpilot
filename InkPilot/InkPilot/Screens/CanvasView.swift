@@ -141,7 +141,64 @@ struct CanvasView: View {
                 viewModel.suggestionAnchor = nil
             }
         }
+        #if DEBUG
+        .onAppear { applyDebugLaunchOptions() }
+        #endif
     }
+
+    #if DEBUG
+    private func applyDebugLaunchOptions() {
+        if let toolName = DebugLaunchOptions.tool,
+           let tool = CanvasTool(rawValue: toolName) {
+            viewModel.selectedTool = tool
+        }
+        if DebugLaunchOptions.useLasso {
+            viewModel.useLasso = true
+        }
+        if let palette = DebugLaunchOptions.palette {
+            switch palette {
+            case "shape": viewModel.isShapePaletteVisible = true
+            case "media": viewModel.isMediaPaletteVisible = true
+            default: break
+            }
+        }
+        if DebugLaunchOptions.seedObjects {
+            let factory = CanvasObjectFactory.self
+            viewModel.addObject(factory.textBox(title: "Hello", body: "World", at: CGPointCodable(x: 200, y: 200)))
+            viewModel.addObject(factory.stickyNote(title: "Idea", body: "Brainstorm", at: CGPointCodable(x: 520, y: 200)))
+            viewModel.addObject(factory.shape(kind: .roundedRectangle, at: CGPointCodable(x: 200, y: 460)))
+            viewModel.addObject(factory.shape(kind: .ellipse, at: CGPointCodable(x: 520, y: 460)))
+        }
+        if DebugLaunchOptions.triggerGhost {
+            viewModel.suggestionAnchor = CGPointCodable(x: 360, y: 360)
+            viewModel.ghostSuggestion = GhostSuggestion(
+                response: AISuggestionResponse(
+                    mode: .structure,
+                    title: "Suggested structure",
+                    items: [
+                        AISuggestionItem(
+                            id: UUID(),
+                            type: .textBox,
+                            title: "Core problem",
+                            content: "Summarize the current discussion."
+                        ),
+                        AISuggestionItem(
+                            id: UUID(),
+                            type: .stickyNote,
+                            title: "Next step",
+                            content: "Wire up image recognition and export."
+                        )
+                    ]
+                )
+            )
+        }
+        if DebugLaunchOptions.showExportSheet,
+           let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+            exportURL = url
+            showExportSheet = true
+        }
+    }
+    #endif
 
     // MARK: - Selection Layer
 

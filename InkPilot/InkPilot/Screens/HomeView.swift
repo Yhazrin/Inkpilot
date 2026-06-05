@@ -10,22 +10,25 @@ struct HomeView: View {
         ZStack {
             ColorBlockBackground()
 
-            VStack(spacing: Brand.spacingXL) {
-                Spacer()
+            if !showCanvas {
+                VStack(spacing: Brand.spacingXL) {
+                    Spacer()
 
-                heroCard
-                    .opacity(hasAppeared ? 1 : 0)
-                    .offset(y: hasAppeared ? 0 : 20)
+                    heroCard
+                        .opacity(hasAppeared ? 1 : 0)
+                        .offset(y: hasAppeared ? 0 : 20)
 
-                // Version info
-                Text(versionString)
-                    .font(Brand.captionFont)
-                    .foregroundStyle(Brand.inkTertiary)
-                    .opacity(hasAppeared ? 1 : 0)
+                    // Version info
+                    Text(versionString)
+                        .font(Brand.captionFont)
+                        .foregroundStyle(Brand.inkTertiary)
+                        .opacity(hasAppeared ? 1 : 0)
 
-                Spacer()
+                    Spacer()
+                }
             }
         }
+        .accessibilityHidden(showCanvas)
         .onAppear {
             withAnimation(.easeOut(duration: 0.8).delay(0.2)) {
                 hasAppeared = true
@@ -36,10 +39,13 @@ struct HomeView: View {
         }
         #if DEBUG
         .onAppear {
-            // Debug-only launch flag: `-autoCanvas 1` skips Home and
-            // opens the canvas directly for screenshot capture.
-            let args = ProcessInfo.processInfo.arguments
-            if args.contains("-autoCanvas") || args.contains("-autoCanvas 1") {
+            if DebugLaunchOptions.nukePersist, let docs = try? FileManager.default.url(
+                for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false
+            ) {
+                let f = docs.appendingPathComponent("inkpilot_canvas.json")
+                try? FileManager.default.removeItem(at: f)
+            }
+            if DebugLaunchOptions.autoCanvas {
                 showCanvas = true
             }
         }
