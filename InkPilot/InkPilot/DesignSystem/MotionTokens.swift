@@ -22,6 +22,10 @@ enum MotionTokens {
     static let suggestionAccept: Animation = .spring(response: 0.55, dampingFraction: 0.9)
     /// Object materialization transition.
     static let objectMaterialize: Animation = .spring(response: 0.5, dampingFraction: 0.8)
+    /// Draggable panel drag spring.
+    static let panelDrag: Animation = .spring(response: 0.35, dampingFraction: 0.8)
+    /// Draggable panel settle spring.
+    static let panelSettle: Animation = .spring(response: 0.45, dampingFraction: 0.85)
     /// Quick fade-out (dismiss, cancel).
     static let quickFadeOut: Animation = .easeOut(duration: 0.2)
     /// AI thinking start transition.

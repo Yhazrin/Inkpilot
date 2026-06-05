@@ -59,8 +59,8 @@ struct DraggableFloatingPanel<Content: View>: View {
             }
         }
         .coordinateSpace(name: "canvas")
-        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: isDragging)
-        .animation(.spring(response: 0.45, dampingFraction: 0.85), value: position)
+        .animation(MotionTokens.panelDrag, value: isDragging)
+        .animation(MotionTokens.panelSettle, value: position)
     }
 
     // MARK: - Ball
