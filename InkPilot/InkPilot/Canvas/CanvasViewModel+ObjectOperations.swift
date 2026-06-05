@@ -3,6 +3,8 @@ import SwiftUI
 /// Object mutation operations for CanvasViewModel.
 extension CanvasViewModel {
 
+    // MARK: - Text Editing
+
     func updateObjectText(id: UUID, newText: String) {
         guard let index = canvasObjects.firstIndex(where: { $0.id == id }) else { return }
         switch canvasObjects[index].content {
@@ -60,6 +62,8 @@ extension CanvasViewModel {
     func pushHistoryBeforeResize() {
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
     }
+
+    // MARK: - Delete / Duplicate / Add
 
     func deleteSelected() {
         guard selection.hasSelection else { return }

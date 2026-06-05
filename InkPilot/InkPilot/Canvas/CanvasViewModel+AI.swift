@@ -4,6 +4,8 @@ import PencilKit
 /// AI suggestion actions for CanvasViewModel.
 extension CanvasViewModel {
 
+    // MARK: - Request
+
     func requestSuggestion() {
         let anchor = SuggestionAnchorResolver.resolve(
             drawing: drawing,
@@ -40,6 +42,8 @@ extension CanvasViewModel {
             }
         }
     }
+
+    // MARK: - Accept / Dismiss
 
     func acceptSuggestion() {
         guard let suggestion = ai.ghostSuggestion else { return }

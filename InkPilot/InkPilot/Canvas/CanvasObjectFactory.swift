@@ -3,6 +3,8 @@ import Foundation
 /// Factory methods for creating canvas objects with sensible defaults.
 enum CanvasObjectFactory {
 
+    // MARK: - Internal Builder
+
     private static func makeObject(
         content: CanvasObjectContent,
         position: CGPointCodable,
@@ -26,6 +28,8 @@ enum CanvasObjectFactory {
         )
     }
 
+    // MARK: - AI Content
+
     static func aiCard(from item: AISuggestionItem, position: CGPointCodable) -> CanvasObject {
         makeObject(
             content: .aiCard(title: item.title, body: item.content),
@@ -35,6 +39,8 @@ enum CanvasObjectFactory {
             style: .aiDefault
         )
     }
+
+    // MARK: - User Content
 
     static func textBox(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
         makeObject(
