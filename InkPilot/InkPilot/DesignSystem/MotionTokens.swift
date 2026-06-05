@@ -47,6 +47,10 @@ enum MotionTokens {
     static let slideDownFade: AnyTransition = .move(edge: .top).combined(with: .opacity)
     /// Action bar slide up + fade.
     static let slideUpFade: AnyTransition = .move(edge: .bottom).combined(with: .opacity)
+    /// Simple fade transition.
+    static let fadeInOut: AnyTransition = .opacity
+    /// Scale + fade transition.
+    static let scaleFade: AnyTransition = .scale.combined(with: .opacity)
 
     // MARK: - Stagger & cadence
 

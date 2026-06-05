@@ -323,7 +323,7 @@ struct CanvasView: View {
         }
         .allowsHitTesting(false)
         .accessibilityHidden(true)
-        .transition(.opacity)
+        .transition(MotionTokens.fadeInOut)
         .animation(MotionTokens.emptyHintFade, value: viewModel.drawing.strokes.isEmpty)
     }
 }

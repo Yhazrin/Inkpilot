@@ -29,7 +29,7 @@ struct HandwritingCalibrationView: View {
                     Text(saveFeedback)
                         .font(Brand.captionFont)
                         .foregroundStyle(Brand.inkSecondary)
-                        .transition(.opacity)
+                        .transition(MotionTokens.fadeInOut)
                 }
                 Spacer(minLength: 0)
             }

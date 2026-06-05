@@ -55,7 +55,7 @@ struct DraggableFloatingPanel<Content: View>: View {
             if isDragging {
                 ball
                     .position(ballLocation)
-                    .transition(.scale.combined(with: .opacity))
+                    .transition(MotionTokens.scaleFade)
             }
         }
         .coordinateSpace(name: "canvas")
