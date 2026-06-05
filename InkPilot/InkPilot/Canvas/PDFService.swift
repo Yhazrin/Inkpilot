@@ -84,107 +84,10 @@ enum PDFService {
             let inkRect = CGRect(origin: .zero, size: pageSize)
             inkImage.draw(in: inkRect)
 
-            // Draw canvas objects (simplified)
+            // Draw canvas objects via shared renderer (scale=1 for PDF coordinates)
             for obj in objects {
-                drawObjectForPDF(obj, in: cgContext, pageSize: pageSize)
+                CanvasObjectRenderer.draw(obj, in: cgContext, scale: 1.0)
             }
-        }
-    }
-
-    // MARK: - Private
-
-    private static func drawObjectForPDF(_ obj: CanvasObject, in context: CGContext, pageSize: CGSize) {
-        let rect = CGRect(
-            x: obj.worldPosition.x,
-            y: obj.worldPosition.y,
-            width: obj.size.width,
-            height: obj.size.height
-        )
-
-        switch obj.content {
-        case .aiCard(let title, let body), .mindNode(let title, _):
-            drawPDFTextCard(title: title, body: body, in: rect, context: context)
-        case .text(let text):
-            drawPDFTextCard(title: text, body: "", in: rect, context: context)
-        case .stickyNote(let text):
-            context.setFillColor(UIColor.systemYellow.withAlphaComponent(0.3).cgColor)
-            UIBezierPath(roundedRect: rect, cornerRadius: 6).fill()
-            (text as NSString).draw(in: rect.insetBy(dx: 8, dy: 8), withAttributes: [
-                .font: UIFont.systemFont(ofSize: 11),
-                .foregroundColor: UIColor.black
-            ])
-        case .bubble(let text):
-            drawPDFTextCard(title: text, body: "", in: rect, context: context)
-        case .shape(let kind):
-            context.setStrokeColor(UIColor.darkGray.cgColor)
-            context.setLineWidth(1.5)
-            pdfShapePath(kind: kind, in: rect).stroke()
-        case .connector:
-            context.setStrokeColor(UIColor.gray.cgColor)
-            context.setLineWidth(1)
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: rect.minX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-            path.stroke()
-        case .media:
-            context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
-            UIBezierPath(roundedRect: rect, cornerRadius: 6).fill()
-        case .pdfPage(let pdfURL, let pageIndex):
-            guard let pdfURL, let url = URL(string: pdfURL),
-                  let document = PDFDocument(url: url),
-                  let page = document.page(at: pageIndex) else {
-                context.setFillColor(UIColor.lightGray.withAlphaComponent(0.2).cgColor)
-                UIBezierPath(roundedRect: rect, cornerRadius: 6).fill()
-                return
-            }
-            if let image = renderPage(page, at: rect.size) {
-                image.draw(in: rect)
-            }
-        }
-    }
-
-    private static func drawPDFTextCard(title: String, body: String, in rect: CGRect, context: CGContext) {
-        context.setFillColor(UIColor.white.withAlphaComponent(0.9).cgColor)
-        context.setStrokeColor(UIColor.lightGray.cgColor)
-        context.setLineWidth(0.5)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 8)
-        path.fill()
-        path.stroke()
-
-        let titleAttrs: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14, weight: .semibold),
-            .foregroundColor: UIColor.black
-        ]
-        (title as NSString).draw(in: rect.insetBy(dx: 12, dy: 8), withAttributes: titleAttrs)
-
-        if !body.isEmpty {
-            let bodyAttrs: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 11),
-                .foregroundColor: UIColor.darkGray
-            ]
-            let bodyRect = CGRect(x: rect.minX + 12, y: rect.minY + 28, width: rect.width - 24, height: rect.height - 36)
-            (body as NSString).draw(in: bodyRect, withAttributes: bodyAttrs)
-        }
-    }
-
-    private static func pdfShapePath(kind: CanvasShapeKind, in rect: CGRect) -> UIBezierPath {
-        switch kind {
-        case .rectangle: return UIBezierPath(rect: rect)
-        case .roundedRectangle: return UIBezierPath(roundedRect: rect, cornerRadius: 8)
-        case .ellipse: return UIBezierPath(ovalIn: rect)
-        case .diamond:
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
-            path.close()
-            return path
-        case .arrow, .line:
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: rect.minX, y: rect.midY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
-            return path
         }
     }
 }

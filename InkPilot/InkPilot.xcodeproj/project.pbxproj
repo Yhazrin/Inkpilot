@@ -71,6 +71,7 @@
 		A10000550000000000000045 /* PDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000550000000000000045; };
 		A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000560000000000000046; };
 		A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000570000000000000047; };
+		A10000580000000000000048 /* CanvasObjectRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000580000000000000048; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -140,6 +141,7 @@
 		A20000550000000000000045 /* PDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFService.swift; sourceTree = "<group>"; };
 		A20000560000000000000046 /* PDFCanvasObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCanvasObjectView.swift; sourceTree = "<group>"; };
 		A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+ImportExport.swift"; sourceTree = "<group>"; };
+		A20000580000000000000048 /* CanvasObjectRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectRenderer.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				A20000520000000000000042 /* CanvasViewModel+AI.swift */,
 				A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */,
 				A20000550000000000000045 /* PDFService.swift */,
+				A20000580000000000000048 /* CanvasObjectRenderer.swift */,
 				A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */,
 			);
 			path = Canvas;
@@ -429,6 +432,7 @@
 				A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */,
 				A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */,
 				A10000550000000000000045 /* PDFService.swift in Sources */,
+				A10000580000000000000048 /* CanvasObjectRenderer.swift in Sources */,
 				A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */,
 				A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */,
 			);
