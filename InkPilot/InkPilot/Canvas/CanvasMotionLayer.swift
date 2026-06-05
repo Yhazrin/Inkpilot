@@ -45,7 +45,7 @@ private struct ScanAura: View {
             .frame(width: 160, height: 160)
 
         let pip = Circle()
-            .fill(Brand.aiAccent.opacity(0.35))
+            .fill(Brand.aiAccent.opacity(Brand.glowPipOpacity))
             .frame(width: Brand.bulletSize, height: Brand.bulletSize)
 
         TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in
@@ -67,7 +67,7 @@ private struct SourceGlow: View {
     var body: some View {
         let halo = Circle()
             .fill(RadialGradient(
-                colors: [Brand.aiHalo.opacity(0.35), Brand.aiHalo.opacity(0.0)],
+                colors: [Brand.aiHalo.opacity(Brand.glowPipOpacity), Brand.aiHalo.opacity(0.0)],
                 center: .center, startRadius: 2, endRadius: 50
             ))
             .frame(width: 100, height: 100)
