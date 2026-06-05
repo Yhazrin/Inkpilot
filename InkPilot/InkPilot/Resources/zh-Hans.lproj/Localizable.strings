@@ -57,6 +57,7 @@
 
 /* 徽章 */
 "badge.ai.generated" = "AI 生成";
+"badge.ai.text" = "AI";
 
 /* AI 思考中 */
 "canvas.ai.thinking" = "正在理解画布...";

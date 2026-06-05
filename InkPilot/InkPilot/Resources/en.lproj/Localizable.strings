@@ -57,6 +57,7 @@
 
 /* Badges */
 "badge.ai.generated" = "AI generated";
+"badge.ai.text" = "AI";
 
 /* AI Thinking */
 "canvas.ai.thinking" = "Reading the canvas...";

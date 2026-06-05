@@ -124,6 +124,12 @@ enum Brand {
     static let dotGridDotSize: CGFloat = 1.5
     /// Empty canvas hint icon size.
     static let emptyHintIconSize: CGFloat = 36
+    /// AI badge font size.
+    static let aiBadgeFontSize: CGFloat = 10
+    /// AI badge horizontal padding.
+    static let aiBadgePaddingH: CGFloat = 6
+    /// AI badge vertical padding.
+    static let aiBadgePaddingV: CGFloat = 2
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).
