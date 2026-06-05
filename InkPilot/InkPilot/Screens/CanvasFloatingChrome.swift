@@ -107,21 +107,23 @@ struct CanvasFloatingChrome: View {
             if viewModel.selection.selectionCount > 1 {
                 MultiObjectActionBar(
                     selectionCount: viewModel.selection.selectionCount,
-                    onAlignLeft: { viewModel.alignLeft() },
-                    onAlignCenter: { viewModel.alignCenterH() },
-                    onAlignRight: { viewModel.alignRight() },
-                    onAlignTop: { viewModel.alignTop() },
-                    onAlignMiddle: { viewModel.alignMiddleV() },
-                    onAlignBottom: { viewModel.alignBottom() },
-                    onDistributeH: { viewModel.distributeHorizontal() },
-                    onDistributeV: { viewModel.distributeVertical() },
-                    onGroup: { viewModel.groupSelected() },
-                    onUngroup: { viewModel.ungroupSelected() },
-                    onBringToFront: { viewModel.bringToFront() },
-                    onSendToBack: { viewModel.sendToBack() },
-                    onDelete: { viewModel.deleteSelected() },
-                    onDuplicate: { viewModel.duplicateSelected() },
-                    onDeselect: { viewModel.selection.clearSelection() }
+                    actions: MultiSelectionActions(
+                        onAlignLeft: { viewModel.alignLeft() },
+                        onAlignCenter: { viewModel.alignCenterH() },
+                        onAlignRight: { viewModel.alignRight() },
+                        onAlignTop: { viewModel.alignTop() },
+                        onAlignMiddle: { viewModel.alignMiddleV() },
+                        onAlignBottom: { viewModel.alignBottom() },
+                        onDistributeH: { viewModel.distributeHorizontal() },
+                        onDistributeV: { viewModel.distributeVertical() },
+                        onGroup: { viewModel.groupSelected() },
+                        onUngroup: { viewModel.ungroupSelected() },
+                        onBringToFront: { viewModel.bringToFront() },
+                        onSendToBack: { viewModel.sendToBack() },
+                        onDelete: { viewModel.deleteSelected() },
+                        onDuplicate: { viewModel.duplicateSelected() },
+                        onDeselect: { viewModel.selection.clearSelection() }
+                    )
                 )
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             } else if viewModel.selection.isSingleSelection {

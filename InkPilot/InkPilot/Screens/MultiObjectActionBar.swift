@@ -1,9 +1,7 @@
 import SwiftUI
 
-/// Action bar shown when multiple objects are selected.
-/// Provides alignment, distribution, grouping, and layer actions.
-struct MultiObjectActionBar: View {
-    let selectionCount: Int
+/// Callbacks for multi-selection actions, reducing parameter count.
+struct MultiSelectionActions {
     var onAlignLeft: () -> Void
     var onAlignCenter: () -> Void
     var onAlignRight: () -> Void
@@ -19,6 +17,13 @@ struct MultiObjectActionBar: View {
     var onDelete: () -> Void
     var onDuplicate: () -> Void
     var onDeselect: () -> Void
+}
+
+/// Action bar shown when multiple objects are selected.
+/// Provides alignment, distribution, grouping, and layer actions.
+struct MultiObjectActionBar: View {
+    let selectionCount: Int
+    let actions: MultiSelectionActions
 
     @State private var showAlignment = false
 
@@ -32,8 +37,8 @@ struct MultiObjectActionBar: View {
             Divider().frame(height: 24)
 
             // Quick actions
-            actionButton(icon: "plus.square.on.square", label: "action.duplicate", action: onDuplicate)
-            actionButton(icon: "trash", label: "action.delete", action: onDelete, tint: .red)
+            actionButton(icon: "plus.square.on.square", label: "action.duplicate", action: actions.onDuplicate)
+            actionButton(icon: "trash", label: "action.delete", action: actions.onDelete, tint: .red)
 
             Divider().frame(height: 24)
 
@@ -49,16 +54,16 @@ struct MultiObjectActionBar: View {
             .accessibilityLabel(Text(String(localized: "action.alignment")))
 
             // Group / Ungroup
-            actionButton(icon: "rectangle.2.group", label: "action.group", action: onGroup)
-            actionButton(icon: "rectangle.2.group.badge.xmark", label: "action.ungroup", action: onUngroup)
+            actionButton(icon: "rectangle.2.group", label: "action.group", action: actions.onGroup)
+            actionButton(icon: "rectangle.2.group.badge.xmark", label: "action.ungroup", action: actions.onUngroup)
 
             // Layer
-            actionButton(icon: "arrow.up.to.line", label: "action.bringToFront", action: onBringToFront)
-            actionButton(icon: "arrow.down.to.line", label: "action.sendToBack", action: onSendToBack)
+            actionButton(icon: "arrow.up.to.line", label: "action.bringToFront", action: actions.onBringToFront)
+            actionButton(icon: "arrow.down.to.line", label: "action.sendToBack", action: actions.onSendToBack)
 
             Divider().frame(height: 24)
 
-            actionButton(icon: "xmark.circle", label: "action.deselect", action: onDeselect)
+            actionButton(icon: "xmark.circle", label: "action.deselect", action: actions.onDeselect)
         }
         .padding(.horizontal, Brand.spacingS)
         .padding(.vertical, Brand.spacingXS)
@@ -83,16 +88,16 @@ struct MultiObjectActionBar: View {
 
     private var alignmentPanel: some View {
         GlassCapsule {
-            actionButton(icon: "align.horizontal.left", label: "action.alignLeft", action: onAlignLeft)
-            actionButton(icon: "align.horizontal.center", label: "action.alignCenter", action: onAlignCenter)
-            actionButton(icon: "align.horizontal.right", label: "action.alignRight", action: onAlignRight)
+            actionButton(icon: "align.horizontal.left", label: "action.alignLeft", action: actions.onAlignLeft)
+            actionButton(icon: "align.horizontal.center", label: "action.alignCenter", action: actions.onAlignCenter)
+            actionButton(icon: "align.horizontal.right", label: "action.alignRight", action: actions.onAlignRight)
             Divider().frame(height: 24)
-            actionButton(icon: "align.vertical.top", label: "action.alignTop", action: onAlignTop)
-            actionButton(icon: "align.vertical.center", label: "action.alignMiddle", action: onAlignMiddle)
-            actionButton(icon: "align.vertical.bottom", label: "action.alignBottom", action: onAlignBottom)
+            actionButton(icon: "align.vertical.top", label: "action.alignTop", action: actions.onAlignTop)
+            actionButton(icon: "align.vertical.center", label: "action.alignMiddle", action: actions.onAlignMiddle)
+            actionButton(icon: "align.vertical.bottom", label: "action.alignBottom", action: actions.onAlignBottom)
             Divider().frame(height: 24)
-            actionButton(icon: "arrow.left.and.right", label: "action.distributeHorizontal", action: onDistributeH)
-            actionButton(icon: "arrow.up.and.down", label: "action.distributeVertical", action: onDistributeV)
+            actionButton(icon: "arrow.left.and.right", label: "action.distributeHorizontal", action: actions.onDistributeH)
+            actionButton(icon: "arrow.up.and.down", label: "action.distributeVertical", action: actions.onDistributeV)
         }
     }
 
@@ -103,7 +108,7 @@ struct MultiObjectActionBar: View {
             Image(systemName: icon)
                 .font(Brand.paletteFont)
                 .foregroundStyle(tint)
-                .frame(width: 40, height: 40)
+                .frame(width: Brand.touchTargetSmall, height: Brand.touchTargetSmall)
         }
         .accessibilityLabel(Text(String(localized: label)))
     }

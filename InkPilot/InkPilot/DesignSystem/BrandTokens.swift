@@ -77,6 +77,8 @@ enum Brand {
     static let touchTarget: CGFloat = 44
     /// Compact touch target for dense palettes.
     static let touchTargetCompact: CGFloat = 36
+    /// Small touch target for action bars.
+    static let touchTargetSmall: CGFloat = 40
     /// Small swatch / chip size.
     static let swatchSize: CGFloat = 24
 
