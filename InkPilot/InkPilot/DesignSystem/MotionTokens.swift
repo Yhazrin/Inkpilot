@@ -22,6 +22,16 @@ enum MotionTokens {
     static let suggestionAccept: Animation = .spring(response: 0.55, dampingFraction: 0.9)
     /// Object materialization transition.
     static let objectMaterialize: Animation = .spring(response: 0.5, dampingFraction: 0.8)
+    /// Quick fade-out (dismiss, cancel).
+    static let quickFadeOut: Animation = .easeOut(duration: 0.2)
+    /// AI thinking start transition.
+    static let thinkingStart: Animation = .easeInOut(duration: 0.25)
+    /// AI thinking result transition.
+    static let thinkingResult: Animation = .easeInOut(duration: 0.4)
+    /// AI thinking end transition.
+    static let thinkingEnd: Animation = .easeOut(duration: 0.3)
+    /// AI button pulse animation.
+    static let aiPulse: Animation = .easeInOut(duration: 1.8).repeatForever(autoreverses: true)
 
     // MARK: - Stagger & cadence
 

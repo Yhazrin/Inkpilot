@@ -64,7 +64,7 @@ extension CanvasViewModel {
     func deleteSelected() {
         guard selection.hasSelection else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        withAnimation(.easeOut(duration: 0.2)) {
+        withAnimation(MotionTokens.quickFadeOut) {
             canvasObjects.removeAll { selection.isSelected($0.id) }
             selection.clearSelection()
         }

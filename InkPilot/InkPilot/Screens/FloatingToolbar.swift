@@ -146,7 +146,7 @@ private struct AIToolButton: View {
             .scaleEffect(isPulsing ? 1.08 : 1.0)
             .opacity(isPulsing ? 1.0 : 0.85)
             .onAppear {
-                withAnimation(.easeInOut(duration: 1.8).repeatForever(autoreverses: true)) {
+                withAnimation(MotionTokens.aiPulse) {
                     isPulsing = true
                 }
             }

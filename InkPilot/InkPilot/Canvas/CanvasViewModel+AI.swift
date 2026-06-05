@@ -9,7 +9,7 @@ extension CanvasViewModel {
             drawing: drawing,
             fallback: SuggestionAnchorResolver.defaultFallback
         )
-        withAnimation(.easeInOut(duration: 0.25)) {
+        withAnimation(MotionTokens.thinkingStart) {
             ai.isThinking = true
             ai.suggestionAnchor = CGPointCodable(x: anchor.x, y: anchor.y)
         }
@@ -26,14 +26,14 @@ extension CanvasViewModel {
             do {
                 let response = try await service.generateSuggestion(context: context)
                 await MainActor.run {
-                    withAnimation(.easeInOut(duration: 0.4)) {
+                    withAnimation(MotionTokens.thinkingResult) {
                         ai.ghostSuggestion = GhostSuggestion(response: response)
                         ai.isThinking = false
                     }
                 }
             } catch {
                 await MainActor.run {
-                    withAnimation(.easeOut(duration: 0.2)) {
+                    withAnimation(MotionTokens.quickFadeOut) {
                         ai.isThinking = false
                     }
                 }
@@ -65,7 +65,7 @@ extension CanvasViewModel {
     }
 
     func dismissSuggestion() {
-        withAnimation(.easeOut(duration: 0.3)) {
+        withAnimation(MotionTokens.thinkingEnd) {
             ai.ghostSuggestion = nil
         }
     }
