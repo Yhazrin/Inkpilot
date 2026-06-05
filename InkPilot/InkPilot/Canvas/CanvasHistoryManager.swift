@@ -11,6 +11,17 @@ struct CanvasSnapshot {
 /// Pushes snapshots before major mutations, not every drag frame.
 @Observable
 final class CanvasHistoryManager {
+
+    // MARK: - State
+
+    private(set) var canUndo: Bool = false
+    private(set) var canRedo: Bool = false
+
+    private var undoStack: [CanvasSnapshot] = []
+    private var redoStack: [CanvasSnapshot] = []
+    private let maxHistory: Int = Brand.maxHistoryDepth
+
+    // MARK: - Public API
     private(set) var canUndo: Bool = false
     private(set) var canRedo: Bool = false
 

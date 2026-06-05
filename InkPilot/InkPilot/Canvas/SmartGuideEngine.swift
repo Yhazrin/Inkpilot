@@ -12,7 +12,12 @@ struct GuideLine: Equatable {
 /// Computes alignment guide lines between a dragged object and other objects.
 /// Returns guides within a snap threshold and optionally snaps the position.
 enum SmartGuideEngine {
+
+    // MARK: - Configuration
+
     static let snapThreshold: CGFloat = 8.0
+
+    // MARK: - Computation
 
     /// Find guide lines and optionally snap the dragged object's position.
     /// Returns (adjusted position, visible guide lines).

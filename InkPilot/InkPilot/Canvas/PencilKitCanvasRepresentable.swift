@@ -4,10 +4,14 @@ import PencilKit
 /// A UIViewRepresentable wrapper around PKCanvasView.
 /// Uses DrawingToolState for stroke color/width/type.
 struct PencilKitCanvasRepresentable: UIViewRepresentable {
+
+    // MARK: - Properties
     @Binding var drawing: PKDrawing
     var tool: CanvasTool
     var drawingToolState: DrawingToolState
     var onTransformChange: ((CGFloat, CGSize) -> Void)?
+
+    // MARK: - UIViewRepresentable
 
     func makeUIView(context: Context) -> PKCanvasView {
         let canvas = PKCanvasView()
@@ -42,6 +46,8 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(drawing: $drawing, onTransformChange: onTransformChange)
     }
+
+    // MARK: - Tool Configuration
 
     private func updateTool(on canvas: PKCanvasView) {
         switch tool {
@@ -80,6 +86,8 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             return PKInkingTool(.pen, color: uiColor, width: width)
         }
     }
+
+    // MARK: - Coordinator
 
     final class Coordinator: NSObject, PKCanvasViewDelegate, UIScrollViewDelegate {
         @Binding var drawing: PKDrawing

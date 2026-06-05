@@ -25,6 +25,12 @@ struct CanvasDocument: Codable {
 /// Persists canvas state to local disk.
 /// Auto-saves with debouncing. Restores on launch.
 final class CanvasDocumentStore {
+
+    // MARK: - Configuration
+
+    private let fileName = "inkpilot_canvas.json"
+
+    // MARK: - Path
     private let fileName = "inkpilot_canvas.json"
     private var saveTask: Task<Void, Never>?
 
