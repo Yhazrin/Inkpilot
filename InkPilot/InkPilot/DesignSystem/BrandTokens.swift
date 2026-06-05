@@ -146,6 +146,8 @@ enum Brand {
     static let penTypeSelectorPadding: CGFloat = 2
     /// Bullet dot top padding.
     static let bulletTopPadding: CGFloat = 6
+    /// Vignette overlay opacity.
+    static let vignetteOpacity: Double = 0.55
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).

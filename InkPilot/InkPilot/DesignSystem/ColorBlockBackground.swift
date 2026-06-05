@@ -37,7 +37,7 @@ struct ColorBlockBackground: View {
                 endRadius: max(size.width, size.height) * 0.9
             )
             .ignoresSafeArea()
-            .opacity(0.55)
+            .opacity(Brand.vignetteOpacity)
         } else {
             RadialGradient(
                 colors: [
@@ -50,7 +50,7 @@ struct ColorBlockBackground: View {
                 endRadius: max(size.width, size.height) * 0.9
             )
             .ignoresSafeArea()
-            .opacity(0.55)
+            .opacity(Brand.vignetteOpacity)
         }
     }
 
