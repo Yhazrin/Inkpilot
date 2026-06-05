@@ -172,6 +172,14 @@ enum Brand {
     static let calibrationPenWidth: CGFloat = 6
     /// Draggable panel title font size.
     static let panelTitleFontSize: CGFloat = 18
+    /// Pen type selector background opacity.
+    static let penTypeBgOpacity: Double = 0.05
+    /// Calibration border opacity.
+    static let calibrationBorderOpacity: Double = 0.1
+    /// Drag shadow opacity.
+    static let dragShadowOpacity: Double = 0.15
+    /// Dark mode dot grid opacity.
+    static let darkDotGridOpacity: Double = 0.08
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).

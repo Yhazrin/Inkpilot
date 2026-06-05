@@ -61,7 +61,7 @@ struct ColorBlockBackground: View {
         let rows = Int(size.height / spacing) + 1
         let dotColor = colorScheme == .dark
             ? Color.white.opacity(Brand.subtleFillOpacity)
-            : Color(white: 0.42).opacity(0.08)
+            : Color(white: 0.42).opacity(Brand.darkDotGridOpacity)
 
         return Canvas { context, _ in
             for row in 0...rows {

@@ -123,7 +123,7 @@ struct PenSettingsPalette: View {
             kindButton(.highlighter, icon: "highlighter", label: String(localized: "tool.highlighter"))
         }
         .padding(Brand.penTypeSelectorPadding)
-        .background(Capsule().fill(Brand.inkPrimary.opacity(0.05)))
+        .background(Capsule().fill(Brand.inkPrimary.opacity(Brand.penTypeBgOpacity)))
     }
 
     private func kindButton(_ kind: DrawingToolKind, icon: String, label: String) -> some View {

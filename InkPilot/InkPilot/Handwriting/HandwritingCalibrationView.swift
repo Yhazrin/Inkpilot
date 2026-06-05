@@ -101,7 +101,7 @@ struct HandwritingCalibrationView: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: Brand.cornerM)
-                    .strokeBorder(Brand.inkPrimary.opacity(0.1), lineWidth: Brand.glassBorderWidth)
+                    .strokeBorder(Brand.inkPrimary.opacity(Brand.calibrationBorderOpacity), lineWidth: Brand.glassBorderWidth)
             )
     }
 
