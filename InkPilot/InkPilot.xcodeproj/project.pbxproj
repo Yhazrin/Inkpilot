@@ -76,6 +76,7 @@
 		A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000570000000000000047; };
 		A10000580000000000000048 /* CanvasObjectRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000580000000000000048; };
 		A10000590000000000000049 /* AISuggestionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000590000000000000049; };
+		A10000600000000000000050 /* CanvasView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000600000000000000050; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -163,6 +164,7 @@
 		A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+ImportExport.swift"; sourceTree = "<group>"; };
 		A20000580000000000000048 /* CanvasObjectRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectRenderer.swift; sourceTree = "<group>"; };
 		A20000590000000000000049 /* AISuggestionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISuggestionState.swift; sourceTree = "<group>"; };
+		A20000600000000000000050 /* CanvasView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasView+Helpers.swift"; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000FF00000000000000FF /* DebugLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLaunchOptions.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				A20000190000000000000013 /* HomeView.swift */,
 				A20000080000000000000008 /* FloatingToolbar.swift */,
 				A20000200000000000000014 /* CanvasView.swift */,
+				A20000600000000000000050 /* CanvasView+Helpers.swift */,
 				A20000210000000000000015 /* CanvasToolbar.swift */,
 				A20000220000000000000016 /* CanvasPromptBar.swift */,
 				A20000250000000000000019 /* GhostSuggestionCard.swift */,
@@ -453,6 +456,7 @@
 				A10000180000000000000012 /* VisionOCRService.swift in Sources */,
 				A10000190000000000000013 /* HomeView.swift in Sources */,
 				A10000200000000000000014 /* CanvasView.swift in Sources */,
+				A10000600000000000000050 /* CanvasView+Helpers.swift in Sources */,
 				A10000210000000000000015 /* CanvasToolbar.swift in Sources */,
 				A10000220000000000000016 /* CanvasPromptBar.swift in Sources */,
 				A10000240000000000000018 /* CanvasTool.swift in Sources */,
