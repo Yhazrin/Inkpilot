@@ -4,6 +4,8 @@ import SwiftUI
 /// Four corner handles for resizing. Caches original size at drag
 /// start to prevent acceleration bug.
 struct ResizeHandles: View {
+
+    // MARK: - Properties
     let objectSize: CGSize
     var onResize: (CGSize) -> Void
     var onResizeStart: (() -> Void)?
@@ -24,6 +26,8 @@ struct ResizeHandles: View {
         .frame(width: objectSize.width + handleSize * 2,
                height: objectSize.height + handleSize * 2)
     }
+
+    // MARK: - Handle Rendering
 
     private func handle(at corner: Corner) -> some View {
         Circle()

@@ -3,6 +3,8 @@ import SwiftUI
 /// Dynamic connector that draws a line between two linked objects.
 /// Updates in real-time when either object moves.
 struct DynamicConnectorView: View {
+
+    // MARK: - Properties
     let startID: UUID?
     let endID: UUID?
     let allObjects: [CanvasObject]
@@ -45,6 +47,8 @@ struct DynamicConnectorView: View {
         }
     }
 
+    // MARK: - Position Resolution
+
     /// Resolve start position: center of start object, or connector's own position.
     private var resolvedStart: CGPoint? {
         guard let startID,
@@ -67,6 +71,8 @@ struct DynamicConnectorView: View {
 }
 
 /// A mind map node with a label and optional parent connector.
+// MARK: - Mind Map Node
+
 struct MindNodeView: View {
     let label: String
     let parentID: UUID?

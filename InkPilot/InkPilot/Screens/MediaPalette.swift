@@ -4,6 +4,8 @@ import _PhotosUI_SwiftUI
 
 /// A floating palette for inserting media — images, PDFs, and placeholders.
 struct MediaPalette: View {
+
+    // MARK: - Properties
     var onInsertPlaceholder: (CanvasObjectType) -> Void
     var onImportImage: (Data, String) -> Void
     var onImportPDF: (URL) -> Void
@@ -84,6 +86,8 @@ struct MediaPalette: View {
 }
 
 /// A simple photo import sheet using PhotosPicker.
+// MARK: - Photo Import Sheet
+
 private struct PhotoImportSheet: View {
     var onImport: (Data, String) -> Void
     @Environment(\.dismiss) private var dismiss
