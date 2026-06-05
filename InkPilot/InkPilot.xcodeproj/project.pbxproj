@@ -77,6 +77,7 @@
 		A10000580000000000000048 /* CanvasObjectRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000580000000000000048; };
 		A10000590000000000000049 /* AISuggestionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000590000000000000049; };
 		A10000600000000000000050 /* CanvasView+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000600000000000000050; };
+		A10000610000000000000051 /* SeededRNG.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000610000000000000051; };
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
@@ -165,6 +166,7 @@
 		A20000580000000000000048 /* CanvasObjectRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectRenderer.swift; sourceTree = "<group>"; };
 		A20000590000000000000049 /* AISuggestionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISuggestionState.swift; sourceTree = "<group>"; };
 		A20000600000000000000050 /* CanvasView+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasView+Helpers.swift"; sourceTree = "<group>"; };
+		A20000610000000000000051 /* SeededRNG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededRNG.swift; sourceTree = "<group>"; };
 		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
 		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000FF00000000000000FF /* DebugLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLaunchOptions.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				A200005B00000000000000B0 /* HandwritingSampleStore.swift */,
 				A200005C00000000000000C0 /* StrokeGlyphLibrary.swift */,
 				A200005D00000000000000D0 /* HandwritingLayoutEngine.swift */,
+				A20000610000000000000051 /* SeededRNG.swift */,
 				A200005E00000000000000E0 /* HandwritingSynthesisService.swift */,
 				A200005F00000000000000F0 /* LocalHandwritingRenderer.swift */,
 				A20000600000000000000060 /* HandwritingCalibrationView.swift */,
@@ -504,6 +507,7 @@
 				A100005B00000000000000B0 /* HandwritingSampleStore.swift in Sources */,
 				A100005C00000000000000C0 /* StrokeGlyphLibrary.swift in Sources */,
 				A100005D00000000000000D0 /* HandwritingLayoutEngine.swift in Sources */,
+				A10000610000000000000051 /* SeededRNG.swift in Sources */,
 				A100005E00000000000000E0 /* HandwritingSynthesisService.swift in Sources */,
 				A100005F00000000000000F0 /* LocalHandwritingRenderer.swift in Sources */,
 				A10000600000000000000060 /* HandwritingCalibrationView.swift in Sources */,
