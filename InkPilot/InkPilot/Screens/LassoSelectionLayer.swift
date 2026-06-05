@@ -3,6 +3,8 @@ import SwiftUI
 /// A freeform lasso drawn by finger drag to select objects.
 /// The user draws a closed path; objects whose centers fall inside are selected.
 struct LassoSelectionLayer: View {
+
+    // MARK: - Properties
     let isActive: Bool
     let transform: CanvasTransform
     @Binding var lassoPoints: [CGPoint]
@@ -36,6 +38,8 @@ struct LassoSelectionLayer: View {
         .allowsHitTesting(false)
         .accessibilityHidden(true)
     }
+
+    // MARK: - Gesture
 
     private var lassoGesture: some Gesture {
         DragGesture(minimumDistance: 10)

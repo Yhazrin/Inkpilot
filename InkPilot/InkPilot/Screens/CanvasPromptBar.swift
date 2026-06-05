@@ -3,6 +3,8 @@ import SwiftUI
 /// Bottom floating prompt capsule extracted from CanvasView.
 /// Connects the prompt field to the view model for AI requests.
 struct CanvasPromptBar: View {
+
+    // MARK: - Properties
     let viewModel: CanvasViewModel
 
     var body: some View {

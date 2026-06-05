@@ -3,6 +3,8 @@ import SwiftUI
 /// A translucent rectangle drawn by finger drag on empty canvas
 /// to select multiple objects at once.
 struct SelectionMarqueeLayer: View {
+
+    // MARK: - Properties
     let isActive: Bool
     let transform: CanvasTransform
     @Binding var marqueeStart: CGPoint?
@@ -27,6 +29,8 @@ struct SelectionMarqueeLayer: View {
             }
         }
     }
+
+    // MARK: - Gesture
 
     private func marqueeGesture(in geo: GeometryProxy) -> some Gesture {
         DragGesture(minimumDistance: 10)

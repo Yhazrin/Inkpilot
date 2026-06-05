@@ -2,6 +2,8 @@ import SwiftUI
 
 /// Renders alignment guide lines during object drag.
 struct GuideOverlay: View {
+
+    // MARK: - Properties
     let guides: [GuideLine]
     let transform: CanvasTransform
 
