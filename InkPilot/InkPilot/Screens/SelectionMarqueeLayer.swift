@@ -21,7 +21,7 @@ struct SelectionMarqueeLayer: View {
                 let rect = marqueeRect(from: start, to: end)
                 RoundedRectangle(cornerRadius: 4)
                     .strokeBorder(Brand.aiAccent.opacity(Brand.highlightOpacity), lineWidth: Brand.selectionStrokeWidth)
-                    .background(Brand.aiAccent.opacity(0.06))
+                    .background(Brand.aiAccent.opacity(Brand.subtleFillOpacity))
                     .frame(width: rect.width, height: rect.height)
                     .position(x: rect.midX, y: rect.midY)
             }
