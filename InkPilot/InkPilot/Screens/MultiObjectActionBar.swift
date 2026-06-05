@@ -71,7 +71,7 @@ struct MultiObjectActionBar: View {
             Capsule().fill(.ultraThinMaterial)
         }
         .overlay {
-            Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+            Capsule().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth)
         }
         .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
         .overlay(alignment: .top) {

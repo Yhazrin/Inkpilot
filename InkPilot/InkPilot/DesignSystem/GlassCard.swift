@@ -23,7 +23,7 @@ struct GlassCard<Content: View>: View {
             }
             .overlay {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+                    .strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth)
             }
             .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)
     }

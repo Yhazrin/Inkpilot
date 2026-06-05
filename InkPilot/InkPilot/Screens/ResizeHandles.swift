@@ -28,7 +28,7 @@ struct ResizeHandles: View {
         Circle()
             .fill(Brand.canvasBase)
             .frame(width: handleSize, height: handleSize)
-            .overlay(Circle().strokeBorder(Brand.aiBadge, lineWidth: 1.5))
+            .overlay(Circle().strokeBorder(Brand.aiBadge, lineWidth: Brand.selectionStrokeWidth))
             .position(position(for: corner))
             .gesture(
                 DragGesture(minimumDistance: 0)

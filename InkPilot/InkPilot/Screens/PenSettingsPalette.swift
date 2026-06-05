@@ -78,7 +78,7 @@ struct PenSettingsPalette: View {
                         .frame(width: w * 3 + 4, height: w * 3 + 4)
                         .overlay {
                             if drawingState.width == w {
-                                Circle().strokeBorder(Brand.aiBadge, lineWidth: 1.5)
+                                Circle().strokeBorder(Brand.aiBadge, lineWidth: Brand.selectionStrokeWidth)
                             }
                         }
                 }

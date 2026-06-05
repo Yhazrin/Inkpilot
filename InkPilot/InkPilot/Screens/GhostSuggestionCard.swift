@@ -104,7 +104,7 @@ struct GhostSuggestionCard: View {
                     .foregroundStyle(Brand.inkSecondary)
                     .padding(.horizontal, Brand.spacingM)
                     .padding(.vertical, Brand.spacingS)
-                    .background { Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5) }
+                    .background { Capsule().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth) }
             }
             .accessibilityLabel(Text(String(localized: "suggestion.dismiss.accessibility")))
             .accessibilityHint(Text(String(localized: "suggestion.dismiss.hint")))
