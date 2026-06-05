@@ -15,6 +15,7 @@ struct SelectionMarqueeLayer: View {
                 .contentShape(Rectangle())
                 .gesture(isActive ? marqueeGesture(in: geo) : nil)
         }
+        .accessibilityHidden(true)
         .overlay {
             if let start = marqueeStart, let end = marqueeEnd {
                 let rect = marqueeRect(from: start, to: end)

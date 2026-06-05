@@ -13,6 +13,10 @@
 "tool.eraser" = "Eraser";
 "tool.ai" = "AI Suggest";
 "tool.connector" = "Connector";
+"tool.connector.hint" = "Tap two objects to connect them";
+"tool.text.hint" = "Tap canvas to insert a text box";
+"tool.shape.hint" = "Open shape palette to insert shapes";
+"tool.media.hint" = "Open media palette to import images or PDFs";
 
 /* Canvas Prompt */
 "canvas.prompt.placeholder" = "Ask AI about this canvas...";
@@ -39,6 +43,7 @@
 
 /* Badges */
 "badge.ai.generated" = "AI generated";
+"badge.ai.text" = "AI";
 
 /* AI Thinking */
 "canvas.ai.thinking" = "Reading the canvas...";
@@ -166,3 +171,13 @@
 "media.import.pdf.accessibility" = "Import a PDF document";
 "object.pdf.accessibility" = "PDF page.";
 "object.pdf.loading" = "Loading PDF...";
+
+/* AI Context */
+"context.strokeCount" = "User has drawn %lld stroke(s)";
+"context.inkBounds" = "Ink bounds: %lldx%lld";
+"context.emptyCanvas" = "Empty canvas (no ink)";
+"context.objectType.connector" = "connector";
+"context.pdfPage" = "PDF page %lld";
+
+/* Version */
+"home.version" = "InkPilot v%@ (%@)";

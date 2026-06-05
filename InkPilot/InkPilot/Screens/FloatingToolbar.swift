@@ -23,35 +23,32 @@ struct FloatingToolbar: View {
             mediaButton
 
             Divider()
-                .frame(height: 20)
+                .frame(height: Brand.dividerHeight)
 
             // Undo / Redo
             Button(action: onUndo) {
                 Image(systemName: "arrow.uturn.backward")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(canUndo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
-                    .frame(width: 44, height: 44)
+                    .font(Brand.iconFont)
+                    .foregroundStyle(canUndo ? Brand.inkPrimary : Brand.inkSecondary.opacity(Brand.disabledOpacity))
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .disabled(!canUndo)
             .accessibilityLabel(Text(String(localized: "action.undo")))
 
             Button(action: onRedo) {
                 Image(systemName: "arrow.uturn.forward")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(canRedo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
-                    .frame(width: 44, height: 44)
+                    .font(Brand.iconFont)
+                    .foregroundStyle(canRedo ? Brand.inkPrimary : Brand.inkSecondary.opacity(Brand.disabledOpacity))
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .disabled(!canRedo)
             .accessibilityLabel(Text(String(localized: "action.redo")))
 
             Divider()
-                .frame(height: 20)
+                .frame(height: Brand.dividerHeight)
 
             Button(action: onAITap) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(Brand.aiAccent)
-                    .frame(width: 44, height: 44)
+                AIToolButton()
             }
             .accessibilityLabel(Text(String(localized: "tool.ai")))
         }
@@ -65,12 +62,12 @@ struct FloatingToolbar: View {
             onShapeTap()
         } label: {
             Image(systemName: "square.on.circle")
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == .shape ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .shape {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -84,12 +81,12 @@ struct FloatingToolbar: View {
             selectedTool = .connector
         } label: {
             Image(systemName: "arrow.triangle.branch")
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == .connector ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .connector {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -104,12 +101,12 @@ struct FloatingToolbar: View {
             onMediaTap()
         } label: {
             Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == .media ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .media {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -123,12 +120,12 @@ struct FloatingToolbar: View {
             selectedTool = tool
         } label: {
             Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == tool ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == tool {
-                        Capsule().fill(Brand.inkPrimary.opacity(0.08))
+                        Capsule().fill(Brand.inkPrimary.opacity(Brand.toolActiveOpacity))
                     }
                 }
         }
@@ -136,8 +133,28 @@ struct FloatingToolbar: View {
     }
 }
 
+// MARK: - AI Tool Button with subtle pulse
+
+private struct AIToolButton: View {
+    @State private var isPulsing = false
+
+    var body: some View {
+        Image(systemName: "sparkles")
+            .font(Brand.iconFont)
+            .foregroundStyle(Brand.aiAccent)
+            .frame(width: Brand.touchTarget, height: Brand.touchTarget)
+            .scaleEffect(isPulsing ? 1.08 : 1.0)
+            .opacity(isPulsing ? 1.0 : 0.85)
+            .onAppear {
+                withAnimation(MotionTokens.aiPulse) {
+                    isPulsing = true
+                }
+            }
+    }
+}
+
 #Preview {
     FloatingToolbar(selectedTool: .constant(.pen), canUndo: true, canRedo: false, onUndo: {}, onRedo: {}, onAITap: {}, onShapeTap: {}, onMediaTap: {})
-        .padding(40)
+        .padding(Brand.spacingXL)
         .background(Brand.canvasBase)
 }

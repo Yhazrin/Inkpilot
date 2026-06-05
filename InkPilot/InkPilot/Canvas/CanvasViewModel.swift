@@ -37,9 +37,7 @@ final class CanvasViewModel {
 
     // MARK: - AI Suggestion State
 
-    var ghostSuggestion: GhostSuggestion?
-    var isThinking: Bool = false
-    var suggestionAnchor: CGPointCodable?
+    let ai = AISuggestionState()
 
     // MARK: - Connector Creation State
 
@@ -49,10 +47,6 @@ final class CanvasViewModel {
 
     var isShapePaletteVisible: Bool = false
     var isMediaPaletteVisible: Bool = false
-
-    // MARK: - Prompt
-
-    var promptText: String = ""
 
     // MARK: - Floating Panel Positions
 
@@ -73,7 +67,6 @@ final class CanvasViewModel {
     // MARK: - Persistence
 
     let documentStore = CanvasDocumentStore()
-    var autoSaveTask: Task<Void, Never>?
 
     // MARK: - Dependencies
 
@@ -85,7 +78,7 @@ final class CanvasViewModel {
     }
 
     private static func defaultService() -> SuggestionService {
-        if BackendConfig.isBackendAvailable {
+        if BackendConfig.isCustomBackendConfigured {
             return NetworkSuggestionService()
         }
         return MockSuggestionService()
@@ -102,10 +95,10 @@ final class CanvasViewModel {
     }
 
     var defaultInsertionPoint: CGPointCodable {
-        if let anchor = suggestionAnchor {
+        if let anchor = ai.suggestionAnchor {
             return CGPointCodable(x: anchor.x + 100, y: anchor.y)
         }
-        return CGPointCodable(x: 520, y: 360)
+        return Brand.defaultInsertionPoint
     }
 
     // MARK: - Transform sync

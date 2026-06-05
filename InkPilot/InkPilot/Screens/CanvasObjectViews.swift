@@ -6,6 +6,7 @@ struct CanvasObjectView: View {
     let isSelected: Bool
     let isEditing: Bool
     var isDragging: Bool = false
+    var isConnectorStart: Bool = false
     var allObjects: [CanvasObject] = []
     var onTextChange: ((String) -> Void)?
     var onEndEditing: (() -> Void)?
@@ -68,6 +69,11 @@ struct CanvasObjectView: View {
                     )
                 }
             }
+            if isConnectorStart {
+                RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
+                    .strokeBorder(Brand.aiBadge.opacity(0.5), lineWidth: 1.5)
+                    .scaleEffect(1.05)
+            }
         }
         .opacity(isDragging ? 0.92 : 1.0)
         .shadow(color: isDragging ? Brand.aiAccent.opacity(0.15) : .clear, radius: 8, y: 2)
@@ -106,7 +112,7 @@ private struct ShapeObjectView: View {
         Canvas { context, size in
             let rect = CGRect(origin: .zero, size: size)
             let path = shapePath(in: rect)
-            context.stroke(path, with: .color(Brand.inkPrimary.opacity(0.6)), lineWidth: 2)
+            context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity)), lineWidth: 2)
         }
         .accessibilityLabel(Text(String(localized: "object.shape.accessibility")))
     }
@@ -151,7 +157,7 @@ private struct MediaPlaceholderObjectView: View {
         GlassCard(cornerRadius: Brand.cornerS) {
             VStack(spacing: Brand.spacingS) {
                 Image(systemName: mediaKind == .image ? "photo" : "doc")
-                    .font(.system(size: 28))
+                    .font(.system(size: Brand.placeholderIconSize))
                     .foregroundStyle(Brand.inkSecondary)
                 Text(mediaKind == .image
                     ? String(localized: "object.image.placeholder")

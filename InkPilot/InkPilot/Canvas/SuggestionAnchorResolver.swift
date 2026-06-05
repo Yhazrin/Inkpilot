@@ -1,5 +1,6 @@
 import Foundation
 import PencilKit
+import SwiftUI
 
 /// Derives the canvas-space point that "birthed" an AI suggestion.
 ///
@@ -16,5 +17,5 @@ enum SuggestionAnchorResolver {
     }
 
     /// Default fallback: center-left of visible area, clear of toolbar and AI panel.
-    static let defaultFallback = CGPoint(x: 520, y: 360)
+    static let defaultFallback = Brand.defaultInsertionPoint.cgPoint
 }

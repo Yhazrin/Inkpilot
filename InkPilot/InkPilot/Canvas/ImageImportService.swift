@@ -1,6 +1,6 @@
 import Foundation
-import SwiftUI
 import PhotosUI
+import _PhotosUI_SwiftUI
 
 /// Handles importing images from the photo library into canvas objects.
 /// Saves images to the app's documents directory for persistence.

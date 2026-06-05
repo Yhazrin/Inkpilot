@@ -1,5 +1,6 @@
 import SwiftUI
 import PhotosUI
+import _PhotosUI_SwiftUI
 
 /// A PhotosPicker wrapper for importing images into the canvas.
 struct ImageImportPicker: View {

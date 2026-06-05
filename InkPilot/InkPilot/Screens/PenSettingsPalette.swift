@@ -2,8 +2,15 @@ import SwiftUI
 
 /// A compact floating palette for pen/drawing tool settings.
 /// Shows when pen/pencil/highlighter tool is active.
+///
+/// **Collapsed (default)**: a single current-state chip — pen type icon,
+/// color dot sized by current width, and a chevron. Tapping expands.
+///
+/// **Expanded**: the full pen type selector, width picker, color swatches,
+/// opacity slider, and a collapse button.
 struct PenSettingsPalette: View {
     @Bindable var drawingState: DrawingToolState
+    @State private var isExpanded: Bool = false
 
     private let presetColors: [Color] = [
         .black, .blue, .red, .yellow, .green, .purple, .gray
@@ -11,26 +18,97 @@ struct PenSettingsPalette: View {
 
     private let presetWidths: [CGFloat] = [1.0, 2.0, 4.0, 8.0]
 
+    /// Dot size grows with selected width so the user can read the
+    /// current width at a glance even when collapsed.
+    private var dotSize: CGFloat {
+        10 + min(max(drawingState.width, 1), 8) * 1.75
+    }
+
+    private var kindIcon: String {
+        switch drawingState.selectedKind {
+        case .pen: return "pencil"
+        case .pencil: return "pencil.tip"
+        case .highlighter: return "highlighter"
+        case .eraser: return "eraser"
+        }
+    }
+
     var body: some View {
+        Group {
+            if isExpanded {
+                expandedPalette
+                    .transition(.move(edge: .top).combined(with: .opacity))
+            } else {
+                collapsedIndicator
+                    .transition(.move(edge: .top).combined(with: .opacity))
+            }
+        }
+        .animation(MotionTokens.palette, value: isExpanded)
+    }
+
+    // MARK: - Collapsed
+
+    private var collapsedIndicator: some View {
+        Button {
+            isExpanded = true
+        } label: {
+            HStack(spacing: Brand.spacingS) {
+                Image(systemName: kindIcon)
+                    .font(Brand.iconFont)
+                    .foregroundStyle(Brand.inkPrimary)
+                    .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
+
+                Circle()
+                    .fill(drawingState.color)
+                    .frame(width: dotSize, height: dotSize)
+                    .overlay(Circle().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+
+                Image(systemName: "chevron.down")
+                    .font(Brand.captionFont)
+                    .foregroundStyle(Brand.inkTertiary)
+            }
+            .padding(.horizontal, Brand.spacingS)
+            .padding(.vertical, 6)
+            .background {
+                Capsule().fill(.ultraThinMaterial)
+            }
+            .overlay {
+                Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5)
+            }
+        }
+        .accessibilityLabel(Text(String(localized: "drawing.settings.hint")))
+    }
+
+    // MARK: - Expanded
+
+    private var expandedPalette: some View {
         GlassCapsule {
-            // Pen type selector
             penTypeSelector
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
-            // Width selector
             widthSelector
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
-            // Color swatches
             colorSwatches
 
-            // Opacity for highlighter
             if drawingState.selectedKind == .highlighter {
-                Divider().frame(height: 24)
+                Divider().frame(height: Brand.dividerHeightTall)
                 opacitySlider
             }
+
+            Divider().frame(height: Brand.dividerHeightTall)
+
+            Button {
+                withAnimation(MotionTokens.palette) { isExpanded = false }
+            } label: {
+                Image(systemName: "chevron.up")
+                    .font(Brand.paletteFont.weight(.semibold))
+                    .foregroundStyle(Brand.inkSecondary)
+                    .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
+            }
+            .accessibilityLabel(Text(String(localized: "drawing.settings.collapse")))
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel(Text(String(localized: "drawing.settings")))
@@ -53,9 +131,9 @@ struct PenSettingsPalette: View {
             drawingState.selectKind(kind)
         } label: {
             Image(systemName: icon)
-                .font(.system(size: 14, weight: .medium))
+                .font(Brand.paletteFont)
                 .foregroundStyle(drawingState.selectedKind == kind ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 36, height: 36)
+                .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .background {
                     if drawingState.selectedKind == kind {
                         Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: 2, y: 1)
@@ -82,7 +160,7 @@ struct PenSettingsPalette: View {
                             }
                         }
                 }
-                .frame(width: 32, height: 32)
+                .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .accessibilityLabel(Text(String(format: String(localized: "drawing.width"), Int(w))))
             }
         }
@@ -98,7 +176,7 @@ struct PenSettingsPalette: View {
                 } label: {
                     Circle()
                         .fill(c)
-                        .frame(width: 24, height: 24)
+                        .frame(width: Brand.swatchSize, height: Brand.swatchSize)
                         .overlay {
                             if colorsEqual(drawingState.color, c) {
                                 Circle().strokeBorder(Brand.canvasBase, lineWidth: 2)
@@ -106,10 +184,12 @@ struct PenSettingsPalette: View {
                             }
                         }
                 }
-                .frame(width: 32, height: 32)
+                .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .accessibilityLabel(Text(colorName(c)))
             }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(String(localized: "drawing.color")))
     }
 
     // MARK: - Opacity
@@ -117,13 +197,13 @@ struct PenSettingsPalette: View {
     private var opacitySlider: some View {
         HStack(spacing: Brand.spacingS) {
             Image(systemName: "circle.lefthalf.filled")
-                .font(.system(size: 12))
+                .font(.system(size: Brand.smallIconSize))
                 .foregroundStyle(Brand.inkSecondary)
             Slider(value: $drawingState.opacity, in: 0.2...1.0)
-                .frame(width: 80)
+                .frame(width: Brand.sliderWidth)
                 .accessibilityLabel(Text(String(localized: "drawing.opacity")))
             Image(systemName: "circle.fill")
-                .font(.system(size: 12))
+                .font(.system(size: Brand.smallIconSize))
                 .foregroundStyle(Brand.inkSecondary)
         }
     }

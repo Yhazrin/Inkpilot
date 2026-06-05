@@ -7,75 +7,78 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10000010000000000000001 /* InkPilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001 /* InkPilotApp.swift */; };
-		A10000020000000000000002 /* BrandTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000020000000000000002 /* BrandTokens.swift */; };
-		A10000030000000000000003 /* ColorBlockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000030000000000000003 /* ColorBlockBackground.swift */; };
-		A10000040000000000000004 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000040000000000000004 /* GlassCard.swift */; };
-		A10000050000000000000005 /* GlassCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000050000000000000005 /* GlassCapsule.swift */; };
-		A10000060000000000000006 /* FloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000060000000000000006 /* FloatingPanel.swift */; };
-		A10000070000000000000007 /* AIBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000070000000000000007 /* AIBadge.swift */; };
-		A10000080000000000000008 /* FloatingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000080000000000000008 /* FloatingToolbar.swift */; };
-		A10000090000000000000009 /* FloatingPromptCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000090000000000000009 /* FloatingPromptCapsule.swift */; };
-		A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010000000000000000A /* PencilKitCanvasRepresentable.swift */; };
-		A1000011000000000000000B /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011000000000000000B /* CanvasViewModel.swift */; };
-		A10000FF00000000000000FF /* DebugLaunchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000FF00000000000000FF /* DebugLaunchOptions.swift */; };
-		A1000012000000000000000C /* CanvasModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012000000000000000C /* CanvasModels.swift */; };
-		A1000013000000000000000D /* SuggestionSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013000000000000000D /* SuggestionSchema.swift */; };
-		A1000014000000000000000E /* SuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000014000000000000000E /* SuggestionService.swift */; };
-		A1000015000000000000000F /* MockSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000015000000000000000F /* MockSuggestionService.swift */; };
-		A10000160000000000000010 /* CanvasContextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000160000000000000010 /* CanvasContextBuilder.swift */; };
-		A10000170000000000000011 /* InkSnapshotRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000170000000000000011 /* InkSnapshotRenderer.swift */; };
-		A10000180000000000000012 /* VisionOCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000180000000000000012 /* VisionOCRService.swift */; };
-		A10000190000000000000013 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000190000000000000013 /* HomeView.swift */; };
-		A10000200000000000000014 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000200000000000000014 /* CanvasView.swift */; };
-		A10000210000000000000015 /* CanvasToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000210000000000000015 /* CanvasToolbar.swift */; };
-		A10000220000000000000016 /* CanvasPromptBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000220000000000000016 /* CanvasPromptBar.swift */; };
-		A10000240000000000000018 /* CanvasTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000240000000000000018 /* CanvasTool.swift */; };
-		A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000250000000000000019 /* GhostSuggestionCard.swift */; };
-		A1000027000000000000001B /* CanvasObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000027000000000000001B /* CanvasObjectFactory.swift */; };
-		A1000028000000000000001C /* CanvasObjectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000028000000000000001C /* CanvasObjectLayer.swift */; };
-		A1000029000000000000001D /* CanvasObjectViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000029000000000000001D /* CanvasObjectViews.swift */; };
-		A1000030000000000000001E /* ShapePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030000000000000001E /* ShapePalette.swift */; };
-		A1000031000000000000001F /* MediaPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031000000000000001F /* MediaPalette.swift */; };
-		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023 /* Assets.xcassets */; };
-		A10000340000000000000024 /* en in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021 /* en */; };
-		A10000350000000000000025 /* zh-Hans in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022 /* zh-Hans */; };
-		A10000360000000000000026 /* SuggestionAnchorResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000360000000000000026 /* SuggestionAnchorResolver.swift */; };
-		A10000370000000000000027 /* CanvasMotionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000370000000000000027 /* CanvasMotionLayer.swift */; };
-		A10000380000000000000028 /* MotionTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000380000000000000028 /* MotionTokens.swift */; };
-		A10000390000000000000029 /* NetworkSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000390000000000000029 /* NetworkSuggestionService.swift */; };
-		A100003C000000000000002C /* CanvasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003C000000000000002C /* CanvasTransform.swift */; };
-		A100003D000000000000002D /* MediaAssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003D000000000000002D /* MediaAssetStore.swift */; };
-		A100003E000000000000002E /* EditableObjectViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003E000000000000002E /* EditableObjectViews.swift */; };
-		A100003F000000000000002F /* ResizeHandles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003F000000000000002F /* ResizeHandles.swift */; };
-		A1000040000000000000002A /* BackendConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000040000000000000002A /* BackendConfig.swift */; };
-		A10000400000000000000030 /* DrawingToolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000400000000000000030 /* DrawingToolState.swift */; };
-		A1000041000000000000002B /* StrokeSmoother.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000041000000000000002B /* StrokeSmoother.swift */; };
-		A10000410000000000000031 /* CanvasHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000410000000000000031 /* CanvasHistoryManager.swift */; };
-		A10000420000000000000032 /* CanvasDocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000420000000000000032 /* CanvasDocumentStore.swift */; };
-		A10000430000000000000033 /* PenSettingsPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000430000000000000033 /* PenSettingsPalette.swift */; };
-		A10000440000000000000034 /* CanvasViewModel+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000440000000000000034 /* CanvasViewModel+Actions.swift */; };
-		A10000450000000000000035 /* CanvasSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000450000000000000035 /* CanvasSelectionState.swift */; };
-		A10000460000000000000036 /* SelectionMarqueeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000460000000000000036 /* SelectionMarqueeLayer.swift */; };
-		A10000470000000000000037 /* MultiObjectActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000470000000000000037 /* MultiObjectActionBar.swift */; };
-		A10000480000000000000038 /* SmartGuideEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000480000000000000038 /* SmartGuideEngine.swift */; };
-		A10000490000000000000039 /* GuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000490000000000000039 /* GuideOverlay.swift */; };
-		A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004A000000000000003A /* LassoSelectionLayer.swift */; };
-		A100004B000000000000003B /* SelectionModeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004B000000000000003B /* SelectionModeToggle.swift */; };
-		A100004C000000000000003C /* ConnectorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004C000000000000003C /* ConnectorViews.swift */; };
-		A100004D000000000000003D /* ImageImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004D000000000000003D /* ImageImportService.swift */; };
-		A100004E000000000000003E /* CanvasExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004E000000000000003E /* CanvasExporter.swift */; };
-		A100004F000000000000003F /* ImageImportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004F000000000000003F /* ImageImportPicker.swift */; };
-		A10000500000000000000040 /* ImageCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000500000000000000040 /* ImageCanvasObjectView.swift */; };
-		A10000510000000000000041 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000510000000000000041 /* ShareSheet.swift */; };
-		A10000520000000000000042 /* CanvasViewModel+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000042 /* CanvasViewModel+AI.swift */; };
-		A10000520000000000000052 /* FloatingPanelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000052 /* FloatingPanelPosition.swift */; };
-		A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */; };
-		A10000530000000000000053 /* DraggableFloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000053 /* DraggableFloatingPanel.swift */; };
-		A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000540000000000000044 /* CanvasFloatingChrome.swift */; };
-		A10000550000000000000045 /* PDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000550000000000000045 /* PDFService.swift */; };
-		A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000560000000000000046 /* PDFCanvasObjectView.swift */; };
-		A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */; };
+		A10000010000000000000001 /* InkPilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001; };
+		A10000020000000000000002 /* BrandTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000020000000000000002; };
+		A10000030000000000000003 /* ColorBlockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000030000000000000003; };
+		A10000040000000000000004 /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000040000000000000004; };
+		A10000050000000000000005 /* GlassCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000050000000000000005; };
+		A10000060000000000000006 /* FloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000060000000000000006; };
+		A10000070000000000000007 /* AIBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000070000000000000007; };
+		A10000080000000000000008 /* FloatingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000080000000000000008; };
+		A10000090000000000000009 /* FloatingPromptCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000090000000000000009; };
+		A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010000000000000000A; };
+		A1000011000000000000000B /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011000000000000000B; };
+		A10000FF00000000000000FF /* DebugLaunchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000FF00000000000000FF; };
+		A1000012000000000000000C /* CanvasModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012000000000000000C; };
+		A1000013000000000000000D /* SuggestionSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013000000000000000D; };
+		A1000014000000000000000E /* SuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000014000000000000000E; };
+		A1000015000000000000000F /* MockSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000015000000000000000F; };
+		A10000160000000000000010 /* CanvasContextBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000160000000000000010; };
+		A10000390000000000000029 /* NetworkSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000390000000000000029; };
+		A1000040000000000000002A /* BackendConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000040000000000000002A; };
+		A1000041000000000000002B /* StrokeSmoother.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000041000000000000002B; };
+		A10000170000000000000011 /* InkSnapshotRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000170000000000000011; };
+		A10000180000000000000012 /* VisionOCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000180000000000000012; };
+		A10000190000000000000013 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000190000000000000013; };
+		A10000200000000000000014 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000200000000000000014; };
+		A10000210000000000000015 /* CanvasToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000210000000000000015; };
+		A10000220000000000000016 /* CanvasPromptBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000220000000000000016; };
+		A10000240000000000000018 /* CanvasTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000240000000000000018; };
+		A10000250000000000000019 /* GhostSuggestionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000250000000000000019; };
+		A1000027000000000000001B /* CanvasObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000027000000000000001B; };
+		A1000028000000000000001C /* CanvasObjectLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000028000000000000001C; };
+		A1000029000000000000001D /* CanvasObjectViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000029000000000000001D; };
+		A1000030000000000000001E /* ShapePalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000030000000000000001E; };
+		A1000031000000000000001F /* MediaPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000031000000000000001F; };
+		A10000360000000000000026 /* SuggestionAnchorResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000360000000000000026; };
+		A10000370000000000000027 /* CanvasMotionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000370000000000000027; };
+		A10000380000000000000028 /* MotionTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000380000000000000028; };
+		A100003C000000000000002C /* CanvasTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003C000000000000002C; };
+		A100003D000000000000002D /* MediaAssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003D000000000000002D; };
+		A100003E000000000000002E /* EditableObjectViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003E000000000000002E; };
+		A100003F000000000000002F /* ResizeHandles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200003F000000000000002F; };
+		A10000400000000000000030 /* DrawingToolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000400000000000000030; };
+		A10000410000000000000031 /* CanvasHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000410000000000000031; };
+		A10000420000000000000032 /* CanvasDocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000420000000000000032; };
+		A10000430000000000000033 /* PenSettingsPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000430000000000000033; };
+		A10000440000000000000034 /* CanvasViewModel+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000440000000000000034; };
+		A10000450000000000000035 /* CanvasSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000450000000000000035; };
+		A10000460000000000000036 /* SelectionMarqueeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000460000000000000036; };
+		A10000470000000000000037 /* MultiObjectActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000470000000000000037; };
+		A10000480000000000000038 /* SmartGuideEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000480000000000000038; };
+		A10000490000000000000039 /* GuideOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000490000000000000039; };
+		A100004A000000000000003A /* LassoSelectionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004A000000000000003A; };
+		A100004B000000000000003B /* SelectionModeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004B000000000000003B; };
+		A100004C000000000000003C /* ConnectorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004C000000000000003C; };
+		A100004D000000000000003D /* ImageImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004D000000000000003D; };
+		A100004E000000000000003E /* CanvasExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004E000000000000003E; };
+		A100004F000000000000003F /* ImageImportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200004F000000000000003F; };
+		A10000500000000000000040 /* ImageCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000500000000000000040; };
+		A10000510000000000000041 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000510000000000000041; };
+		A10000520000000000000042 /* CanvasViewModel+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000042; };
+		A10000520000000000000052 /* FloatingPanelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000520000000000000052; };
+		A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000043; };
+		A10000530000000000000053 /* DraggableFloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000530000000000000053; };
+		A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000540000000000000044; };
+		A10000550000000000000045 /* PDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000550000000000000045; };
+		A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000560000000000000046; };
+		A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000570000000000000047; };
+		A10000580000000000000048 /* CanvasObjectRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000580000000000000048; };
+		A10000590000000000000049 /* AISuggestionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000590000000000000049; };
+		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
+		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
+		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +152,15 @@
 		A20000550000000000000045 /* PDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFService.swift; sourceTree = "<group>"; };
 		A20000560000000000000046 /* PDFCanvasObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCanvasObjectView.swift; sourceTree = "<group>"; };
 		A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasViewModel+ImportExport.swift"; sourceTree = "<group>"; };
+		A20000580000000000000048 /* CanvasObjectRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasObjectRenderer.swift; sourceTree = "<group>"; };
+		A20000590000000000000049 /* AISuggestionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISuggestionState.swift; sourceTree = "<group>"; };
+		A2000041000000000000002B /* StrokeSmoother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeSmoother.swift; sourceTree = "<group>"; };
+		A20000300000000000000020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000FF00000000000000FF /* DebugLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLaunchOptions.swift; sourceTree = "<group>"; };
+		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A20000310000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A20000320000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
+
 		A30000010000000000000001 /* InkPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InkPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -233,6 +245,8 @@
 				A20000520000000000000042 /* CanvasViewModel+AI.swift */,
 				A20000530000000000000043 /* CanvasViewModel+ObjectOperations.swift */,
 				A20000550000000000000045 /* PDFService.swift */,
+				A20000580000000000000048 /* CanvasObjectRenderer.swift */,
+				A20000590000000000000049 /* AISuggestionState.swift */,
 				A20000570000000000000047 /* CanvasViewModel+ImportExport.swift */,
 			);
 			path = Canvas;
@@ -445,6 +459,8 @@
 				A10000530000000000000043 /* CanvasViewModel+ObjectOperations.swift in Sources */,
 				A10000540000000000000044 /* CanvasFloatingChrome.swift in Sources */,
 				A10000550000000000000045 /* PDFService.swift in Sources */,
+				A10000580000000000000048 /* CanvasObjectRenderer.swift in Sources */,
+				A10000590000000000000049 /* AISuggestionState.swift in Sources */,
 				A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */,
 				A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */,
 			);

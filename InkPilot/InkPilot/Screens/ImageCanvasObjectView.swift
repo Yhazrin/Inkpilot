@@ -26,7 +26,7 @@ struct ImageCanvasObjectView: View {
         GlassCard(cornerRadius: Brand.cornerS) {
             VStack(spacing: Brand.spacingS) {
                 Image(systemName: "photo")
-                    .font(.system(size: 28))
+                    .font(.system(size: Brand.placeholderIconSize))
                     .foregroundStyle(Brand.inkSecondary)
                 Text(String(localized: "object.image.loading"))
                     .font(Brand.captionFont)

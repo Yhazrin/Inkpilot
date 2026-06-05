@@ -33,6 +33,6 @@ struct GlassCapsule<Content: View>: View {
         Image(systemName: "eraser")
         Image(systemName: "lasso")
     }
-    .padding(40)
+    .padding(Brand.spacingXL)
     .background(Brand.canvasBase)
 }

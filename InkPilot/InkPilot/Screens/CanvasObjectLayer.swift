@@ -1,17 +1,7 @@
 import SwiftUI
 
-/// Renders all canvas objects at their WORLD positions.
-/// Supports multi-selection, group selection, drag-to-move, resize,
-/// and sourceAnchor-based materialization.
-struct CanvasObjectLayer: View {
-    let objects: [CanvasObject]
-    let selectedIDs: Set<UUID>
-    let editingID: UUID?
-    let isSelectToolActive: Bool
-    let isConnectorToolActive: Bool
-    let connectorStartID: UUID?
-    let sourceAnchor: CGPoint?
-    let transform: CanvasTransform
+/// Callbacks for canvas object interactions, reducing parameter count.
+struct CanvasObjectActions {
     var onSelect: (UUID) -> Void
     var onToggleSelection: (UUID) -> Void
     var onGroupTap: (UUID?) -> Void
@@ -25,6 +15,21 @@ struct CanvasObjectLayer: View {
     var onDragEnd: () -> Void
     var onResize: (UUID, CGSizeCodable) -> Void
     var onResizeStart: () -> Void
+}
+
+/// Renders all canvas objects at their WORLD positions.
+/// Supports multi-selection, group selection, drag-to-move, resize,
+/// and sourceAnchor-based materialization.
+struct CanvasObjectLayer: View {
+    let objects: [CanvasObject]
+    let selectedIDs: Set<UUID>
+    let editingID: UUID?
+    let isSelectToolActive: Bool
+    let isConnectorToolActive: Bool
+    let connectorStartID: UUID?
+    let sourceAnchor: CGPoint?
+    let transform: CanvasTransform
+    let actions: CanvasObjectActions
 
     @State private var dragStartPositions: [UUID: CGPoint] = [:]
     @State private var multiDragStartPositions: [UUID: CGPoint] = [:]
@@ -45,17 +50,18 @@ struct CanvasObjectLayer: View {
                     isSelected: isSelected,
                     isEditing: isEditing,
                     isDragging: isDraggingMulti && selectedIDs.contains(object.id),
+                    isConnectorStart: object.id == connectorStartID,
                     allObjects: objects,
-                    onTextChange: { newText in onTextChange(object.id, newText) },
-                    onEndEditing: onEndEditing,
+                    onTextChange: { newText in actions.onTextChange(object.id, newText) },
+                    onEndEditing: actions.onEndEditing,
                     onResize: { newSize in
                         let worldSize = CGSizeCodable(
                             width: newSize.width / transform.scale,
                             height: newSize.height / transform.scale
                         )
-                        onResize(object.id, worldSize)
+                        actions.onResize(object.id, worldSize)
                     },
-                    onResizeStart: { onResizeStart() }
+                    onResizeStart: { actions.onResizeStart() }
                 )
                 .frame(
                     width: object.size.cgSize.width,
@@ -69,11 +75,11 @@ struct CanvasObjectLayer: View {
                         : nil
                 )
                 .onTapGesture(count: 2) {
-                    if isSelectToolActive { onBeginEditing(object.id) }
+                    if isSelectToolActive { actions.onBeginEditing(object.id) }
                 }
                 .onTapGesture(count: 1) {
                     if isConnectorToolActive {
-                        onConnectorTap(object.id)
+                        actions.onConnectorTap(object.id)
                     } else if isSelectToolActive && !isEditing {
                         handleTap(on: object)
                     }
@@ -82,7 +88,7 @@ struct CanvasObjectLayer: View {
         }
         .scaleEffect(transform.scale, anchor: .topLeading)
         .offset(x: transform.offset.width, y: transform.offset.height)
-        .animation(.spring(response: 0.5, dampingFraction: 0.8), value: objects.count)
+        .animation(MotionTokens.objectMaterialize, value: objects.count)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipped()
     }
@@ -92,9 +98,9 @@ struct CanvasObjectLayer: View {
     private func handleTap(on object: CanvasObject) {
         if let groupID = object.groupID {
             // Tap grouped object → select entire group
-            onGroupTap(groupID)
+            actions.onGroupTap(groupID)
         } else {
-            onSelect(object.id)
+            actions.onSelect(object.id)
         }
     }
 
@@ -106,7 +112,7 @@ struct CanvasObjectLayer: View {
                 // On first frame: snapshot positions for all selected objects
                 if !isDraggingMulti {
                     isDraggingMulti = true
-                    onDragStart()
+                    actions.onDragStart()
                     // Cache start positions for all selected objects
                     for id in selectedIDs {
                         if let obj = objects.first(where: { $0.id == id }) {
@@ -130,13 +136,13 @@ struct CanvasObjectLayer: View {
                         x: startPos.x + worldDelta.width,
                         y: startPos.y + worldDelta.height
                     )
-                    onMove(id, newPos)
+                    actions.onMove(id, newPos)
                 }
             }
             .onEnded { _ in
                 isDraggingMulti = false
                 multiDragStartPositions.removeAll()
-                onDragEnd()
+                actions.onDragEnd()
             }
     }
 

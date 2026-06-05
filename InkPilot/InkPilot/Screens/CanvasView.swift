@@ -35,13 +35,23 @@ struct CanvasView: View {
 
             // 4. Motion effects
             CanvasMotionLayer(
-                anchor: viewModel.suggestionAnchor.map { viewModel.worldToScreen($0.cgPoint) },
-                isThinking: viewModel.isThinking,
-                hasGhost: viewModel.ghostSuggestion != nil,
+                anchor: viewModel.ai.suggestionAnchor.map { viewModel.worldToScreen($0.cgPoint) },
+                isThinking: viewModel.ai.isThinking,
+                hasGhost: viewModel.ai.ghostSuggestion != nil,
                 materializationCount: materializationCount
             )
 
-            // 5. Canvas objects
+            // 4. Canvas objects
+            // Text tool: tap empty canvas to insert text box
+            if viewModel.selectedTool == .text {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { location in
+                        let worldPos = viewModel.screenToWorld(location)
+                        let obj = CanvasObjectFactory.textBox(at: CGPointCodable(x: worldPos.x, y: worldPos.y))
+                        viewModel.addObject(obj)
+                    }
+            }
             CanvasObjectLayer(
                 objects: viewModel.canvasObjects,
                 selectedIDs: viewModel.selection.selectedIDs,
@@ -49,21 +59,23 @@ struct CanvasView: View {
                 isSelectToolActive: viewModel.selectedTool == .select,
                 isConnectorToolActive: viewModel.selectedTool == .connector,
                 connectorStartID: viewModel.connectorStartID,
-                sourceAnchor: viewModel.suggestionAnchor?.cgPoint,
+                sourceAnchor: viewModel.ai.suggestionAnchor?.cgPoint,
                 transform: viewModel.canvasTransform,
-                onSelect: { viewModel.selection.selectObject($0) },
-                onToggleSelection: { viewModel.selection.toggleSelection($0) },
-                onGroupTap: { viewModel.selection.selectGroup($0, allObjects: viewModel.canvasObjects) },
-                onConnectorTap: { viewModel.handleConnectorTap($0) },
-                onBeginEditing: { viewModel.selection.beginEditing($0) },
-                onEndEditing: { viewModel.selection.endEditing() },
-                onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
-                onMove: { id, pos in viewModel.moveObjectWithGuides(id: id, to: pos) },
-                onMoveSelected: { delta in viewModel.moveSelectedObjects(by: delta) },
-                onDragStart: { viewModel.pushHistoryBeforeMove() },
-                onDragEnd: { viewModel.clearGuides() },
-                onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
-                onResizeStart: { viewModel.pushHistoryBeforeResize() }
+                actions: CanvasObjectActions(
+                    onSelect: { viewModel.selection.selectObject($0) },
+                    onToggleSelection: { viewModel.selection.toggleSelection($0) },
+                    onGroupTap: { viewModel.selection.selectGroup($0, allObjects: viewModel.canvasObjects) },
+                    onConnectorTap: { viewModel.handleConnectorTap($0) },
+                    onBeginEditing: { viewModel.selection.beginEditing($0) },
+                    onEndEditing: { viewModel.selection.endEditing() },
+                    onTextChange: { id, text in viewModel.updateObjectText(id: id, newText: text) },
+                    onMove: { id, pos in viewModel.moveObjectWithGuides(id: id, to: pos) },
+                    onMoveSelected: { delta in viewModel.moveSelectedObjects(by: delta) },
+                    onDragStart: { viewModel.pushHistoryBeforeMove() },
+                    onDragEnd: { viewModel.clearGuides() },
+                    onResize: { id, size in viewModel.resizeObject(id: id, to: size) },
+                    onResizeStart: { viewModel.pushHistoryBeforeResize() }
+                )
             )
 
             // 6. Smart guide lines
@@ -84,7 +96,18 @@ struct CanvasView: View {
                 selectionLayer
             }
 
-            // 8. Floating chrome (top + bottom draggable panels + back/export buttons)
+            // 7. Tool mode hints
+            if viewModel.selectedTool == .connector {
+                toolModeHint(String(localized: "tool.connector.hint"))
+            } else if viewModel.selectedTool == .text {
+                toolModeHint(String(localized: "tool.text.hint"))
+            } else if viewModel.selectedTool == .shape && !viewModel.isShapePaletteVisible {
+                toolModeHint(String(localized: "tool.shape.hint"))
+            } else if viewModel.selectedTool == .media && !viewModel.isMediaPaletteVisible {
+                toolModeHint(String(localized: "tool.media.hint"))
+            }
+
+            // 8. Floating chrome
             CanvasFloatingChrome(
                 viewModel: viewModel,
                 onDismiss: { dismiss() },
@@ -92,17 +115,26 @@ struct CanvasView: View {
                 exportURL: $exportURL
             )
 
-            // 9. Ghost suggestion card
-            if let suggestion = viewModel.ghostSuggestion,
-               let anchor = viewModel.suggestionAnchor?.cgPoint {
-                let screenAnchor = viewModel.worldToScreen(anchor)
-                GhostSuggestionCard(
-                    suggestion: suggestion,
-                    anchor: screenAnchor,
-                    target: CGPoint(x: screenAnchor.x + 220, y: screenAnchor.y + 40),
-                    onAccept: { viewModel.acceptSuggestion() },
-                    onDismiss: { viewModel.dismissSuggestion() }
-                )
+            // 8. Ghost suggestion card
+            if let suggestion = viewModel.ai.ghostSuggestion,
+               let anchor = viewModel.ai.suggestionAnchor?.cgPoint {
+                GeometryReader { geo in
+                    let screenAnchor = viewModel.worldToScreen(anchor)
+                    let rawTarget = CGPoint(x: screenAnchor.x + 220, y: screenAnchor.y + 40)
+                    let cardHalfWidth = Brand.ghostCardMaxWidth / 2
+                    let cardHalfHeight: CGFloat = 120
+                    let clampedTarget = CGPoint(
+                        x: min(max(rawTarget.x, cardHalfWidth), geo.size.width - cardHalfWidth),
+                        y: min(max(rawTarget.y, cardHalfHeight), geo.size.height - cardHalfHeight)
+                    )
+                    GhostSuggestionCard(
+                        suggestion: suggestion,
+                        anchor: screenAnchor,
+                        target: clampedTarget,
+                        onAccept: { viewModel.acceptSuggestion() },
+                        onDismiss: { viewModel.dismissSuggestion() }
+                    )
+                }
             }
         }
         .navigationBarHidden(true)
@@ -117,19 +149,32 @@ struct CanvasView: View {
                     .keyboardShortcut(.delete, modifiers: [])
                 Button("") { viewModel.duplicateSelected() }
                     .keyboardShortcut("d", modifiers: .command)
+                Button("") { viewModel.selectAllObjects() }
+                    .keyboardShortcut("a", modifiers: .command)
+                Button("") { viewModel.selection.clearSelection() }
+                    .keyboardShortcut(.escape, modifiers: [])
+                Button("") { viewModel.groupSelected() }
+                    .keyboardShortcut("g", modifiers: .command)
+                Button("") { viewModel.ungroupSelected() }
+                    .keyboardShortcut("g", modifiers: [.command, .shift])
+                Button("") { viewModel.bringForward() }
+                    .keyboardShortcut("]", modifiers: .command)
+                Button("") { viewModel.sendBackward() }
+                    .keyboardShortcut("[", modifiers: .command)
             }
             .frame(width: 0, height: 0)
             .opacity(0)
+            .accessibilityHidden(true)
         }
         .sheet(isPresented: $showExportSheet) {
             if let exportURL { ShareSheet(items: [exportURL]) }
         }
-        .onChange(of: viewModel.ghostSuggestion) { _, newValue in
+        .onChange(of: viewModel.ai.ghostSuggestion) { _, newValue in
             if newValue == nil {
                 let delay = MotionTokens.anchorExitDelay
                 Task { @MainActor in
                     try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-                    if viewModel.ghostSuggestion == nil { viewModel.suggestionAnchor = nil }
+                    if viewModel.ai.ghostSuggestion == nil { viewModel.ai.suggestionAnchor = nil }
                 }
             }
         }
@@ -138,7 +183,7 @@ struct CanvasView: View {
             let delay = MotionTokens.anchorMaterializeDelay
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
-                viewModel.suggestionAnchor = nil
+                viewModel.ai.suggestionAnchor = nil
             }
         }
         #if DEBUG
@@ -170,8 +215,8 @@ struct CanvasView: View {
             viewModel.addObject(factory.shape(kind: .ellipse, at: CGPointCodable(x: 520, y: 460)))
         }
         if DebugLaunchOptions.triggerGhost {
-            viewModel.suggestionAnchor = CGPointCodable(x: 360, y: 360)
-            viewModel.ghostSuggestion = GhostSuggestion(
+            viewModel.ai.suggestionAnchor = CGPointCodable(x: 360, y: 360)
+            viewModel.ai.ghostSuggestion = GhostSuggestion(
                 response: AISuggestionResponse(
                     mode: .structure,
                     title: "Suggested structure",
@@ -193,7 +238,9 @@ struct CanvasView: View {
             )
         }
         if DebugLaunchOptions.showExportSheet,
-           let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+           let url = viewModel.exportToShareURL(screenSize: UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.screen.bounds.size ?? CGSize(width: 1024, height: 1024)) {
             exportURL = url
             showExportSheet = true
         }
@@ -233,12 +280,27 @@ struct CanvasView: View {
         if !ids.isEmpty { viewModel.selection.selectObjects(Set(ids)) }
     }
 
+    // MARK: - Tool Mode Hint
+
+    private func toolModeHint(_ text: String) -> some View {
+        Text(text)
+            .font(Brand.captionFont)
+            .foregroundStyle(Brand.inkTertiary)
+            .padding(.horizontal, Brand.spacingM)
+            .padding(.vertical, Brand.spacingS)
+            .background(Capsule().fill(.ultraThinMaterial))
+            .allowsHitTesting(false)
+            .accessibilityHidden(true)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .padding(.bottom, Brand.chromeBottomOffset)
+    }
+
     // MARK: - Empty Canvas Hint
 
     private var emptyCanvasHint: some View {
         VStack(spacing: Brand.spacingM) {
             Image(systemName: "pencil.and.outline")
-                .font(.system(size: 36))
+                .font(.system(size: Brand.emptyHintIconSize))
                 .foregroundStyle(Brand.inkTertiary)
 
             Text(String(localized: "canvas.empty.hint"))

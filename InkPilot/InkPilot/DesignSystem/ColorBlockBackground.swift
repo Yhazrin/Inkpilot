@@ -55,8 +55,8 @@ struct ColorBlockBackground: View {
     }
 
     private func dotGrid(in size: CGSize) -> some View {
-        let spacing: CGFloat = 40
-        let dotSize: CGFloat = 1.5
+        let spacing = Brand.dotGridSpacing
+        let dotSize = Brand.dotGridDotSize
         let columns = Int(size.width / spacing) + 1
         let rows = Int(size.height / spacing) + 1
         let dotColor = colorScheme == .dark

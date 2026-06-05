@@ -64,7 +64,7 @@ extension CanvasViewModel {
     func deleteSelected() {
         guard selection.hasSelection else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        withAnimation(.easeOut(duration: 0.2)) {
+        withAnimation(MotionTokens.quickFadeOut) {
             canvasObjects.removeAll { selection.isSelected($0.id) }
             selection.clearSelection()
         }
@@ -75,15 +75,15 @@ extension CanvasViewModel {
         guard selection.hasSelection else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
         let sources = canvasObjects.filter { selection.isSelected($0.id) }
-        let offset: CGFloat = 28
+        let offset = Brand.duplicateOffset
         var newIDs: Set<UUID> = []
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+        withAnimation(MotionTokens.objectAdd) {
             for (i, source) in sources.enumerated() {
                 var copy = source
                 copy.id = UUID()
                 copy.worldPosition = CGPointCodable(
-                    x: source.worldPosition.x + offset + CGFloat(i) * 8,
-                    y: source.worldPosition.y + offset + CGFloat(i) * 8
+                    x: source.worldPosition.x + offset + CGFloat(i) * Brand.duplicateStagger,
+                    y: source.worldPosition.y + offset + CGFloat(i) * Brand.duplicateStagger
                 )
                 copy.source = .user
                 canvasObjects.append(copy)
@@ -96,7 +96,7 @@ extension CanvasViewModel {
 
     func addObject(_ object: CanvasObject) {
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+        withAnimation(MotionTokens.objectAdd) {
             canvasObjects.append(object)
             selection.selectObject(object.id)
         }
@@ -116,7 +116,7 @@ extension CanvasViewModel {
                 )
                 let dx = abs(endObj.worldPosition.x - startObj.worldPosition.x)
                 let dy = abs(endObj.worldPosition.y - startObj.worldPosition.y)
-                connector.size = CGSizeCodable(width: max(dx, 40), height: max(dy, 4))
+                connector.size = CGSizeCodable(width: max(dx, Brand.touchTarget), height: max(dy, Brand.spacingXS))
                 addObject(connector)
             }
             connectorStartID = nil

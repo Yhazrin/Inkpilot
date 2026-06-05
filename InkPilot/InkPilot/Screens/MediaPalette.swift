@@ -1,5 +1,6 @@
 import SwiftUI
 import PhotosUI
+import _PhotosUI_SwiftUI
 
 /// A floating palette for inserting media — images, PDFs, and placeholders.
 struct MediaPalette: View {
@@ -18,7 +19,7 @@ struct MediaPalette: View {
                 showPhotosPicker = true
             } label: {
                 Label(String(localized: "media.import.image"), systemImage: "photo.badge.plus")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.aiAccent)
                     .frame(height: 44)
             }
@@ -29,20 +30,20 @@ struct MediaPalette: View {
                 showPDFPicker = true
             } label: {
                 Label(String(localized: "media.import.pdf"), systemImage: "doc.richtext")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkPrimary)
                     .frame(height: 44)
             }
             .accessibilityLabel(Text(String(localized: "media.import.pdf.accessibility")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             // Placeholder image
             Button {
                 onInsertPlaceholder(.image)
             } label: {
                 Label(String(localized: "palette.media.image"), systemImage: "photo")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(height: 44)
             }
@@ -53,19 +54,19 @@ struct MediaPalette: View {
                 onInsertPlaceholder(.file)
             } label: {
                 Label(String(localized: "palette.media.file"), systemImage: "doc")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(height: 44)
             }
             .accessibilityLabel(Text(String(localized: "palette.media.file.accessibility")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             Button(action: onClose) {
                 Image(systemName: "xmark")
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(Brand.paletteFont.weight(.semibold))
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "palette.close")))
         }
@@ -97,7 +98,7 @@ private struct PhotoImportSheet: View {
             ) {
                 VStack(spacing: Brand.spacingL) {
                     Image(systemName: "photo.on.rectangle.angled")
-                        .font(.system(size: 48))
+                        .font(.system(size: Brand.largePlaceholderIconSize))
                         .foregroundStyle(Brand.inkSecondary)
                     Text(String(localized: "media.import.selectPhoto"))
                         .font(Brand.titleFont)

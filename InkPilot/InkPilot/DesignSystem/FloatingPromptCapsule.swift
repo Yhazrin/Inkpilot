@@ -12,10 +12,10 @@ struct FloatingPromptCapsule: View {
             if isThinking {
                 ProgressView()
                     .scaleEffect(0.8)
-                    .frame(width: 20, height: 20)
+                    .frame(width: Brand.spinnerSize, height: Brand.spinnerSize)
             } else {
                 Image(systemName: "sparkles")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.aiAccent)
             }
 
@@ -36,15 +36,15 @@ struct FloatingPromptCapsule: View {
             if !promptText.isEmpty && !isThinking {
                 Button(action: onSubmit) {
                     Image(systemName: "arrow.up.circle.fill")
-                        .font(.system(size: 20))
+                        .font(.system(size: Brand.submitIconSize))
                         .foregroundStyle(Brand.aiAccent)
                 }
                 .accessibilityLabel(Text(String(localized: "canvas.prompt.submit")))
             }
         }
         .padding(.horizontal, Brand.spacingM)
-        .padding(.vertical, 12)
-        .frame(maxWidth: 480)
+        .padding(.vertical, Brand.promptPaddingV)
+        .frame(maxWidth: Brand.promptMaxWidth)
         .background {
             Capsule()
                 .fill(.ultraThinMaterial)
@@ -63,12 +63,12 @@ struct FloatingPromptCapsule: View {
 
 #Preview("Normal") {
     FloatingPromptCapsule(promptText: .constant(""), onSubmit: {})
-        .padding(40)
+        .padding(Brand.spacingXL)
         .background(Brand.canvasBase)
 }
 
 #Preview("Thinking") {
     FloatingPromptCapsule(promptText: .constant(""), isThinking: true, onSubmit: {})
-        .padding(40)
+        .padding(Brand.spacingXL)
         .background(Brand.canvasBase)
 }

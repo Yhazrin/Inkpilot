@@ -28,11 +28,11 @@ struct DynamicConnectorView: View {
                 let dotSize: CGFloat = 4
                 context.fill(
                     Path(ellipseIn: CGRect(x: start.x - dotSize/2, y: start.y - dotSize/2, width: dotSize, height: dotSize)),
-                    with: .color(Brand.inkPrimary.opacity(0.6))
+                    with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity))
                 )
                 context.fill(
                     Path(ellipseIn: CGRect(x: end.x - dotSize/2, y: end.y - dotSize/2, width: dotSize, height: dotSize)),
-                    with: .color(Brand.inkPrimary.opacity(0.6))
+                    with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity))
                 )
             }
             .allowsHitTesting(false)
@@ -40,7 +40,7 @@ struct DynamicConnectorView: View {
         } else {
             // Fallback: static line if objects not found
             Rectangle()
-                .fill(Brand.inkPrimary.opacity(0.3))
+                .fill(Brand.inkPrimary.opacity(Brand.connectorFallbackOpacity))
                 .frame(height: 1.5)
         }
     }
@@ -107,9 +107,9 @@ struct MindNodeView: View {
                 var path = Path()
                 path.move(to: start)
                 path.addLine(to: end)
-                context.stroke(path, with: .color(Brand.inkPrimary.opacity(0.3)), lineWidth: 1)
+                context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.connectorFallbackOpacity)), lineWidth: 1)
             }
-            .frame(height: 20)
+            .frame(height: Brand.dividerHeight)
             .allowsHitTesting(false)
             .accessibilityHidden(true)
         }

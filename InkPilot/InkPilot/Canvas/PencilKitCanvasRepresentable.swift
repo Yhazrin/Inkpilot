@@ -15,8 +15,8 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
         canvas.drawingPolicy = .pencilOnly
         canvas.backgroundColor = .clear
         canvas.isOpaque = false
-        canvas.maximumZoomScale = 4
-        canvas.minimumZoomScale = 0.25
+        canvas.maximumZoomScale = Brand.maxZoomScale
+        canvas.minimumZoomScale = Brand.minZoomScale
         canvas.bounces = true
         canvas.alwaysBounceVertical = true
         canvas.alwaysBounceHorizontal = true
@@ -74,7 +74,7 @@ struct PencilKitCanvasRepresentable: UIViewRepresentable {
             return PKInkingTool(.pencil, color: uiColor, width: width)
         case .highlighter:
             // PencilKit marker is the closest to highlighter
-            return PKInkingTool(.marker, color: uiColor, width: width * 3)
+            return PKInkingTool(.marker, color: uiColor, width: width * Brand.highlighterWidthMultiplier)
         case .eraser:
             // Should not reach here — eraser uses PKEraserTool
             return PKInkingTool(.pen, color: uiColor, width: width)

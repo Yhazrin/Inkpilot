@@ -4,11 +4,11 @@ import SwiftUI
 /// Solid black pill with white "AI" text — the Codex/OpenAI accent.
 struct AIBadge: View {
     var body: some View {
-        Text("AI")
-            .font(.system(size: 10, weight: .bold, design: .rounded))
+        Text(String(localized: "badge.ai.text"))
+            .font(.system(size: Brand.aiBadgeFontSize, weight: .bold, design: .rounded))
             .foregroundStyle(Brand.inkInverse)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
+            .padding(.horizontal, Brand.aiBadgePaddingH)
+            .padding(.vertical, Brand.aiBadgePaddingV)
             .background {
                 Capsule()
                     .fill(Brand.aiAccent)
@@ -19,6 +19,6 @@ struct AIBadge: View {
 
 #Preview {
     AIBadge()
-        .padding(20)
+        .padding(Brand.spacingL)
         .background(Brand.canvasBase)
 }

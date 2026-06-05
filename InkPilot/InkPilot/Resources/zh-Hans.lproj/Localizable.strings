@@ -13,6 +13,10 @@
 "tool.eraser" = "橡皮擦";
 "tool.ai" = "AI 建议";
 "tool.connector" = "连接";
+"tool.connector.hint" = "点击两个对象以连接它们";
+"tool.text.hint" = "点击画布插入文本框";
+"tool.shape.hint" = "打开形状面板插入形状";
+"tool.media.hint" = "打开媒体面板导入图片或 PDF";
 
 /* 画布提示 */
 "canvas.prompt.placeholder" = "询问当前画布...";
@@ -39,6 +43,7 @@
 
 /* 徽章 */
 "badge.ai.generated" = "AI 生成";
+"badge.ai.text" = "AI";
 
 /* AI 思考中 */
 "canvas.ai.thinking" = "正在理解画布...";
@@ -166,3 +171,13 @@
 "media.import.pdf.accessibility" = "导入 PDF 文档";
 "object.pdf.accessibility" = "PDF 页面。";
 "object.pdf.loading" = "加载 PDF...";
+
+/* AI 上下文 */
+"context.strokeCount" = "用户已绘制 %lld 笔";
+"context.inkBounds" = "墨迹范围：%lldx%lld";
+"context.emptyCanvas" = "空白画布（无墨迹）";
+"context.objectType.connector" = "连接线";
+"context.pdfPage" = "PDF 第 %lld 页";
+
+/* 版本 */
+"home.version" = "InkPilot v%@ (%@)";

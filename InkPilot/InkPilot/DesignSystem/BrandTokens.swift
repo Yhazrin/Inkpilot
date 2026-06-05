@@ -66,6 +66,107 @@ enum Brand {
     static let bodyFont = Font.system(size: 17, weight: .regular, design: .default)
     static let captionFont = Font.system(size: 13, weight: .medium, design: .default)
 
+    /// Toolbar / palette icon label font.
+    static let iconFont = Font.system(size: 16, weight: .medium, design: .default)
+    /// Palette item label font (smaller).
+    static let paletteFont = Font.system(size: 14, weight: .medium, design: .default)
+
+    // MARK: Touch Targets
+
+    /// Standard 44pt minimum touch target (Apple HIG).
+    static let touchTarget: CGFloat = 44
+    /// Compact touch target for dense palettes.
+    static let touchTargetCompact: CGFloat = 36
+    /// Small touch target for action bars.
+    static let touchTargetSmall: CGFloat = 40
+    /// Small swatch / chip size.
+    static let swatchSize: CGFloat = 24
+
+    // MARK: Canvas Layout
+
+    /// Bottom chrome offset to clear floating toolbar.
+    static let chromeBottomOffset: CGFloat = 100
+    /// Placeholder icon font size.
+    static let placeholderIconSize: CGFloat = 28
+    /// Max width for prompt capsule.
+    static let promptMaxWidth: CGFloat = 480
+    /// Progress spinner size.
+    static let spinnerSize: CGFloat = 20
+    /// Submit button icon size.
+    static let submitIconSize: CGFloat = 20
+    /// Vertical padding for prompt capsule.
+    static let promptPaddingV: CGFloat = 12
+    /// Spacing between AI suggestion cards.
+    static let aiCardSpacing: CGFloat = 150
+    /// Offset when duplicating objects.
+    static let duplicateOffset: CGFloat = 28
+    /// Stagger between duplicated objects.
+    static let duplicateStagger: CGFloat = 8
+    /// Default image import size.
+    static let imageImportSize = CGSizeCodable(width: 300, height: 200)
+    /// Default PDF page import size.
+    static let pdfImportSize = CGSizeCodable(width: 400, height: 560)
+    /// Vertical spacing between imported PDF pages.
+    static let pdfPageSpacing: CGFloat = 620
+    /// Maximum canvas zoom scale.
+    static let maxZoomScale: CGFloat = 4
+    /// Minimum canvas zoom scale.
+    static let minZoomScale: CGFloat = 0.25
+    /// Highlighter width multiplier (PencilKit marker is wider).
+    static let highlighterWidthMultiplier: CGFloat = 3
+    /// Max width for hero/home card.
+    static let heroCardMaxWidth: CGFloat = 520
+    /// Max width for ghost suggestion card.
+    static let ghostCardMaxWidth: CGFloat = 360
+    /// Dot grid spacing in canvas background.
+    static let dotGridSpacing: CGFloat = 40
+    /// Dot grid dot size.
+    static let dotGridDotSize: CGFloat = 1.5
+    /// Empty canvas hint icon size.
+    static let emptyHintIconSize: CGFloat = 36
+    /// AI badge font size.
+    static let aiBadgeFontSize: CGFloat = 10
+    /// AI badge horizontal padding.
+    static let aiBadgePaddingH: CGFloat = 6
+    /// AI badge vertical padding.
+    static let aiBadgePaddingV: CGFloat = 2
+    /// Compact divider height (palettes, toolbars).
+    static let dividerHeight: CGFloat = 20
+    /// Tall divider height (action bars, settings).
+    static let dividerHeightTall: CGFloat = 24
+    /// Opacity slider width.
+    static let sliderWidth: CGFloat = 80
+    /// Small bullet/dot size (list indicators, pips).
+    static let bulletSize: CGFloat = 6
+    /// Tiny dot size (motion layer pips).
+    static let tinyDotSize: CGFloat = 4
+    /// Alignment panel upward offset from action bar.
+    static let alignmentPanelOffset: CGFloat = -50
+    /// Network request timeout in seconds.
+    static let requestTimeout: TimeInterval = 30
+    /// Max error snippet length for logging.
+    static let errorSnippetLength: Int = 160
+    /// Tool button active background opacity.
+    static let toolActiveOpacity: Double = 0.08
+    /// Disabled button opacity.
+    static let disabledOpacity: Double = 0.3
+    /// AI accent bullet/indicator opacity.
+    static let aiAccentBulletOpacity: Double = 0.3
+    /// Connector/resize handle stroke opacity.
+    static let handleStrokeOpacity: Double = 0.6
+    /// Connector fallback line opacity.
+    static let connectorFallbackOpacity: Double = 0.3
+    /// Small icon size (slider labels, etc).
+    static let smallIconSize: CGFloat = 12
+    /// Large placeholder icon size (import sheets).
+    static let largePlaceholderIconSize: CGFloat = 48
+    /// JPEG compression quality for exports.
+    static let exportCompressionQuality: CGFloat = 0.9
+    /// US Letter page size for PDF export (points).
+    static let pdfLetterPageSize = CGSize(width: 612, height: 792)
+    /// Default insertion point when no anchor exists (center of typical iPad viewport).
+    static let defaultInsertionPoint = CGPointCodable(x: 520, y: 360)
+
     // MARK: Spacing
 
     static let spacingXS: CGFloat = 4

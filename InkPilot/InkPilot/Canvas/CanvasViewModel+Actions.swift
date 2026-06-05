@@ -14,7 +14,7 @@ extension CanvasViewModel {
                 x: obj.worldPosition.x + obj.size.width / 2,
                 y: obj.worldPosition.y + obj.size.height / 2
             )
-            return isPointInsidePolygon(center, polygon: worldPoints)
+            return center.isInsidePolygon(worldPoints)
         }.map(\.id)
         if !ids.isEmpty {
             selection.selectObjects(Set(ids))
@@ -85,107 +85,97 @@ extension CanvasViewModel {
     // MARK: - Alignment
 
     func alignLeft() {
-        let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minX = selected.map(\.worldPosition.x).min()!
-        for obj in selected {
-            guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.x = minX
+        alignPositions(minCount: 2) { objs in
+            guard let minX = objs.map(\.worldPosition.x).min() else { return nil }
+            return { CGPointCodable(x: minX, y: $0.worldPosition.y) }
         }
-        autoSave()
     }
 
     func alignCenterH() {
-        let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let avgX = selected.map(\.worldPosition.x).reduce(0, +) / CGFloat(selected.count)
-        for obj in selected {
-            guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.x = avgX
+        alignPositions(minCount: 2) { objs in
+            let avgX = objs.map(\.worldPosition.x).reduce(0, +) / CGFloat(objs.count)
+            return { CGPointCodable(x: avgX, y: $0.worldPosition.y) }
         }
-        autoSave()
     }
 
     func alignRight() {
-        let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let maxX = selected.map { $0.worldPosition.x + $0.size.width }.max()!
-        for obj in selected {
-            guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.x = maxX - obj.size.width
+        alignPositions(minCount: 2) { objs in
+            guard let maxX = objs.map({ $0.worldPosition.x + $0.size.width }).max() else { return nil }
+            return { CGPointCodable(x: maxX - $0.size.width, y: $0.worldPosition.y) }
         }
-        autoSave()
     }
 
     func alignTop() {
-        let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minY = selected.map(\.worldPosition.y).min()!
-        for obj in selected {
-            guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.y = minY
+        alignPositions(minCount: 2) { objs in
+            guard let minY = objs.map(\.worldPosition.y).min() else { return nil }
+            return { CGPointCodable(x: $0.worldPosition.x, y: minY) }
         }
-        autoSave()
     }
 
     func alignMiddleV() {
-        let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let avgY = selected.map(\.worldPosition.y).reduce(0, +) / CGFloat(selected.count)
-        for obj in selected {
-            guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.y = avgY
+        alignPositions(minCount: 2) { objs in
+            let avgY = objs.map(\.worldPosition.y).reduce(0, +) / CGFloat(objs.count)
+            return { CGPointCodable(x: $0.worldPosition.x, y: avgY) }
         }
-        autoSave()
     }
 
     func alignBottom() {
-        let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
-        history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let maxY = selected.map { $0.worldPosition.y + $0.size.height }.max()!
-        for obj in selected {
-            guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.y = maxY - obj.size.height
+        alignPositions(minCount: 2) { objs in
+            guard let maxY = objs.map({ $0.worldPosition.y + $0.size.height }).max() else { return nil }
+            return { CGPointCodable(x: $0.worldPosition.x, y: maxY - $0.size.height) }
         }
-        autoSave()
     }
 
     func distributeHorizontal() {
-        let selected = selectedObjects().sorted { $0.worldPosition.x < $1.worldPosition.x }
-        guard selected.count >= 3 else { return }
+        distributePositions(
+            pos: \.x, size: \.width,
+            setter: { obj, val in CGPointCodable(x: val, y: obj.worldPosition.y) }
+        )
+    }
+
+    func distributeVertical() {
+        distributePositions(
+            pos: \.y, size: \.height,
+            setter: { obj, val in CGPointCodable(x: obj.worldPosition.x, y: val) }
+        )
+    }
+
+    /// Generic alignment: computes a target position for each selected object and applies it.
+    private func alignPositions(
+        minCount: Int,
+        compute: ([CanvasObject]) -> ((CanvasObject) -> CGPointCodable)?
+    ) {
+        let selected = selectedObjects()
+        guard selected.count >= minCount,
+              let transform = compute(selected) else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minX = selected.first!.worldPosition.x
-        let maxX = selected.last!.worldPosition.x + selected.last!.size.width
-        let totalWidth = selected.reduce(0) { $0 + $1.size.width }
-        let spacing = (maxX - minX - totalWidth) / CGFloat(selected.count - 1)
-        var x = minX
         for obj in selected {
             guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.x = x
-            x += obj.size.width + spacing
+            canvasObjects[i].worldPosition = transform(obj)
         }
         autoSave()
     }
 
-    func distributeVertical() {
-        let selected = selectedObjects().sorted { $0.worldPosition.y < $1.worldPosition.y }
-        guard selected.count >= 3 else { return }
+    /// Generic distribution: evenly spaces selected objects along an axis.
+    private func distributePositions(
+        pos: KeyPath<CGPointCodable, CGFloat>,
+        size: KeyPath<CGSizeCodable, CGFloat>,
+        setter: (CanvasObject, CGFloat) -> CGPointCodable
+    ) {
+        let selected = selectedObjects().sorted { $0.worldPosition[keyPath: pos] < $1.worldPosition[keyPath: pos] }
+        guard selected.count >= 3,
+              let first = selected.first,
+              let last = selected.last else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minY = selected.first!.worldPosition.y
-        let maxY = selected.last!.worldPosition.y + selected.last!.size.height
-        let totalHeight = selected.reduce(0) { $0 + $1.size.height }
-        let spacing = (maxY - minY - totalHeight) / CGFloat(selected.count - 1)
-        var y = minY
+        let start = first.worldPosition[keyPath: pos]
+        let end = last.worldPosition[keyPath: pos] + last.size[keyPath: size]
+        let totalSize = selected.reduce(0) { $0 + $1.size[keyPath: size] }
+        let spacing = (end - start - totalSize) / CGFloat(selected.count - 1)
+        var p = start
         for obj in selected {
             guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
-            canvasObjects[i].worldPosition.y = y
-            y += obj.size.height + spacing
+            canvasObjects[i].worldPosition = setter(obj, p)
+            p += obj.size[keyPath: size] + spacing
         }
         autoSave()
     }
@@ -223,8 +213,8 @@ extension CanvasViewModel {
         activeGuides = []
         connectorStartID = nil
         lassoPoints = []
-        ghostSuggestion = nil
-        suggestionAnchor = nil
+        ai.ghostSuggestion = nil
+        ai.suggestionAnchor = nil
         autoSave()
     }
 
@@ -237,12 +227,14 @@ extension CanvasViewModel {
     }
 
     func autoSave() {
-        autoSaveTask?.cancel()
-        autoSaveTask = Task { @MainActor [weak self] in
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            guard let self, !Task.isCancelled else { return }
-            self.documentStore.saveDebounced(drawing: self.drawing, objects: self.canvasObjects)
-        }
+        documentStore.saveDebounced(drawing: drawing, objects: canvasObjects)
+    }
+
+    // MARK: - Select All
+
+    func selectAllObjects() {
+        let allIDs = Set(canvasObjects.map(\.id))
+        selection.selectObjects(allIDs)
     }
 
     // MARK: - Helpers

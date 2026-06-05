@@ -16,12 +16,12 @@ enum CanvasContextBuilder {
 
         var inkParts: [String] = []
         if hasInk {
-            inkParts.append("User has drawn \(strokeCount) stroke(s)")
+            inkParts.append(String(localized: "context.strokeCount \(strokeCount)"))
             if bounds.width > 0 {
-                inkParts.append("Ink bounds: \(Int(bounds.width))x\(Int(bounds.height))")
+                inkParts.append(String(localized: "context.inkBounds \(Int(bounds.width)) \(Int(bounds.height))"))
             }
         } else {
-            inkParts.append("Empty canvas (no ink)")
+            inkParts.append(String(localized: "context.emptyCanvas"))
         }
 
         // Object summaries for AI context
@@ -33,19 +33,22 @@ enum CanvasContextBuilder {
             case .stickyNote(let t): title = t
             case .bubble(let t): title = t
             case .shape(let k): title = k.rawValue
-            case .connector: title = "connector"
-            case .mindNode(let label, _): title = label
+            case .connector: title = String(localized: "context.objectType.connector")
             case .media(_, let k): title = k.rawValue
-            case .pdfPage: title = "pdf"
+            case .mindNode(let label, _): title = label
+            case .pdfPage(_, let pageIndex): title = String(localized: "context.pdfPage \(pageIndex)")
             }
             return CanvasObjectSummary(type: obj.content.typeName, title: title)
         }
 
-        // Selected object summary
+        // Selected object summary — look up by matching object ID, not by type
         var selectedSummary: String? = nil
         if let selectedID = selectedObjectID,
-           let selected = canvasObjects.first(where: { $0.id == selectedID }) {
-            selectedSummary = "\(selected.content.typeName): \(objectSummaries.first(where: { $0.type == selected.content.typeName })?.title ?? "")"
+           let selected = canvasObjects.first(where: { $0.id == selectedID }),
+           let selectedIndex = canvasObjects.firstIndex(where: { $0.id == selectedID }),
+           selectedIndex < objectSummaries.count {
+            let summary = objectSummaries[selectedIndex]
+            selectedSummary = "\(summary.type): \(summary.title)"
         }
 
         // Locale

@@ -17,6 +17,7 @@ struct CanvasFloatingChrome: View {
     var onDismiss: () -> Void
     @Binding var showExportSheet: Bool
     @Binding var exportURL: URL?
+    @Environment(\.displayScale) private var displayScale
 
     var body: some View {
         GeometryReader { geo in
@@ -45,9 +46,9 @@ struct CanvasFloatingChrome: View {
             // Back to home — small fixed affordance, top-left corner.
             Button(action: onDismiss) {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Brand.iconFont.weight(.semibold))
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
                     .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
@@ -115,9 +116,10 @@ struct CanvasFloatingChrome: View {
                 .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isShapePaletteVisible)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.isMediaPaletteVisible)
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selectedTool)
+        .padding(.top, Brand.spacingM)
+        .animation(MotionTokens.palette, value: viewModel.isShapePaletteVisible)
+        .animation(MotionTokens.palette, value: viewModel.isMediaPaletteVisible)
+        .animation(MotionTokens.palette, value: viewModel.selectedTool)
     }
 
     // MARK: - Bottom Section
@@ -127,21 +129,23 @@ struct CanvasFloatingChrome: View {
             if viewModel.selection.selectionCount > 1 {
                 MultiObjectActionBar(
                     selectionCount: viewModel.selection.selectionCount,
-                    onAlignLeft: { viewModel.alignLeft() },
-                    onAlignCenter: { viewModel.alignCenterH() },
-                    onAlignRight: { viewModel.alignRight() },
-                    onAlignTop: { viewModel.alignTop() },
-                    onAlignMiddle: { viewModel.alignMiddleV() },
-                    onAlignBottom: { viewModel.alignBottom() },
-                    onDistributeH: { viewModel.distributeHorizontal() },
-                    onDistributeV: { viewModel.distributeVertical() },
-                    onGroup: { viewModel.groupSelected() },
-                    onUngroup: { viewModel.ungroupSelected() },
-                    onBringToFront: { viewModel.bringToFront() },
-                    onSendToBack: { viewModel.sendToBack() },
-                    onDelete: { viewModel.deleteSelected() },
-                    onDuplicate: { viewModel.duplicateSelected() },
-                    onDeselect: { viewModel.selection.clearSelection() }
+                    actions: MultiSelectionActions(
+                        onAlignLeft: { viewModel.alignLeft() },
+                        onAlignCenter: { viewModel.alignCenterH() },
+                        onAlignRight: { viewModel.alignRight() },
+                        onAlignTop: { viewModel.alignTop() },
+                        onAlignMiddle: { viewModel.alignMiddleV() },
+                        onAlignBottom: { viewModel.alignBottom() },
+                        onDistributeH: { viewModel.distributeHorizontal() },
+                        onDistributeV: { viewModel.distributeVertical() },
+                        onGroup: { viewModel.groupSelected() },
+                        onUngroup: { viewModel.ungroupSelected() },
+                        onBringToFront: { viewModel.bringToFront() },
+                        onSendToBack: { viewModel.sendToBack() },
+                        onDelete: { viewModel.deleteSelected() },
+                        onDuplicate: { viewModel.duplicateSelected() },
+                        onDeselect: { viewModel.selection.clearSelection() }
+                    )
                 )
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             } else if viewModel.selection.isSingleSelection {
@@ -157,7 +161,8 @@ struct CanvasFloatingChrome: View {
 
             CanvasPromptBar(viewModel: viewModel)
         }
-        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: viewModel.selection.selectionCount)
+        .padding(.bottom, Brand.spacingL)
+        .animation(MotionTokens.palette, value: viewModel.selection.selectionCount)
     }
 
     // MARK: - Export Buttons
@@ -166,15 +171,18 @@ struct CanvasFloatingChrome: View {
         HStack(spacing: Brand.spacingS) {
             // Export as Image
             Button {
-                if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+                let screen = UIApplication.shared.connectedScenes
+                    .compactMap { $0 as? UIWindowScene }
+                    .first?.screen.bounds.size ?? CGSize(width: 1024, height: 1024)
+                if let url = viewModel.exportToShareURL(screenSize: screen) {
                     exportURL = url
                     showExportSheet = true
                 }
             } label: {
                 Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
                     .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
@@ -188,9 +196,9 @@ struct CanvasFloatingChrome: View {
                 }
             } label: {
                 Image(systemName: "doc.richtext")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
                     .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
@@ -213,29 +221,29 @@ struct SingleObjectActionBar: View {
     var body: some View {
         GlassCapsule {
             Button(action: onDuplicate) {
-                Image(systemName: "plus.square.on.square").frame(width: 44, height: 44)
+                Image(systemName: "plus.square.on.square").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.duplicate")))
 
             Button(action: onBringForward) {
-                Image(systemName: "arrow.up.to.line").frame(width: 44, height: 44)
+                Image(systemName: "arrow.up.to.line").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.bringForward")))
 
             Button(action: onSendBackward) {
-                Image(systemName: "arrow.down.to.line").frame(width: 44, height: 44)
+                Image(systemName: "arrow.down.to.line").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.sendBackward")))
 
             Button(action: onDelete) {
-                Image(systemName: "trash").frame(width: 44, height: 44).foregroundStyle(.red)
+                Image(systemName: "trash").frame(width: Brand.touchTarget, height: Brand.touchTarget).foregroundStyle(.red)
             }
             .accessibilityLabel(Text(String(localized: "action.delete")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             Button(action: onDeselect) {
-                Image(systemName: "xmark.circle").frame(width: 44, height: 44)
+                Image(systemName: "xmark.circle").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.deselect")))
         }
