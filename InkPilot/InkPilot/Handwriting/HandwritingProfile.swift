@@ -2,6 +2,8 @@ import Foundation
 
 /// A user's handwriting profile — the identity of "whose hand" writes on the canvas.
 /// One profile per Apple Pencil user; samples are stored under `profile.id`.
+// MARK: - Handwriting Profile
+
 struct HandwritingProfile: Identifiable, Codable, Equatable {
     let id: UUID
     var name: String
@@ -32,6 +34,8 @@ struct HandwritingProfile: Identifiable, Codable, Equatable {
 }
 
 /// A captured stroke sample for a single character, digit, or symbol.
+// MARK: - Handwriting Sample
+
 struct HandwritingSample: Identifiable, Codable, Equatable {
     let id: UUID
     /// The character this stroke represents (a single grapheme cluster).

@@ -5,12 +5,20 @@ import _PhotosUI_SwiftUI
 /// Handles importing images from the photo library into canvas objects.
 /// Saves images to the app's documents directory for persistence.
 enum ImageImportService {
+
+    // MARK: - Configuration
+
+    private static let imageDir = "canvas_images"
+
+    // MARK: - Path
     private static let imageDir = "canvas_images"
 
     private static var directoryURL: URL {
         let base = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return base.appendingPathComponent(imageDir)
     }
+
+    // MARK: - Save / Load / Delete
 
     /// Save image data to disk and return a MediaAsset.
     static func saveImage(data: Data, fileName: String) -> MediaAsset? {

@@ -5,6 +5,8 @@ import PencilKit
 /// Renders the canvas content to a UIImage for export or sharing.
 enum CanvasExporter {
 
+    // MARK: - Render
+
     /// Render the canvas to a UIImage.
     /// Combines PencilKit drawing + canvas objects into a single image.
     static func renderToImage(
@@ -33,6 +35,8 @@ enum CanvasExporter {
             }
         }
     }
+
+    // MARK: - Save / Share
 
     /// Save image to Photos library.
     static func saveToPhotos(_ image: UIImage) async -> Bool {
