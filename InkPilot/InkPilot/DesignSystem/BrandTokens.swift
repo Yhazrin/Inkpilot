@@ -166,6 +166,12 @@ enum Brand {
     static let shadowRadiusMedium: CGFloat = 6
     /// Medium shadow Y offset.
     static let shadowYMedium: CGFloat = 2
+    /// Drag shadow radius.
+    static let shadowRadiusDrag: CGFloat = 8
+    /// Glass border line width.
+    static let glassBorderWidth: CGFloat = 0.5
+    /// Selection/connector stroke width.
+    static let selectionStrokeWidth: CGFloat = 1.5
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).

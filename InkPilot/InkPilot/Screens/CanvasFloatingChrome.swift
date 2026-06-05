@@ -50,7 +50,7 @@ struct CanvasFloatingChrome: View {
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
-                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth))
             }
             .padding(.leading, Brand.spacingM)
             .padding(.top, Brand.spacingM)
@@ -184,7 +184,7 @@ struct CanvasFloatingChrome: View {
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
-                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth))
             }
             .accessibilityLabel(Text(String(localized: "action.exportImage")))
 
@@ -200,7 +200,7 @@ struct CanvasFloatingChrome: View {
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
-                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
+                    .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: Brand.glassBorderWidth))
             }
             .accessibilityLabel(Text(String(localized: "action.exportPDF")))
         }

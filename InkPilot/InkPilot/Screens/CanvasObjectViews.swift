@@ -74,12 +74,12 @@ struct CanvasObjectView: View {
             }
             if isConnectorStart {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiAccent.opacity(Brand.selectionBorderOpacity), lineWidth: 1.5)
+                    .strokeBorder(Brand.aiAccent.opacity(Brand.selectionBorderOpacity), lineWidth: Brand.selectionStrokeWidth)
                     .scaleEffect(1.05)
             }
         }
         .opacity(isDragging ? 0.92 : 1.0)
-        .shadow(color: isDragging ? Brand.aiAccent.opacity(0.15) : .clear, radius: 8, y: 2)
+        .shadow(color: isDragging ? Brand.aiAccent.opacity(0.15) : .clear, radius: Brand.shadowRadiusDrag, y: Brand.shadowYMedium)
         .rotationEffect(.degrees(object.rotation))
         .zIndex(Double(object.zIndex))
     }

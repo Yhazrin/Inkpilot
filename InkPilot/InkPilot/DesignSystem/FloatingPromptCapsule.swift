@@ -53,7 +53,7 @@ struct FloatingPromptCapsule: View {
             Capsule()
                 .strokeBorder(
                     isThinking ? Brand.aiBadge.opacity(0.4) : Brand.glassBorder,
-                    lineWidth: isThinking ? 1 : 0.5
+                    lineWidth: isThinking ? Brand.selectionStrokeWidth : Brand.glassBorderWidth
                 )
         }
         .shadow(color: Brand.glassShadow, radius: Brand.shadowRadius, y: Brand.shadowY)

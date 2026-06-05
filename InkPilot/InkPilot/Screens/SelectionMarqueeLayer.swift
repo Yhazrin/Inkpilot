@@ -20,7 +20,7 @@ struct SelectionMarqueeLayer: View {
             if let start = marqueeStart, let end = marqueeEnd {
                 let rect = marqueeRect(from: start, to: end)
                 RoundedRectangle(cornerRadius: 4)
-                    .strokeBorder(Brand.aiAccent.opacity(0.6), lineWidth: 1.5)
+                    .strokeBorder(Brand.aiAccent.opacity(0.6), lineWidth: Brand.selectionStrokeWidth)
                     .background(Brand.aiAccent.opacity(0.06))
                     .frame(width: rect.width, height: rect.height)
                     .position(x: rect.midX, y: rect.midY)
