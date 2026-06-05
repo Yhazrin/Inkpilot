@@ -243,6 +243,8 @@ enum Brand {
 
     /// Minimum opacity for highlighter slider.
     static let minHighlighterOpacity: Double = 0.2
+    /// Resize handle diameter.
+    static let resizeHandleSize: CGFloat = 12
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.

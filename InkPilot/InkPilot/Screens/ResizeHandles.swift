@@ -10,7 +10,7 @@ struct ResizeHandles: View {
     var onResize: (CGSize) -> Void
     var onResizeStart: (() -> Void)?
 
-    private let handleSize: CGFloat = 12
+    private let handleSize = Brand.resizeHandleSize
     private let minSize: CGFloat = 40
 
     /// Cached original size at the start of each corner drag.
