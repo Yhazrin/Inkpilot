@@ -220,6 +220,8 @@ enum Brand {
     static let exportShapeStrokeWidth: CGFloat = 2
     /// Connector stroke width for export rendering.
     static let exportConnectorStrokeWidth: CGFloat = 1.5
+    /// Card border stroke width for export rendering.
+    static let exportCardBorderWidth: CGFloat = 0.5
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.

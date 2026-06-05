@@ -48,7 +48,7 @@ enum CanvasObjectRenderer {
     static func drawTextCard(title: String, body: String, in rect: CGRect, context: CGContext, scale: CGFloat) {
         context.setFillColor(UIColor.white.withAlphaComponent(0.9).cgColor)
         context.setStrokeColor(UIColor.lightGray.cgColor)
-        context.setLineWidth(max(0.5, scale * 0.5))
+        context.setLineWidth(max(Brand.exportCardBorderWidth, scale * Brand.exportCardBorderWidth))
         let path = UIBezierPath(roundedRect: rect, cornerRadius: Brand.exportCardCornerRadius * scale)
         path.fill()
         path.stroke()
