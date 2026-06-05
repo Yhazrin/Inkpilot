@@ -30,6 +30,8 @@ struct HandwritingLayoutConfig {
     var spaceAdvanceFactor: CGFloat = 0.4
     /// Character width factor (multiplied by glyph height).
     var charWidthFactor: CGFloat = 0.6
+    /// Minimum pressure clamp (prevents zero-force strokes).
+    var minPressure: CGFloat = 0.05
 
     static let `default` = HandwritingLayoutConfig()
 }
@@ -239,7 +241,7 @@ struct HandwritingLayoutEngine {
                 x: rotated.x + t.translation.x,
                 y: rotated.y + t.translation.y
             )
-            let newPressure = min(1.0, max(0.05, p.force * t.pressureScale))
+            let newPressure = min(1.0, max(config.minPressure, p.force * t.pressureScale))
             points.append(
                 PKStrokePoint(
                     location: newLocation,
