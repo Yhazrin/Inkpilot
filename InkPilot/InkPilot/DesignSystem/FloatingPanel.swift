@@ -19,7 +19,7 @@ struct FloatingPanel<Content: View>: View {
             content()
         }
         .padding(Brand.spacingM)
-        .frame(minWidth: 180)
+        .frame(minWidth: Brand.floatingPanelMinWidth)
         .background {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .fill(.regularMaterial)
