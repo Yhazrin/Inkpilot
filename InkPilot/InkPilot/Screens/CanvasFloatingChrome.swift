@@ -219,7 +219,7 @@ struct SingleObjectActionBar: View {
             }
             .accessibilityLabel(Text(String(localized: "action.delete")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             Button(action: onDeselect) {
                 Image(systemName: "xmark.circle").frame(width: Brand.touchTarget, height: Brand.touchTarget)

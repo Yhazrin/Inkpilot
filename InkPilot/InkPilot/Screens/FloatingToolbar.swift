@@ -23,7 +23,7 @@ struct FloatingToolbar: View {
             mediaButton
 
             Divider()
-                .frame(height: 20)
+                .frame(height: Brand.dividerHeight)
 
             // Undo / Redo
             Button(action: onUndo) {
@@ -45,7 +45,7 @@ struct FloatingToolbar: View {
             .accessibilityLabel(Text(String(localized: "action.redo")))
 
             Divider()
-                .frame(height: 20)
+                .frame(height: Brand.dividerHeight)
 
             Button(action: onAITap) {
                 AIToolButton()

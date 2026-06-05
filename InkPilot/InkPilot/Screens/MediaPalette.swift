@@ -35,7 +35,7 @@ struct MediaPalette: View {
             }
             .accessibilityLabel(Text(String(localized: "media.import.pdf.accessibility")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             // Placeholder image
             Button {
@@ -59,7 +59,7 @@ struct MediaPalette: View {
             }
             .accessibilityLabel(Text(String(localized: "palette.media.file.accessibility")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             Button(action: onClose) {
                 Image(systemName: "xmark")

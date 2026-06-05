@@ -29,7 +29,7 @@ struct ShapePalette: View {
                 .accessibilityLabel(Text(LocalizedStringKey(labelKey)))
             }
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             // Mind map node
             Button {
@@ -42,7 +42,7 @@ struct ShapePalette: View {
             }
             .accessibilityLabel(Text(String(localized: "palette.mindNode")))
 
-            Divider().frame(height: 20)
+            Divider().frame(height: Brand.dividerHeight)
 
             Button(action: onClose) {
                 Image(systemName: "xmark")

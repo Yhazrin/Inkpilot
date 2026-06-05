@@ -109,7 +109,7 @@ struct MindNodeView: View {
                 path.addLine(to: end)
                 context.stroke(path, with: .color(Brand.inkPrimary.opacity(0.3)), lineWidth: 1)
             }
-            .frame(height: 20)
+            .frame(height: Brand.dividerHeight)
             .allowsHitTesting(false)
             .accessibilityHidden(true)
         }

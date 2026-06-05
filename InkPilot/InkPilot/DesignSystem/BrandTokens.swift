@@ -130,6 +130,10 @@ enum Brand {
     static let aiBadgePaddingH: CGFloat = 6
     /// AI badge vertical padding.
     static let aiBadgePaddingV: CGFloat = 2
+    /// Compact divider height (palettes, toolbars).
+    static let dividerHeight: CGFloat = 20
+    /// Tall divider height (action bars, settings).
+    static let dividerHeightTall: CGFloat = 24
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).

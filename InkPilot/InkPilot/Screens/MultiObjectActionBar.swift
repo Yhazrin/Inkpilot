@@ -34,13 +34,13 @@ struct MultiObjectActionBar: View {
                 .font(Brand.captionFont)
                 .foregroundStyle(Brand.inkSecondary)
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
             // Quick actions
             actionButton(icon: "plus.square.on.square", label: "action.duplicate", action: actions.onDuplicate)
             actionButton(icon: "trash", label: "action.delete", action: actions.onDelete, tint: .red)
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
             // Alignment toggle
             Button {
@@ -61,7 +61,7 @@ struct MultiObjectActionBar: View {
             actionButton(icon: "arrow.up.to.line", label: "action.bringToFront", action: actions.onBringToFront)
             actionButton(icon: "arrow.down.to.line", label: "action.sendToBack", action: actions.onSendToBack)
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
             actionButton(icon: "xmark.circle", label: "action.deselect", action: actions.onDeselect)
         }
@@ -91,11 +91,11 @@ struct MultiObjectActionBar: View {
             actionButton(icon: "align.horizontal.left", label: "action.alignLeft", action: actions.onAlignLeft)
             actionButton(icon: "align.horizontal.center", label: "action.alignCenter", action: actions.onAlignCenter)
             actionButton(icon: "align.horizontal.right", label: "action.alignRight", action: actions.onAlignRight)
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
             actionButton(icon: "align.vertical.top", label: "action.alignTop", action: actions.onAlignTop)
             actionButton(icon: "align.vertical.center", label: "action.alignMiddle", action: actions.onAlignMiddle)
             actionButton(icon: "align.vertical.bottom", label: "action.alignBottom", action: actions.onAlignBottom)
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
             actionButton(icon: "arrow.left.and.right", label: "action.distributeHorizontal", action: actions.onDistributeH)
             actionButton(icon: "arrow.up.and.down", label: "action.distributeVertical", action: actions.onDistributeV)
         }

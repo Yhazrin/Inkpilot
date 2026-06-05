@@ -16,19 +16,19 @@ struct PenSettingsPalette: View {
             // Pen type selector
             penTypeSelector
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
             // Width selector
             widthSelector
 
-            Divider().frame(height: 24)
+            Divider().frame(height: Brand.dividerHeightTall)
 
             // Color swatches
             colorSwatches
 
             // Opacity for highlighter
             if drawingState.selectedKind == .highlighter {
-                Divider().frame(height: 24)
+                Divider().frame(height: Brand.dividerHeightTall)
                 opacitySlider
             }
         }
