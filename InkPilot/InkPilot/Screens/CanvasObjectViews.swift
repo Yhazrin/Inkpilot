@@ -107,7 +107,7 @@ private struct ShapeObjectView: View {
         Canvas { context, size in
             let rect = CGRect(origin: .zero, size: size)
             let path = shapePath(in: rect)
-            context.stroke(path, with: .color(Brand.inkPrimary.opacity(0.6)), lineWidth: 2)
+            context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity)), lineWidth: 2)
         }
         .accessibilityLabel(Text(String(localized: "object.shape.accessibility")))
     }

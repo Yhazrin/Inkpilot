@@ -28,11 +28,11 @@ struct DynamicConnectorView: View {
                 let dotSize: CGFloat = 4
                 context.fill(
                     Path(ellipseIn: CGRect(x: start.x - dotSize/2, y: start.y - dotSize/2, width: dotSize, height: dotSize)),
-                    with: .color(Brand.inkPrimary.opacity(0.6))
+                    with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity))
                 )
                 context.fill(
                     Path(ellipseIn: CGRect(x: end.x - dotSize/2, y: end.y - dotSize/2, width: dotSize, height: dotSize)),
-                    with: .color(Brand.inkPrimary.opacity(0.6))
+                    with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity))
                 )
             }
             .allowsHitTesting(false)
