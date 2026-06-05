@@ -37,6 +37,13 @@ enum MotionTokens {
     /// Empty canvas hint fade animation.
     static let emptyHintFade: Animation = .easeOut(duration: 0.5)
 
+    // MARK: - Transitions
+
+    /// Palette/panel slide down + fade.
+    static let slideDownFade: AnyTransition = .move(edge: .top).combined(with: .opacity)
+    /// Action bar slide up + fade.
+    static let slideUpFade: AnyTransition = .move(edge: .bottom).combined(with: .opacity)
+
     // MARK: - Stagger & cadence
 
     static let cardStagger: Double = 0.07

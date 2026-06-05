@@ -47,12 +47,12 @@ struct CanvasFloatingChrome: View {
 
             if viewModel.selectedTool == .select {
                 SelectionModeToggle(useLasso: $viewModel.useLasso)
-                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .transition(MotionTokens.slideDownFade)
             }
 
             if viewModel.selectedTool == .pen && viewModel.drawingToolState.isDrawingTool {
                 PenSettingsPalette(drawingState: viewModel.drawingToolState)
-                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .transition(MotionTokens.slideDownFade)
             }
 
             if viewModel.isShapePaletteVisible {
@@ -69,7 +69,7 @@ struct CanvasFloatingChrome: View {
                     },
                     onClose: { viewModel.isShapePaletteVisible = false }
                 )
-                .transition(.move(edge: .top).combined(with: .opacity))
+                .transition(MotionTokens.slideDownFade)
             }
 
             if viewModel.isMediaPaletteVisible {
@@ -91,7 +91,7 @@ struct CanvasFloatingChrome: View {
                     },
                     onClose: { viewModel.isMediaPaletteVisible = false }
                 )
-                .transition(.move(edge: .top).combined(with: .opacity))
+                .transition(MotionTokens.slideDownFade)
             }
         }
         .padding(.top, Brand.spacingM)
@@ -125,7 +125,7 @@ struct CanvasFloatingChrome: View {
                         onDeselect: { viewModel.selection.clearSelection() }
                     )
                 )
-                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .transition(MotionTokens.slideUpFade)
             } else if viewModel.selection.isSingleSelection {
                 SingleObjectActionBar(
                     onDelete: { viewModel.deleteSelected() },
@@ -134,7 +134,7 @@ struct CanvasFloatingChrome: View {
                     onSendBackward: { viewModel.sendBackward() },
                     onDeselect: { viewModel.selection.clearSelection() }
                 )
-                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .transition(MotionTokens.slideUpFade)
             }
 
             CanvasPromptBar(viewModel: viewModel)
