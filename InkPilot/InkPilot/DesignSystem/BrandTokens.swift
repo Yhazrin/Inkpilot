@@ -172,6 +172,12 @@ enum Brand {
     static let glassBorderWidth: CGFloat = 0.5
     /// Selection/connector stroke width.
     static let selectionStrokeWidth: CGFloat = 1.5
+    /// Thin stroke width (guides, halo outlines).
+    static let thinStrokeWidth: CGFloat = 1
+    /// Medium stroke width (resize handles, color swatches).
+    static let mediumStrokeWidth: CGFloat = 2
+    /// Drag-active stroke width.
+    static let dragStrokeWidth: CGFloat = 2.5
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).

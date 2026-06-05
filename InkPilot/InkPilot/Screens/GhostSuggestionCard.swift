@@ -49,7 +49,7 @@ struct GhostSuggestionCard: View {
         }
         .overlay {
             RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
-                .strokeBorder(Brand.aiHalo, lineWidth: 1)
+                .strokeBorder(Brand.aiHalo, lineWidth: Brand.thinStrokeWidth)
         }
         .accessibilityElement(children: .contain)
         .accessibilityLabel(Text(String(localized: "ghost.accessibility")))

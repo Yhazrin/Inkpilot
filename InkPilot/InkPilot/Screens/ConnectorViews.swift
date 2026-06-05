@@ -107,7 +107,7 @@ struct MindNodeView: View {
                 var path = Path()
                 path.move(to: start)
                 path.addLine(to: end)
-                context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.connectorFallbackOpacity)), lineWidth: 1)
+                context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.connectorFallbackOpacity)), lineWidth: Brand.thinStrokeWidth)
             }
             .frame(height: Brand.dividerHeight)
             .allowsHitTesting(false)

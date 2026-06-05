@@ -22,7 +22,7 @@ struct GuideOverlay: View {
                 var path = Path()
                 path.move(to: screenPos)
                 path.addLine(to: screenEnd)
-                context.stroke(path, with: .color(Brand.aiAccent.opacity(Brand.selectionBorderOpacity)), lineWidth: 1)
+                context.stroke(path, with: .color(Brand.aiAccent.opacity(Brand.selectionBorderOpacity)), lineWidth: Brand.thinStrokeWidth)
             }
         }
         .allowsHitTesting(false)

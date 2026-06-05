@@ -179,7 +179,7 @@ struct PenSettingsPalette: View {
                         .frame(width: Brand.swatchSize, height: Brand.swatchSize)
                         .overlay {
                             if colorsEqual(drawingState.color, c) {
-                                Circle().strokeBorder(Brand.canvasBase, lineWidth: 2)
+                                Circle().strokeBorder(Brand.canvasBase, lineWidth: Brand.mediumStrokeWidth)
                                     .shadow(color: Brand.glassShadow, radius: Brand.shadowRadiusCompact, y: Brand.shadowYCompact)
                             }
                         }

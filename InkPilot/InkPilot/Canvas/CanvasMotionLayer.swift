@@ -96,7 +96,7 @@ private struct MaterializationTrace: View {
 
     var body: some View {
         Circle()
-            .strokeBorder(Brand.aiHalo, lineWidth: 1)
+            .strokeBorder(Brand.aiHalo, lineWidth: Brand.thinStrokeWidth)
             .frame(width: 120, height: 120)
             .scaleEffect(0.6 + 0.6 * progress)
             .opacity(0.4 - 0.35 * progress)

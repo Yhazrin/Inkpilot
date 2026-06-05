@@ -63,7 +63,7 @@ struct CanvasObjectView: View {
         .overlay {
             if isSelected && !isEditing {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiAccent, lineWidth: isDragging ? 2.5 : 2)
+                    .strokeBorder(Brand.aiAccent, lineWidth: isDragging ? Brand.dragStrokeWidth : Brand.mediumStrokeWidth)
                 if let onResize, !isDragging {
                     ResizeHandles(
                         objectSize: object.size.cgSize,
@@ -115,7 +115,7 @@ private struct ShapeObjectView: View {
         Canvas { context, size in
             let rect = CGRect(origin: .zero, size: size)
             let path = shapePath(in: rect)
-            context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity)), lineWidth: 2)
+            context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.handleStrokeOpacity)), lineWidth: Brand.mediumStrokeWidth)
         }
         .accessibilityLabel(Text(String(localized: "object.shape.accessibility")))
     }
