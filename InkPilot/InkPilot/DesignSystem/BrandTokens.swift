@@ -207,6 +207,8 @@ enum Brand {
     static let ghostCardBaseScale: Double = 0.86
     /// Ghost card scale range (added to base during appear).
     static let ghostCardScaleRange: Double = 0.14
+    /// Drag opacity (slightly transparent when dragging).
+    static let dragOpacity: Double = 0.92
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
