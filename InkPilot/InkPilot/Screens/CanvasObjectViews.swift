@@ -79,7 +79,7 @@ struct CanvasObjectView: View {
             if isConnectorStart {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
                     .strokeBorder(Brand.aiAccent.opacity(Brand.selectionBorderOpacity), lineWidth: Brand.selectionStrokeWidth)
-                    .scaleEffect(1.05)
+                    .scaleEffect(Brand.connectorStartScale)
             }
         }
         .opacity(isDragging ? 0.92 : 1.0)

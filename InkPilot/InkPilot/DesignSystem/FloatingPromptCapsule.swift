@@ -13,7 +13,7 @@ struct FloatingPromptCapsule: View {
         HStack(spacing: Brand.spacingS) {
             if isThinking {
                 ProgressView()
-                    .scaleEffect(0.8)
+                    .scaleEffect(Brand.spinnerScale)
                     .frame(width: Brand.spinnerSize, height: Brand.spinnerSize)
             } else {
                 Image(systemName: "sparkles")

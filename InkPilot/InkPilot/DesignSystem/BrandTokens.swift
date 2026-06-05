@@ -186,6 +186,10 @@ enum Brand {
 
     /// Maximum undo/redo history depth.
     static let maxHistoryDepth: Int = 30
+    /// Progress spinner scale factor.
+    static let spinnerScale: CGFloat = 0.8
+    /// Connector start indicator scale factor.
+    static let connectorStartScale: CGFloat = 1.05
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
