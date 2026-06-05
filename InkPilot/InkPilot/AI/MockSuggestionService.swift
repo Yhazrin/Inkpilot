@@ -30,6 +30,12 @@ final class MockSuggestionService: SuggestionService {
                     title: String(localized: "suggestion.item.mvpFeatures"),
                     content: String(localized: "suggestion.item.mvpFeatures.detail")
                 ),
+                AISuggestionItem(
+                    id: UUID(),
+                    type: .handwrittenText,
+                    title: String(localized: "suggestion.item.handwritten.title"),
+                    content: String(localized: "suggestion.item.handwritten.content")
+                ),
             ]
         )
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import PencilKit
 
 /// Routes a CanvasObject to the correct specialized view based on content.
 struct CanvasObjectView: View {
@@ -55,6 +56,8 @@ struct CanvasObjectView: View {
                 } else {
                     MediaPlaceholderObjectView(mediaKind: .file)
                 }
+            case .handwrittenText(let sourceText, let drawingData, _):
+                HandwrittenTextObjectView(sourceText: sourceText, drawingData: drawingData)
             }
         }
         .overlay {
@@ -71,7 +74,7 @@ struct CanvasObjectView: View {
             }
             if isConnectorStart {
                 RoundedRectangle(cornerRadius: Brand.cornerS, style: .continuous)
-                    .strokeBorder(Brand.aiBadge.opacity(0.5), lineWidth: 1.5)
+                    .strokeBorder(Brand.aiAccent.opacity(Brand.selectionBorderOpacity), lineWidth: 1.5)
                     .scaleEffect(1.05)
             }
         }
@@ -170,5 +173,40 @@ private struct MediaPlaceholderObjectView: View {
         .accessibilityLabel(Text(mediaKind == .image
             ? String(localized: "object.image.placeholder")
             : String(localized: "object.file.placeholder")))
+    }
+}
+
+// MARK: - Handwritten Text (PKDrawing rendered)
+
+private struct HandwrittenTextObjectView: View {
+    let sourceText: String
+    let drawingData: Data
+
+    var body: some View {
+        ZStack {
+            if let drawing = try? PKDrawing(data: drawingData), !drawing.strokes.isEmpty {
+                Canvas { context, size in
+                    let bounds = drawing.bounds
+                    guard bounds.width > 0, bounds.height > 0 else { return }
+                    let scaleX = size.width / bounds.width
+                    let scaleY = size.height / bounds.height
+                    let scale = min(scaleX, scaleY)
+                    let image = drawing.image(from: bounds, scale: 1.0)
+                    let drawSize = CGSize(width: bounds.width * scale, height: bounds.height * scale)
+                    let origin = CGPoint(
+                        x: (size.width - drawSize.width) / 2,
+                        y: (size.height - drawSize.height) / 2
+                    )
+                    context.draw(Image(uiImage: image), in: CGRect(origin: origin, size: drawSize))
+                }
+                .accessibilityLabel(Text(String(localized: "object.handwritten.accessibility")))
+            } else {
+                Text(sourceText)
+                    .font(Brand.bodyFont)
+                    .foregroundStyle(Brand.inkPrimary)
+                    .multilineTextAlignment(.center)
+                    .padding(Brand.spacingS)
+            }
+        }
     }
 }

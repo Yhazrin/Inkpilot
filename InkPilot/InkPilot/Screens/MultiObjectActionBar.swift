@@ -78,7 +78,7 @@ struct MultiObjectActionBar: View {
             if showAlignment {
                 alignmentPanel
                     .offset(y: Brand.alignmentPanelOffset)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .transition(MotionTokens.slideUpFade)
             }
         }
         .animation(MotionTokens.alignmentToggle, value: showAlignment)

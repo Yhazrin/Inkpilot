@@ -19,6 +19,7 @@
 		A1000010000000000000000A /* PencilKitCanvasRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000010000000000000000A; };
 		A1000011000000000000000B /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000011000000000000000B; };
 		A10000FF00000000000000FF /* DebugLaunchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000FF00000000000000FF; };
+		A10000610000000000000061 /* HandwritingDemoSeeder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000610000000000000061; };
 		A1000012000000000000000C /* CanvasModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000012000000000000000C; };
 		A1000013000000000000000D /* SuggestionSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000013000000000000000D; };
 		A1000014000000000000000E /* SuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000014000000000000000E; };
@@ -78,6 +79,13 @@
 		A10000330000000000000023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000330000000000000023; };
 		A10000340000000000000024 /* en.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000310000000000000021; };
 		A10000350000000000000025 /* zh-Hans.lproj/Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A20000320000000000000022; };
+		A100005A00000000000000A0 /* HandwritingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200005A00000000000000A0; };
+		A100005B00000000000000B0 /* HandwritingSampleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200005B00000000000000B0; };
+		A100005C00000000000000C0 /* StrokeGlyphLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200005C00000000000000C0; };
+		A100005D00000000000000D0 /* HandwritingLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200005D00000000000000D0; };
+		A100005E00000000000000E0 /* HandwritingSynthesisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200005E00000000000000E0; };
+		A100005F00000000000000F0 /* LocalHandwritingRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200005F00000000000000F0; };
+		A10000600000000000000060 /* HandwritingCalibrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000600000000000000060; };
 
 /* End PBXBuildFile section */
 
@@ -94,6 +102,7 @@
 		A2000010000000000000000A /* PencilKitCanvasRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilKitCanvasRepresentable.swift; sourceTree = "<group>"; };
 		A2000011000000000000000B /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
 		A20000FF00000000000000FF /* DebugLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLaunchOptions.swift; sourceTree = "<group>"; };
+		A20000610000000000000061 /* HandwritingDemoSeeder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingDemoSeeder.swift; sourceTree = "<group>"; };
 		A2000012000000000000000C /* CanvasModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasModels.swift; sourceTree = "<group>"; };
 		A2000013000000000000000D /* SuggestionSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionSchema.swift; sourceTree = "<group>"; };
 		A2000014000000000000000E /* SuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionService.swift; sourceTree = "<group>"; };
@@ -160,6 +169,13 @@
 		A20000330000000000000023 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20000310000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A20000320000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh-Hans; path = zh-Hans.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A200005A00000000000000A0 /* HandwritingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingProfile.swift; sourceTree = "<group>"; };
+		A200005B00000000000000B0 /* HandwritingSampleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingSampleStore.swift; sourceTree = "<group>"; };
+		A200005C00000000000000C0 /* StrokeGlyphLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGlyphLibrary.swift; sourceTree = "<group>"; };
+		A200005D00000000000000D0 /* HandwritingLayoutEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingLayoutEngine.swift; sourceTree = "<group>"; };
+		A200005E00000000000000E0 /* HandwritingSynthesisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingSynthesisService.swift; sourceTree = "<group>"; };
+		A200005F00000000000000F0 /* LocalHandwritingRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalHandwritingRenderer.swift; sourceTree = "<group>"; };
+		A20000600000000000000060 /* HandwritingCalibrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandwritingCalibrationView.swift; sourceTree = "<group>"; };
 
 		A30000010000000000000001 /* InkPilot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InkPilot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -181,6 +197,7 @@
 				A40000040000000000000004 /* DesignSystem */,
 				A40000050000000000000005 /* Canvas */,
 				A40000060000000000000006 /* AI */,
+				A400000A000000000000000A /* Handwriting */,
 				A40000070000000000000007 /* Recognition */,
 				A40000080000000000000008 /* Screens */,
 				A40000090000000000000009 /* Resources */,
@@ -200,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				A20000FF00000000000000FF /* DebugLaunchOptions.swift */,
+				A20000610000000000000061 /* HandwritingDemoSeeder.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -316,6 +334,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A400000A000000000000000A /* Handwriting */ = {
+			isa = PBXGroup;
+			children = (
+				A200005A00000000000000A0 /* HandwritingProfile.swift */,
+				A200005B00000000000000B0 /* HandwritingSampleStore.swift */,
+				A200005C00000000000000C0 /* StrokeGlyphLibrary.swift */,
+				A200005D00000000000000D0 /* HandwritingLayoutEngine.swift */,
+				A200005E00000000000000E0 /* HandwritingSynthesisService.swift */,
+				A200005F00000000000000F0 /* LocalHandwritingRenderer.swift */,
+				A20000600000000000000060 /* HandwritingCalibrationView.swift */,
+			);
+			path = Handwriting;
+			sourceTree = "<group>";
+		};
 		A50000010000000000000001 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +441,7 @@
 				A10000530000000000000053 /* DraggableFloatingPanel.swift in Sources */,
 				A1000011000000000000000B /* CanvasViewModel.swift in Sources */,
 				A10000FF00000000000000FF /* DebugLaunchOptions.swift in Sources */,
+				A10000610000000000000061 /* HandwritingDemoSeeder.swift in Sources */,
 				A1000012000000000000000C /* CanvasModels.swift in Sources */,
 				A1000013000000000000000D /* SuggestionSchema.swift in Sources */,
 				A1000014000000000000000E /* SuggestionService.swift in Sources */,
@@ -463,6 +496,13 @@
 				A10000590000000000000049 /* AISuggestionState.swift in Sources */,
 				A10000560000000000000046 /* PDFCanvasObjectView.swift in Sources */,
 				A10000570000000000000047 /* CanvasViewModel+ImportExport.swift in Sources */,
+				A100005A00000000000000A0 /* HandwritingProfile.swift in Sources */,
+				A100005B00000000000000B0 /* HandwritingSampleStore.swift in Sources */,
+				A100005C00000000000000C0 /* StrokeGlyphLibrary.swift in Sources */,
+				A100005D00000000000000D0 /* HandwritingLayoutEngine.swift in Sources */,
+				A100005E00000000000000E0 /* HandwritingSynthesisService.swift in Sources */,
+				A100005F00000000000000F0 /* LocalHandwritingRenderer.swift in Sources */,
+				A10000600000000000000060 /* HandwritingCalibrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

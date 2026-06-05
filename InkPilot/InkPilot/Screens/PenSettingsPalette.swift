@@ -136,7 +136,7 @@ struct PenSettingsPalette: View {
                 .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .background {
                     if drawingState.selectedKind == kind {
-                        Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: 2, y: 1)
+                        Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: Brand.shadowRadiusCompact, y: Brand.shadowYCompact)
                     }
                 }
         }
@@ -180,7 +180,7 @@ struct PenSettingsPalette: View {
                         .overlay {
                             if colorsEqual(drawingState.color, c) {
                                 Circle().strokeBorder(Brand.canvasBase, lineWidth: 2)
-                                    .shadow(color: Brand.glassShadow, radius: 2, y: 1)
+                                    .shadow(color: Brand.glassShadow, radius: Brand.shadowRadiusCompact, y: Brand.shadowYCompact)
                             }
                         }
                 }

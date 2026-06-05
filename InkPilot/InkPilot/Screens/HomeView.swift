@@ -4,6 +4,7 @@ import SwiftUI
 /// Shows the brand hero card and a "New AI Canvas" CTA.
 struct HomeView: View {
     @State private var showCanvas = false
+    @State private var showCalibration = false
     @State private var hasAppeared = false
 
     var body: some View {
@@ -29,8 +30,11 @@ struct HomeView: View {
             }
         }
         .accessibilityHidden(showCanvas)
+        .sheet(isPresented: $showCalibration) {
+            HandwritingCalibrationView()
+        }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.8).delay(0.2)) {
+            withAnimation(MotionTokens.heroEntrance) {
                 hasAppeared = true
             }
         }
@@ -95,6 +99,22 @@ struct HomeView: View {
                 }
                 .accessibilityLabel(Text(String(localized: "home.newCanvas.accessibility")))
                 .accessibilityHint(Text(String(localized: "home.newCanvas.hint")))
+
+                Button(action: { showCalibration = true }) {
+                    Label(
+                        String(localized: "home.calibrateHandwriting"),
+                        systemImage: "pencil.tip.crop.circle"
+                    )
+                    .font(Brand.bodyFont)
+                    .foregroundStyle(Brand.inkPrimary)
+                    .padding(.horizontal, Brand.spacingL)
+                    .padding(.vertical, Brand.spacingS)
+                    .background {
+                        Capsule()
+                            .strokeBorder(Brand.inkPrimary.opacity(0.4), lineWidth: 1)
+                    }
+                }
+                .accessibilityLabel(Text(String(localized: "home.calibrateHandwriting.accessibility")))
             }
             .padding(Brand.spacingXL)
         }

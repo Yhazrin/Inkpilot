@@ -1,5 +1,6 @@
 import UIKit
 import PDFKit
+import PencilKit
 
 /// Shared rendering logic for canvas objects in CGContext.
 /// Used by both CanvasExporter (image export) and PDFService (PDF export).
@@ -37,6 +38,8 @@ enum CanvasObjectRenderer {
             drawMediaPlaceholder(in: rect, context: context, scale: scale)
         case .pdfPage(let pdfURL, let pageIndex):
             drawPDFPage(pdfURL: pdfURL, pageIndex: pageIndex, in: rect, context: context, scale: scale)
+        case .handwrittenText(_, let drawingData, _):
+            drawHandwrittenText(drawingData: drawingData, in: rect, context: context, scale: scale)
         }
     }
 
@@ -148,5 +151,14 @@ enum CanvasObjectRenderer {
         if let image = PDFService.renderPage(page, at: rect.size) {
             image.draw(in: rect)
         }
+    }
+
+    // MARK: - Handwritten Text
+
+    static func drawHandwrittenText(drawingData: Data, in rect: CGRect, context: CGContext, scale: CGFloat) {
+        guard let drawing = try? PKDrawing(data: drawingData) else { return }
+        let bounds = drawing.bounds.isEmpty ? CGRect(origin: .zero, size: rect.size) : drawing.bounds
+        let drawingImage = drawing.image(from: bounds, scale: scale)
+        drawingImage.draw(in: rect)
     }
 }
