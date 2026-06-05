@@ -22,6 +22,9 @@ shoot() {
 echo "[2/9] select tool"
 shoot 02-tool-select "-tool select"
 
+echo "[2b] pen tool (collapsed indicator — should be small, not full palette)"
+shoot 02b-tool-pen-collapsed "-tool pen"
+
 echo "[3/9] select with lasso mode"
 shoot 03-tool-select-lasso "-tool select -useLasso 1"
 

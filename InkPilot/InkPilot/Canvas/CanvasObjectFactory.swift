@@ -37,16 +37,18 @@ enum CanvasObjectFactory {
     }
 
     static func textBox(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
-        makeObject(
-            content: .text(editableText: body.isEmpty ? title : body),
+        let combined = combineText(title: title, body: body)
+        return makeObject(
+            content: .text(editableText: combined),
             position: position,
             size: CGSizeCodable.defaultTextBox
         )
     }
 
     static func stickyNote(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
-        makeObject(
-            content: .stickyNote(noteText: body.isEmpty ? title : body),
+        let combined = combineText(title: title, body: body)
+        return makeObject(
+            content: .stickyNote(noteText: combined),
             position: position,
             size: CGSizeCodable.defaultSticky,
             style: .stickyYellow
@@ -54,11 +56,24 @@ enum CanvasObjectFactory {
     }
 
     static func bubble(title: String = "", body: String = "", at position: CGPointCodable = .zero) -> CanvasObject {
-        makeObject(
-            content: .bubble(bubbleText: body.isEmpty ? title : body),
+        let combined = combineText(title: title, body: body)
+        return makeObject(
+            content: .bubble(bubbleText: combined),
             position: position,
             size: CGSizeCodable.defaultBubble
         )
+    }
+
+    /// Joins `title` and `body` for single-field text content. Drops empty
+    /// sides. Title gets a line break before the body so a caller's two
+    /// arguments render as two visible lines.
+    private static func combineText(title: String, body: String) -> String {
+        switch (title.isEmpty, body.isEmpty) {
+        case (true, true):   return ""
+        case (false, true):  return title
+        case (true, false):  return body
+        case (false, false): return "\(title)\n\(body)"
+        }
     }
 
     static func shape(kind: CanvasShapeKind, at position: CGPointCodable = .zero) -> CanvasObject {

@@ -99,6 +99,8 @@
 "tool.pencil" = "Pencil";
 "tool.highlighter" = "Highlighter";
 "drawing.settings" = "Drawing settings";
+"drawing.settings.hint" = "Opens pen type, width, and color options.";
+"drawing.settings.collapse" = "Collapse pen settings";
 "drawing.width" = "Width %d";
 "drawing.color" = "Color";
 "drawing.opacity" = "Opacity";

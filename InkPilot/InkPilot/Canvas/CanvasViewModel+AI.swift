@@ -50,17 +50,39 @@ extension CanvasViewModel {
         let cardSpacing: CGFloat = 150
 
         let newObjects = suggestion.response.items.enumerated().map { index, item in
-            CanvasObjectFactory.aiCard(
-                from: item,
-                position: CGPointCodable(
-                    x: columnOrigin.x,
-                    y: columnOrigin.y + CGFloat(index) * cardSpacing
-                )
+            let position = CGPointCodable(
+                x: columnOrigin.x,
+                y: columnOrigin.y + CGFloat(index) * cardSpacing
             )
+            return Self.makeObject(for: item, at: position)
         }
         withAnimation(.spring(response: 0.55, dampingFraction: 0.9)) {
             canvasObjects.append(contentsOf: newObjects)
             ghostSuggestion = nil
+        }
+    }
+
+    /// Dispatches an AI suggestion item to the matching CanvasObject factory
+    /// by its declared `type`. Falls back to `aiCard` for unknown types so the
+    /// canvas still gets *something* materialised.
+    private static func makeObject(for item: AISuggestionItem, at position: CGPointCodable) -> CanvasObject {
+        switch item.type {
+        case .aiCard:
+            return CanvasObjectFactory.aiCard(from: item, position: position)
+        case .textBox:
+            return CanvasObjectFactory.textBox(title: item.title, body: item.content, at: position)
+        case .stickyNote:
+            return CanvasObjectFactory.stickyNote(title: item.title, body: item.content, at: position)
+        case .bubble:
+            return CanvasObjectFactory.bubble(title: item.title, body: item.content, at: position)
+        case .shape:
+            return CanvasObjectFactory.shape(kind: .roundedRectangle, at: position)
+        case .connector:
+            return CanvasObjectFactory.connector(at: position)
+        case .image:
+            return CanvasObjectFactory.imagePlaceholder(at: position)
+        case .file:
+            return CanvasObjectFactory.filePlaceholder(at: position)
         }
     }
 

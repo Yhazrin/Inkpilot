@@ -99,6 +99,8 @@
 "tool.pencil" = "铅笔";
 "tool.highlighter" = "荧光笔";
 "drawing.settings" = "画笔设置";
+"drawing.settings.hint" = "打开笔尖类型、粗细和颜色选项。";
+"drawing.settings.collapse" = "收起画笔设置";
 "drawing.width" = "宽度 %d";
 "drawing.color" = "颜色";
 "drawing.opacity" = "透明度";
