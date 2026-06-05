@@ -122,7 +122,7 @@ struct PenSettingsPalette: View {
             kindButton(.pencil, icon: "pencil.tip", label: String(localized: "tool.pencil"))
             kindButton(.highlighter, icon: "highlighter", label: String(localized: "tool.highlighter"))
         }
-        .padding(2)
+        .padding(Brand.penTypeSelectorPadding)
         .background(Capsule().fill(Brand.inkPrimary.opacity(0.05)))
     }
 

@@ -142,6 +142,8 @@ enum Brand {
     static let calibrationAreaHeight: CGFloat = 200
     /// Calibration canvas height.
     static let calibrationCanvasHeight: CGFloat = 280
+    /// Pen type selector inner padding.
+    static let penTypeSelectorPadding: CGFloat = 2
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).
