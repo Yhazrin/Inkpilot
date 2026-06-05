@@ -238,6 +238,11 @@ enum Brand {
     static let exportStickyInset: CGFloat = 8
     /// Title-to-body gap for export rendering.
     static let exportTitleBodyGap: CGFloat = 4
+
+    // MARK: - Drawing Tool
+
+    /// Minimum opacity for highlighter slider.
+    static let minHighlighterOpacity: Double = 0.2
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.

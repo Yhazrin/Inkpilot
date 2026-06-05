@@ -199,7 +199,7 @@ struct PenSettingsPalette: View {
             Image(systemName: "circle.lefthalf.filled")
                 .font(.system(size: Brand.smallIconSize))
                 .foregroundStyle(Brand.inkSecondary)
-            Slider(value: $drawingState.opacity, in: 0.2...1.0)
+            Slider(value: $drawingState.opacity, in: Brand.minHighlighterOpacity...1.0)
                 .frame(width: Brand.sliderWidth)
                 .accessibilityLabel(Text(String(localized: "drawing.opacity")))
             Image(systemName: "circle.fill")
