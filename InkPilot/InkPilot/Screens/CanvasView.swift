@@ -221,6 +221,7 @@ struct CanvasView: View {
             .padding(.vertical, Brand.spacingS)
             .background(Capsule().fill(.ultraThinMaterial))
             .allowsHitTesting(false)
+            .accessibilityHidden(true)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .padding(.bottom, Brand.chromeBottomOffset)
     }

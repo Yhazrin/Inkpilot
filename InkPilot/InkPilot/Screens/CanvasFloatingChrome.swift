@@ -19,7 +19,7 @@ struct CanvasFloatingChrome: View {
             // Back to home
             Button(action: onDismiss) {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Brand.iconFont.weight(.semibold))
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))

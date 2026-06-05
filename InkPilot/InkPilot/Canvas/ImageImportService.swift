@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 import PhotosUI
 
 /// Handles importing images from the photo library into canvas objects.

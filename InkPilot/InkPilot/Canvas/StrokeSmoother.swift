@@ -1,6 +1,5 @@
 import Foundation
 import PencilKit
-import CoreGraphics
 
 /// Stroke self-correction via Chaikin's corner-cutting algorithm.
 ///

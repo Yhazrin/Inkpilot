@@ -46,7 +46,7 @@ struct ShapePalette: View {
 
             Button(action: onClose) {
                 Image(systemName: "xmark")
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(Brand.paletteFont.weight(.semibold))
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
