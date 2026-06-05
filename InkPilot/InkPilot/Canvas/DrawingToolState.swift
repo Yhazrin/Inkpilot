@@ -30,7 +30,7 @@ final class DrawingToolState {
     /// The effective drawing color (accounts for highlighter opacity).
     var effectiveColor: Color {
         if selectedKind == .highlighter {
-            return color.opacity(opacity * 0.4)
+            return color.opacity(opacity * Brand.highlighterOpacityMultiplier)
         }
         return color.opacity(opacity)
     }

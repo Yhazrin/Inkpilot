@@ -190,6 +190,8 @@ enum Brand {
     static let spinnerScale: CGFloat = 0.8
     /// Connector start indicator scale factor.
     static let connectorStartScale: CGFloat = 1.05
+    /// Highlighter opacity multiplier (applied on top of user opacity).
+    static let highlighterOpacityMultiplier: Double = 0.4
     /// Pen type selector background opacity.
     static let penTypeBgOpacity: Double = 0.05
     /// Calibration border opacity.
