@@ -16,7 +16,7 @@ final class CanvasHistoryManager {
 
     private var undoStack: [CanvasSnapshot] = []
     private var redoStack: [CanvasSnapshot] = []
-    private let maxHistory: Int = 30
+    private let maxHistory: Int = Brand.maxHistoryDepth
 
     /// Push a snapshot before a mutation. Call this BEFORE making changes.
     func pushSnapshot(drawing: PKDrawing, objects: [CanvasObject]) {
