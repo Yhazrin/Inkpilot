@@ -181,7 +181,7 @@ struct HandwritingCalibrationView: View {
                 profileID: profile.id
             )
             samplesByCharacter[character, default: 0] += 1
-            withAnimation(.easeOut(duration: 0.3)) {
+            withAnimation(MotionTokens.thinkingEnd) {
                 saveFeedback = String(localized: "handwriting.calibration.saved \(character)")
             }
             drawing = PKDrawing()
