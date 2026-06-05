@@ -2,7 +2,11 @@ import SwiftUI
 import PencilKit
 
 /// Routes a CanvasObject to the correct specialized view based on content.
+// MARK: - Canvas Object View
+
 struct CanvasObjectView: View {
+
+    // MARK: - Properties
     let object: CanvasObject
     let isSelected: Bool
     let isEditing: Bool

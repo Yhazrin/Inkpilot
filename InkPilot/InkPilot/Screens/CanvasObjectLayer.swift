@@ -1,6 +1,8 @@
 import SwiftUI
 
 /// Callbacks for canvas object interactions, reducing parameter count.
+// MARK: - Canvas Object Actions
+
 struct CanvasObjectActions {
     var onSelect: (UUID) -> Void
     var onToggleSelection: (UUID) -> Void
@@ -21,6 +23,8 @@ struct CanvasObjectActions {
 /// Supports multi-selection, group selection, drag-to-move, resize,
 /// and sourceAnchor-based materialization.
 struct CanvasObjectLayer: View {
+
+    // MARK: - Properties
     let objects: [CanvasObject]
     let selectedIDs: Set<UUID>
     let editingID: UUID?
