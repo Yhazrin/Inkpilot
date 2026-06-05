@@ -2,6 +2,8 @@ import SwiftUI
 
 /// A floating palette for selecting shape types and mind map nodes.
 struct ShapePalette: View {
+
+    // MARK: - Properties
     var onSelect: (CanvasShapeKind) -> Void
     var onMindNode: () -> Void
     var onClose: () -> Void

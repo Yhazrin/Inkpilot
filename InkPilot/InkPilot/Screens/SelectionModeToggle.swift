@@ -2,6 +2,8 @@ import SwiftUI
 
 /// A compact toggle between marquee and lasso selection modes.
 struct SelectionModeToggle: View {
+
+    // MARK: - Properties
     @Binding var useLasso: Bool
 
     var body: some View {

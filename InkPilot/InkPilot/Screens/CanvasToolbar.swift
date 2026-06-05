@@ -2,6 +2,8 @@ import SwiftUI
 
 /// Top floating toolbar extracted from CanvasView.
 struct CanvasToolbar: View {
+
+    // MARK: - Properties
     let viewModel: CanvasViewModel
 
     var body: some View {
