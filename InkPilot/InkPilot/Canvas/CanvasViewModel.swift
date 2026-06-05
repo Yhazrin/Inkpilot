@@ -69,7 +69,6 @@ final class CanvasViewModel {
     // MARK: - Persistence
 
     let documentStore = CanvasDocumentStore()
-    var autoSaveTask: Task<Void, Never>?
 
     // MARK: - Dependencies
 

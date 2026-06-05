@@ -86,9 +86,9 @@ extension CanvasViewModel {
 
     func alignLeft() {
         let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
+        guard selected.count >= 2,
+              let minX = selected.map(\.worldPosition.x).min() else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minX = selected.map(\.worldPosition.x).min()!
         for obj in selected {
             guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
             canvasObjects[i].worldPosition.x = minX
@@ -110,9 +110,9 @@ extension CanvasViewModel {
 
     func alignRight() {
         let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
+        guard selected.count >= 2,
+              let maxX = selected.map({ $0.worldPosition.x + $0.size.width }).max() else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let maxX = selected.map { $0.worldPosition.x + $0.size.width }.max()!
         for obj in selected {
             guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
             canvasObjects[i].worldPosition.x = maxX - obj.size.width
@@ -122,9 +122,9 @@ extension CanvasViewModel {
 
     func alignTop() {
         let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
+        guard selected.count >= 2,
+              let minY = selected.map(\.worldPosition.y).min() else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minY = selected.map(\.worldPosition.y).min()!
         for obj in selected {
             guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
             canvasObjects[i].worldPosition.y = minY
@@ -146,9 +146,9 @@ extension CanvasViewModel {
 
     func alignBottom() {
         let selected = selectedObjects()
-        guard selected.count >= 2 else { return }
+        guard selected.count >= 2,
+              let maxY = selected.map({ $0.worldPosition.y + $0.size.height }).max() else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let maxY = selected.map { $0.worldPosition.y + $0.size.height }.max()!
         for obj in selected {
             guard let i = canvasObjects.firstIndex(where: { $0.id == obj.id }) else { continue }
             canvasObjects[i].worldPosition.y = maxY - obj.size.height
@@ -158,10 +158,12 @@ extension CanvasViewModel {
 
     func distributeHorizontal() {
         let selected = selectedObjects().sorted { $0.worldPosition.x < $1.worldPosition.x }
-        guard selected.count >= 3 else { return }
+        guard selected.count >= 3,
+              let first = selected.first,
+              let last = selected.last else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minX = selected.first!.worldPosition.x
-        let maxX = selected.last!.worldPosition.x + selected.last!.size.width
+        let minX = first.worldPosition.x
+        let maxX = last.worldPosition.x + last.size.width
         let totalWidth = selected.reduce(0) { $0 + $1.size.width }
         let spacing = (maxX - minX - totalWidth) / CGFloat(selected.count - 1)
         var x = minX
@@ -175,10 +177,12 @@ extension CanvasViewModel {
 
     func distributeVertical() {
         let selected = selectedObjects().sorted { $0.worldPosition.y < $1.worldPosition.y }
-        guard selected.count >= 3 else { return }
+        guard selected.count >= 3,
+              let first = selected.first,
+              let last = selected.last else { return }
         history.pushSnapshot(drawing: drawing, objects: canvasObjects)
-        let minY = selected.first!.worldPosition.y
-        let maxY = selected.last!.worldPosition.y + selected.last!.size.height
+        let minY = first.worldPosition.y
+        let maxY = last.worldPosition.y + last.size.height
         let totalHeight = selected.reduce(0) { $0 + $1.size.height }
         let spacing = (maxY - minY - totalHeight) / CGFloat(selected.count - 1)
         var y = minY
@@ -237,12 +241,7 @@ extension CanvasViewModel {
     }
 
     func autoSave() {
-        autoSaveTask?.cancel()
-        autoSaveTask = Task { @MainActor [weak self] in
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            guard let self, !Task.isCancelled else { return }
-            self.documentStore.saveDebounced(drawing: self.drawing, objects: self.canvasObjects)
-        }
+        documentStore.saveDebounced(drawing: drawing, objects: canvasObjects)
     }
 
     // MARK: - Select All

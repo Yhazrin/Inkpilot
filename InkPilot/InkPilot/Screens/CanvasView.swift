@@ -143,6 +143,7 @@ struct CanvasView: View {
             }
             .frame(width: 0, height: 0)
             .opacity(0)
+            .accessibilityHidden(true)
         }
         .sheet(isPresented: $showExportSheet) {
             if let exportURL { ShareSheet(items: [exportURL]) }
@@ -210,7 +211,7 @@ struct CanvasView: View {
             .background(Capsule().fill(.ultraThinMaterial))
             .allowsHitTesting(false)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-            .padding(.bottom, 100)
+            .padding(.bottom, Brand.chromeBottomOffset)
     }
 
     // MARK: - Empty Canvas Hint

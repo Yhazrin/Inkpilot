@@ -35,15 +35,20 @@ enum CanvasContextBuilder {
             case .shape(let k): title = k.rawValue
             case .connector: title = "connector"
             case .media(_, let k): title = k.rawValue
+            case .mindNode(let label, _): title = label
+            case .pdfPage(_, let pageIndex): title = "PDF page \(pageIndex)"
             }
             return CanvasObjectSummary(type: obj.content.typeName, title: title)
         }
 
-        // Selected object summary
+        // Selected object summary — look up by matching object ID, not by type
         var selectedSummary: String? = nil
         if let selectedID = selectedObjectID,
-           let selected = canvasObjects.first(where: { $0.id == selectedID }) {
-            selectedSummary = "\(selected.content.typeName): \(objectSummaries.first(where: { $0.type == selected.content.typeName })?.title ?? "")"
+           let selected = canvasObjects.first(where: { $0.id == selectedID }),
+           let selectedIndex = canvasObjects.firstIndex(where: { $0.id == selectedID }),
+           selectedIndex < objectSummaries.count {
+            let summary = objectSummaries[selectedIndex]
+            selectedSummary = "\(summary.type): \(summary.title)"
         }
 
         // Locale

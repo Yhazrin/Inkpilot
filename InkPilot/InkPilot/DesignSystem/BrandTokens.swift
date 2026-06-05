@@ -66,6 +66,27 @@ enum Brand {
     static let bodyFont = Font.system(size: 17, weight: .regular, design: .default)
     static let captionFont = Font.system(size: 13, weight: .medium, design: .default)
 
+    /// Toolbar / palette icon label font.
+    static let iconFont = Font.system(size: 16, weight: .medium, design: .default)
+    /// Palette item label font (smaller).
+    static let paletteFont = Font.system(size: 14, weight: .medium, design: .default)
+
+    // MARK: Touch Targets
+
+    /// Standard 44pt minimum touch target (Apple HIG).
+    static let touchTarget: CGFloat = 44
+    /// Compact touch target for dense palettes.
+    static let touchTargetCompact: CGFloat = 36
+    /// Small swatch / chip size.
+    static let swatchSize: CGFloat = 24
+
+    // MARK: Canvas Layout
+
+    /// Bottom chrome offset to clear floating toolbar.
+    static let chromeBottomOffset: CGFloat = 100
+    /// Placeholder icon font size.
+    static let placeholderIconSize: CGFloat = 28
+
     // MARK: Spacing
 
     static let spacingXS: CGFloat = 4

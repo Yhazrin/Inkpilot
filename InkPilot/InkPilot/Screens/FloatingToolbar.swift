@@ -28,18 +28,18 @@ struct FloatingToolbar: View {
             // Undo / Redo
             Button(action: onUndo) {
                 Image(systemName: "arrow.uturn.backward")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(canUndo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .disabled(!canUndo)
             .accessibilityLabel(Text(String(localized: "action.undo")))
 
             Button(action: onRedo) {
                 Image(systemName: "arrow.uturn.forward")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(canRedo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .disabled(!canRedo)
             .accessibilityLabel(Text(String(localized: "action.redo")))
@@ -62,9 +62,9 @@ struct FloatingToolbar: View {
             onShapeTap()
         } label: {
             Image(systemName: "square.on.circle")
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == .shape ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .shape {
                         Capsule().fill(Brand.inkPrimary.opacity(0.08))
@@ -81,9 +81,9 @@ struct FloatingToolbar: View {
             selectedTool = .connector
         } label: {
             Image(systemName: "arrow.triangle.branch")
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == .connector ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .connector {
                         Capsule().fill(Brand.inkPrimary.opacity(0.08))
@@ -101,9 +101,9 @@ struct FloatingToolbar: View {
             onMediaTap()
         } label: {
             Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == .media ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == .media {
                         Capsule().fill(Brand.inkPrimary.opacity(0.08))
@@ -120,9 +120,9 @@ struct FloatingToolbar: View {
             selectedTool = tool
         } label: {
             Image(systemName: icon)
-                .font(.system(size: 16, weight: .medium))
+                .font(Brand.iconFont)
                 .foregroundStyle(selectedTool == tool ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 44, height: 44)
+                .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 .background {
                     if selectedTool == tool {
                         Capsule().fill(Brand.inkPrimary.opacity(0.08))
@@ -140,9 +140,9 @@ private struct AIToolButton: View {
 
     var body: some View {
         Image(systemName: "sparkles")
-            .font(.system(size: 16, weight: .medium))
+            .font(Brand.iconFont)
             .foregroundStyle(Brand.aiAccent)
-            .frame(width: 44, height: 44)
+            .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             .scaleEffect(isPulsing ? 1.08 : 1.0)
             .opacity(isPulsing ? 1.0 : 0.85)
             .onAppear {

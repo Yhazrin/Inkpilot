@@ -14,7 +14,7 @@ struct CanvasDocument: Codable {
         self.canvasObjects = canvasObjects
         self.createdAt = createdAt
         self.updatedAt = Date()
-        self.appVersion = "0.1.5"
+        self.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
     }
 
     var drawing: PKDrawing {

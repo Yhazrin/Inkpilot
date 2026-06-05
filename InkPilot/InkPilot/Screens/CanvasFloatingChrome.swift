@@ -7,6 +7,7 @@ struct CanvasFloatingChrome: View {
     var onDismiss: () -> Void
     @Binding var showExportSheet: Bool
     @Binding var exportURL: URL?
+    @Environment(\.displayScale) private var displayScale
 
     var body: some View {
         VStack {
@@ -20,7 +21,7 @@ struct CanvasFloatingChrome: View {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
                     .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
@@ -34,7 +35,7 @@ struct CanvasFloatingChrome: View {
         .overlay(alignment: .bottomTrailing) {
             AIPilotPanel(viewModel: viewModel)
                 .padding(.trailing, Brand.spacingL)
-                .padding(.bottom, 100)
+                .padding(.bottom, Brand.chromeBottomOffset)
         }
     }
 
@@ -146,15 +147,18 @@ struct CanvasFloatingChrome: View {
         HStack(spacing: Brand.spacingS) {
             // Export as Image
             Button {
-                if let url = viewModel.exportToShareURL(screenSize: UIScreen.main.bounds.size) {
+                let screen = UIApplication.shared.connectedScenes
+                    .compactMap { $0 as? UIWindowScene }
+                    .first?.screen.bounds.size ?? CGSize(width: 1024, height: 1024)
+                if let url = viewModel.exportToShareURL(screenSize: screen) {
                     exportURL = url
                     showExportSheet = true
                 }
             } label: {
                 Image(systemName: "square.and.arrow.up")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
                     .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
@@ -168,9 +172,9 @@ struct CanvasFloatingChrome: View {
                 }
             } label: {
                 Image(systemName: "doc.richtext")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                     .background(Capsule().fill(.ultraThinMaterial))
                     .overlay(Capsule().strokeBorder(Brand.glassBorder, lineWidth: 0.5))
             }
@@ -194,29 +198,29 @@ struct SingleObjectActionBar: View {
     var body: some View {
         GlassCapsule {
             Button(action: onDuplicate) {
-                Image(systemName: "plus.square.on.square").frame(width: 44, height: 44)
+                Image(systemName: "plus.square.on.square").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.duplicate")))
 
             Button(action: onBringForward) {
-                Image(systemName: "arrow.up.to.line").frame(width: 44, height: 44)
+                Image(systemName: "arrow.up.to.line").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.bringForward")))
 
             Button(action: onSendBackward) {
-                Image(systemName: "arrow.down.to.line").frame(width: 44, height: 44)
+                Image(systemName: "arrow.down.to.line").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.sendBackward")))
 
             Button(action: onDelete) {
-                Image(systemName: "trash").frame(width: 44, height: 44).foregroundStyle(.red)
+                Image(systemName: "trash").frame(width: Brand.touchTarget, height: Brand.touchTarget).foregroundStyle(.red)
             }
             .accessibilityLabel(Text(String(localized: "action.delete")))
 
             Divider().frame(height: 20)
 
             Button(action: onDeselect) {
-                Image(systemName: "xmark.circle").frame(width: 44, height: 44)
+                Image(systemName: "xmark.circle").frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.deselect")))
         }

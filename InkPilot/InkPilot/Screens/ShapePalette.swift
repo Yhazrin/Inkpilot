@@ -22,9 +22,9 @@ struct ShapePalette: View {
                     onSelect(kind)
                 } label: {
                     Image(systemName: icon)
-                        .font(.system(size: 16, weight: .medium))
+                        .font(Brand.iconFont)
                         .foregroundStyle(Brand.inkPrimary)
-                        .frame(width: 44, height: 44)
+                        .frame(width: Brand.touchTarget, height: Brand.touchTarget)
                 }
                 .accessibilityLabel(Text(LocalizedStringKey(labelKey)))
             }
@@ -36,9 +36,9 @@ struct ShapePalette: View {
                 onMindNode()
             } label: {
                 Image(systemName: "bubble.left.and.text.bubble.right")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(Brand.iconFont)
                     .foregroundStyle(Brand.aiBadge)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "palette.mindNode")))
 
@@ -48,7 +48,7 @@ struct ShapePalette: View {
                 Image(systemName: "xmark")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "palette.close")))
         }
