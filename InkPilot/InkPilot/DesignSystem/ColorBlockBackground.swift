@@ -4,6 +4,8 @@ import SwiftUI
 /// Light: warm off-white with soft vignette.
 /// Dark: deep grey canvas with subtle warm undertone.
 struct ColorBlockBackground: View {
+
+    // MARK: - Properties
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
@@ -22,6 +24,8 @@ struct ColorBlockBackground: View {
         }
         .ignoresSafeArea()
     }
+
+    // MARK: - Vignette
 
     @ViewBuilder
     private func vignette(in size: CGSize) -> some View {
@@ -53,6 +57,8 @@ struct ColorBlockBackground: View {
             .opacity(Brand.vignetteOpacity)
         }
     }
+
+    // MARK: - Dot Grid
 
     private func dotGrid(in size: CGSize) -> some View {
         let spacing = Brand.dotGridSpacing

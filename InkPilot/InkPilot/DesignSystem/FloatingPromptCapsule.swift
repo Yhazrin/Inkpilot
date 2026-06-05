@@ -3,6 +3,8 @@ import SwiftUI
 /// The bottom floating prompt capsule.
 /// Shows thinking state when AI is processing.
 struct FloatingPromptCapsule: View {
+
+    // MARK: - Properties
     @Binding var promptText: String
     var isThinking: Bool = false
     var onSubmit: () -> Void

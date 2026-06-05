@@ -8,6 +8,8 @@ import os.log
 /// V0.1.5 ships this implementation only. V0.2 will add a `ModelHandwritingRenderer`
 /// that uses a local writer-profile model to generate strokes for unseen characters.
 final class LocalHandwritingRenderer: HandwritingSynthesisService {
+
+    // MARK: - Properties
     private let store: HandwritingSampleStore.Type
     private let layoutEngine: HandwritingLayoutEngine
     private let logger: Logger
@@ -21,6 +23,8 @@ final class LocalHandwritingRenderer: HandwritingSynthesisService {
         self.layoutEngine = layoutEngine
         self.logger = logger
     }
+
+    // MARK: - Synthesis
 
     func synthesize(
         text: String,
