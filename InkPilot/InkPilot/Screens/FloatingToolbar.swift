@@ -29,7 +29,7 @@ struct FloatingToolbar: View {
             Button(action: onUndo) {
                 Image(systemName: "arrow.uturn.backward")
                     .font(Brand.iconFont)
-                    .foregroundStyle(canUndo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
+                    .foregroundStyle(canUndo ? Brand.inkPrimary : Brand.inkSecondary.opacity(Brand.disabledOpacity))
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .disabled(!canUndo)
@@ -38,7 +38,7 @@ struct FloatingToolbar: View {
             Button(action: onRedo) {
                 Image(systemName: "arrow.uturn.forward")
                     .font(Brand.iconFont)
-                    .foregroundStyle(canRedo ? Brand.inkPrimary : Brand.inkSecondary.opacity(0.3))
+                    .foregroundStyle(canRedo ? Brand.inkPrimary : Brand.inkSecondary.opacity(Brand.disabledOpacity))
                     .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .disabled(!canRedo)
