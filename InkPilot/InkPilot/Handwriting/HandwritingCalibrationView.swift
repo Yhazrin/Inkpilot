@@ -151,7 +151,8 @@ struct HandwritingCalibrationView: View {
                 let new = try HandwritingSampleStore.createProfile(name: defaultProfileName)
                 profile = new
             }
-            let samples = try HandwritingSampleStore.loadSamples(for: profile!.id)
+            guard let profileID = profile?.id else { return }
+            let samples = try HandwritingSampleStore.loadSamples(for: profileID)
             samplesByCharacter = Dictionary(grouping: samples, by: { $0.character }).mapValues(\.count)
         } catch {
             // Surface error to the user via the feedback label.
