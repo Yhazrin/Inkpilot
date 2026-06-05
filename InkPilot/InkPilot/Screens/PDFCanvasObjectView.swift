@@ -28,7 +28,7 @@ struct PDFCanvasObjectView: View {
         GlassCard(cornerRadius: Brand.cornerS) {
             VStack(spacing: Brand.spacingS) {
                 Image(systemName: "doc.richtext")
-                    .font(.system(size: 28))
+                    .font(.system(size: Brand.placeholderIconSize))
                     .foregroundStyle(Brand.inkSecondary)
                 Text(String(localized: "object.pdf.loading"))
                     .font(Brand.captionFont)

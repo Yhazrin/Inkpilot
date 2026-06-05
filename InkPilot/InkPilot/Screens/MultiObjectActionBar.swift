@@ -44,7 +44,7 @@ struct MultiObjectActionBar: View {
                 }
             } label: {
                 Image(systemName: "slider.horizontal.3")
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "action.alignment")))
 
@@ -101,7 +101,7 @@ struct MultiObjectActionBar: View {
     private func actionButton(icon: String, label: String, action: @escaping () -> Void, tint: Color = Brand.inkPrimary) -> some View {
         Button(action: action) {
             Image(systemName: icon)
-                .font(.system(size: 14, weight: .medium))
+                .font(Brand.paletteFont)
                 .foregroundStyle(tint)
                 .frame(width: 40, height: 40)
         }

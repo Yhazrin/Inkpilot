@@ -152,7 +152,7 @@ private struct MediaPlaceholderObjectView: View {
         GlassCard(cornerRadius: Brand.cornerS) {
             VStack(spacing: Brand.spacingS) {
                 Image(systemName: mediaKind == .image ? "photo" : "doc")
-                    .font(.system(size: 28))
+                    .font(.system(size: Brand.placeholderIconSize))
                     .foregroundStyle(Brand.inkSecondary)
                 Text(mediaKind == .image
                     ? String(localized: "object.image.placeholder")

@@ -53,9 +53,9 @@ struct PenSettingsPalette: View {
             drawingState.selectKind(kind)
         } label: {
             Image(systemName: icon)
-                .font(.system(size: 14, weight: .medium))
+                .font(Brand.paletteFont)
                 .foregroundStyle(drawingState.selectedKind == kind ? Brand.inkPrimary : Brand.inkSecondary)
-                .frame(width: 36, height: 36)
+                .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .background {
                     if drawingState.selectedKind == kind {
                         Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: 2, y: 1)
@@ -82,7 +82,7 @@ struct PenSettingsPalette: View {
                             }
                         }
                 }
-                .frame(width: 32, height: 32)
+                .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .accessibilityLabel(Text(String(format: String(localized: "drawing.width"), Int(w))))
             }
         }
@@ -98,7 +98,7 @@ struct PenSettingsPalette: View {
                 } label: {
                     Circle()
                         .fill(c)
-                        .frame(width: 24, height: 24)
+                        .frame(width: Brand.swatchSize, height: Brand.swatchSize)
                         .overlay {
                             if colorsEqual(drawingState.color, c) {
                                 Circle().strokeBorder(Brand.canvasBase, lineWidth: 2)
@@ -106,7 +106,7 @@ struct PenSettingsPalette: View {
                             }
                         }
                 }
-                .frame(width: 32, height: 32)
+                .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                 .accessibilityLabel(Text(colorName(c)))
             }
         }

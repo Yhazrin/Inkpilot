@@ -18,7 +18,7 @@ struct MediaPalette: View {
                 showPhotosPicker = true
             } label: {
                 Label(String(localized: "media.import.image"), systemImage: "photo.badge.plus")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.aiBadge)
                     .frame(height: 44)
             }
@@ -29,7 +29,7 @@ struct MediaPalette: View {
                 showPDFPicker = true
             } label: {
                 Label(String(localized: "media.import.pdf"), systemImage: "doc.richtext")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkPrimary)
                     .frame(height: 44)
             }
@@ -42,7 +42,7 @@ struct MediaPalette: View {
                 onInsertPlaceholder(.image)
             } label: {
                 Label(String(localized: "palette.media.image"), systemImage: "photo")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(height: 44)
             }
@@ -53,7 +53,7 @@ struct MediaPalette: View {
                 onInsertPlaceholder(.file)
             } label: {
                 Label(String(localized: "palette.media.file"), systemImage: "doc")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(Brand.inkSecondary)
                     .frame(height: 44)
             }
@@ -65,7 +65,7 @@ struct MediaPalette: View {
                 Image(systemName: "xmark")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(Brand.inkSecondary)
-                    .frame(width: 44, height: 44)
+                    .frame(width: Brand.touchTarget, height: Brand.touchTarget)
             }
             .accessibilityLabel(Text(String(localized: "palette.close")))
         }

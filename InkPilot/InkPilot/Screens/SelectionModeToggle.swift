@@ -10,9 +10,9 @@ struct SelectionModeToggle: View {
                 useLasso = false
             } label: {
                 Image(systemName: "rectangle.dashed")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(!useLasso ? Brand.inkPrimary : Brand.inkSecondary)
-                    .frame(width: 36, height: 36)
+                    .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                     .background {
                         if !useLasso {
                             Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: 2, y: 1)
@@ -25,9 +25,9 @@ struct SelectionModeToggle: View {
                 useLasso = true
             } label: {
                 Image(systemName: "pencil.line")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(Brand.paletteFont)
                     .foregroundStyle(useLasso ? Brand.inkPrimary : Brand.inkSecondary)
-                    .frame(width: 36, height: 36)
+                    .frame(width: Brand.touchTargetCompact, height: Brand.touchTargetCompact)
                     .background {
                         if useLasso {
                             Capsule().fill(Brand.canvasBase).shadow(color: Brand.glassShadow, radius: 2, y: 1)
