@@ -67,7 +67,7 @@ enum CanvasObjectRenderer {
             ]
             let bodyRect = CGRect(
                 x: titleRect.minX,
-                y: titleRect.maxY + 4 * scale,
+                y: titleRect.maxY + Brand.exportTitleBodyGap * scale,
                 width: titleRect.width,
                 height: rect.maxY - titleRect.maxY - Brand.exportCardInset * scale
             )
