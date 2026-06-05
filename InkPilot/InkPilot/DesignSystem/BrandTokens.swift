@@ -158,6 +158,10 @@ enum Brand {
     static let connectorFallbackOpacity: Double = 0.3
     /// Selection/guide border opacity.
     static let selectionBorderOpacity: Double = 0.5
+    /// Compact shadow radius (toggle buttons, palette items).
+    static let shadowRadiusCompact: CGFloat = 2
+    /// Compact shadow Y offset.
+    static let shadowYCompact: CGFloat = 1
     /// Small icon size (slider labels, etc).
     static let smallIconSize: CGFloat = 12
     /// Large placeholder icon size (import sheets).
