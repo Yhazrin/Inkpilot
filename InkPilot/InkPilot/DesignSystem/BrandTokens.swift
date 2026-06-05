@@ -164,6 +164,8 @@ enum Brand {
     static let ultraSubtleOpacity: Double = 0.04
     /// Default sticky tint opacity (yellow).
     static let stickyDefaultOpacity: Double = 0.25
+    /// Gradient endpoint opacity (fully transparent).
+    static let gradientEndOpacity: Double = 0.0
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).

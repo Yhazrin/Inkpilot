@@ -39,7 +39,7 @@ private struct ScanAura: View {
     var body: some View {
         let ring = Circle()
             .fill(RadialGradient(
-                colors: [Brand.aiHalo.opacity(Brand.highlightOpacity), Brand.aiHalo.opacity(0.0)],
+                colors: [Brand.aiHalo.opacity(Brand.highlightOpacity), Brand.aiHalo.opacity(Brand.gradientEndOpacity)],
                 center: .center, startRadius: 4, endRadius: 80
             ))
             .frame(width: 160, height: 160)
@@ -67,7 +67,7 @@ private struct SourceGlow: View {
     var body: some View {
         let halo = Circle()
             .fill(RadialGradient(
-                colors: [Brand.aiHalo.opacity(Brand.glowPipOpacity), Brand.aiHalo.opacity(0.0)],
+                colors: [Brand.aiHalo.opacity(Brand.glowPipOpacity), Brand.aiHalo.opacity(Brand.gradientEndOpacity)],
                 center: .center, startRadius: 2, endRadius: 50
             ))
             .frame(width: 100, height: 100)
