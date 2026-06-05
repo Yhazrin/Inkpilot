@@ -136,6 +136,8 @@ enum Brand {
     static let dividerHeightTall: CGFloat = 24
     /// Opacity slider width.
     static let sliderWidth: CGFloat = 80
+    /// Hero card entrance offset.
+    static let heroEntranceOffset: CGFloat = 20
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).

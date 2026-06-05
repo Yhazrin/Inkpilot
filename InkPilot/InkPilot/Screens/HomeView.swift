@@ -17,7 +17,7 @@ struct HomeView: View {
 
                     heroCard
                         .opacity(hasAppeared ? 1 : 0)
-                        .offset(y: hasAppeared ? 0 : 20)
+                        .offset(y: hasAppeared ? 0 : Brand.heroEntranceOffset)
 
                     // Version info
                     Text(versionString)
