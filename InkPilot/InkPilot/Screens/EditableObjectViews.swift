@@ -72,7 +72,7 @@ struct EditableStickyNoteView: View {
         switch tint {
         case "stickyPink": return Color.pink.opacity(Brand.stickyTintOpacity)
         case "stickyGreen": return Color.green.opacity(Brand.stickyTintOpacity)
-        default: return Color.yellow.opacity(0.25)
+        default: return Color.yellow.opacity(Brand.stickyDefaultOpacity)
         }
     }
 }

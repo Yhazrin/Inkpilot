@@ -162,6 +162,8 @@ enum Brand {
     static let subtleFillOpacity: Double = 0.06
     /// Ultra-subtle fill opacity (lasso fill, calibration shadow).
     static let ultraSubtleOpacity: Double = 0.04
+    /// Default sticky tint opacity (yellow).
+    static let stickyDefaultOpacity: Double = 0.25
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).
