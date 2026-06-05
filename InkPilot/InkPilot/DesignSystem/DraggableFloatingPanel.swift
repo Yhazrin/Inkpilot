@@ -67,7 +67,7 @@ struct DraggableFloatingPanel<Content: View>: View {
 
     private var ball: some View {
         Image(systemName: ballIcon)
-            .font(.system(size: 18, weight: .semibold))
+            .font(.system(size: Brand.panelTitleFontSize, weight: .semibold))
             .foregroundStyle(Brand.inkPrimary)
             .frame(width: ballSize, height: ballSize)
             .background {

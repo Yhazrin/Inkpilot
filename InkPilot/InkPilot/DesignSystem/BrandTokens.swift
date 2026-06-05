@@ -170,6 +170,8 @@ enum Brand {
     static let calibrationCharFontSize: CGFloat = 96
     /// Calibration pen width.
     static let calibrationPenWidth: CGFloat = 6
+    /// Draggable panel title font size.
+    static let panelTitleFontSize: CGFloat = 18
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).
