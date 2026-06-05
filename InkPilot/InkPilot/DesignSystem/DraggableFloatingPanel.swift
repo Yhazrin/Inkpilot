@@ -43,6 +43,7 @@ struct DraggableFloatingPanel<Content: View>: View {
             ZStack(alignment: position.alignment) {
                 Color.clear
                     .allowsHitTesting(false)
+                    .accessibilityHidden(true)
 
                 content()
                     .padding(edgeInset)
