@@ -101,4 +101,18 @@ enum CanvasObjectFactory {
             size: CGSizeCodable.defaultPlaceholder
         )
     }
+
+    static func handwrittenText(
+        sourceText: String,
+        drawingData: Data,
+        profileID: UUID? = nil,
+        at position: CGPointCodable = .zero
+    ) -> CanvasObject {
+        makeObject(
+            content: .handwrittenText(sourceText: sourceText, drawingData: drawingData, profileID: profileID),
+            position: position,
+            size: CGSizeCodable.defaultCard,
+            source: .ai
+        )
+    }
 }

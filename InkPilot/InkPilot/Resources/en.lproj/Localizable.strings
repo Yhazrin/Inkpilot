@@ -181,3 +181,23 @@
 
 /* Version */
 "home.version" = "InkPilot v%@ (%@)";
+
+/* Handwriting Calibration */
+"home.calibrateHandwriting" = "Calibrate my handwriting";
+"home.calibrateHandwriting.accessibility" = "Open handwriting calibration to capture your stroke samples";
+"handwriting.calibration.title" = "Handwriting Calibration";
+"handwriting.calibration.done" = "Done";
+"handwriting.calibration.creatingProfile" = "Setting up your handwriting profile…";
+"handwriting.calibration.defaultProfileName" = "My handwriting %@";
+"handwriting.calibration.progress" = "Character %lld of %lld";
+"handwriting.calibration.savedSamples" = "%lld sample(s) saved";
+"handwriting.calibration.prompt.accessibility" = "Trace the character %@";
+"handwriting.calibration.clear" = "Clear";
+"handwriting.calibration.save" = "Save";
+"handwriting.calibration.next" = "Next";
+"handwriting.calibration.saved" = "Saved sample for \"%@\"";
+"handwriting.calibration.saveError" = "Couldn't save this sample. Try again.";
+"handwriting.calibration.profileError" = "Couldn't open handwriting profile.";
+
+/* Handwriting Object */
+"object.handwritten.accessibility" = "Text rendered in your handwriting.";

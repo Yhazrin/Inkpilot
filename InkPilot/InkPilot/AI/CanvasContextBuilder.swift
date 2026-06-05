@@ -37,6 +37,7 @@ enum CanvasContextBuilder {
             case .media(_, let k): title = k.rawValue
             case .mindNode(let label, _): title = label
             case .pdfPage(_, let pageIndex): title = String(localized: "context.pdfPage \(pageIndex)")
+            case .handwrittenText(let sourceText, _, _): title = sourceText
             }
             return CanvasObjectSummary(type: obj.content.typeName, title: title)
         }
@@ -79,6 +80,7 @@ private extension CanvasObjectContent {
         case .mindNode: return "mindNode"
         case .media: return "media"
         case .pdfPage: return "pdfPage"
+        case .handwrittenText: return "handwrittenText"
         }
     }
 }

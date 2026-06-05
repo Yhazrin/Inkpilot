@@ -34,4 +34,5 @@ enum CanvasObjectType: String, Codable {
     case connector
     case image
     case file
+    case handwrittenText
 }

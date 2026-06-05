@@ -181,3 +181,23 @@
 
 /* 版本 */
 "home.version" = "InkPilot v%@ (%@)";
+
+/* 笔迹校准 */
+"home.calibrateHandwriting" = "校准我的笔迹";
+"home.calibrateHandwriting.accessibility" = "打开笔迹校准，采集你的笔迹样本";
+"handwriting.calibration.title" = "笔迹校准";
+"handwriting.calibration.done" = "完成";
+"handwriting.calibration.creatingProfile" = "正在创建你的笔迹档案…";
+"handwriting.calibration.defaultProfileName" = "我的笔迹 %@";
+"handwriting.calibration.progress" = "第 %lld 个，共 %lld 个";
+"handwriting.calibration.savedSamples" = "已保存 %lld 个样本";
+"handwriting.calibration.prompt.accessibility" = "请临摹字符 %@";
+"handwriting.calibration.clear" = "清除";
+"handwriting.calibration.save" = "保存";
+"handwriting.calibration.next" = "下一个";
+"handwriting.calibration.saved" = "已保存 \"%@\" 的样本";
+"handwriting.calibration.saveError" = "保存失败，请重试";
+"handwriting.calibration.profileError" = "无法打开笔迹档案";
+
+/* 手写对象 */
+"object.handwritten.accessibility" = "用你笔迹渲染的文字。";

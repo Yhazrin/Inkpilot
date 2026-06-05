@@ -34,6 +34,7 @@ enum CanvasObjectContent: Codable, Equatable {
     case mindNode(label: String, parentID: UUID?)
     case media(assetID: String?, mediaKind: MediaKind)
     case pdfPage(pdfURL: String?, pageIndex: Int)
+    case handwrittenText(sourceText: String, drawingData: Data, profileID: UUID?)
 }
 
 enum MediaKind: String, Codable {
