@@ -22,7 +22,7 @@ struct DynamicConnectorView: View {
                 path.move(to: start)
                 path.addCurve(to: end, control1: control1, control2: control2)
 
-                context.stroke(path, with: .color(Brand.inkPrimary.opacity(0.5)), lineWidth: Brand.selectionStrokeWidth)
+                context.stroke(path, with: .color(Brand.inkPrimary.opacity(Brand.mediumEmphasisOpacity)), lineWidth: Brand.selectionStrokeWidth)
 
                 // Draw small circles at endpoints
                 let dotSize: CGFloat = 4

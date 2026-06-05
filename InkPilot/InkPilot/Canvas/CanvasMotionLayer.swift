@@ -73,7 +73,7 @@ private struct SourceGlow: View {
             .frame(width: 100, height: 100)
 
         let pip = Circle()
-            .fill(Brand.aiAccent.opacity(0.5))
+            .fill(Brand.aiAccent.opacity(Brand.mediumEmphasisOpacity))
             .frame(width: Brand.tinyDotSize, height: Brand.tinyDotSize)
 
         TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in

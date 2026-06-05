@@ -152,6 +152,8 @@ enum Brand {
     static let subtleAccentOpacity: Double = 0.4
     /// Marquee/halo highlight opacity.
     static let highlightOpacity: Double = 0.6
+    /// Medium emphasis opacity (connector stroke, glow pip).
+    static let mediumEmphasisOpacity: Double = 0.5
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).
