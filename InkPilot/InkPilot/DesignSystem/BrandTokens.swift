@@ -156,6 +156,8 @@ enum Brand {
     static let mediumEmphasisOpacity: Double = 0.5
     /// Scan/glow pip opacity.
     static let glowPipOpacity: Double = 0.35
+    /// Sticky note tint opacity.
+    static let stickyTintOpacity: Double = 0.2
     /// Small bullet/dot size (list indicators, pips).
     static let bulletSize: CGFloat = 6
     /// Tiny dot size (motion layer pips).

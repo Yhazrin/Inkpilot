@@ -70,7 +70,7 @@ struct HandwritingCalibrationView: View {
         let character = characters[safe: currentIndex] ?? "?"
         return ZStack {
             RoundedRectangle(cornerRadius: Brand.cornerM, style: .continuous)
-                .strokeBorder(Brand.inkPrimary.opacity(0.2), lineWidth: Brand.thinStrokeWidth)
+                .strokeBorder(Brand.inkPrimary.opacity(Brand.stickyTintOpacity), lineWidth: Brand.thinStrokeWidth)
                 .background(
                     RoundedRectangle(cornerRadius: Brand.cornerM).fill(.white)
                 )
